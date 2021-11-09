@@ -24,7 +24,7 @@
         <div class="row" ng-init="initVals({{$profils}})">
             <div class="col-lg-8 mx-auto mbr-form">
                 <!--Formbuilder Form-->
-                <form action="{{ route('programme.store') }}" method="POST" class="mbr-form form-with-styler"
+                <form enctype="multipart/form-data" action="{{ route('programme.store') }}" method="POST" class="mbr-form form-with-styler"
                     data-form-title="programeNewForm">
                     @method('post')
                     @csrf
@@ -63,9 +63,9 @@
                                 <label for="Autre-formbuilder-13" class="mbr-fonts-style display-7">Profils
                                     ciblés</label>
                             </div>
-                            <div ng-repeat="profil in profils" ng-click="selectProfil(profil)"
+                            <div ng-repeat="profil in profils"
                                 data-for="@{{profil.nom}}" class="form-check form-check-inline">
-                                <input type="checkbox" value="@{{profil.id}}" name="profils"
+                                <input ng-change="selectProfil(profil)" ng-model="programme.profils[profil.id]" type="checkbox" value="@{{profil.id}}" name="profils[]"
                                     data-form-field="@{{profil.nom}}" class="form-check-input display-7"
                                     id="@{{profil.nom}}-formbuilder-13">
                                 <label for="@{{profil.nom}}-formbuilder-13" class="form-check-label display-7"
@@ -131,17 +131,25 @@
                                     déroulement</label>
                             </div>
                             <div class="form-check form-check-inline">
-                                <input type="radio" name="modeDeroulement" data-form-field="modeDeroulement"
+                                <input type="radio" name="modeDeroulement" data-form-field="modeDeroulementOnline"
                                     class="form-check-input display-7" value="En ligne" checked="checked"
-                                    id="modeDeroulement-formbuilder-13">
+                                    id="modeDeroulementOnline-formbuilder-13">
                                 <label class="form-check-label display-7">En ligne</label>
                             </div>
                             <div class="form-check form-check-inline">
-                                <input type="radio" name="modeDeroulement" data-form-field="modeDeroulement"
+                                <input type="radio" name="modeDeroulement" data-form-field="modeDeroulementPresentiel"
                                     class="form-check-input display-7" value="En présentiel"
-                                    id="modeDeroulement-formbuilder-13">
+                                    id="modeDeroulementPresentiel-formbuilder-13">
                                 <label class="form-check-label display-7">En présentiel</label>
                             </div>
+                        </div>
+                        <div data-for="image" class="col-lg-12 col-md-12 col-sm-12 form-group">
+                            <label for="image-formbuilder-13"
+                                class="form-control-label mbr-fonts-style display-7">
+                            Chosir une image de couverture</label>
+                            <input type="file" accept="image/*" name="image"
+                                max="100" min="0" step="1" data-form-field="image" required="required"
+                                class="form-control display-7" value="" id="image-formbuilder-13">
                         </div>
                         <div class="col-lg-12 col-md-12 col-sm-12">
                             <hr>
@@ -152,7 +160,7 @@
                         <div data-for="name" class="col-lg-12 col-md-12 col-sm-12 form-group">
                             <label for="name-formbuilder-13" class="form-control-label mbr-fonts-style display-7">Nom
                                 complet</label>
-                            <input type="text" name="name" placeholder="name" data-form-field="name" required="required"
+                            <input type="text" name="name" placeholder="Nom complet" data-form-field="name" required="required"
                                 class="form-control display-7" value="" id="name-formbuilder-13">
                         </div>
                         <div data-for="profession" class="col-lg-12 col-md-12 col-sm-12 form-group">
@@ -165,7 +173,7 @@
                         <div data-for="presentation" class="col-lg-12 col-md-12 col-sm-12 form-group">
                             <label for="presentation-formbuilder-13"
                                 class="form-control-label mbr-fonts-style display-7">Présenation</label>
-                            <textarea name="presentation"
+                            <textarea ng-model="programme.presentation" froala name="presentation"
                                 placeholder="Présentez-vous clairement pour que les participants puissent vous connaitre"
                                 data-form-field="presentation" required="required" class="form-control display-7"
                                 id="presentation-formbuilder-13"></textarea>
