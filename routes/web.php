@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProgrammeController;
+use App\Models\Programme;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -42,3 +43,7 @@ Route::get('mesprogrammes',function() {
 Route::get('messouscriptions',function() {
  return view('programme.list');
 })->middleware('auth')->name('mes.souscriptions');
+
+Route::get('souscription/{programme}/create',function(Programme $programme) {
+    return view('programme.souscription.new');
+})->name('souscription.new');
