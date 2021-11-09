@@ -15,6 +15,16 @@ class CreateProgrammesTable extends Migration
     {
         Schema::create('programmes', function (Blueprint $table) {
             $table->id();
+            $table->string('type');
+            $table->string('nom');
+            $table->dateTime('dateCloture');
+            $table->dateTime('dateDemarrage');
+            $table->string('duree');
+            $table->integer('nombreSeance');
+            $table->integer('nombreParticipants');
+            $table->string('description');
+            $table->string('modeDeroulement');
+            $table->string('modeDeroulement');
             $table->timestamps();
         });
     }
