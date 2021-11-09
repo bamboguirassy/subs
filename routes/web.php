@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\ProgrammeController;
+use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,5 +16,21 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
-});
+    return view('home');
+})->name('home');
+
+Route::get('login', function() {
+    return view('auth.login');
+})->name('login');
+
+Route::post('login', function(Request $request) {
+    return view('auth.login');
+})->name('login.request');
+
+Route::resource('programme', ProgrammeController::class,[
+    'only'=>['create','store','show']
+]);
+
+Route::resource('programme', ProgrammeController::class,[
+    'only'=>['destroy','edit','update']
+])->middleware('auth');

@@ -65,25 +65,13 @@
       "enabled": true
     },
     "favicon": false,
-    "mbrsiteDomain": "jzfv1uhdtu",
+    "mbrsiteDomain": "93ijdzfcyd",
     "cssOptimize": true,
     "lazyLoad": true,
     "robotsSwitcher": true,
     "sitemapSwitcher": true,
     "sitemapSwitcherAuto": "on",
     "siteUrl": "https://subs.bambogroup.net",
-    "cookiesAlert": {
-      "customDialogSelector": false,
-      "colorText": "#424a4d",
-      "colorBg": "#eaeff1",
-      "colorButton": "",
-      "colorLink": "#424a4d",
-      "underlineLink": true,
-      "opacity": "99",
-      "opacityOverlay": "80",
-      "text": "Nous utilisons des cookies pour améliorer votre expérience de navigation.",
-      "textButton": "Continuer"
-    },
     "gdpr": false,
     "pwa-switcher": true,
     "uniqCompNum": 62,
@@ -98,7 +86,8 @@
       "themeColor": "#103178"
     },
     "site_lang": "fr",
-    "global_after_body": "    <meta name=\"keywords\" content=\"Inscription,formation,séminaire,conférence,participation,Bambogroup,Subs\">"
+    "global_after_body": "    <meta name=\"keywords\" content=\"Inscription,formation,séminaire,conférence,participation,Bambogroup,Subs\">",
+    "cookiesAlert": false
   },
   "pages": {
     "index.html": {
