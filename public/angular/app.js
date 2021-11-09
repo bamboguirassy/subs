@@ -1,4 +1,4 @@
-angular.module('Subs',[],()=>{})
+angular.module('Subs',['froala'],()=>{})
 .controller('ProgrammeNewController',($scope)=>{
     $scope.profils = [];
     $scope.programme = {};

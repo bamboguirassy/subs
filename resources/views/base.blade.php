@@ -40,8 +40,7 @@
     </noscript>
     <link rel="preload" as="style" href="{{ asset('assets/mobirise/css/mbr-additional.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/mobirise/css/mbr-additional.css') }}" type="text/css">
-    <script src="{{ asset('bower_components/froala-wysiwyg-editor/css/froala_editor.min.css') }}"></script>        
-
+<link rel="stylesheet" href="{{ asset('bower_components/froala-wysiwyg-editor/css/froala_editor.css') }}">
     <meta name="theme-color" content="#103178">
     <link rel="manifest" href="manifest.json">
     <script src="{{ asset('sw-connect.js') }}"></script>
@@ -174,6 +173,7 @@
     <script src="{{ asset('bower_components/angular/angular.min.js') }}"></script>
 
     <script src="{{ asset('bower_components/froala-wysiwyg-editor/js/froala_editor.min.js') }}"></script>        
+    <script src="{{ asset('bower_components/angular-froala/src/angular-froala.js') }}"></script>
     <script src="{{ asset('angular/app.js') }}"></script>
 
     <div id="chatbutton-wa" data-phone="+221778224129" data-showpopup="true"
