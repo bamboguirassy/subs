@@ -15,6 +15,9 @@ class CreateProfilConcernesTable extends Migration
     {
         Schema::create('profil_concernes', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('profil_id')->constrained();
+            $table->foreignId('programme_id')->constrained();
+            $table->bigInteger('montant')->nullable();
             $table->timestamps();
         });
     }

@@ -15,14 +15,12 @@ class CreateSouscriptionsTable extends Migration
     {
         Schema::create('souscriptions', function (Blueprint $table) {
             $table->id();
-            $table->string('profil');
-            $table->string('autreProfil');
-            $table->string('name');
-            $table->string('profession');
-            $table->string('email')->unique();
-            $table->string('telephone')->unique();
-            $table->string('password');
-            $table->string('password_confirmation');
+            $table->foreignId('profil_id')->constrained();
+            $table->boolean('paye')->default(false);
+            $table->bigInteger('montant')->nullable();
+            $table->string('methodePaiement')->nullable();
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->foreignId('programme_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }

@@ -15,16 +15,18 @@ class CreateProgrammesTable extends Migration
     {
         Schema::create('programmes', function (Blueprint $table) {
             $table->id();
-            $table->string('type');
+            $table->foreignId('type_programme_id')->constrained();
             $table->string('nom');
             $table->dateTime('dateCloture');
             $table->dateTime('dateDemarrage');
-            $table->string('duree');
-            $table->integer('nombreSeance');
-            $table->integer('nombreParticipants');
-            $table->string('description');
+            $table->integer('duree')->nullable();
+            $table->integer('nombreSeance')->nullable();
+            $table->integer('nombreParticipants')->nullable();
+            $table->text('description');
             $table->string('modeDeroulement');
-            $table->string('modeDeroulement');
+            $table->string('image')->nullable();
+            // formateur
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }

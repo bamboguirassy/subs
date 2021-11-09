@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Profil;
 use App\Models\Programme;
+use App\Models\TypeProgramme;
 use Illuminate\Http\Request;
 
 class ProgrammeController extends Controller
@@ -24,7 +26,9 @@ class ProgrammeController extends Controller
      */
     public function create()
     {
-        return view('programme.new');
+        $typeProgrammes = TypeProgramme::orderBy('nom')->get();
+        $profils = Profil::orderBy('nom')->get();
+        return view('programme.new',compact('typeProgrammes','profils'));
     }
 
     /**

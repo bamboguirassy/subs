@@ -6,7 +6,7 @@
 
 @section("body")
 <section data-bs-version="5.1" class="content2 cid-sOc3YTgSUN" id="content2-12">
- <div class="container">
+    <div class="container">
         <div class="row content-row align-items-center">
             <div class="col-md-12 col-lg-12">
                 <h1 class="mbr-section-title mbr-fonts-style mb-3 mbr-bold display-5">
@@ -20,8 +20,8 @@
 
 <section class="form cid-sOc41298IC" id="formbuilder-13">
 
- <div class="container">
-        <div class="row">
+    <div class="container" ng-controller="ProgrammeNewController">
+        <div class="row" ng-init="initVals({{$profils}})">
             <div class="col-lg-8 mx-auto mbr-form">
                 <!--Formbuilder Form-->
                 <form action="{{ route('programme.store') }}" method="POST" class="mbr-form form-with-styler"
@@ -40,15 +40,16 @@
                         <div class="col-lg-12 col-md-12 col-sm-12">
                             <hr>
                         </div>
-                        <div data-for="type" class="col-lg-12 col-md-12 col-sm-12 form-group">
-                            <label for="type-formbuilder-13" class="form-control-label mbr-fonts-style display-7">Type
+                        <div data-for="type_programme_id" class="col-lg-12 col-md-12 col-sm-12 form-group">
+                            <label for="type_programme_id-formbuilder-13"
+                                class="form-control-label mbr-fonts-style display-7">Type
                                 programme</label>
-                            <select name="type" data-form-field="type" class="form-control display-7"
-                                id="type-formbuilder-13">
-                                <option value="Conférence">Conférence</option>
-                                <option value="Formation">Formation</option>
-                                <option value="Séminaire">Séminaire</option>
-                                <option value="Autre">Autre</option>
+                            <select required="required" name="type_programme_id" data-form-field="type_programme_id"
+                                class="form-control display-7" id="type_programme_id-formbuilder-13">
+                                <option value="" disabled selected>Sélectionner le type</option>
+                                @foreach ($typeProgrammes as $typeProgramme)
+                                <option value="{{ $typeProgramme->id }}">{{ $typeProgramme->nom }}</option>
+                                @endforeach
                             </select>
                         </div>
                         <div data-for="nom" class="col-lg-12 col-md-12 col-sm-12 form-group">
@@ -62,64 +63,41 @@
                                 <label for="Autre-formbuilder-13" class="mbr-fonts-style display-7">Profils
                                     ciblés</label>
                             </div>
-                            <div data-for="Tout" class="form-check form-check-inline">
-                                <input type="checkbox" value="Yes" name="Tout" data-form-field="Tout"
-                                    class="form-check-input display-7" id="Tout-formbuilder-13">
-                                <label for="Tout-formbuilder-13" class="form-check-label display-7">Tout</label>
-                            </div>
-                            <div data-for="Professionnel" class="form-check form-check-inline">
-                                <input type="checkbox" value="Yes" name="Professionnel" data-form-field="Professionnel"
-                                    class="form-check-input display-7" id="Professionnel-formbuilder-13">
-                                <label for="Professionnel-formbuilder-13"
-                                    class="form-check-label display-7">Professionnel</label>
-                            </div>
-                            <div data-for="Etudiant" class="form-check form-check-inline">
-                                <input type="checkbox" value="Yes" name="Etudiant" data-form-field="Etudiant"
-                                    class="form-check-input display-7" id="Etudiant-formbuilder-13">
-                                <label for="Etudiant-formbuilder-13" class="form-check-label display-7">Etudiant</label>
-                            </div>
-                            <div data-for="Autre" class="form-check form-check-inline">
-                                <input type="checkbox" value="Yes" name="Autre" data-form-field="Autre"
-                                    class="form-check-input display-7" id="Autre-formbuilder-13">
-                                <label for="Autre-formbuilder-13" class="form-check-label display-7">Autre</label>
+                            <div ng-repeat="profil in profils" ng-click="selectProfil(profil)"
+                                data-for="@{{profil.nom}}" class="form-check form-check-inline">
+                                <input type="checkbox" value="@{{profil.id}}" name="profils"
+                                    data-form-field="@{{profil.nom}}" class="form-check-input display-7"
+                                    id="@{{profil.nom}}-formbuilder-13">
+                                <label for="@{{profil.nom}}-formbuilder-13" class="form-check-label display-7"
+                                    ng-bind="profil.nom">Professionnel</label>
                             </div>
                         </div>
-                        <div data-for="coutPourProfessionnel" class="col-lg-12 col-md-12 col-sm-12 form-group">
-                            <label for="coutPourProfessionnel-formbuilder-13"
-                                class="form-control-label mbr-fonts-style display-7">Coût pour professionnel</label>
-                            <input type="number" name="coutPourProfessionnel"
-                                placeholder="Prix du ticket pour les professionnels" max="" min="0" step="1"
-                                data-form-field="coutPourProfessionnel" required="required"
-                                class="form-control display-7" value="" id="coutPourProfessionnel-formbuilder-13">
-                        </div>
-                        <div class="col-lg-12 col-md-12 col-sm-12 form-group" data-for="coutPourEtudiant">
-                            <label for="coutPourEtudiant-formbuilder-13"
-                                class="form-control-label mbr-fonts-style display-7">Coût pour étudiant</label>
-                            <input type="number" name="coutPourEtudiant" placeholder="Prix du ticket pour les étudiants"
-                                max="" min="0" step="1" data-form-field="coutPourEtudiant" required="required"
-                                class="form-control display-7" value="" id="coutPourEtudiant-formbuilder-13">
-                        </div>
-                        <div data-for="coutPourAutre" class="col-lg-12 col-md-12 col-sm-12 form-group">
-                            <label for="coutPourAutre-formbuilder-13"
-                                class="form-control-label mbr-fonts-style display-7">Coût pour autre</label>
-                            <input type="number" name="coutPourAutre" placeholder="Coût pour autre profil" max=""
-                                min="0" step="1" data-form-field="coutPourAutre" required="required"
-                                class="form-control display-7" value="" id="coutPourAutre-formbuilder-13">
-                        </div>
+                        <ng-container ng-repeat="profil in profils">
+                            <div ng-if="profil.selected" data-for="coutPour@{{profil.id}}" class="col-lg-12 col-md-12 col-sm-12 form-group">
+                                <label for="coutPour@{{profil.id}}-formbuilder-13"
+                                    class="form-control-label mbr-fonts-style display-7">Coût pour @{{profil.nom}}</label>
+                                <input type="number" name="cout[@{{profil.id}}]"
+                                    placeholder="Prix du ticket pour les @{{profil.nom}}s" min="0" step="1"
+                                    data-form-field="coutPour@{{profil.nom}}" required="required"
+                                    class="form-control display-7" value="" id="coutPour@{{profil.id}}-formbuilder-13">
+                            </div>
+                        </ng-container>
                         <div data-for="dateCloture" class="col-lg-12 col-md-12 col-sm-12 form-group">
                             <label for="dateCloture-formbuilder-13"
-                                class="form-control-label mbr-fonts-style display-7">Date de cloture</label>
+                                class="form-control-label mbr-fonts-style display-7">Date de cloture des
+                                inscriptions</label>
                             <input type="date" name="dateCloture" data-form-field="dateCloture" required="required"
                                 class="form-control display-7" value="" id="dateCloture-formbuilder-13">
                         </div>
                         <div data-for="dateDemarrage" class="col-lg-12 col-md-12 col-sm-12 form-group">
                             <label for="dateDemarrage-formbuilder-13"
-                                class="form-control-label mbr-fonts-style display-7">Date Démarrage</label>
+                                class="form-control-label mbr-fonts-style display-7">Date Démarrage du programme</label>
                             <input type="date" name="dateDemarrage" data-form-field="dateDemarrage" required="required"
                                 class="form-control display-7" value="" id="dateDemarrage-formbuilder-13">
                         </div>
                         <div data-for="duree" class="col-lg-12 col-md-12 col-sm-12 form-group">
                             <label for="duree-formbuilder-13" class="form-control-label mbr-fonts-style display-7">Durée
+                                (en heures)
                                 du programme</label>
                             <input type="number" name="duree" placeholder="Durée programme" max="" min="0" step="1"
                                 data-form-field="duree" class="form-control display-7" value=""
@@ -143,7 +121,7 @@
                         <div data-for="description" class="col-lg-12 col-md-12 col-sm-12 form-group">
                             <label for="description-formbuilder-13"
                                 class="form-control-label mbr-fonts-style display-7">Description</label>
-                            <textarea name="description" placeholder="Description du programme"
+                            <textarea froala ng-model="programme.description" name="description" placeholder="Description du programme"
                                 data-form-field="description" required="required" class="form-control display-7"
                                 id="description-formbuilder-13"></textarea>
                         </div>
@@ -171,11 +149,11 @@
                         <div class="col-lg-12 col-md-12 col-sm-12">
                             <h5 class="mbr-fonts-style display-5">Informations compte</h5>
                         </div>
-                        <div data-for="text1" class="col-lg-12 col-md-12 col-sm-12 form-group">
-                            <label for="text1-formbuilder-13" class="form-control-label mbr-fonts-style display-7">Nom
+                        <div data-for="name" class="col-lg-12 col-md-12 col-sm-12 form-group">
+                            <label for="name-formbuilder-13" class="form-control-label mbr-fonts-style display-7">Nom
                                 complet</label>
-                            <input type="text" name="text1" placeholder="name" data-form-field="text1"
-                                required="required" class="form-control display-7" value="" id="text1-formbuilder-13">
+                            <input type="text" name="name" placeholder="name" data-form-field="name" required="required"
+                                class="form-control display-7" value="" id="name-formbuilder-13">
                         </div>
                         <div data-for="profession" class="col-lg-12 col-md-12 col-sm-12 form-group">
                             <label for="profession-formbuilder-13"
@@ -224,7 +202,7 @@
 </section>
 
 <section data-bs-version="5.1" class="social1 cid-sOflmUjTLx" id="share1-1o">
- <div class="container">
+    <div class="container">
         <div class="media-container-row">
             <div class="col-12">
                 <h3 class="mbr-section-title mb-3 align-center mbr-fonts-style display-5">

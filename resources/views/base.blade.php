@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="fr" ng-app="Subs">
 
 <head>
 
@@ -40,6 +40,7 @@
     </noscript>
     <link rel="preload" as="style" href="{{ asset('assets/mobirise/css/mbr-additional.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/mobirise/css/mbr-additional.css') }}" type="text/css">
+    <script src="{{ asset('bower_components/froala-wysiwyg-editor/css/froala_editor.min.css') }}"></script>        
 
     <meta name="theme-color" content="#103178">
     <link rel="manifest" href="manifest.json">
@@ -89,8 +90,8 @@
             <div class="navbar-brand">
                 <span class="navbar-logo">
                     <a href="{{ route('home') }}">
-                        <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="{{ config('app.name') }}"
-                            style="height: 3.8rem;" loading="lazy" class="lazyload"
+                        <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+                            alt="{{ config('app.name') }}" style="height: 3.8rem;" loading="lazy" class="lazyload"
                             data-src="{{ asset('assets/images/subs-logo-121x141.png') }}">
                     </a>
                 </span>
@@ -128,8 +129,9 @@
                         <div class="dropdown-menu" aria-labelledby="dropdown-undefined"><a
                                 class="dropdown-item text-primary display-4" href="{{ route('mes.programmes') }}"
                                 aria-expanded="false" data-bs-auto-close="outside">Mes programmes</a><a
-                                class="dropdown-item show text-primary display-4" href="{{ route('mes.souscriptions') }}"
-                                aria-expanded="false" data-bs-auto-close="outside">Mes souscriptions</a></div>
+                                class="dropdown-item show text-primary display-4"
+                                href="{{ route('mes.souscriptions') }}" aria-expanded="false"
+                                data-bs-auto-close="outside">Mes souscriptions</a></div>
                     </li>
                 </ul>
                 <div class="navbar-buttons px-2 mbr-section-btn"><a class="btn btn-sm btn-primary display-4"
@@ -159,7 +161,7 @@
         </div>
     </section>
 
-
+    <script src="{{ asset('bower_components/jquery/dist/jquery.min.js') }}"></script>
     <script src="{{ asset('assets/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('assets/smoothscroll/smooth-scroll.js') }}"></script>
     <script src="{{ asset('assets/ytplayer/index.js') }}"></script>
@@ -169,8 +171,10 @@
     <script src="{{ asset('assets/touchswipe/jquery.touch-swipe.min.js') }}"></script>
     <script src="{{ asset('assets/sociallikes/social-likes.js') }}"></script>
     <script src="{{ asset('assets/theme/js/script.js') }}"></script>
+    <script src="{{ asset('bower_components/angular/angular.min.js') }}"></script>
 
-
+    <script src="{{ asset('bower_components/froala-wysiwyg-editor/js/froala_editor.min.js') }}"></script>        
+    <script src="{{ asset('angular/app.js') }}"></script>
 
     <div id="chatbutton-wa" data-phone="+221778224129" data-showpopup="true"
         data-headertitle="👋 Echangeons sur WhatsApp!" data-popupmessage="Salut !👋
