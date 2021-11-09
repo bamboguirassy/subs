@@ -9,28 +9,28 @@
     @hasSection('social-sharing')
     @yield('social-sharing')
     @else
-    <meta name="twitter:image:src" content="assets/images/index-meta.png">
-    <meta property="og:image" content="assets/images/index-meta.png">
+    <meta name="twitter:image:src" content="{{ asset('assets/images/index-meta.png') }}">
+    <meta property="og:image" content="{{ asset('assets/images/index-meta.png') }}">
     @endif
     <meta name="twitter:title" content="@yield('title')">
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
-    <link rel="shortcut icon" href="assets/images/subs-logo-121x141.png" type="image/x-icon">
+    <link rel="shortcut icon" href="{{ asset('assets/images/subs-logo-121x141.png') }}" type="image/x-icon">
     <meta name="description" content="@yield('description')">
 
 
     <title>@yield('title')</title>
-    <link rel="stylesheet" href="assets/web/assets/mobirise-icons2/mobirise2.css">
-    <link rel="stylesheet" href="assets/Material-Design-Icons/css/material.css">
-    <link rel="stylesheet" href="assets/icon54/style.css">
-    <link rel="stylesheet" href="assets/icon54-v2/style.css">
-    <link rel="stylesheet" href="assets/web/assets/mobirise-icons/mobirise-icons.css">
-    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap-grid.min.css">
-    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap-reboot.min.css">
-    <link rel="stylesheet" href="assets/chatbutton/floating-wpp.css">
-    <link rel="stylesheet" href="assets/dropdown/css/style.css">
-    <link rel="stylesheet" href="assets/socicon/css/styles.css">
-    <link rel="stylesheet" href="assets/theme/css/style.css">
+    <link rel="stylesheet" href="{{ asset('assets/web/assets/mobirise-icons2/mobirise2.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/Material-Design-Icons/css/material.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/icon54/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/icon54-v2/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/web/assets/mobirise-icons/mobirise-icons.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/bootstrap/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/bootstrap/css/bootstrap-grid.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/bootstrap/css/bootstrap-reboot.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/chatbutton/floating-wpp.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/dropdown/css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/socicon/css/styles.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/theme/css/style.css') }}">
     <link rel="preload"
         href="https://fonts.googleapis.com/css?family=Jost:100,200,300,400,500,600,700,800,900,100i,200i,300i,400i,500i,600i,700i,800i,900i&display=swap"
         as="style" onload="this.onload=null;this.rel='stylesheet'">
@@ -38,37 +38,37 @@
         <link rel="stylesheet"
             href="https://fonts.googleapis.com/css?family=Jost:100,200,300,400,500,600,700,800,900,100i,200i,300i,400i,500i,600i,700i,800i,900i&display=swap">
     </noscript>
-    <link rel="preload" as="style" href="assets/mobirise/css/mbr-additional.css">
-    <link rel="stylesheet" href="assets/mobirise/css/mbr-additional.css" type="text/css">
+    <link rel="preload" as="style" href="{{ asset('assets/mobirise/css/mbr-additional.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/mobirise/css/mbr-additional.css') }}" type="text/css">
 
     <meta name="theme-color" content="#103178">
     <link rel="manifest" href="manifest.json">
-    <script src="sw-connect.js"></script>
+    <script src="{{ asset('sw-connect.js') }}"></script>
     <meta name="apple-mobile-web-app-capable" content="yes">
     <link rel="apple-touch-startup-image"
         media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)"
-        href="assets/images/apple-launch-640x1136.png">
+        href="{{ asset('assets/images/apple-launch-640x1136.png') }}">
     <link rel="apple-touch-startup-image"
         media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)"
-        href="assets/images/apple-launch-750x1334.png">
+        href="{{ asset('assets/images/apple-launch-750x1334.png') }}">
     <link rel="apple-touch-startup-image"
         media="(device-width: 414px) and (device-height: 736px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)"
-        href="assets/images/apple-launch-1242x2208.png">
+        href="{{ asset('assets/images/apple-launch-1242x2208.png') }}">
     <link rel="apple-touch-startup-image"
         media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)"
-        href="assets/images/apple-launch-1125x2436.png">
+        href="{{ asset('assets/images/apple-launch-1125x2436.png') }}">
     <link rel="apple-touch-startup-image"
         media="(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)"
-        href="assets/images/apple-launch-1536x2048.png">
+        href="{{ asset('assets/images/apple-launch-1536x2048.png') }}">
     <link rel="apple-touch-startup-image"
         media="(device-width: 834px) and (device-height: 1112px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)"
-        href="assets/images/apple-launch-1668x2224.png">
+        href="{{ asset('assets/images/apple-launch-1668x2224.png') }}">
     <link rel="apple-touch-startup-image"
         media="(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)"
-        href="assets/images/apple-launch-2048x2732.png">
+        href="{{ asset('assets/images/apple-launch-2048x2732.png') }}">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
     <meta name="apple-mobile-web-app-title" content="">
-    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <link rel="apple-touch-icon" href="{{ asset('apple-touch-icon.png') }}">
     <meta name="keywords" content="Inscription,formation,séminaire,conférence,participation,Bambogroup,Subs">
     <!-- Analytics -->
     <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -91,7 +91,7 @@
                     <a href="{{ route('home') }}">
                         <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="{{ config('app.name') }}"
                             style="height: 3.8rem;" loading="lazy" class="lazyload"
-                            data-src="assets/images/subs-logo-121x141.png">
+                            data-src="{{ asset('assets/images/subs-logo-121x141.png') }}">
                     </a>
                 </span>
                 <span class="pt-2 navbar-caption-wrap"><a class="navbar-caption text-primary display-5"
@@ -160,15 +160,15 @@
     </section>
 
 
-    <script src="assets/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="assets/smoothscroll/smooth-scroll.js"></script>
-    <script src="assets/ytplayer/index.js"></script>
-    <script src="assets/chatbutton/floating-wpp.js"></script>
-    <script src="assets/chatbutton/script.js"></script>
-    <script src="assets/dropdown/js/navbar-dropdown.js"></script>
-    <script src="assets/touchswipe/jquery.touch-swipe.min.js"></script>
-    <script src="assets/sociallikes/social-likes.js"></script>
-    <script src="assets/theme/js/script.js"></script>
+    <script src="{{ asset('assets/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ asset('assets/smoothscroll/smooth-scroll.js') }}"></script>
+    <script src="{{ asset('assets/ytplayer/index.js') }}"></script>
+    <script src="{{ asset('assets/chatbutton/floating-wpp.js') }}"></script>
+    <script src="{{ asset('assets/chatbutton/script.js') }}"></script>
+    <script src="{{ asset('assets/dropdown/js/navbar-dropdown.js') }}"></script>
+    <script src="{{ asset('assets/touchswipe/jquery.touch-swipe.min.js') }}"></script>
+    <script src="{{ asset('assets/sociallikes/social-likes.js') }}"></script>
+    <script src="{{ asset('assets/theme/js/script.js') }}"></script>
 
 
 
@@ -206,7 +206,7 @@ Bambogroup Team" data-placeholder="Ecrire ici..." data-position="left" data-head
         </div>
     </div>
     <script>
-        "use strict";if("loading"in HTMLImageElement.prototype){document.querySelectorAll('img[loading="lazy"],iframe[loading="lazy"]').forEach(e=>{e.src=e.dataset.src,e.style.paddingTop=100*e.getAttribute("data-aspectratio")+"%",e.style.height=0,e.onload=function(){e.removeAttribute("style")}})}else{const e=document.createElement("script");e.src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.1.2/lazysizes.min.js",document.body.appendChild(e)}
+        "use strict";if("loading"in HTMLImageElement.prototype){document.querySelectorAll('img[loading="lazy"],iframe[loading="lazy"]').forEach(e=>{e.src=e.dataset.src,e.style.paddingTop=100*e.getAttribute("data-aspectratio")+"%",e.style.height=0,e.onload=function(){e.removeAttribute("style")}})}else{const e=document.createElement("script");e.src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.1.2/lazysizes.min.js') }}",document.body.appendChild(e)}
     </script>
 
 </body>
