@@ -39,7 +39,24 @@ class ProgrammeController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request->all());
+        // valider les champs obligatoires propres à programme
+        
+//    --     démarrer la transaction
+
+        // instancier le programme avec le contenu du request
+        //gérer l'upload de l'image de couverture
+        
+        // verifier si l'utilisateur est connecté
+        // si user connecté, associer le programme à l'utilisateur connecté
+        // si user non connecté, valider le formulaire avec les infos user du formulaire
+        // créer le user dans la DB et l'associer au programme
+
+        // reccuperer les profils selectionnés
+        // et créer les profils concernés avec les montants et les associer avec le programme
+
+        //      -- terminer la transaction
+
+
     }
 
     /**

@@ -24,8 +24,8 @@
         <div class="row" ng-init="initVals({{$profils}})">
             <div class="col-lg-8 mx-auto mbr-form">
                 <!--Formbuilder Form-->
-                <form enctype="multipart/form-data" action="{{ route('programme.store') }}" method="POST" class="mbr-form form-with-styler"
-                    data-form-title="programeNewForm">
+                <form enctype="multipart/form-data" action="{{ route('programme.store') }}" method="POST"
+                    class="mbr-form form-with-styler" data-form-title="programeNewForm">
                     @method('post')
                     @csrf
                     <div class="form-row">
@@ -63,9 +63,10 @@
                                 <label for="Autre-formbuilder-13" class="mbr-fonts-style display-7">Profils
                                     ciblés</label>
                             </div>
-                            <div ng-repeat="profil in profils"
-                                data-for="@{{profil.nom}}" class="form-check form-check-inline">
-                                <input ng-change="selectProfil(profil)" ng-model="programme.profils[profil.id]" type="checkbox" value="@{{profil.id}}" name="profils[]"
+                            <div ng-repeat="profil in profils" data-for="@{{profil.nom}}"
+                                class="form-check form-check-inline">
+                                <input ng-change="selectProfil(profil)" ng-model="programme.profils[profil.id]"
+                                    type="checkbox" value="@{{profil.id}}" name="profils[]"
                                     data-form-field="@{{profil.nom}}" class="form-check-input display-7"
                                     id="@{{profil.nom}}-formbuilder-13">
                                 <label for="@{{profil.nom}}-formbuilder-13" class="form-check-label display-7"
@@ -73,9 +74,11 @@
                             </div>
                         </div>
                         <ng-container ng-repeat="profil in profils">
-                            <div ng-if="profil.selected" data-for="coutPour@{{profil.id}}" class="col-lg-12 col-md-12 col-sm-12 form-group">
+                            <div ng-if="profil.selected" data-for="coutPour@{{profil.id}}"
+                                class="col-lg-12 col-md-12 col-sm-12 form-group">
                                 <label for="coutPour@{{profil.id}}-formbuilder-13"
-                                    class="form-control-label mbr-fonts-style display-7">Coût pour @{{profil.nom}}</label>
+                                    class="form-control-label mbr-fonts-style display-7">Coût pour
+                                    @{{profil.nom}}</label>
                                 <input type="number" name="cout[@{{profil.id}}]"
                                     placeholder="Prix du ticket pour les @{{profil.nom}}s" min="0" step="1"
                                     data-form-field="coutPour@{{profil.nom}}" required="required"
@@ -121,9 +124,9 @@
                         <div data-for="description" class="col-lg-12 col-md-12 col-sm-12 form-group">
                             <label for="description-formbuilder-13"
                                 class="form-control-label mbr-fonts-style display-7">Description</label>
-                            <textarea froala ng-model="programme.description" name="description" placeholder="Description du programme"
-                                data-form-field="description" required="required" class="form-control display-7"
-                                id="description-formbuilder-13"></textarea>
+                            <textarea froala ng-model="programme.description" name="description"
+                                placeholder="Description du programme" data-form-field="description" required="required"
+                                class="form-control display-7" id="description-formbuilder-13"></textarea>
                         </div>
                         <div data-for="modeDeroulement" class="col-lg-12 col-md-12 col-sm-12 form-group">
                             <div class="form-control-label">
@@ -144,13 +147,13 @@
                             </div>
                         </div>
                         <div data-for="image" class="col-lg-12 col-md-12 col-sm-12 form-group">
-                            <label for="image-formbuilder-13"
-                                class="form-control-label mbr-fonts-style display-7">
-                            Chosir une image de couverture</label>
-                            <input type="file" accept="image/*" name="image"
-                                max="100" min="0" step="1" data-form-field="image" required="required"
-                                class="form-control display-7" value="" id="image-formbuilder-13">
+                            <label for="image-formbuilder-13" class="form-control-label mbr-fonts-style display-7">
+                                Chosir une image de couverture</label>
+                            <input type="file" accept="image/*" name="image" max="100" min="0" step="1"
+                                data-form-field="image" required="required" class="form-control display-7" value=""
+                                id="image-formbuilder-13">
                         </div>
+                        @guest
                         <div class="col-lg-12 col-md-12 col-sm-12">
                             <hr>
                         </div>
@@ -160,8 +163,8 @@
                         <div data-for="name" class="col-lg-12 col-md-12 col-sm-12 form-group">
                             <label for="name-formbuilder-13" class="form-control-label mbr-fonts-style display-7">Nom
                                 complet</label>
-                            <input type="text" name="name" placeholder="Nom complet" data-form-field="name" required="required"
-                                class="form-control display-7" value="" id="name-formbuilder-13">
+                            <input type="text" name="name" placeholder="Nom complet" data-form-field="name"
+                                required="required" class="form-control display-7" value="" id="name-formbuilder-13">
                         </div>
                         <div data-for="profession" class="col-lg-12 col-md-12 col-sm-12 form-group">
                             <label for="profession-formbuilder-13"
@@ -198,6 +201,7 @@
                                 data-form-field="password_confirmation" required="required"
                                 class="form-control display-7" value="" id="password_confirmation-formbuilder-13">
                         </div>
+                        @endguest
                         <div class="col-lg-12 col-md-12 col-sm-12">
                             <button type="submit" class="btn btn-primary display-7">Publier</button>
                         </div>
