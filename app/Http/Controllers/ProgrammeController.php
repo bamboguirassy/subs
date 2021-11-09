@@ -14,7 +14,7 @@ class ProgrammeController extends Controller
      */
     public function index()
     {
-        //
+        return view('programme.list');
     }
 
     /**
@@ -46,7 +46,7 @@ class ProgrammeController extends Controller
      */
     public function show(Programme $programme)
     {
-        return view('programme.show');
+        return view('programme.show',compact('programme'));
     }
 
     /**

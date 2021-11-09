@@ -4,6 +4,6 @@
 
 @section("description","")
 
-@section("body","")
+@section("body")
     
 @endsection

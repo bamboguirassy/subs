@@ -117,7 +117,7 @@
                             data-bs-auto-close="outside"><span
                                 class="mobi-mbri mobi-mbri-setting mbr-iconfont mbr-iconfont-btn"></span>Admin</a>
                         <div class="dropdown-menu" aria-labelledby="dropdown-undefined"><a
-                                class="dropdown-item text-primary display-4" href="programmes-subscriptions.html"
+                                class="dropdown-item text-primary display-4" href="{{ route('programme.index') }}"
                                 aria-expanded="false">Les programmes</a><a class="dropdown-item text-primary display-4"
                                 href="#" aria-expanded="false">Les utilisateurs</a></div>
                     </li>
@@ -126,9 +126,9 @@
                             data-bs-auto-close="outside"><span
                                 class="mdi-action-account-circle mbr-iconfont mbr-iconfont-btn"></span>Compte</a>
                         <div class="dropdown-menu" aria-labelledby="dropdown-undefined"><a
-                                class="dropdown-item text-primary display-4" href="programmes-subscriptions.html"
+                                class="dropdown-item text-primary display-4" href="{{ route('mes.programmes') }}"
                                 aria-expanded="false" data-bs-auto-close="outside">Mes programmes</a><a
-                                class="dropdown-item show text-primary display-4" href="programmes-subscriptions.html"
+                                class="dropdown-item show text-primary display-4" href="{{ route('mes.souscriptions') }}"
                                 aria-expanded="false" data-bs-auto-close="outside">Mes souscriptions</a></div>
                     </li>
                 </ul>

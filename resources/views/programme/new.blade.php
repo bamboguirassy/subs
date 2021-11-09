@@ -6,12 +6,7 @@
 
 @section("body")
 <section data-bs-version="5.1" class="content2 cid-sOc3YTgSUN" id="content2-12">
-
-
-
-
-
-    <div class="container">
+ <div class="container">
         <div class="row content-row align-items-center">
             <div class="col-md-12 col-lg-12">
                 <h1 class="mbr-section-title mbr-fonts-style mb-3 mbr-bold display-5">
@@ -19,16 +14,13 @@
                 <p class="mbr-text mbr-black mbr-regular mbr-light mbr-fonts-style display-7">
                     Merci de remplir le formulaire ci-dessous pour lancer votre programme...</p>
             </div>
-
-
         </div>
     </div>
 </section>
 
 <section class="form cid-sOc41298IC" id="formbuilder-13">
 
-
-    <div class="container">
+ <div class="container">
         <div class="row">
             <div class="col-lg-8 mx-auto mbr-form">
                 <!--Formbuilder Form-->
@@ -232,11 +224,7 @@
 </section>
 
 <section data-bs-version="5.1" class="social1 cid-sOflmUjTLx" id="share1-1o">
-
-
-
-
-    <div class="container">
+ <div class="container">
         <div class="media-container-row">
             <div class="col-12">
                 <h3 class="mbr-section-title mb-3 align-center mbr-fonts-style display-5">
