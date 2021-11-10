@@ -15,8 +15,11 @@ les conférences...")
 
                 <p class="mbr-text mbr-fonts-style mb-4 display-7"><strong>Votre plateforme de souscription aux
                         programmes les plus importants (Formations, Séminaires, Conférences, ...)</strong><br></p>
-                <div class="mbr-section-btn mt-3"><a class="btn btn-lg btn-primary display-4" href="{{ route('login') }}"><span
+                <div class="mbr-section-btn mt-3">
+                    @guest
+                    <a class="btn btn-lg btn-primary display-4" href="{{ route('login') }}"><span
                             class="mobi-mbri mobi-mbri-login mbr-iconfont mbr-iconfont-btn"></span>Se connecter</a>
+                    @endguest
                     <a class="btn btn-lg btn-white display-4" href="{{ route('programme.create') }}"><span
                             class="icon54-v2-add-note mbr-iconfont mbr-iconfont-btn"></span>Publier un programme</a>
                 </div>

@@ -40,7 +40,7 @@
     </noscript>
     <link rel="preload" as="style" href="{{ asset('assets/mobirise/css/mbr-additional.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/mobirise/css/mbr-additional.css') }}" type="text/css">
-<link rel="stylesheet" href="{{ asset('bower_components/froala-wysiwyg-editor/css/froala_editor.css') }}">
+    <link rel="stylesheet" href="{{ asset('bower_components/froala-wysiwyg-editor/css/froala_editor.css') }}">
     <meta name="theme-color" content="#103178">
     <link rel="manifest" href="manifest.json">
     <script src="{{ asset('sw-connect.js') }}"></script>
@@ -70,6 +70,7 @@
     <meta name="apple-mobile-web-app-title" content="">
     <link rel="apple-touch-icon" href="{{ asset('apple-touch-icon.png') }}">
     <meta name="keywords" content="Inscription,formation,séminaire,conférence,participation,Bambogroup,Subs">
+    @notify_css
     <!-- Analytics -->
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-3CLXFYMR2H"></script>
@@ -112,7 +113,7 @@
                     <li class="nav-item"><a class="nav-link link text-primary display-4" href="{{ route('home') }}"
                             aria-expanded="false"><span
                                 class="mobi-mbri mobi-mbri-home mbr-iconfont mbr-iconfont-btn"></span>Accueil</a></li>
-                    <li class="nav-item dropdown"><a class="nav-link link dropdown-toggle text-primary display-4"
+                    {{-- <li class="nav-item dropdown"><a class="nav-link link dropdown-toggle text-primary display-4"
                             href="#" aria-expanded="false" data-toggle="dropdown-submenu" data-bs-toggle="dropdown"
                             data-bs-auto-close="outside"><span
                                 class="mobi-mbri mobi-mbri-setting mbr-iconfont mbr-iconfont-btn"></span>Admin</a>
@@ -120,7 +121,9 @@
                                 class="dropdown-item text-primary display-4" href="{{ route('programme.index') }}"
                                 aria-expanded="false">Les programmes</a><a class="dropdown-item text-primary display-4"
                                 href="#" aria-expanded="false">Les utilisateurs</a></div>
-                    </li>
+                    </li> --}}
+                    @auth
+
                     <li class="nav-item dropdown"><a class="nav-link link dropdown-toggle text-primary display-4"
                             href="#" aria-expanded="false" data-toggle="dropdown-submenu" data-bs-toggle="dropdown"
                             data-bs-auto-close="outside"><span
@@ -132,13 +135,17 @@
                                 href="{{ route('mes.souscriptions') }}" aria-expanded="false"
                                 data-bs-auto-close="outside">Mes souscriptions</a></div>
                     </li>
+                    @endauth
                 </ul>
                 <div class="navbar-buttons px-2 mbr-section-btn"><a class="btn btn-sm btn-primary display-4"
                         href="{{ route('programme.create') }}"><span
-                            class="icon54-v1-add-file mbr-iconfont mbr-iconfont-btn"></span>Publier un programme</a> <a
-                        class="btn btn-sm btn-primary display-4"
-                        href="{{ route('login') }}?ret={{request()->url()}}"><span
+                            class="icon54-v1-add-file mbr-iconfont mbr-iconfont-btn"></span>Publier un programme</a>
+                            @guest
+                            <a
+                            class="btn btn-sm btn-primary display-4"
+                            href="{{ route('login') }}?ret={{request()->url()}}"><span
                             class="mobi-mbri mobi-mbri-login mbr-iconfont mbr-iconfont-btn"></span>Se connecter</a>
+                            @endguest
                 </div>
             </div>
         </nav>
@@ -171,8 +178,9 @@
     <script src="{{ asset('assets/sociallikes/social-likes.js') }}"></script>
     <script src="{{ asset('assets/theme/js/script.js') }}"></script>
     <script src="{{ asset('bower_components/angular/angular.min.js') }}"></script>
-
-    <script src="{{ asset('bower_components/froala-wysiwyg-editor/js/froala_editor.min.js') }}"></script>        
+    @notify_js
+    @notify_render
+    <script src="{{ asset('bower_components/froala-wysiwyg-editor/js/froala_editor.min.js') }}"></script>
     <script src="{{ asset('bower_components/angular-froala/src/angular-froala.js') }}"></script>
     <script src="{{ asset('angular/app.js') }}"></script>
 

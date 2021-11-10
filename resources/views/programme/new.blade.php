@@ -12,7 +12,12 @@
                 <h1 class="mbr-section-title mbr-fonts-style mb-3 mbr-bold display-5">
                     Publier un prgramme<br></h1>
                 <p class="mbr-text mbr-black mbr-regular mbr-light mbr-fonts-style display-7">
-                    Merci de remplir le formulaire ci-dessous pour lancer votre programme...</p>
+                    Merci de remplir le formulaire ci-dessous pour lancer votre programme...
+                    @guest
+                    <br>
+                    Si vous avez déja un compte, merci de vous connecter avant de publier le programme.
+                    @endguest
+                </p>
             </div>
         </div>
     </div>
@@ -29,9 +34,10 @@
                     @method('post')
                     @csrf
                     <div class="form-row">
-                        <div hidden="hidden" data-form-alert="" class="alert alert-success col-12"></div>
-                        <div hidden="hidden" data-form-alert-danger="" class="alert alert-danger col-12">Oops...! some
+                        @foreach ($errors->all() as $error)
+                        <div data-form-alert-danger="" class="alert alert-danger col-12">{{$error}}
                             problem!</div>
+                        @endforeach
                     </div>
                     <div class="dragArea form-row">
                         <div class="col-lg-12 col-md-12 col-sm-12">
@@ -180,6 +186,13 @@
                                 placeholder="Présentez-vous clairement pour que les participants puissent vous connaitre"
                                 data-form-field="presentation" required="required" class="form-control display-7"
                                 id="presentation-formbuilder-13"></textarea>
+                        </div>
+                        <div data-for="photo" class="col-lg-12 col-md-12 col-sm-12 form-group">
+                            <label for="photo-formbuilder-13" class="form-control-label mbr-fonts-style display-7">
+                                Chosir une photo de profil</label>
+                            <input type="file" accept="image/*" name="photo" max="100" min="0" step="1"
+                                data-form-field="photo" required="required" class="form-control display-7" value=""
+                                id="photo-formbuilder-13">
                         </div>
                         <div data-for="email" class="col-lg-12 col-md-12 col-sm-12 form-group">
                             <label for="email-formbuilder-13"
