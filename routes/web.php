@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProgrammeController;
 use App\Http\Controllers\SouscriptionController;
 use App\Models\Programme;
+use App\Models\Souscription;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -79,3 +80,8 @@ Route::get('souscription/{programme}/create',function(Programme $programme) {
 Route::resource('souscription', SouscriptionController::class,[
     'only'=>['store']
 ]);
+
+Route::get('paymentconfirmation', function (Request $request) {
+    $souscription = Souscription::find($request->get('id'));
+    return view('programme.souscription.payment-confirmation',['state'=>$request->get('state'),'souscription'=>$souscription]);
+});

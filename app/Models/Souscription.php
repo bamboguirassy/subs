@@ -14,7 +14,8 @@ class Souscription extends Model
         'user_id',
         'programme_id',
         'montant',
-        'profil_concerne_id'
+        'profil_concerne_id',
+        'uid'
     ];
 
     /**
@@ -25,5 +26,15 @@ class Souscription extends Model
     public function profilConcerne(): BelongsTo
     {
         return $this->belongsTo(ProfilConcerne::class);
+    }
+
+    /**
+     * Get the programme that owns the Souscription
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function programme(): BelongsTo
+    {
+        return $this->belongsTo(Programme::class);
     }
 }

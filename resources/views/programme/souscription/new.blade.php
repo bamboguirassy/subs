@@ -36,7 +36,7 @@
                 <div class="col-lg-8 mx-auto mbr-form">
                     <!--Formbuilder Form-->
                     <form action="{{ route('souscription.store') }}" method="POST" class="mbr-form form-with-styler"
-                        data-form-title="subscriptionNew">
+                        data-form-title="subscriptionNew" enctype="multipart/form-data">
                         @csrf
                         @method('post')
                         <x-form-errors :errors="$errors->all()" />
