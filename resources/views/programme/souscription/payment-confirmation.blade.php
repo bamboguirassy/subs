@@ -28,7 +28,7 @@
                     <h4 class="card-title">Le paiement a échoué</h4>
                     <p class="card-text">
                         Vous voyez cette fenêtre car vous avez annulé votre paiement ou <br>
-                        Une erreur est survenue lors de votre paiement, <br>
+                        Une erreur s'est produite lors de votre paiement, <br>
                         La procédure n'a pas pu être complétée. <br>
                     </p>
                 </div>
