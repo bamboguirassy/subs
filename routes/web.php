@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProgrammeController;
+use App\Http\Controllers\SouscriptionController;
 use App\Models\Programme;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -74,3 +75,7 @@ Route::get('messouscriptions',function() {
 Route::get('souscription/{programme}/create',function(Programme $programme) {
     return view('programme.souscription.new',compact('programme'));
 })->name('souscription.new');
+
+Route::resource('souscription', SouscriptionController::class,[
+    'only'=>['store']
+]);
