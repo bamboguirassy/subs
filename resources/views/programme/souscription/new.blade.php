@@ -9,6 +9,11 @@
         <div class="mbr-overlay" style="opacity: 0.7; background-color: rgb(16, 49, 120);"></div>
         <div class="container">
             <div class="row justify-content-center">
+                <div class="col-12 col-md-4 image-wrapper">
+                    <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt=""
+                        loading="lazy" class="lazyload"
+                        data-src="{{ asset('uploads/programmes/images/' . $programme->image) }}">
+                </div>
                 <div class="col-12 col-lg-8 align-left">
                     <h1 class="mbr-section-title mbr-fonts-style mb-3 display-5">
                         {{ $programme->typeProgramme->nom }} - <strong>{{ $programme->nom }}</strong>
@@ -18,12 +23,13 @@
                             <h5 class="mbr-fonts-style m-0 display-8 text-white"></h5>
                             <h6 class="mbr-fonts-style display-8 text-white">
                                 <strong>{{ $profilConcerne->profil->nom }}</strong>:
-                                {{ $profilConcerne->montant > 0 ? $profilConcerne->montant . ' CFA' : 'Gratuit' }}</h6>
+                                {{ $profilConcerne->montant > 0 ? $profilConcerne->montant . ' CFA' : 'Gratuit' }}
+                            </h6>
                         @endforeach
                     </p>
                     <p class="mbr-text mbr-fonts-style display-7">Vous pouvez souscrire au programme en remplissant le
                         formulaire ci-dessous. <br>
-                    SI vous avez déja un compte, merci de vous connecter avant !</p>
+                        SI vous avez déja un compte, merci de vous connecter avant !</p>
 
                 </div>
             </div>
@@ -58,7 +64,8 @@
                                         <input @if ($loop->first) checked @endif type="radio" name="profil_concerne_id"
                                             data-form-field="profil_concerne_id" class="form-check-input display-7"
                                             value="{{ $profilConcerne->id }}" id="profil_concerne_id-formbuilder-17">
-                                        <label class="form-check-label display-7">{{ $profilConcerne->profil->nom }}</label>
+                                        <label
+                                            class="form-check-label display-7">{{ $profilConcerne->profil->nom }}</label>
                                     </div>
                                 @endforeach
                             </div>

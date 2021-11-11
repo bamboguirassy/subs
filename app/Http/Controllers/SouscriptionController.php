@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Custom\Helper;
 use App\Custom\PaymentManager;
+use App\Models\Facture;
 use App\Models\Souscription;
 use App\Models\SouscriptionTemp;
 use App\Models\User;
@@ -93,7 +94,6 @@ class SouscriptionController extends Controller
             $programme = $souscriptionTemp->programme;
             if ($profilConcerne->montant == 0) {
                 // convert temp souscription to souscription
-
                $souscription = Helper::convertTempSouscription($souscriptionTemp);
                DB::beginTransaction();
                $souscription->save();
@@ -102,7 +102,7 @@ class SouscriptionController extends Controller
                 notify()->success("Vous avez souscrit avec succès à ce programme !!!");
             } else {
                 // gérer le paiement par paytech
-                $redirectUrl = PaymentManager::handlePayment($souscriptionTemp->uid, $programme->nom, $profilConcerne->montant, $souscriptionTemp->id);
+                $redirectUrl = PaymentManager::initPayment($souscriptionTemp->uid, $programme->nom, $profilConcerne->montant, $souscriptionTemp->id);
                 return redirect()->to($redirectUrl);
             }
             return redirect()->route('programme.show', compact('programme'));
@@ -156,5 +156,43 @@ class SouscriptionController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function instantPaymentNotificate(Request $request) {
+        $type_event = $request->input('type_event');
+        $payment_method = $request->input('payment_method');
+        $client_phone = $request->input('client_phone');
+        $uid = $request->input('ref_command');
+        $item_name = $request->input('item_name');
+        $item_price = $request->input('item_price');
+        $currency = $request->input('devise');
+
+        $facture = new Facture();
+        //from PayTech
+        if($type_event=='sale_complete') {
+            DB::beginTransaction();
+            try {
+                // recuperer la souscription temp
+                $souscriptionTemp = SouscriptionTemp::where('uid',$uid)->first();
+                $souscription = Helper::convertTempSouscription($souscriptionTemp);
+                $souscription->save();
+                $souscriptionTemp->delete();
+                $facture->dateReglement = now();
+                $facture->methodePaiement = $payment_method;
+                $facture->clientPhone = $client_phone;
+                $facture->name = $item_name;
+                $facture->price = $item_price;
+                $facture->currency = $currency;
+                $facture->uid = $uid;
+                $facture->souscription_id = $souscription->id;
+                $facture->save();
+                DB::commit();
+            } catch (\Throwable $th) {
+                DB::rollback();
+                throw $th;
+            }
+            } else {
+                // notifier de paiement sale_canceled
+            }
     }
 }
