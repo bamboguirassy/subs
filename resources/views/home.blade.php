@@ -29,7 +29,7 @@ les conférences...")
 </section>
 
 <x-separator />
-
+@if(count($programmeActives)<1)
 <section data-bs-version="5.1" class="header2 cid-sObQ3swuEE" id="header02-l">
 
     <div class="container">
@@ -50,11 +50,11 @@ les conférences...")
 </section>
 
 <x-separator />
-
-<x-programme-public-item />
-<x-programme-public-item />
-<x-programme-public-item />
-
+@else
+@foreach ($programmeActives as $programmeActive)
+<x-programme-public-item :programme="$programmeActive" />
+@endforeach
+@endif
 
 
 <section data-bs-version="5.1" class="social1 cid-sOaRt05zAf" id="share1-b">

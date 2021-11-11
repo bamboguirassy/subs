@@ -4,17 +4,17 @@ namespace App\View\Components;
 
 use Illuminate\View\Component;
 
-class ProgrammePublicItem extends Component
+class FormErrors extends Component
 {
-    public $programme;
+    public $errors;
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct($programme)
+    public function __construct($errors)
     {
-        $this->programme = $programme;
+        $this->errors = $errors;
     }
 
     /**
@@ -24,6 +24,6 @@ class ProgrammePublicItem extends Component
      */
     public function render()
     {
-        return view('components.programme-public-item');
+        return view('components.form-errors');
     }
 }

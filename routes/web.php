@@ -2,7 +2,8 @@
 
 use App\Http\Controllers\ProgrammeController;
 use App\Models\Programme;
-use Illuminate\Support\Facades\Request;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,16 +18,42 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('home');
+    $programmeActives = Programme::where('dateCloture','>=',new DateTime())
+    ->orderBy('dateCloture')->paginate(20);
+    return view('home',compact('programmeActives'));
 })->name('home');
 
-Route::get('login', function() {
+Route::get('login', function(Request $request) {
+    $ret = $request->get('ret');
+    $request->session()->put('ret', $ret);
     return view('auth.login');
 })->name('login');
 
 Route::post('login', function(Request $request) {
-    return view('auth.login');
+    $request->validate([
+        'email'=>'required|exists:users,email|email',
+        'password'=>'required|min:6'
+    ]);
+    if(Auth::attempt($request->only('email','password'))) {
+        notify()->success("Vous êtes connecté avec succès");
+        if(session()->exists('ret')) {
+            $retUrl = session('ret');
+            session()->remove('ret');
+            return redirect()->to($retUrl);
+        }
+        return redirect()->route('home');
+    } else {
+        notify()->error("Vérifiez vos identifiants de connexion et réssayer !");
+        return back()->withErrors(['error'=>"Vérifiez vos identifiants de connexion puis réssayer !"]);
+    }
+    return ;
 })->name('login.request');
+
+Route::get('logout',function() {
+    Auth::logout();
+    notify()->success("Vous êtes déconnecté avec succès !");
+    return redirect()->route('home');
+})->name('logout')->middleware('auth');
 
 Route::resource('programme', ProgrammeController::class,[
     'only'=>['create','store','show']

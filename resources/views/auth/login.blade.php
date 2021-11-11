@@ -34,11 +34,7 @@
                     class="mbr-form form-with-styler">
                     @csrf
                     @method('post')
-                    <div class="form-row">
-
-                        <div hidden="hidden" data-form-alert-danger="" class="alert alert-danger col-12">Oops...! some
-                            problem!</div>
-                    </div>
+                    <x-form-errors :errors="$errors->all()" />
                     <div class="dragArea form-row">
                         <div class="col-lg-12 col-md-12 col-sm-12">
                             <h4 class="mbr-fonts-style display-5">Se connecter</h4>

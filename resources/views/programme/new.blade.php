@@ -33,12 +33,7 @@
                     class="mbr-form form-with-styler" data-form-title="programeNewForm">
                     @method('post')
                     @csrf
-                    <div class="form-row">
-                        @foreach ($errors->all() as $error)
-                        <div data-form-alert-danger="" class="alert alert-danger col-12">{{$error}}
-                            problem!</div>
-                        @endforeach
-                    </div>
+                    <x-form-errors :errors="$errors->all()" />
                     <div class="dragArea form-row">
                         <div class="col-lg-12 col-md-12 col-sm-12">
                             <h4 class="mbr-fonts-style display-5">Programme - Nouveau</h4>

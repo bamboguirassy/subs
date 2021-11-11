@@ -126,26 +126,27 @@
 
                     <li class="nav-item dropdown"><a class="nav-link link dropdown-toggle text-primary display-4"
                             href="#" aria-expanded="false" data-toggle="dropdown-submenu" data-bs-toggle="dropdown"
-                            data-bs-auto-close="outside"><span
-                                class="mdi-action-account-circle mbr-iconfont mbr-iconfont-btn"></span>Compte</a>
-                        <div class="dropdown-menu" aria-labelledby="dropdown-undefined"><a
-                                class="dropdown-item text-primary display-4" href="{{ route('mes.programmes') }}"
-                                aria-expanded="false" data-bs-auto-close="outside">Mes programmes</a><a
-                                class="dropdown-item show text-primary display-4"
-                                href="{{ route('mes.souscriptions') }}" aria-expanded="false"
-                                data-bs-auto-close="outside">Mes souscriptions</a></div>
+                            data-bs-auto-close="outside">
+                            <span class="mdi-action-account-circle mbr-iconfont mbr-iconfont-btn"></span>Compte</a>
+                        <div class="dropdown-menu" aria-labelledby="dropdown-undefined">
+                            <a class="dropdown-item text-primary display-4" href="{{ route('mes.programmes') }}"
+                                aria-expanded="false" data-bs-auto-close="outside">Mes programmes</a>
+                            <a class="dropdown-item show text-primary display-4" href="{{ route('mes.souscriptions') }}"
+                                aria-expanded="false" data-bs-auto-close="outside">Mes souscriptions</a>
+                            <a class="dropdown-item show text-primary display-4" href="{{ route('logout') }}"
+                                aria-expanded="false" data-bs-auto-close="outside">Se déconnecter</a>
+                        </div>
                     </li>
                     @endauth
                 </ul>
                 <div class="navbar-buttons px-2 mbr-section-btn"><a class="btn btn-sm btn-primary display-4"
                         href="{{ route('programme.create') }}"><span
                             class="icon54-v1-add-file mbr-iconfont mbr-iconfont-btn"></span>Publier un programme</a>
-                            @guest
-                            <a
-                            class="btn btn-sm btn-primary display-4"
-                            href="{{ route('login') }}?ret={{request()->url()}}"><span
+                    @guest
+                    <a class="btn btn-sm btn-primary display-4"
+                        href="{{ route('login') }}?ret={{request()->url()}}"><span
                             class="mobi-mbri mobi-mbri-login mbr-iconfont mbr-iconfont-btn"></span>Se connecter</a>
-                            @endguest
+                    @endguest
                 </div>
             </div>
         </nav>
