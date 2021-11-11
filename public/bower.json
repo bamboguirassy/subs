@@ -1,0 +1,33 @@
+{
+  "name": "Subs",
+  "homepage": "https://github.com/bamboguirassy/subs",
+  "authors": [
+    "bamboguirassy <didegassama@gmail.com>"
+  ],
+  "description": "Subs project for managing online souscriptions to programmes",
+  "main": "",
+  "keywords": [
+    "subs",
+    "programs",
+    "bambogroup",
+    "formation",
+    "conference",
+    "seminaire",
+    "inscription"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-froala": "^4.0.6",
+    "froala-wysiwyg-editor": "^4.0.6",
+    "angular": "^1.8.2",
+    "jquery": "3"
+  }
+}

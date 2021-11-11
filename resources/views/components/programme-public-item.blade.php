@@ -41,7 +41,7 @@
                         </div>
                     </div>
                     <div class="mbr-section-btn mt-3">
-                        <a class="btn btn-lg btn-warning display-4" href="subscription-new.html">
+                        <a class="btn btn-lg btn-warning display-4" href="{{ route('souscription.new',compact('programme')) }}">
                             <span class="mbri-edit mbr-iconfont mbr-iconfont-btn"></span>Souscrire</a>
                         <a class="btn btn-lg btn-primary display-4" href="{{ route('programme.show',compact('programme')) }}">
                             <span class="mobi-mbri mobi-mbri-arrow-next mbr-iconfont mbr-iconfont-btn"></span>Détails</a>

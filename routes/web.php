@@ -72,5 +72,5 @@ Route::get('messouscriptions',function() {
 })->middleware('auth')->name('mes.souscriptions');
 
 Route::get('souscription/{programme}/create',function(Programme $programme) {
-    return view('programme.souscription.new');
+    return view('programme.souscription.new',compact('programme'));
 })->name('souscription.new');

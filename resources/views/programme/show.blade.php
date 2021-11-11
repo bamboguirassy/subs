@@ -25,7 +25,8 @@
                     <p></p>
                     <div class="mbr-section-btn mt-3">
                         @if ((auth()->user() && auth()->id()!=$programme->user_id) || !auth()->user())
-                        <a class="btn btn-success display-4" href="subscription-new.html">
+                        <a class="btn btn-success display-4"
+                            href="{{ route('souscription.new',compact('programme')) }}">
                             <span class="mbrib-edit mbr-iconfont mbr-iconfont-btn"></span>Souscrire
                         </a>
                         @endif
@@ -59,8 +60,9 @@
             <div class="row">
                 <div class="col-12 col-md-6 col-lg-3">
                     <div class="user_image ">
-                        <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="photo {{ $programme->user->name }}"
-                            loading="lazy" class="lazyload" data-src="{{ asset('uploads/users/photos/'.$programme->user->photo) }}">
+                        <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+                            alt="photo {{ $programme->user->name }}" loading="lazy" class="lazyload"
+                            data-src="{{ asset('uploads/users/photos/'.$programme->user->photo) }}">
                     </div>
                 </div>
 
@@ -100,8 +102,7 @@
     </div>
 </section>
 
-@if(count($programme->souscriptions)<1)
-<section data-bs-version="5.1" class="header2 cid-sObZq97BzO" id="header02-y">
+@if(count($programme->souscriptions)<1) <section data-bs-version="5.1" class="header2 cid-sObZq97BzO" id="header02-y">
     <div class="container">
         <div class="row">
             <div class="col-12">
@@ -117,8 +118,8 @@
             </div>
         </div>
     </div>
-</section>
-<x-separator />
+    </section>
+    <x-separator />
     @else
     <section data-bs-version="5.1" class="content11 cid-sOc1O66rsI" id="content11-z">
         <div class="container">
@@ -129,16 +130,17 @@
                             class="btn btn-info display-4" href=""><span
                                 class="icon54-v3-export mbr-iconfont mbr-iconfont-btn"></span>Exporter</a> <a
                             class="btn btn-secondary display-4" href=""><span
-                                class="mobi-mbri mobi-mbri-trash mbr-iconfont mbr-iconfont-btn"></span>Supprimer</a></div>
+                                class="mobi-mbri mobi-mbri-trash mbr-iconfont mbr-iconfont-btn"></span>Supprimer</a>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
-    
+
     <x-separator />
-    
+
     <section data-bs-version="5.1" class="table01 photom4_table01 section-table cid-sObY9vjAPL" id="table01-x">
-    <div class="container-fluid">
+        <div class="container-fluid">
             <div class="row align-center">
                 <div class="col-12 col-md-12">
                     <h2 class="mbr-section-title mbr-fonts-style mbr-black display-2">
@@ -170,7 +172,7 @@
                                         <th class="head-item mbr-fonts-style display-4">ACTION</th>
                                     </tr>
                                 </thead>
-    
+
                                 <tbody>
                                     <tr>
                                         <td class="body-item mbr-fonts-style display-7">1</td>
@@ -201,43 +203,43 @@
             </div>
         </div>
     </section>
-    
-    <x-separator />
-@endif
 
-<section data-bs-version="5.1" class="social1 cid-sOckozvEUn" id="share1-1a">
-    <div class="container">
-        <div class="media-container-row">
-            <div class="col-12">
-                <h3 class="mbr-section-title mb-3 align-center mbr-fonts-style display-5">
-                    <strong>Partager sur&nbsp;</strong>
-                </h3>
-                <div>
-                    <div class="mbr-social-likes align-center">
-                        <span class="btn btn-social socicon-bg-facebook facebook m-2">
-                            <i class="socicon socicon-facebook"></i>
-                        </span>
-                        <span class="btn btn-social twitter socicon-bg-twitter m-2">
-                            <i class="socicon socicon-twitter"></i>
-                        </span>
-                        <span class="btn btn-social vkontakte socicon-bg-vkontakte m-2">
-                            <i class="socicon socicon-vkontakte"></i>
-                        </span>
-                        <span class="btn btn-social odnoklassniki socicon-bg-odnoklassniki m-2">
-                            <i class="socicon socicon-odnoklassniki"></i>
-                        </span>
-                        <span class="btn btn-social pinterest socicon-bg-pinterest m-2">
-                            <i class="socicon socicon-pinterest"></i>
-                        </span>
-                        <span class="btn btn-social mailru socicon-bg-mail m-2">
-                            <i class="socicon socicon-mail"></i>
-                        </span>
+    <x-separator />
+    @endif
+
+    <section data-bs-version="5.1" class="social1 cid-sOckozvEUn" id="share1-1a">
+        <div class="container">
+            <div class="media-container-row">
+                <div class="col-12">
+                    <h3 class="mbr-section-title mb-3 align-center mbr-fonts-style display-5">
+                        <strong>Partager sur&nbsp;</strong>
+                    </h3>
+                    <div>
+                        <div class="mbr-social-likes align-center">
+                            <span class="btn btn-social socicon-bg-facebook facebook m-2">
+                                <i class="socicon socicon-facebook"></i>
+                            </span>
+                            <span class="btn btn-social twitter socicon-bg-twitter m-2">
+                                <i class="socicon socicon-twitter"></i>
+                            </span>
+                            <span class="btn btn-social vkontakte socicon-bg-vkontakte m-2">
+                                <i class="socicon socicon-vkontakte"></i>
+                            </span>
+                            <span class="btn btn-social odnoklassniki socicon-bg-odnoklassniki m-2">
+                                <i class="socicon socicon-odnoklassniki"></i>
+                            </span>
+                            <span class="btn btn-social pinterest socicon-bg-pinterest m-2">
+                                <i class="socicon socicon-pinterest"></i>
+                            </span>
+                            <span class="btn btn-social mailru socicon-bg-mail m-2">
+                                <i class="socicon socicon-mail"></i>
+                            </span>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
-<x-separator />
-@endsection
+    <x-separator />
+    @endsection
