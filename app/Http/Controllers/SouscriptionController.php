@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Custom\Helper;
 use App\Custom\PaymentManager;
 use App\Models\Souscription;
+use App\Models\SouscriptionTemp;
 use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
@@ -50,12 +52,12 @@ class SouscriptionController extends Controller
         DB::beginTransaction();
         try {
             // instancier le programme avec le contenu du request
-            $souscription = new Souscription($request->all());
+            $souscriptionTemp = new SouscriptionTemp($request->all());
 
             // verifier si l'utilisateur est connecté
             if (Auth::check()) {
                 // si user connecté, associer le programme à l'utilisateur connecté
-                $souscription->user_id = Auth::id();
+                $souscriptionTemp->user_id = Auth::id();
             } else {
                 // si user non connecté, valider le formulaire avec les infos user du formulaire
                 $request->validate([
@@ -75,11 +77,10 @@ class SouscriptionController extends Controller
                 $user->photo = $photoname;
                 $user->save();
                 /** notofier l'utilisateur pour le compte */
-                $souscription->user_id = $user->id;
+                $souscriptionTemp->user_id = $user->id;
             }
-            $souscription->uid = uniqid();
-            $souscription->paye = false;
-            $souscription->save();
+            $souscriptionTemp->uid = uniqid();
+            $souscriptionTemp->save();
             // terminer la transaction
             DB::commit();
             if (!Auth::check()) {
@@ -88,13 +89,20 @@ class SouscriptionController extends Controller
                 }
             }
             // recuperer le profil selectionné
-            $profilConcerne = $souscription->profilConcerne;
-            $programme = $souscription->programme;
+            $profilConcerne = $souscriptionTemp->profilConcerne;
+            $programme = $souscriptionTemp->programme;
             if ($profilConcerne->montant == 0) {
+                // convert temp souscription to souscription
+
+               $souscription = Helper::convertTempSouscription($souscriptionTemp);
+               DB::beginTransaction();
+               $souscription->save();
+               $souscriptionTemp->delete();
+               DB::commit();
                 notify()->success("Vous avez souscrit avec succès à ce programme !!!");
             } else {
                 // gérer le paiement par paytech
-                $redirectUrl = PaymentManager::handlePayment($souscription->uid, $programme->nom, $profilConcerne->montant, $souscription->id);
+                $redirectUrl = PaymentManager::handlePayment($souscriptionTemp->uid, $programme->nom, $profilConcerne->montant, $souscriptionTemp->id);
                 return redirect()->to($redirectUrl);
             }
             return redirect()->route('programme.show', compact('programme'));
