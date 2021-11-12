@@ -7,10 +7,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="twitter:card" content="summary_large_image" />
     @hasSection('social-sharing')
-    @yield('social-sharing')
+        @yield('social-sharing')
     @else
-    <meta name="twitter:image:src" content="{{ asset('assets/images/index-meta.png') }}">
-    <meta property="og:image" content="{{ asset('assets/images/index-meta.png') }}">
+        <meta name="twitter:image:src" content="{{ asset('assets/images/index-meta.png') }}">
+        <meta property="og:image" content="{{ asset('assets/images/index-meta.png') }}">
     @endif
     <meta name="twitter:title" content="@yield('title')">
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
@@ -31,6 +31,8 @@
     <link rel="stylesheet" href="{{ asset('assets/dropdown/css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/socicon/css/styles.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/theme/css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/datatables/vanilla-dataTables.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('bower_components/froala-wysiwyg-editor/css/plugins/table.min.css') }}">
     <link rel="preload"
         href="https://fonts.googleapis.com/css?family=Jost:100,200,300,400,500,600,700,800,900,100i,200i,300i,400i,500i,600i,700i,800i,900i&display=swap"
         as="style" onload="this.onload=null;this.rel='stylesheet'">
@@ -75,13 +77,19 @@
             white-space: nowrap;
         }
     </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css"
+        integrity="sha512-5A8nwdMOWrSz20fDsjczgUidUBR8liPYU+WymTZP1lmY9G6Oc7HlZv156XqnsgNUzTyMefFTcsFH/tnJE/+xBg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     @notify_css
     <!-- Analytics -->
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-3CLXFYMR2H"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
         gtag('js', new Date());
 
         gtag('config', 'G-3CLXFYMR2H');
@@ -96,8 +104,8 @@
                 <span class="navbar-logo">
                     <a href="{{ route('home') }}">
                         <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
-                            alt="{{ config('app.name') }}" style="height: 3.8rem;" loading="lazy" class="lazyload"
-                            data-src="{{ asset('assets/images/subs-logo-121x141.png') }}">
+                            alt="{{ config('app.name') }}" style="height: 3.8rem;" loading="lazy"
+                            class="lazyload" data-src="{{ asset('assets/images/subs-logo-121x141.png') }}">
                     </a>
                 </span>
                 <span class="pt-2 navbar-caption-wrap"><a class="navbar-caption text-primary display-5"
@@ -115,8 +123,8 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav nav-dropdown" data-app-modern-menu="true">
-                    <li class="nav-item"><a class="nav-link link text-primary display-4" href="{{ route('home') }}"
-                            aria-expanded="false"><span
+                    <li class="nav-item"><a class="nav-link link text-primary display-4"
+                            href="{{ route('home') }}" aria-expanded="false"><span
                                 class="mobi-mbri mobi-mbri-home mbr-iconfont mbr-iconfont-btn"></span>Accueil</a></li>
                     {{-- <li class="nav-item dropdown"><a class="nav-link link dropdown-toggle text-primary display-4"
                             href="#" aria-expanded="false" data-toggle="dropdown-submenu" data-bs-toggle="dropdown"
@@ -129,28 +137,29 @@
                     </li> --}}
                     @auth
 
-                    <li class="nav-item dropdown"><a class="nav-link link dropdown-toggle text-primary display-4"
-                            href="#" aria-expanded="false" data-toggle="dropdown-submenu" data-bs-toggle="dropdown"
-                            data-bs-auto-close="outside">
-                            <span class="mdi-action-account-circle mbr-iconfont mbr-iconfont-btn"></span>Compte</a>
-                        <div class="dropdown-menu" aria-labelledby="dropdown-undefined">
-                            <a class="dropdown-item text-primary display-4" href="{{ route('mes.programmes') }}"
-                                aria-expanded="false" data-bs-auto-close="outside">Mes programmes</a>
-                            <a class="dropdown-item show text-primary display-4" href="{{ route('mes.souscriptions') }}"
-                                aria-expanded="false" data-bs-auto-close="outside">Mes souscriptions</a>
-                            <a class="dropdown-item show text-primary display-4" href="{{ route('logout') }}"
-                                aria-expanded="false" data-bs-auto-close="outside">Se déconnecter</a>
-                        </div>
-                    </li>
+                        <li class="nav-item dropdown"><a class="nav-link link dropdown-toggle text-primary display-4"
+                                href="#" aria-expanded="false" data-toggle="dropdown-submenu" data-bs-toggle="dropdown"
+                                data-bs-auto-close="outside">
+                                <span class="mdi-action-account-circle mbr-iconfont mbr-iconfont-btn"></span>Compte</a>
+                            <div class="dropdown-menu" aria-labelledby="dropdown-undefined">
+                                <a class="dropdown-item text-primary display-4" href="{{ route('mes.programmes') }}"
+                                    aria-expanded="false" data-bs-auto-close="outside">Mes programmes</a>
+                                <a class="dropdown-item show text-primary display-4"
+                                    href="{{ route('mes.souscriptions') }}" aria-expanded="false"
+                                    data-bs-auto-close="outside">Mes souscriptions</a>
+                                <a class="dropdown-item show text-primary display-4" href="{{ route('logout') }}"
+                                    aria-expanded="false" data-bs-auto-close="outside">Se déconnecter</a>
+                            </div>
+                        </li>
                     @endauth
                 </ul>
                 <div class="navbar-buttons px-2 mbr-section-btn"><a class="btn btn-sm btn-primary display-4"
                         href="{{ route('programme.create') }}"><span
                             class="icon54-v1-add-file mbr-iconfont mbr-iconfont-btn"></span>Publier un programme</a>
                     @guest
-                    <a class="btn btn-sm btn-primary display-4"
-                        href="{{ route('login') }}?ret={{request()->url()}}"><span
-                            class="mobi-mbri mobi-mbri-login mbr-iconfont mbr-iconfont-btn"></span>Se connecter</a>
+                        <a class="btn btn-sm btn-primary display-4"
+                            href="{{ route('login') }}?ret={{ request()->url() }}"><span
+                                class="mobi-mbri mobi-mbri-login mbr-iconfont mbr-iconfont-btn"></span>Se connecter</a>
                     @endguest
                 </div>
             </div>
@@ -165,8 +174,9 @@
             <div class="media-container-row align-center mbr-white">
                 <div class="col-12">
                     <p class="mbr-text mb-0 mbr-fonts-style display-7">
-                        © Copyright {{ date_format(new DateTime(),'Y') }} <a href="https://bambogroup.net"
-                            class="text-primary" target="_blank"><strong>Bambo GROUP</strong></a> - Tous droits réservés
+                        © Copyright {{ date_format(new DateTime(), 'Y') }} <a href="https://bambogroup.net"
+                            class="text-primary" target="_blank"><strong>Bambo GROUP</strong></a> - Tous droits
+                        réservés
                     </p>
                 </div>
             </div>
@@ -181,6 +191,7 @@
     <script src="{{ asset('assets/chatbutton/script.js') }}"></script>
     <script src="{{ asset('assets/dropdown/js/navbar-dropdown.js') }}"></script>
     <script src="{{ asset('assets/touchswipe/jquery.touch-swipe.min.js') }}"></script>
+    <script src="{{ asset('assets/datatables/vanilla-dataTables.min.js') }}"></script>
     <script src="{{ asset('assets/sociallikes/social-likes.js') }}"></script>
     <script src="{{ asset('assets/theme/js/script.js') }}"></script>
     <script src="{{ asset('bower_components/angular/angular.min.js') }}"></script>
@@ -188,13 +199,28 @@
     @notify_render
     <script src="{{ asset('bower_components/froala-wysiwyg-editor/js/froala_editor.min.js') }}"></script>
     <script src="{{ asset('bower_components/angular-froala/src/angular-froala.js') }}"></script>
-    <script src="{{ asset('bower_components/froala-wysiwyg-editor/js/plugins/char_counter.min.js') }}"></script>
+    {{-- <script src="{{ asset('bower_components/froala-wysiwyg-editor/js/plugins/char_counter.min.js') }}"></script> --}}
     <script src="{{ asset('bower_components/froala-wysiwyg-editor/js/plugins/code_beautifier.min.js') }}"></script>
     <script src="{{ asset('bower_components/froala-wysiwyg-editor/js/plugins/link.min.js') }}"></script>
     <script src="{{ asset('bower_components/froala-wysiwyg-editor/js/plugins/colors.min.js') }}"></script>
     <script src="{{ asset('bower_components/froala-wysiwyg-editor/js/plugins/emoticons.min.js') }}"></script>
     <script src="{{ asset('bower_components/froala-wysiwyg-editor/js/plugins/font_size.min.js') }}"></script>
     <script src="{{ asset('bower_components/froala-wysiwyg-editor/js/plugins/font_family.min.js') }}"></script>
+    <script src="{{ asset('bower_components/froala-wysiwyg-editor/js/plugins/lists.min.js') }}"></script>
+    <script src="{{ asset('bower_components/froala-wysiwyg-editor/js/plugins/table.min.js') }}"></script>
+    <script src="{{ asset('bower_components/froala-wysiwyg-editor/js/plugins/quote.min.js') }}"></script>
+    <script src="{{ asset('bower_components/froala-wysiwyg-editor/js/plugins/paragraph_format.min.js') }}"></script>
+    <script src="{{ asset('bower_components/froala-wysiwyg-editor/js/plugins/paragraph_style.min.js') }}"></script>
+    <script src="{{ asset('bower_components/froala-wysiwyg-editor/js/plugins/special_characters.min.js') }}"></script>
+    <script src="{{ asset('bower_components/froala-wysiwyg-editor/js/plugins/quote.min.js') }}"></script>
+    {{-- <script src="{{ asset('bower_components/froala-wysiwyg-editor/js/plugins/quick_insert.min.js') }}"></script> --}}
+    <script src="{{ asset('bower_components/froala-wysiwyg-editor/js/plugins/url.min.js') }}"></script>
+    <script src="{{ asset('bower_components/froala-wysiwyg-editor/js/plugins/help.min.js') }}"></script>
+    <script src="{{ asset('bower_components/froala-wysiwyg-editor/js/plugins/inline_style.min.js') }}"></script>
+    <script src="{{ asset('bower_components/froala-wysiwyg-editor/js/plugins/inline_class.min.js') }}"></script>
+    {{-- <script src="{{ asset('bower_components/froala-wysiwyg-editor/js/plugins/save.min.js') }}"></script> --}}
+    <script src="{{ asset('bower_components/froala-wysiwyg-editor/js/third_party/font_awesome.min.js') }}"></script>
+    <script src="{{ asset('bower_components/froala-wysiwyg-editor/js/languages/fr.js') }}"></script>
     <script src="{{ asset('angular/app.js') }}"></script>
 
     <div id="chatbutton-wa" data-phone="+221778224129" data-showpopup="true"
@@ -231,7 +257,19 @@ Bambogroup Team" data-placeholder="Ecrire ici..." data-position="left" data-head
         </div>
     </div>
     <script>
-        "use strict";if("loading"in HTMLImageElement.prototype){document.querySelectorAll('img[loading="lazy"],iframe[loading="lazy"]').forEach(e=>{e.src=e.dataset.src,e.style.paddingTop=100*e.getAttribute("data-aspectratio")+"%",e.style.height=0,e.onload=function(){e.removeAttribute("style")}})}else{const e=document.createElement("script");e.src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.1.2/lazysizes.min.js') }}",document.body.appendChild(e)}
+        "use strict";
+        if ("loading" in HTMLImageElement.prototype) {
+            document.querySelectorAll('img[loading="lazy"],iframe[loading="lazy"]').forEach(e => {
+                e.src = e.dataset.src, e.style.paddingTop = 100 * e.getAttribute("data-aspectratio") + "%", e.style
+                    .height = 0, e.onload = function() {
+                        e.removeAttribute("style")
+                    }
+            })
+        } else {
+            const e = document.createElement("script");
+            e.src = "https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.1.2/lazysizes.min.js') }}", document.body
+                .appendChild(e)
+        }
     </script>
 
 </body>
