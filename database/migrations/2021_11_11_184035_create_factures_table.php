@@ -15,6 +15,13 @@ class CreateFacturesTable extends Migration
     {
         Schema::create('factures', function (Blueprint $table) {
             $table->id();
+            $table->string('methodePaiement');
+            $table->string('clientPhone');
+            $table->string('libelle');
+            $table->bigInteger('montant');
+            $table->string('currency');
+            $table->string('uid');
+            $table->foreignId('souscription_id')->constrained();
             $table->timestamps();
         });
     }

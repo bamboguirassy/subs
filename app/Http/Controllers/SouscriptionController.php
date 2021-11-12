@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Custom\Helper;
 use App\Custom\PaymentManager;
 use App\Models\Facture;
+use App\Models\ProfilConcerne;
+use App\Models\Programme;
 use App\Models\Souscription;
 use App\Models\SouscriptionTemp;
 use App\Models\User;
@@ -49,22 +51,26 @@ class SouscriptionController extends Controller
             'profil_concerne_id' => 'required|exists:profil_concernes,id',
             'programme_id' => 'required|exists:programmes,id',
         ]);
-        //    --     démarrer la transaction
+        // démarrer la transaction
         DB::beginTransaction();
         try {
-            // instancier le programme avec le contenu du request
-            $souscriptionTemp = new SouscriptionTemp($request->all());
-
+            $programme = Programme::find($request->get('programme_id'));
+            // vérifier si user n'a pas déja souscrit
+            if($programme->current_user_souscription) {
+                notify()->warning("Vous avez déja souscrit à ce programme !");
+                return redirect()->route('programme.show',compact('programme'));
+            }
             // verifier si l'utilisateur est connecté
             if (Auth::check()) {
                 // si user connecté, associer le programme à l'utilisateur connecté
-                $souscriptionTemp->user_id = Auth::id();
+                $userId = Auth::id();
             } else {
                 // si user non connecté, valider le formulaire avec les infos user du formulaire
                 $request->validate([
                     'name' => 'required',
                     'email' => 'required|unique:users,email',
                     'profession' => 'required',
+                    'telephone' => 'required',
                     'password' => 'confirmed|min:6',
                     'photo' => 'required|image'
                 ]);
@@ -78,34 +84,37 @@ class SouscriptionController extends Controller
                 $user->photo = $photoname;
                 $user->save();
                 /** notofier l'utilisateur pour le compte */
-                $souscriptionTemp->user_id = $user->id;
+                $userId = $user->id;
             }
-            $souscriptionTemp->uid = uniqid();
-            $souscriptionTemp->save();
-            // terminer la transaction
+            // recuperer le profil selectionné
+            $profilConcerne = ProfilConcerne::find($request->get('profil_concerne_id'));
+            // recuperer le profil concerne et verifier si le paiement est gratuit
+            if ($profilConcerne->montant == 0) {
+                // convert temp souscription to souscription
+                $souscription = new Souscription($request->all());
+                $souscription->user_id = $userId;
+                $souscription->montant = 0;
+                $souscription->uid = uniqid();
+                $souscription->save();
+                notify()->success("Vous avez souscrit avec succès au programme !!!");
+            } else {
+                // instancier la souscription temp avec le contenu du request
+                $souscriptionTemp = new SouscriptionTemp($request->all());
+                $souscriptionTemp->uid = uniqid();
+                $souscriptionTemp->user_id = $userId;
+                $souscriptionTemp->montant = $profilConcerne->montant;
+                $souscriptionTemp->save();
+                // terminer la transaction
+                $redirectUrl = PaymentManager::initPayment($souscriptionTemp, $profilConcerne);
+            }
             DB::commit();
             if (!Auth::check()) {
                 if (Auth::attempt($request->only('email', 'password'))) {
                     notify()->success("Vous êtes connecté à  votre compte !");
                 }
             }
-            // recuperer le profil selectionné
-            $profilConcerne = $souscriptionTemp->profilConcerne;
-            $programme = $souscriptionTemp->programme;
-            if ($profilConcerne->montant == 0) {
-                // convert temp souscription to souscription
-               $souscription = Helper::convertTempSouscription($souscriptionTemp);
-               DB::beginTransaction();
-               $souscription->save();
-               $souscriptionTemp->delete();
-               DB::commit();
-                notify()->success("Vous avez souscrit avec succès à ce programme !!!");
-            } else {
-                // gérer le paiement par paytech
-                $redirectUrl = PaymentManager::initPayment($souscriptionTemp->uid, $programme->nom, $profilConcerne->montant, $souscriptionTemp->id);
-                return redirect()->to($redirectUrl);
-            }
-            return redirect()->route('programme.show', compact('programme'));
+            // gérer le paiement par paytech
+            return $profilConcerne->montant > 0 ? redirect()->to($redirectUrl) : redirect()->route('programme.show', compact('programme'));
         } catch (Exception $e) {
             notify()->error("Une erreur s'est produite pendant la souscription, merci de réssayer !");
             DB::rollBack();
@@ -158,7 +167,8 @@ class SouscriptionController extends Controller
         //
     }
 
-    public function instantPaymentNotificate(Request $request) {
+    public function instantPaymentNotificate(Request $request)
+    {
         $type_event = $request->input('type_event');
         $payment_method = $request->input('payment_method');
         $client_phone = $request->input('client_phone');
@@ -169,19 +179,22 @@ class SouscriptionController extends Controller
 
         $facture = new Facture();
         //from PayTech
-        if($type_event=='sale_complete') {
+        if ($type_event == 'sale_complete') {
             DB::beginTransaction();
             try {
                 // recuperer la souscription temp
-                $souscriptionTemp = SouscriptionTemp::where('uid',$uid)->first();
+                $souscriptionTemp = SouscriptionTemp::where('uid', $uid)->first();
                 $souscription = Helper::convertTempSouscription($souscriptionTemp);
                 $souscription->save();
-                $souscriptionTemp->delete();
-                $facture->dateReglement = now();
+                // recuperer toutes les autres souscriptions temp à ce program pour le meme user et supprimer
+                $souscriptionTemps = SouscriptionTemp::where('programme_id',$souscriptionTemp->programme_id)
+                ->where('user_id',$souscriptionTemp->user_id)
+                ->get();
+                SouscriptionTemp::destroy($souscriptionTemps);
                 $facture->methodePaiement = $payment_method;
                 $facture->clientPhone = $client_phone;
-                $facture->name = $item_name;
-                $facture->price = $item_price;
+                $facture->libelle = $item_name;
+                $facture->montant = $item_price;
                 $facture->currency = $currency;
                 $facture->uid = $uid;
                 $facture->souscription_id = $souscription->id;
@@ -191,8 +204,8 @@ class SouscriptionController extends Controller
                 DB::rollback();
                 throw $th;
             }
-            } else {
-                // notifier de paiement sale_canceled
-            }
+        } else {
+            // notifier de paiement sale_canceled
+        }
     }
 }

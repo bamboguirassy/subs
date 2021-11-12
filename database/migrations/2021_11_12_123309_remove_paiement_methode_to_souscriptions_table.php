@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class ChangeProfilFieldToProfilCencerneIdFieldInSouscriptionsTable extends Migration
+class RemovePaiementMethodeToSouscriptionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,8 +14,7 @@ class ChangeProfilFieldToProfilCencerneIdFieldInSouscriptionsTable extends Migra
     public function up()
     {
         Schema::table('souscriptions', function (Blueprint $table) {
-            $table->dropForeign('profil_id');
-            $table->foreignId('profil_concerne_id')->constrained();
+            $table->dropColumn('methodePaiement');
         });
     }
 

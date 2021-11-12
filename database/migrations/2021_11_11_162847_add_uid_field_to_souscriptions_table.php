@@ -26,7 +26,7 @@ class AddUidFieldToSouscriptionsTable extends Migration
     public function down()
     {
         Schema::table('souscriptions', function (Blueprint $table) {
-            $table->removeColumn('uid');
+            $table->dropColumn('uid');
         });
     }
 }

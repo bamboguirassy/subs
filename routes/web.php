@@ -74,8 +74,16 @@ Route::get('messouscriptions',function() {
 })->middleware('auth')->name('mes.souscriptions');
 
 Route::get('souscription/{programme}/create',function(Programme $programme) {
+    // vérifier si user n'a pas déja souscrit
+    if($programme->current_user_souscription) {
+        notify()->warning("Vous avez déja souscrit à ce programme !");
+        return redirect()->route('programme.show',compact('programme'));
+    }
     return view('programme.souscription.new',compact('programme'));
 })->name('souscription.new');
+
+Route::post('souscription_pin','App\Http\Controllers\SouscriptionController@instantPaymentNotificate')
+->name('souscription.pin');
 
 Route::resource('souscription', SouscriptionController::class,[
     'only'=>['store']

@@ -167,6 +167,13 @@
                             <input type="text" name="name" placeholder="Nom complet" data-form-field="name"
                                 required="required" class="form-control display-7" value="" id="name-formbuilder-13">
                         </div>
+                        <div data-for="telephone" class="col-lg-12 col-md-12 col-sm-12 form-group">
+                            <label for="telephone-formbuilder-13" class="form-control-label mbr-fonts-style display-7">
+                                Téléphone
+                            </label>
+                            <input type="tel" name="telephone" placeholder="Téléphone" data-form-field="telephone"
+                                required="required" class="form-control display-7" value="" id="telephone-formbuilder-13">
+                        </div>
                         <div data-for="profession" class="col-lg-12 col-md-12 col-sm-12 form-group">
                             <label for="profession-formbuilder-13"
                                 class="form-control-label mbr-fonts-style display-7">Profession</label>

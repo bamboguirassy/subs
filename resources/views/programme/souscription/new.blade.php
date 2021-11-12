@@ -61,7 +61,7 @@
                                 </div>
                                 @foreach ($programme->profilConcernes as $profilConcerne)
                                     <div class="form-check form-check-inline">
-                                        <input @if ($loop->first) checked @endif type="radio" name="profil_concerne_id"
+                                        <input @if ($loop->first || old('profil_concerne_id')==$profilConcerne->id) checked @endif type="radio" name="profil_concerne_id"
                                             data-form-field="profil_concerne_id" class="form-check-input display-7"
                                             value="{{ $profilConcerne->id }}" id="profil_concerne_id-formbuilder-17">
                                         <label
@@ -80,33 +80,33 @@
                                     <label for="name-formbuilder-17" class="form-control-label mbr-fonts-style display-7">Nom
                                         complet</label>
                                     <input type="text" name="name" placeholder="Nom complet" data-form-field="name"
-                                        class="form-control display-7" required="required" value="" id="name-formbuilder-17">
+                                        class="form-control display-7" required="required" value="{{ old('name') }}" id="name-formbuilder-17">
                                 </div>
                                 <div class="col-lg-12 col-md-12 col-sm-12 form-group" data-for="profession">
                                     <label for="profession-formbuilder-17"
                                         class="form-control-label mbr-fonts-style display-7">Profession</label>
                                     <input type="text" name="profession" placeholder="Profession" data-form-field="profession"
-                                        class="form-control display-7" required="required" value=""
+                                        class="form-control display-7" required="required" value="{{ old('profession') }}"
                                         id="profession-formbuilder-17">
                                 </div>
                                 <div class="col-lg-12 col-md-12 col-sm-12 form-group" data-for="email">
                                     <label for="email-formbuilder-17"
                                         class="form-control-label mbr-fonts-style display-7">Email</label>
                                     <input type="email" name="email" placeholder="test@email.com" data-form-field="email"
-                                        class="form-control display-7" required="required" value="" id="email-formbuilder-17">
+                                        class="form-control display-7" required="required" value="{{ old('email') }}" id="email-formbuilder-17">
                                 </div>
                                 <div class="col-lg-12 col-md-12 col-sm-12 form-group" data-for="telephone">
                                     <label for="telephone-formbuilder-17"
                                         class="form-control-label mbr-fonts-style display-7">Téléphone</label>
                                     <input type="tel" name="telephone" placeholder="Téléphone" data-form-field="telephone"
-                                        class="form-control display-7" required="required" value=""
+                                        class="form-control display-7" required="required" value="{{ old('telephone') }}"
                                         id="telephone-formbuilder-17">
                                 </div>
                                 <div data-for="photo" class="col-lg-12 col-md-12 col-sm-12 form-group">
                                     <label for="photo-formbuilder-13" class="form-control-label mbr-fonts-style display-7">
                                         Chosir une photo de profil</label>
                                     <input type="file" accept="image/*" name="photo" max="100" min="0" step="1"
-                                        data-form-field="photo" required="required" class="form-control display-7" value=""
+                                        data-form-field="photo" required="required" class="form-control display-7" value="{{ old('photo') }}"
                                         id="photo-formbuilder-13">
                                 </div>
                                 <div class="col-lg-12 col-md-12 col-sm-12 form-group" data-for="password">

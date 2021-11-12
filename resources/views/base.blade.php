@@ -70,6 +70,11 @@
     <meta name="apple-mobile-web-app-title" content="">
     <link rel="apple-touch-icon" href="{{ asset('apple-touch-icon.png') }}">
     <meta name="keywords" content="Inscription,formation,séminaire,conférence,participation,Bambogroup,Subs">
+    <style>
+        .nowrap {
+            white-space: nowrap;
+        }
+    </style>
     @notify_css
     <!-- Analytics -->
     <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -78,7 +83,7 @@
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
-    
+
         gtag('config', 'G-3CLXFYMR2H');
     </script>
     <!-- /Analytics -->

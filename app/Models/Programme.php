@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Facades\Auth;
 
 class Programme extends Model
 {
@@ -34,7 +35,7 @@ class Programme extends Model
     {
         return $this->hasMany(Souscription::class);
     }
-    
+
     /**
      * Get all of the profilConcernes for the Programme
      *
@@ -54,7 +55,7 @@ class Programme extends Model
     {
         return $this->belongsTo(TypeProgramme::class);
     }
-    
+
     /**
      * Get the user that owns the Programme
      *
@@ -67,5 +68,15 @@ class Programme extends Model
 
     public function getActiveAttribute() {
         return now()>$this->dateCloture();
+    }
+
+    public function getCurrentUserSouscriptionAttribute(): ?Souscription {
+        if(Auth::check()) {
+            $souscriptions = Souscription::where('user_id',Auth::id())
+            ->where('programme_id',$this->id)
+            ->get();
+            return count($souscriptions)>0?$souscriptions[0]:null;
+        }
+        return null;
     }
 }

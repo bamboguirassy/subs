@@ -79,6 +79,7 @@ class ProgrammeController extends Controller
                     'name' => 'required',
                     'email' => 'required|unique:users,email',
                     'profession' => 'required',
+                    'telephone' => 'required',
                     'presentation' => 'required',
                     'password' => 'confirmed|min:6',
                     'photo' => 'required|image'

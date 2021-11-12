@@ -12,9 +12,9 @@ class PaymentManager
     public static function initPayment(SouscriptionTemp $souscriptionTemp, ProfilConcerne $profilConcerne)
     {
         $jsonResponse = (new PayTech(config('paytech.api.key'), config('paytech.api.secret')))->setQuery([
-            'item_name' => $souscriptionTemp->nom,
+            'item_name' => $souscriptionTemp->programme->nom,
             'item_price' => $profilConcerne->montant,
-            'command_name' => "Paiement {$souscriptionTemp->nom} Gold via PayTech",
+            'command_name' => "Paiement {$souscriptionTemp->programme->nom}",
         ])->setCustomeField([
             'time_command' => time(),
             'ip_user' => $_SERVER['REMOTE_ADDR'],
@@ -24,9 +24,9 @@ class PaymentManager
             ->setCurrency('xof')
             ->setRefCommand($souscriptionTemp->uid)
             ->setNotificationUrl([
-                'ipn_url' => config('paytech.base.url') . '/ipn.php', //only https
+                'ipn_url' => config('paytech.base.url') . '/paymentconfirmation', //only https
                 'success_url' => config('paytech.base.url') . '/paymentconfirmation?state=success&id=' . $souscriptionTemp->id,
-                'cancel_url' => config('paytech.base.url') . '/paymentconfirmation?state=cancel&id=' . $$souscriptionTemp->id
+                'cancel_url' => config('paytech.base.url') . '/paymentconfirmation?state=cancel&id=' . $souscriptionTemp->id
             ])->send();
         if ($jsonResponse['success'] == 1) {
             return $jsonResponse['redirect_url'];
