@@ -89,18 +89,18 @@
                                         class="form-control display-7" required="required" value="{{ old('profession') }}"
                                         id="profession-formbuilder-17">
                                 </div>
-                                <div class="col-lg-12 col-md-12 col-sm-12 form-group" data-for="email">
-                                    <label for="email-formbuilder-17"
-                                        class="form-control-label mbr-fonts-style display-7">Email</label>
-                                    <input type="email" name="email" placeholder="test@email.com" data-form-field="email"
-                                        class="form-control display-7" required="required" value="{{ old('email') }}" id="email-formbuilder-17">
-                                </div>
                                 <div class="col-lg-12 col-md-12 col-sm-12 form-group" data-for="telephone">
                                     <label for="telephone-formbuilder-17"
                                         class="form-control-label mbr-fonts-style display-7">Téléphone</label>
                                     <input type="tel" name="telephone" placeholder="Téléphone" data-form-field="telephone"
                                         class="form-control display-7" required="required" value="{{ old('telephone') }}"
                                         id="telephone-formbuilder-17">
+                                </div>
+                                <div class="col-lg-12 col-md-12 col-sm-12 form-group" data-for="email">
+                                    <label for="email-formbuilder-17"
+                                        class="form-control-label mbr-fonts-style display-7">Email</label>
+                                    <input type="email" name="email" placeholder="test@email.com" data-form-field="email"
+                                        class="form-control display-7" required="required" value="{{ old('email') }}" id="email-formbuilder-17">
                                 </div>
                                 <div data-for="photo" class="col-lg-12 col-md-12 col-sm-12 form-group">
                                     <label for="photo-formbuilder-13" class="form-control-label mbr-fonts-style display-7">

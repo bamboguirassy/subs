@@ -15,6 +15,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\URL;
 
 class SouscriptionController extends Controller
 {
@@ -56,15 +57,22 @@ class SouscriptionController extends Controller
         try {
             $programme = Programme::find($request->get('programme_id'));
             // vérifier si user n'a pas déja souscrit
-            if($programme->current_user_souscription) {
+            if ($programme->current_user_souscription) {
                 notify()->warning("Vous avez déja souscrit à ce programme !");
-                return redirect()->route('programme.show',compact('programme'));
+                return redirect()->route('programme.show', compact('programme'));
             }
             // verifier si l'utilisateur est connecté
             if (Auth::check()) {
                 // si user connecté, associer le programme à l'utilisateur connecté
                 $userId = Auth::id();
             } else {
+                $userVerif = User::where('email', $request->get('email'))
+                    ->first();
+                if ($userVerif) {
+                    $warningMessage = "Cette adresse email est déja utilisée par un autre compte, si c'est la votre, merci de vous connecter avec votre compte. <a href='".route('login')."?ret=".URL::previous()."'>Se connecter</a>";
+                    notify()->warning($warningMessage);
+                    return back()->withErrors([$warningMessage])->withInput();
+                }
                 // si user non connecté, valider le formulaire avec les infos user du formulaire
                 $request->validate([
                     'name' => 'required',
@@ -169,13 +177,13 @@ class SouscriptionController extends Controller
 
     public function instantPaymentNotificate(Request $request)
     {
-        $type_event = $request->input('type_event');
-        $payment_method = $request->input('payment_method');
-        $client_phone = $request->input('client_phone');
-        $uid = $request->input('ref_command');
-        $item_name = $request->input('item_name');
-        $item_price = $request->input('item_price');
-        $currency = $request->input('devise');
+        $type_event = $request->get('type_event');
+        $payment_method = $request->get('payment_method');
+        $client_phone = $request->get('client_phone');
+        $uid = $request->get('ref_command');
+        $item_name = $request->get('item_name');
+        $item_price = $request->get('item_price');
+        $currency = $request->get('devise');
 
         $facture = new Facture();
         //from PayTech
@@ -187,9 +195,9 @@ class SouscriptionController extends Controller
                 $souscription = Helper::convertTempSouscription($souscriptionTemp);
                 $souscription->save();
                 // recuperer toutes les autres souscriptions temp à ce program pour le meme user et supprimer
-                $souscriptionTemps = SouscriptionTemp::where('programme_id',$souscriptionTemp->programme_id)
-                ->where('user_id',$souscriptionTemp->user_id)
-                ->get();
+                $souscriptionTemps = SouscriptionTemp::where('programme_id', $souscriptionTemp->programme_id)
+                    ->where('user_id', $souscriptionTemp->user_id)
+                    ->get();
                 SouscriptionTemp::destroy($souscriptionTemps);
                 $facture->methodePaiement = $payment_method;
                 $facture->clientPhone = $client_phone;
