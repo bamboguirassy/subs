@@ -188,6 +188,13 @@
     @notify_render
     <script src="{{ asset('bower_components/froala-wysiwyg-editor/js/froala_editor.min.js') }}"></script>
     <script src="{{ asset('bower_components/angular-froala/src/angular-froala.js') }}"></script>
+    <script src="{{ asset('bower_components/froala-wysiwyg-editor/js/plugins/char_counter.min.js') }}"></script>
+    <script src="{{ asset('bower_components/froala-wysiwyg-editor/js/plugins/code_beautifier.min.js') }}"></script>
+    <script src="{{ asset('bower_components/froala-wysiwyg-editor/js/plugins/link.min.js') }}"></script>
+    <script src="{{ asset('bower_components/froala-wysiwyg-editor/js/plugins/colors.min.js') }}"></script>
+    <script src="{{ asset('bower_components/froala-wysiwyg-editor/js/plugins/emoticons.min.js') }}"></script>
+    <script src="{{ asset('bower_components/froala-wysiwyg-editor/js/plugins/font_size.min.js') }}"></script>
+    <script src="{{ asset('bower_components/froala-wysiwyg-editor/js/plugins/font_family.min.js') }}"></script>
     <script src="{{ asset('angular/app.js') }}"></script>
 
     <div id="chatbutton-wa" data-phone="+221778224129" data-showpopup="true"

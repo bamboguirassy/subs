@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\URL;
 
 class ProgrammeController extends Controller
 {
@@ -74,6 +75,13 @@ class ProgrammeController extends Controller
                 // si user connecté, associer le programme à l'utilisateur connecté
                 $programme->user_id = Auth::id();
             } else {
+                $userVerif = User::where('email', $request->get('email'))
+                    ->first();
+                if ($userVerif) {
+                    $warningMessage = "Cette adresse email est déja utilisée par un autre compte, si c'est la votre, merci de vous connecter avec votre compte. <a href='".route('login')."?ret=".URL::previous()."'>Se connecter</a>";
+                    notify()->warning($warningMessage);
+                    return back()->withErrors([$warningMessage])->withInput();
+                }
                 // si user non connecté, valider le formulaire avec les infos user du formulaire
                 $request->validate([
                     'name' => 'required',
