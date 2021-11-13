@@ -37,6 +37,16 @@ class Programme extends Model
     }
 
     /**
+     * Get all of the souscriptionTemps for the Programme
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function souscriptionTemps(): HasMany
+    {
+        return $this->hasMany(SouscriptionTemp::class);
+    }
+
+    /**
      * Get all of the profilConcernes for the Programme
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
@@ -67,7 +77,7 @@ class Programme extends Model
     }
 
     public function getActiveAttribute() {
-        return now()>$this->dateCloture();
+        return now()>$this->dateCloture;
     }
 
     public function getCurrentUserSouscriptionAttribute(): ?Souscription {

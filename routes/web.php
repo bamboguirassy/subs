@@ -20,25 +20,25 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    $programmeActives = Programme::where('dateCloture','>=',new DateTime())
-    ->orderBy('dateCloture')->paginate(20);
-    return view('home',compact('programmeActives'));
+    $programmeActives = Programme::where('dateCloture', '>=', new DateTime())
+        ->orderBy('dateCloture')->paginate(20);
+    return view('home', compact('programmeActives'));
 })->name('home');
 
-Route::get('login', function(Request $request) {
+Route::get('login', function (Request $request) {
     $ret = $request->get('ret');
     $request->session()->put('ret', $ret);
     return view('auth.login');
 })->name('login');
 
-Route::post('login', function(Request $request) {
+Route::post('login', function (Request $request) {
     $request->validate([
-        'email'=>'required|exists:users,email|email',
-        'password'=>'required|min:6'
+        'email' => 'required|exists:users,email|email',
+        'password' => 'required|min:6'
     ]);
-    if(Auth::attempt($request->only('email','password'))) {
+    if (Auth::attempt($request->only('email', 'password'))) {
         notify()->success("Vous êtes connecté avec succès");
-        if(session()->exists('ret')) {
+        if (session()->exists('ret')) {
             $retUrl = session('ret');
             session()->remove('ret');
             return redirect()->to($retUrl);
@@ -46,50 +46,54 @@ Route::post('login', function(Request $request) {
         return redirect()->route('home');
     } else {
         notify()->error("Vérifiez vos identifiants de connexion et réssayer !");
-        return back()->withErrors(['error'=>"Vérifiez vos identifiants de connexion puis réssayer !"]);
+        return back()->withErrors(['error' => "Vérifiez vos identifiants de connexion puis réssayer !"]);
     }
-    return ;
+    return;
 })->name('login.request');
 
-Route::get('logout',function() {
+Route::get('logout', function () {
     Auth::logout();
     notify()->success("Vous êtes déconnecté avec succès !");
     return redirect()->route('home');
 })->name('logout')->middleware('auth');
 
-Route::resource('programme', ProgrammeController::class,[
-    'only'=>['create','store','show']
+Route::resource('programme', ProgrammeController::class, [
+    'only' => ['create', 'store', 'show']
 ])->middleware('web');
 
-Route::resource('programme', ProgrammeController::class,[
-    'only'=>['destroy','edit','update','index']
+Route::resource('programme', ProgrammeController::class, [
+    'only' => ['destroy', 'edit', 'update', 'index']
 ])->middleware('auth');
 
-Route::get('mesprogrammes',function() {
- return view('programme.list');
+Route::get('mesprogrammes', function () {
+    $title = "mes programmes";
+    $programmes = Auth::user()->programmes;
+    return view('programme.list', compact('programmes', 'title'));
 })->middleware('auth')->name('mes.programmes');
 
-Route::get('messouscriptions',function() {
- return view('programme.list');
+Route::get('messouscriptions', function () {
+    $title = "mes souscriptions";
+    $programmes = Auth::user()->programmeSouscrits;
+    return view('programme.list', compact('programmes', 'title'));
 })->middleware('auth')->name('mes.souscriptions');
 
-Route::get('souscription/{programme}/create',function(Programme $programme) {
+Route::get('souscription/{programme}/create', function (Programme $programme) {
     // vérifier si user n'a pas déja souscrit
-    if($programme->current_user_souscription) {
+    if ($programme->current_user_souscription) {
         notify()->warning("Vous avez déja souscrit à ce programme !");
-        return redirect()->route('programme.show',compact('programme'));
+        return redirect()->route('programme.show', compact('programme'));
     }
-    return view('programme.souscription.new',compact('programme'));
+    return view('programme.souscription.new', compact('programme'));
 })->name('souscription.new');
 
-Route::post('souscription_pin','App\Http\Controllers\SouscriptionController@instantPaymentNotificate')
-->name('souscription.pin');
+Route::post('souscription_pin', 'App\Http\Controllers\SouscriptionController@instantPaymentNotificate')
+    ->name('souscription.pin');
 
-Route::resource('souscription', SouscriptionController::class,[
-    'only'=>['store']
+Route::resource('souscription', SouscriptionController::class, [
+    'only' => ['store']
 ]);
 
 Route::get('paymentconfirmation', function (Request $request) {
     $souscription = Souscription::find($request->get('id'));
-    return view('programme.souscription.payment-confirmation',['state'=>$request->get('state'),'souscription'=>$souscription]);
+    return view('programme.souscription.payment-confirmation', ['state' => $request->get('state'), 'souscription' => $souscription]);
 });

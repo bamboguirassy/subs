@@ -69,7 +69,7 @@ class SouscriptionController extends Controller
                 $userVerif = User::where('email', $request->get('email'))
                     ->first();
                 if ($userVerif) {
-                    $warningMessage = "Cette adresse email est déja utilisée par un autre compte, si c'est la votre, merci de vous connecter avec votre compte. <a href='".route('login')."?ret=".URL::previous()."'>Se connecter</a>";
+                    $warningMessage = "Cette adresse email est déja utilisée par un autre compte, si c'est la votre, merci de vous connecter avec votre compte. <a href='" . route('login') . "?ret=" . URL::previous() . "'>Se connecter</a>";
                     notify()->warning($warningMessage);
                     return back()->withErrors([$warningMessage])->withInput();
                 }
@@ -170,9 +170,14 @@ class SouscriptionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Souscription $souscription)
     {
-        //
+        if ($souscription->delete()) {
+            notify("Suppression reussie !");
+        } else {
+            notify()->error("Une erreur est survenue lors de la suppression de la souscription.");
+        }
+        return back();
     }
 
     public function instantPaymentNotificate(Request $request)

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Profil;
 use App\Models\ProfilConcerne;
 use App\Models\Programme;
+use App\Models\SouscriptionTemp;
 use App\Models\TypeProgramme;
 use App\Models\User;
 use Exception;
@@ -12,6 +13,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\URL;
 
 class ProgrammeController extends Controller
@@ -78,7 +80,7 @@ class ProgrammeController extends Controller
                 $userVerif = User::where('email', $request->get('email'))
                     ->first();
                 if ($userVerif) {
-                    $warningMessage = "Cette adresse email est déja utilisée par un autre compte, si c'est la votre, merci de vous connecter avec votre compte. <a href='".route('login')."?ret=".URL::previous()."'>Se connecter</a>";
+                    $warningMessage = "Cette adresse email est déja utilisée par un autre compte, si c'est la votre, merci de vous connecter avec votre compte. <a href='" . route('login') . "?ret=" . URL::previous() . "'>Se connecter</a>";
                     notify()->warning($warningMessage);
                     return back()->withErrors([$warningMessage])->withInput();
                 }
@@ -174,6 +176,25 @@ class ProgrammeController extends Controller
      */
     public function destroy(Programme $programme)
     {
-        //
+        if (count($programme->souscriptions) > 0) {
+            notify()->warning("Ce programmes a des participants, impossible de procéder à sa suppression !");
+            return back();
+        }
+        DB::beginTransaction();
+        try {
+            SouscriptionTemp::destroy($programme->souscriptionTemps);
+            ProfilConcerne::destroy($programme->profilConcernes);
+            if ($programme->delete()) {
+                notify("Suppression reussie !");
+                Storage::delete(['programmes/images/'.$programme->image]);
+            } else {
+                notify()->error("Une erreur est survenue lors de la suppression de la souscription.");
+            }
+            DB::commit();
+        } catch (\Throwable $th) {
+            DB::rollback();
+            throw $th;
+        }
+        return redirect()->route('mes.programmes');
     }
 }
