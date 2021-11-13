@@ -95,6 +95,7 @@
         gtag('config', 'G-3CLXFYMR2H');
     </script>
     <!-- /Analytics -->
+    {!! Adsense::javascript() !!}
 </head>
 
 <body>
