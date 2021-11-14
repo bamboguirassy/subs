@@ -10,9 +10,7 @@
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-12 col-md-4 image-wrapper">
-                    <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt=""
-                        loading="lazy" class="lazyload"
-                        data-src="{{ asset('uploads/programmes/images/' . $programme->image) }}">
+                    <img src="{{ asset('uploads/programmes/images/' . $programme->image) }}">
                 </div>
                 <div class="col-12 col-lg-8 align-left">
                     <h1 class="mbr-section-title mbr-fonts-style mb-3 display-5">
@@ -126,7 +124,7 @@
                                 </div>
                             @endguest
                             <div class="col"><button type="submit" class="btn btn-primary display-7"><span
-                                        class="fa fa-plus-square-o mbr-iconfont mbr-iconfont-btn"></span>Continuer</button>
+                                        class="fa fa-arrow-right mbr-iconfont mbr-iconfont-btn"></span>Continuer</button>
                             </div>
                         </div>
                     </form>

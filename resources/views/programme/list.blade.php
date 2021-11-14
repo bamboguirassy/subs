@@ -27,9 +27,7 @@
                         <div class="item-wrapper">
                             <div class="item-img">
                                 <a href="{{ route('programme.show', compact('programme')) }}">
-                                    <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
-                                        loading="lazy" class="lazyload"
-                                        data-src="{{ asset('uploads/programmes/images/' . $programme->image) }}">
+                                    <img src="{{ asset('uploads/programmes/images/' . $programme->image) }}">
                                 </a>
                             </div>
                             <div class="item-content">
