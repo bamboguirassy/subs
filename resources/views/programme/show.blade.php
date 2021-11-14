@@ -14,9 +14,7 @@
         <div class="container">
             <div class="row justify-content-center align-items-center">
                 <div class="col-12 col-md-4 image-wrapper">
-                    <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt=""
-                        loading="lazy" class="lazyload"
-                        data-src="{{ asset('uploads/programmes/images/' . $programme->image) }}">
+                    <img src="{{ asset('uploads/programmes/images/' . $programme->image) }}">
                 </div>
                 <div class="col-12 col-md">
                     <div class="text-wrapper">
