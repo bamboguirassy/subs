@@ -178,13 +178,6 @@
 
     <x-separator />
 
-    @if (count($programme->souscriptions) < 1)
-        <x-empty-message title="Vide" message="Il n'y a aucun participant pour le moment !" />
-        <x-separator />
-    @elseif(auth()->check() && $programme->user->id==auth()->id())
-        <x-separator />
-    @endif
-
     <x-social-sharing />
 
     <x-separator />
