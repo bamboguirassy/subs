@@ -33,6 +33,7 @@
     <link rel="stylesheet" href="{{ asset('assets/socicon/css/styles.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/theme/css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/datatables/vanilla-dataTables.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('bower_components/simditor/site/assets/styles/simditor.css') }}">
     <link rel="stylesheet" href="{{ asset('bower_components/froala-wysiwyg-editor/css/plugins/table.min.css') }}">
     <link rel="preload"
         href="https://fonts.googleapis.com/css?family=Jost:100,200,300,400,500,600,700,800,900,100i,200i,300i,400i,500i,600i,700i,800i,900i&display=swap"
@@ -198,33 +199,13 @@
     <script src="{{ asset('assets/datatables/vanilla-dataTables.min.js') }}"></script>
     <script src="{{ asset('assets/sociallikes/social-likes.js') }}"></script>
     <script src="{{ asset('assets/theme/js/script.js') }}"></script>
+    <script src="{{ asset('bower_components/simditor/site/assets/scripts/module.js') }}"></script>
+    <script src="{{ asset('bower_components/simditor/site/assets/scripts/hotkeys.js') }}"></script>
+    <script src="{{ asset('bower_components/simditor/site/assets/scripts/uploader.js') }}"></script>
+    <script src="{{ asset('bower_components/simditor/site/assets/scripts/simditor.js') }}"></script>
     <script src="{{ asset('bower_components/angular/angular.min.js') }}"></script>
     @notify_js
     @notify_render
-    <script src="{{ asset('bower_components/froala-wysiwyg-editor/js/froala_editor.min.js') }}"></script>
-    <script src="{{ asset('bower_components/angular-froala/src/angular-froala.js') }}"></script>
-    {{-- <script src="{{ asset('bower_components/froala-wysiwyg-editor/js/plugins/char_counter.min.js') }}"></script> --}}
-    <script src="{{ asset('bower_components/froala-wysiwyg-editor/js/plugins/code_beautifier.min.js') }}"></script>
-    <script src="{{ asset('bower_components/froala-wysiwyg-editor/js/plugins/link.min.js') }}"></script>
-    <script src="{{ asset('bower_components/froala-wysiwyg-editor/js/plugins/colors.min.js') }}"></script>
-    <script src="{{ asset('bower_components/froala-wysiwyg-editor/js/plugins/emoticons.min.js') }}"></script>
-    <script src="{{ asset('bower_components/froala-wysiwyg-editor/js/plugins/font_size.min.js') }}"></script>
-    <script src="{{ asset('bower_components/froala-wysiwyg-editor/js/plugins/font_family.min.js') }}"></script>
-    <script src="{{ asset('bower_components/froala-wysiwyg-editor/js/plugins/lists.min.js') }}"></script>
-    <script src="{{ asset('bower_components/froala-wysiwyg-editor/js/plugins/table.min.js') }}"></script>
-    <script src="{{ asset('bower_components/froala-wysiwyg-editor/js/plugins/quote.min.js') }}"></script>
-    <script src="{{ asset('bower_components/froala-wysiwyg-editor/js/plugins/paragraph_format.min.js') }}"></script>
-    <script src="{{ asset('bower_components/froala-wysiwyg-editor/js/plugins/paragraph_style.min.js') }}"></script>
-    <script src="{{ asset('bower_components/froala-wysiwyg-editor/js/plugins/special_characters.min.js') }}"></script>
-    <script src="{{ asset('bower_components/froala-wysiwyg-editor/js/plugins/quote.min.js') }}"></script>
-    {{-- <script src="{{ asset('bower_components/froala-wysiwyg-editor/js/plugins/quick_insert.min.js') }}"></script> --}}
-    <script src="{{ asset('bower_components/froala-wysiwyg-editor/js/plugins/url.min.js') }}"></script>
-    <script src="{{ asset('bower_components/froala-wysiwyg-editor/js/plugins/help.min.js') }}"></script>
-    <script src="{{ asset('bower_components/froala-wysiwyg-editor/js/plugins/inline_style.min.js') }}"></script>
-    <script src="{{ asset('bower_components/froala-wysiwyg-editor/js/plugins/inline_class.min.js') }}"></script>
-    {{-- <script src="{{ asset('bower_components/froala-wysiwyg-editor/js/plugins/save.min.js') }}"></script> --}}
-    <script src="{{ asset('bower_components/froala-wysiwyg-editor/js/third_party/font_awesome.min.js') }}"></script>
-    <script src="{{ asset('bower_components/froala-wysiwyg-editor/js/languages/fr.js') }}"></script>
     <script src="{{ asset('angular/app.js') }}"></script>
 
     <div id="chatbutton-wa" data-phone="+221778224129" data-showpopup="true"
