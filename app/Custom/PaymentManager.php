@@ -24,7 +24,7 @@ class PaymentManager
             ->setCurrency('xof')
             ->setRefCommand($souscriptionTemp->uid)
             ->setNotificationUrl([
-                'ipn_url' => config('paytech.base.url') . '/paymentconfirmation', //only https
+                'ipn_url' => config('paytech.base.url') . '/souscription_pin', //only https
                 'success_url' => config('paytech.base.url') . '/paymentconfirmation?state=success&id=' . $souscriptionTemp->id,
                 'cancel_url' => config('paytech.base.url') . '/paymentconfirmation?state=cancel&id=' . $souscriptionTemp->id
             ])->send();
