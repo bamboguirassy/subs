@@ -1,0 +1,15 @@
+{
+  "name": "simditor",
+  "homepage": "https://github.com/mycolorway/simditor",
+  "version": "2.3.28",
+  "_release": "2.3.28",
+  "_resolution": {
+    "type": "version",
+    "tag": "v2.3.28",
+    "commit": "4eb1259270b4270c24ce6486f54fe717a8bbdc1f"
+  },
+  "_source": "https://github.com/mycolorway/simditor.git",
+  "_target": "^2.3.28",
+  "_originalSource": "simditor",
+  "_direct": true
+}
