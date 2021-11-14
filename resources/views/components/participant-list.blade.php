@@ -1,6 +1,6 @@
 @if (count($souscriptions) < 1)
     <x-empty-message title="Vide" message="Il n'y a aucun participant pour le moment !" />
-@elseif(auth()->check() && $souscription->programme->user->id==auth()->id())
+@elseif(auth()->check() && $souscriptions[0]->programme->user->id==auth()->id())
     <section data-bs-version="5.1" class="content11 cid-sOc1O66rsI" id="content11-z">
         <div class="row justify-content-center">
             <div class="col-md-12 col-lg-10">
