@@ -50,7 +50,7 @@
                     <div class="mbr-section-btn mt-3">
                         @if ($programme->current_user_souscription)
                             <span style="background-color: green !important;" class="btn btn-lg btn-success display-4">
-                                <span class="mbri-success mbr-iconfont mbr-iconfont-btn"></span>Déja souscrit</span>
+                                <span class="mbri-success mbr-iconfont mbr-iconfont-btn"></span>Souscrit</span>
                         @else
                             <a class="btn btn-lg btn-warning display-4"
                                 href="{{ route('souscription.new', compact('programme')) }}">
