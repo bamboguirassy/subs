@@ -106,9 +106,7 @@
             <div class="navbar-brand">
                 <span class="navbar-logo">
                     <a href="{{ route('home') }}">
-                        <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
-                            alt="{{ config('app.name') }}" style="height: 3.8rem;" loading="lazy"
-                            class="lazyload" data-src="{{ asset('assets/images/subs-logo-121x141.png') }}">
+                        <img lt="{{ config('app.name') }}" style="height: 3.8rem;" src="{{ asset('assets/images/subs-logo-121x141.png') }}">
                     </a>
                 </span>
                 <span class="pt-2 navbar-caption-wrap"><a class="navbar-caption text-primary display-5"
