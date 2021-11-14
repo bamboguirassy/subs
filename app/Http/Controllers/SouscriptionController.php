@@ -11,6 +11,7 @@ use App\Models\Programme;
 use App\Models\Souscription;
 use App\Models\SouscriptionTemp;
 use App\Models\User;
+use Error;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -200,6 +201,9 @@ class SouscriptionController extends Controller
             try {
                 // recuperer la souscription temp
                 $souscriptionTemp = SouscriptionTemp::where('uid', $uid)->first();
+                if(!$souscriptionTemp) {
+                    throw new Error("Aucune souscription pour le uid {$uid} n'est trouvée !");
+                }
                 $souscription = Helper::convertTempSouscription($souscriptionTemp);
                 $souscription->save();
                 // recuperer toutes les autres souscriptions temp à ce program pour le meme user et supprimer
