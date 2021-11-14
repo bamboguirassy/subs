@@ -15,9 +15,7 @@
                     @endforeach
                 </div>
                 <a href="{{ route('programme.show',compact('programme')) }}">
-                    <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt=""
-                    loading="lazy" class="lazyload"
-                    data-src="{{ asset('uploads/programmes/images/' . $programme->image) }}">
+                    <img src="{{ asset('uploads/programmes/images/' . $programme->image) }}">
                 </a>
             </div>
             <div class="col-12 col-md-12 col-lg-6">

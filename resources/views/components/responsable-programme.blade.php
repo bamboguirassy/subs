@@ -7,9 +7,8 @@
             <div class="row">
                 <div class="col-12 col-md-6 col-lg-3">
                     <div class="user_image ">
-                        <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
-                            alt="photo {{ $user->name }}" loading="lazy" class="lazyload"
-                            data-src="{{ asset('uploads/users/photos/' . $user->photo) }}">
+                        <img alt="photo {{ $user->name }}"
+                            src="{{ asset('uploads/users/photos/' . $user->photo) }}">
                     </div>
                 </div>
 
