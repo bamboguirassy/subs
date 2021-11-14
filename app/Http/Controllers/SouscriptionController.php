@@ -182,13 +182,13 @@ class SouscriptionController extends Controller
 
     public function instantPaymentNotificate(Request $request)
     {
-        $type_event = $request->get('type_event');
-        $payment_method = $request->get('payment_method');
-        $client_phone = $request->get('client_phone');
-        $uid = $request->get('ref_command');
-        $item_name = $request->get('item_name');
-        $item_price = $request->get('item_price');
-        $currency = $request->get('devise');
+        $type_event = $request->input('type_event');
+        $payment_method = $request->input('payment_method');
+        $client_phone = $request->input('client_phone');
+        $uid = $request->input('ref_command');
+        $item_name = $request->input('item_name');
+        $item_price = $request->input('item_price');
+        $currency = $request->input('devise');
 
         $facture = new Facture();
         //from PayTech
