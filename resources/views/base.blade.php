@@ -20,6 +20,7 @@
 
     <title>@yield('title')</title>
     <link rel="stylesheet" href="{{ asset('assets/web/assets/mobirise-icons2/mobirise2.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/web/assets/mobirise-icons-bold/mobirise-icons-bold.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/Material-Design-Icons/css/material.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/icon54/style.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/icon54-v2/style.css') }}">
@@ -43,8 +44,8 @@
     <link rel="preload" as="style" href="{{ asset('assets/mobirise/css/mbr-additional.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/mobirise/css/mbr-additional.css') }}" type="text/css">
     <link rel="stylesheet" href="{{ asset('bower_components/froala-wysiwyg-editor/css/froala_editor.css') }}">
-    <meta name="theme-color" content="#103178">
-    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#3e5381">
+    <link rel="manifest" href="{{ asset('manifest.json') }}">
     <script src="{{ asset('sw-connect.js') }}"></script>
     <meta name="apple-mobile-web-app-capable" content="yes">
     <link rel="apple-touch-startup-image"
@@ -76,6 +77,7 @@
         .nowrap {
             white-space: nowrap;
         }
+
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css"
         integrity="sha512-5A8nwdMOWrSz20fDsjczgUidUBR8liPYU+WymTZP1lmY9G6Oc7HlZv156XqnsgNUzTyMefFTcsFH/tnJE/+xBg=="
@@ -189,6 +191,9 @@
     <script src="{{ asset('assets/smoothscroll/smooth-scroll.js') }}"></script>
     <script src="{{ asset('assets/ytplayer/index.js') }}"></script>
     <script src="{{ asset('assets/chatbutton/floating-wpp.js') }}"></script>
+    <script src="{{ asset('assets/mbr-tabs/mbr-tabs.js') }}"></script>
+    <script src="{{ asset('assets/popup-plugin/script.js') }}"></script>
+    <script src="{{ asset('assets/popup-overlay-plugin/script.js') }}"></script>
     <script src="{{ asset('assets/chatbutton/script.js') }}"></script>
     <script src="{{ asset('assets/dropdown/js/navbar-dropdown.js') }}"></script>
     <script src="{{ asset('assets/touchswipe/jquery.touch-swipe.min.js') }}"></script>
@@ -229,7 +234,7 @@
 
 Ecris un message ici. Il te dirigera vers ton téléphone ! 🔥
 
-Bambogroup Team" data-placeholder="Ecrire ici..." data-position="left" data-headercolor="#39847a"
+Bambogroup Team" data-placeholder="Ecrire ici..." data-position="left" data-headercolor="#103178"
         data-backgroundcolor="#e5ddd5" data-autoopentimeout="0" data-size="65px">
         <div class="floating-wpp-button" style="width: 65px; height: 65px;">
             <div class="floating-wpp-button-image">

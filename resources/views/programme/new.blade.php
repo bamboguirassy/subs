@@ -1,8 +1,8 @@
 @extends("base")
 
-@section("title","")
+@section("title","Publier un nouveau programme")
 
-@section("description","")
+@section("description","Publier un nouveau programme et permettez aux interessés de souscrire pour prendre part au programme.")
 
 @section("body")
 <section data-bs-version="5.1" class="content2 cid-sOc3YTgSUN" id="content2-12">
