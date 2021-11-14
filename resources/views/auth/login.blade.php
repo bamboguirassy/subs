@@ -1,8 +1,8 @@
 @extends("base")
 
-@section("title","")
+@section("title","Page de connexion")
 
-@section("description","")
+@section("description","Identifiez vous pour accéder à la plateforme.")
 
 @section("body")
 <section data-bs-version="5.1" class="header3 cid-sOcnUFYG0i" id="header3-1i">
