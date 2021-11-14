@@ -15,7 +15,7 @@
                     Merci de remplir le formulaire ci-dessous pour lancer votre programme...
                     @guest
                     <br>
-                    Si vous avez déja un compte, merci de vous connecter avant de publier le programme.
+                    Si vous avez déja un compte, merci de vous <a style="font-weight: bold; color: orange;" href="{{ route('login') }}?ret={{Request::url()}}">connecter en cliquant ici</a> avant de publier le programme.
                     @endguest
                 </p>
             </div>
