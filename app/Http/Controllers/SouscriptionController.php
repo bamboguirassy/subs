@@ -213,7 +213,7 @@ class SouscriptionController extends Controller
                 $facture->clientPhone = $client_phone;
                 $facture->libelle = $item_name;
                 $facture->montant = $item_price;
-                $facture->currency = $currency;
+                $facture->currency = $currency??'xof';
                 $facture->uid = $uid;
                 $facture->souscription_id = $souscription->id;
                 $facture->save();
