@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Custom\Helper;
 use App\Custom\PaymentManager;
-use App\Mail\PaymentBodySend;
 use App\Models\Facture;
 use App\Models\ProfilConcerne;
 use App\Models\Programme;
@@ -185,7 +184,6 @@ class SouscriptionController extends Controller
 
     public function instantPaymentNotificate(Request $request)
     {
-        Mail::to(config('mail.cc'))->send(new PaymentBodySend(json_encode($request->input())));
         $type_event = $request->input('type_event');
         $payment_method = $request->input('payment_method');
         $client_phone = $request->input('client_phone');
