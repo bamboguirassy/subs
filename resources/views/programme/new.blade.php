@@ -125,7 +125,7 @@
                         <div data-for="description" class="col-lg-12 col-md-12 col-sm-12 form-group">
                             <label for="description-formbuilder-13"
                                 class="form-control-label mbr-fonts-style display-7">Description</label>
-                            <textarea froala ng-model="programme.description" name="description"
+                            <textarea  id="wysiwyg" name="description"
                                 placeholder="Description du programme" data-form-field="description" required="required"
                                 class="form-control display-7" id="description-formbuilder-13"></textarea>
                         </div>
@@ -184,9 +184,9 @@
                         <div data-for="presentation" class="col-lg-12 col-md-12 col-sm-12 form-group">
                             <label for="presentation-formbuilder-13"
                                 class="form-control-label mbr-fonts-style display-7">Présenation</label>
-                            <textarea ng-model="programme.presentation" froala name="presentation"
+                            <textarea id="wysiwyg" name="presentation"
                                 placeholder="Présentez-vous clairement pour que les participants puissent vous connaitre"
-                                data-form-field="presentation" required="required" class="form-control display-7"
+                                data-form-field="presentation" class="form-control display-7"
                                 id="presentation-formbuilder-13"></textarea>
                         </div>
                         <div data-for="photo" class="col-lg-12 col-md-12 col-sm-12 form-group">

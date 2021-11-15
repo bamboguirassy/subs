@@ -19,7 +19,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Auth::routes(['verify' => true]);
+
 Route::get('/', function () {
+    return redirect()->route('home');
+});
+
+Route::get('/home', function () {
     $programmeActives = Programme::where('dateCloture', '>=', new DateTime())
         ->orderBy('dateCloture')->paginate(20);
     return view('home', compact('programmeActives'));
@@ -69,13 +75,13 @@ Route::get('mesprogrammes', function () {
     $title = "mes programmes";
     $programmes = Auth::user()->programmes;
     return view('programme.list', compact('programmes', 'title'));
-})->middleware('auth')->name('mes.programmes');
+})->middleware('verified')->name('mes.programmes');
 
 Route::get('messouscriptions', function () {
     $title = "mes souscriptions";
     $programmes = Auth::user()->programmeSouscrits;
     return view('programme.list', compact('programmes', 'title'));
-})->middleware('auth')->name('mes.souscriptions');
+})->middleware('verified')->name('mes.souscriptions');
 
 Route::get('souscription/{programme}/create', function (Programme $programme) {
     // vérifier si user n'a pas déja souscrit
@@ -97,3 +103,4 @@ Route::get('paymentconfirmation', function (Request $request) {
     $souscription = Souscription::find($request->get('id'));
     return view('programme.souscription.payment-confirmation', ['state' => $request->get('state'), 'souscription' => $souscription]);
 });
+

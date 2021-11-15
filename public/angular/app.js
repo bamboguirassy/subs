@@ -1,6 +1,6 @@
 angular.module('Subs', [], () => {
     var editor = new Simditor({
-        textarea: $('textarea')
+        textarea: $('#wysiwyg')
         //optional options
       });
 })
