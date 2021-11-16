@@ -43,7 +43,7 @@
                                 class="form-control display-7" id="type_programme_id-formbuilder-13">
                                 <option value="" disabled selected>Sélectionner le type</option>
                                 @foreach ($typeProgrammes as $typeProgramme)
-                                <option value="{{ old('type_programme_id')  ?? $typeProgramme->id }} " selected>{{ $typeProgramme->nom }}</option>
+                                <option value="{{ old('type_programme_id') ?? $typeProgramme->id }} " selected>{{ $typeProgramme->nom }}</option>
                                 @endforeach
                             </select>
                         </div>
