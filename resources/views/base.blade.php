@@ -107,7 +107,8 @@
             <div class="navbar-brand">
                 <span class="navbar-logo">
                     <a href="{{ route('home') }}">
-                        <img lt="{{ config('app.name') }}" style="height: 3.8rem;" src="{{ asset('assets/images/subs-logo-121x141.png') }}">
+                        <img lt="{{ config('app.name') }}" style="height: 3.8rem;"
+                            src="{{ asset('assets/images/subs-logo-121x141.png') }}">
                     </a>
                 </span>
                 <span class="pt-2 navbar-caption-wrap"><a class="navbar-caption text-primary display-5"
@@ -169,7 +170,7 @@
     </section>
 
     @yield("body")
-
+    <x-separator />
     <section data-bs-version="5.1" class="footer7 cid-sOaHY68q1p" once="footers" id="footer7-1">
 
         <div class="container">
@@ -213,7 +214,7 @@
 
 Ecris un message ici. Il te dirigera vers ton téléphone ! 🔥
 
-Bambogroup Team" data-placeholder="Ecrire ici..." data-position="left" data-headercolor="#103178"
+Bambogroup Team" data-placeholder="Ecrire ici..." data-position="left" data-headercolor="#2ca9d7"
         data-backgroundcolor="#e5ddd5" data-autoopentimeout="0" data-size="65px">
         <div class="floating-wpp-button" style="width: 65px; height: 65px;">
             <div class="floating-wpp-button-image">
