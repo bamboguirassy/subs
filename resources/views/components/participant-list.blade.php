@@ -22,7 +22,7 @@
         </div>
     </section>
     <x-separator />
-    <section data-bs-version="5.1" class="table01 photom4_table01 section-table cid-sObY9vjAPL" id="table01-x">
+    <section data-bs-version="5.1" class="table01 photom4_table01 section-table cid-sObY9vjAPL " id="table01-x">
         <div class="row align-center">
             <div class="col-12 col-md-12">
                 <h2 class="mbr-section-title mbr-fonts-style mbr-black display-2">
@@ -39,11 +39,11 @@
                             </div>
                         </div>
                     </div>
-                    <div class="table-responsive">
-                        <table class="table table-striped isSearch " cellspacing="0"
+                    <div style="overflow-x:auto;">
+                        <table class="table-responsive"
                             data-empty="No matching records found">
-                            <thead>
-                                <tr class="table-heads justify-content-center">
+                            <thead >
+                                <tr class="table-heads">
                                     <th class="head-item mbr-fonts-style display-4">#</th>
                                     <th class="head-item mbr-fonts-style display-4 nowrap">Nom complet</th>
                                     <th class="head-item mbr-fonts-style display-4 nowrap">Profil</th>
