@@ -1,0 +1,54 @@
+{
+  "name": "angular-froala",
+  "version": "4.0.6",
+  "description": "Angular.js bindings for Froala WYSIWYG HTML rich text editor",
+  "main": "src/angular-froala.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/froala/angular-froala.git"
+  },
+  "keywords": [
+    "angular.js",
+    "froala",
+    "html",
+    "text",
+    "editor",
+    "wysisyg",
+    "rich editor",
+    "rich text editor",
+    "rte",
+    "javascript"
+  ],
+  "contributors": [
+    "Froala Labs <kapil.garg.techy@gmail.com>"
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/froala/angular-froala/issues"
+  },
+  "homepage": "https://www.froala.com/wysiwyg-editor",
+  "devDependencies": {
+    "grunt": "^1.0.3",
+    "grunt-contrib-concat": "^0.5.1",
+    "grunt-contrib-jshint": "^2.0.0",
+    "grunt-contrib-uglify": "^0.11.0",
+    "grunt-contrib-watch": "^1.1.0",
+    "grunt-karma": "^3.0.1",
+    "jasmine-core": "^2.4.1",
+    "jshint-stylish": "^2.1.0",
+    "karma": "^4.0.0",
+    "karma-firefox-launcher": "^0.1.7",
+    "karma-jasmine": "^0.3.6",
+    "karma-phantomjs-launcher": "^1.0.4",
+    "phantomjs": "^1.9.19",
+    "sinon": "^1.17.2",
+    "angular": ">=1.0"
+  },
+  "dependencies": {
+    "coffee-script": "^1.12.7",
+    "froala-editor": "4.0.6"
+  }
+}

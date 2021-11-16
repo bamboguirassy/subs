@@ -153,7 +153,9 @@ class ProgrammeController extends Controller
      */
     public function edit(Programme $programme)
     {
-        return view('programme.edit');
+        $typeProgrammes = TypeProgramme::orderBy('nom')->get();
+        $profils = Profil::orderBy('nom')->get();
+        return view('programme.edit', compact('typeProgrammes', 'profils','programme'));
     }
 
     /**
@@ -165,7 +167,45 @@ class ProgrammeController extends Controller
      */
     public function update(Request $request, Programme $programme)
     {
-        //
+        $request->validate([
+            'type_programme_id' => 'required|exists:type_programmes,id',
+            'nom' => 'required',
+            'dateCloture' => 'required',
+            'dateDemarrage' => 'required',
+            'duree' => 'required',
+            'nombreSeance' => 'required|numeric',
+            'nombreParticipants' => 'required|numeric',
+            'description' => 'required',
+            'modeDeroulement' => 'required',
+
+
+
+        ]);
+
+        DB::beginTransaction();
+        try {
+
+            if($request->has('image'))
+            {
+                Storage::delete('programmes/images/'.$programme->image);
+                $filename = $request->get('nom').'.'.$request->file('image')->extension();
+                $request->file('image')->storeAs('programmes/images', $filename);
+                $programme->image = $filename;
+            }
+
+                $programme->update();
+
+
+                DB::commit();
+                notify()->success("Le programme a bien été Modifier !!!");
+                return redirect()->route('programme.show', compact('programme'));
+        }catch(Exception $e) {
+
+            DB::rollback();
+
+            throw $e;
+        }
+
     }
 
     /**

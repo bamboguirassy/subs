@@ -48,7 +48,7 @@
                                     </form>
                                     <a class="btn btn-success display-4" href="#table01-x">
                                         <span class="mbrib-users mbr-iconfont mbr-iconfont-btn"></span>Participants</a>
-                                    <a class="btn btn-warning display-4" href="#"><span
+                                    <a class="btn btn-warning display-4" href="{{ route('programme.edit', compact('programme')) }}"><span
                                             class="mobi-mbri mobi-mbri-edit-2 mbr-iconfont mbr-iconfont-btn"></span>Modifier</a>
                                 @else
                                     @if ($programme->current_user_souscription && $programme->active)
