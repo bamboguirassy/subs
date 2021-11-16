@@ -177,9 +177,6 @@ class ProgrammeController extends Controller
             'nombreParticipants' => 'required|numeric',
             'description' => 'required',
             'modeDeroulement' => 'required',
-
-
-
         ]);
 
         DB::beginTransaction();
@@ -192,17 +189,12 @@ class ProgrammeController extends Controller
                 $request->file('image')->storeAs('programmes/images', $filename);
                 $programme->image = $filename;
             }
-
-                $programme->update();
-
-
+            $programme->update($request->except('image'));
                 DB::commit();
                 notify()->success("Le programme a bien été Modifier !!!");
                 return redirect()->route('programme.show', compact('programme'));
         }catch(Exception $e) {
-
             DB::rollback();
-
             throw $e;
         }
 

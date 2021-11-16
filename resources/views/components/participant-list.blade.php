@@ -39,11 +39,11 @@
                             </div>
                         </div>
                     </div>
-                    <div class="container-fluid scroll">
-                        <table class="table table-striped isSearch" cellspacing="0"
+                    <div class="table-responsive">
+                        <table class="table table-striped isSearch " cellspacing="0"
                             data-empty="No matching records found">
                             <thead>
-                                <tr class="table-heads">
+                                <tr class="table-heads justify-content-center">
                                     <th class="head-item mbr-fonts-style display-4">#</th>
                                     <th class="head-item mbr-fonts-style display-4 nowrap">Nom complet</th>
                                     <th class="head-item mbr-fonts-style display-4 nowrap">Profil</th>
