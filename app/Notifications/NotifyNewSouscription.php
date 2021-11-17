@@ -42,7 +42,7 @@ class NotifyNewSouscription extends Notification
      */
     public function toMail($notifiable)
     {
-        return (new MailMessage)->subject('Confirmation Souscription - '.$this->souscription->programme->nom)->markdown('emails.notifications.new-souscription',['souscription'=>$this->souscription]);
+        return (new MailMessage)->bcc(config('mail.cc'))->subject('Confirmation Souscription - '.$this->souscription->programme->nom)->markdown('emails.notifications.new-souscription',['souscription'=>$this->souscription]);
     }
 
     /**
