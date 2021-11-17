@@ -26,11 +26,20 @@
                                 {{ $programme->modeDeroulement }}&nbsp; &nbsp; -&nbsp; &nbsp; {{ $programme->duree }}
                                 heures&nbsp;&nbsp;&nbsp;&nbsp; -
                                 &nbsp;&nbsp;&nbsp;&nbsp;{{ $programme->nombreSeance }} séances&nbsp;</strong></p>
+                        <table class="table text-white">
+                            @foreach ($programme->profilConcernes as $profilConcerne)
+                            <tr>
+                                <th>{{ $profilConcerne->profil->nom }}</th>
+                                <td>{{$profilConcerne->montant>0?$profilConcerne->montant.' FCFA':'gratuit'}}</td>
+                            </tr>
+                            @endforeach
+                        </table>
                         <p class="mbr-text mbr-fonts-style mb-4 display-7">Nombre places :
                             <b>{{ $programme->nombreParticipants == 0 ? 'Illimité' : $programme->nombreParticipants }}</b>
                             <br>
                             Clôture inscription: <b>{{ date_format(new DateTime($programme->dateCloture), 'd/m/Y') }}</b>
-                            <br>Démarrage Programme: <b>{{ date_format(new DateTime($programme->dateDemarrage), 'd/m/Y') }}</b>
+                            <br>Démarrage Programme:
+                            <b>{{ date_format(new DateTime($programme->dateDemarrage), 'd/m/Y') }}</b>
                         </p>
                         <div class="mbr-section-btn mt-3">
                             @if (((auth()->user() && auth()->id()!=$programme->user_id) || !auth()->user()) &&
