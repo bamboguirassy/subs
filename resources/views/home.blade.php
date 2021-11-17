@@ -1,6 +1,6 @@
 @extends("base")
 
-@section('title', config('app.name'))
+@section('title', config('app.name')." - Plateforme de souscription à des programmes de formations, conférences, séminaires...")
 
 @section('description',
     "Plateforme d'inscription à des programmes importants tels que les formations, les séminaires,
