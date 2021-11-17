@@ -1,6 +1,6 @@
 @extends("base")
 
-@section('title', $programme->nom." à partir du ".date_format(new DateTime($programme->dateDemarrage,'d/m/Y').". Les inscriptions sont ouvertes jusqu'au ".date_format(new DateTime($programme->dateCloture,'d/m/Y')))
+@section('title', $programme->nom." à partir du ".date_format(new DateTime($programme->dateDemarrage),'d/m/Y').". Les inscriptions sont ouvertes jusqu'au ".date_format(new DateTime($programme->dateCloture),'d/m/Y'))
 
 @section('social-sharing')
     <meta name="twitter:image:src" content="{{ asset('uploads/programmes/images/' . $programme->image) }}">
