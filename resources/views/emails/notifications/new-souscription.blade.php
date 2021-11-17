@@ -4,7 +4,7 @@
 
 [![Subs]({{ asset('assets/images/subs-logo.png') }})]({{ asset('assets/images/subs-logo.png') }})
 
-Bonjour **{{ auth()->user()->name }}**,<br>
+Bonjour **{{ $souscription->user->name }}**,<br>
 
 Votre souscription pour le programme "**{{ $souscription->programme->nom }}**" a reussi.<br>
 
