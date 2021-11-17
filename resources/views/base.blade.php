@@ -150,8 +150,11 @@
                                 <a class="dropdown-item show text-primary display-4"
                                     href="{{ route('mes.souscriptions') }}" aria-expanded="false"
                                     data-bs-auto-close="outside">Mes souscriptions</a>
-                                <a class="dropdown-item show text-primary display-4" href="{{ route('logout') }}"
-                                    aria-expanded="false" data-bs-auto-close="outside">Se déconnecter</a>
+                                    <form action="{{ route('logout') }}" method="post">
+                                        @csrf
+                                        <button class="dropdown-item show text-primary display-4"
+                                            aria-expanded="false" data-bs-auto-close="outside">Se déconnecter</button>
+                                    </form>
                             </div>
                         </li>
                     @endauth
