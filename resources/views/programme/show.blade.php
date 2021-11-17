@@ -26,7 +26,12 @@
                                 {{ $programme->modeDeroulement }}&nbsp; &nbsp; -&nbsp; &nbsp; {{ $programme->duree }}
                                 heures&nbsp;&nbsp;&nbsp;&nbsp; -
                                 &nbsp;&nbsp;&nbsp;&nbsp;{{ $programme->nombreSeance }} séances&nbsp;</strong></p>
-                        <p></p>
+                        <p class="mbr-text mbr-fonts-style mb-4 display-7">Nombre places :
+                            {{ $programme->nombreParticipants == 0 ? 'Illimité' : $programme->nombreParticipants }}
+                            <br>
+                            Clôture inscription: {{ date_format(new DateTime($programme->dateCloture), 'd/m/Y') }}
+                            <br>Démarrage Programme: {{ date_format(new DateTime($programme->dateDemarrage), 'd/m/Y') }}
+                        </p>
                         <div class="mbr-section-btn mt-3">
                             @if (((auth()->user() && auth()->id()!=$programme->user_id) || !auth()->user()) &&
                             !$programme->current_user_souscription)
@@ -48,7 +53,8 @@
                                     </form>
                                     <a class="btn btn-danger display-4" href="#table01-x">
                                         <span class="mbrib-users mbr-iconfont mbr-iconfont-btn"></span>Participants</a>
-                                    <a class="btn btn-warning display-4" href="{{ route('programme.edit', compact('programme')) }}"><span
+                                    <a class="btn btn-warning display-4"
+                                        href="{{ route('programme.edit', compact('programme')) }}"><span
                                             class="mobi-mbri mobi-mbri-edit-2 mbr-iconfont mbr-iconfont-btn"></span>Modifier</a>
                                 @else
                                     @if ($programme->current_user_souscription && $programme->active)
@@ -161,7 +167,7 @@
                                 <div id="tab5" class="tab-pane" role="tabpanel">
                                     <div class="row">
                                         <div class="col-md-12">
-                                            <x-souscription-details :souscription="$programme->current_user_souscription"/>
+                                            <x-souscription-details :souscription="$programme->current_user_souscription" />
                                         </div>
                                     </div>
                                 </div>

@@ -138,7 +138,7 @@
                                     <div class="col-lg-12 col-md-12 col-sm-12 form-group" data-for="message">
                                         <label for="message-mbr-popup-1w"
                                             class="form-control-label mbr-fonts-style display-7">Message</label>
-                                        <textarea name="message" placeholder="Rédiger le mail ici..."
+                                        <textarea id="wysiwyg" name="message" placeholder="Rédiger le mail ici..."
                                             data-form-field="message" class="form-control display-7" required="required"
                                             id="message-mbr-popup-1w"></textarea>
                                     </div>
