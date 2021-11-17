@@ -39,16 +39,17 @@ class Helper
             'profession' => 'required',
             'telephone' => 'required',
             'password' => 'confirmed|min:6',
-            'photo' => 'required|image'
         ]);
         // créer le user dans la DB et l'associer au programme
         $user = new User($request->all());
         $password = Hash::make($request->get('password'));
         $user->password = $password;
         // gérer upload image
-        $photoname = $user->email . '_' . uniqid() . '.' . $request->file('photo')->extension();
-        $request->file('photo')->storeAs('users/photos', $photoname);
-        $user->photo = $photoname;
+        if ($request->hasFile('image')) {
+            $photoname = $user->email . '_' . uniqid() . '.' . $request->file('photo')->extension();
+            $request->file('photo')->storeAs('users/photos', $photoname);
+            $user->photo = $photoname;
+        }
         $user->save();
         $user->notify(new VerifyEmail);
         /** notofier l'utilisateur pour le compte */

@@ -104,9 +104,9 @@
                                 </div>
                                 <div data-for="photo" class="col-lg-12 col-md-12 col-sm-12 form-group">
                                     <label for="photo-formbuilder-13" class="form-control-label mbr-fonts-style display-7">
-                                        Chosir une photo de profil</label>
+                                        Chosir une photo de profil (optionnel)</label>
                                     <input type="file" accept="image/*" name="photo" max="100" min="0" step="1"
-                                        data-form-field="photo" required="required" class="form-control display-7" value="{{ old('photo') }}"
+                                        data-form-field="photo" class="form-control display-7" value="{{ old('photo') }}"
                                         id="photo-formbuilder-13">
                                 </div>
                                 <div class="col-lg-12 col-md-12 col-sm-12 form-group" data-for="password">
