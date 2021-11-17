@@ -30,7 +30,7 @@
                         <div class="mbr-section-btn mt-3">
                             @if (((auth()->user() && auth()->id()!=$programme->user_id) || !auth()->user()) &&
                             !$programme->current_user_souscription)
-                            <a class="btn btn-success display-4"
+                            <a class="btn btn-white display-4"
                                 href="{{ route('souscription.new', compact('programme')) }}">
                                 <span class="mbrib-edit mbr-iconfont mbr-iconfont-btn"></span>Souscrire
                             </a>

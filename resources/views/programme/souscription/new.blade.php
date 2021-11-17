@@ -28,7 +28,7 @@
                     <p class="mbr-text mbr-fonts-style display-7">Vous pouvez souscrire au programme en remplissant le
                         formulaire ci-dessous. <br>
                         Si vous avez déja un compte, merci de vous
-                        <a style="font-weight: bold; color: orange;" href="{{ route('login') }}?ret={{Request::url()}}">connecter en cliquant ici</a>
+                        <a style="font-weight: bold; color: white;" href="{{ route('login') }}?ret={{Request::url()}}">connecter en cliquant ici</a>
                     </p>
 
                 </div>
