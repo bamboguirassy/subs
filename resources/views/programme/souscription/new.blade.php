@@ -2,6 +2,11 @@
 
 @section('title', 'Souscrire au programme ' . $programme->nom)
 
+@section('social-sharing')
+    <meta name="twitter:image:src" content="{{ asset('uploads/programmes/images/' . $programme->image) }}">
+    <meta property="og:image" content="{{ asset('uploads/programmes/images/' . $programme->image) }}">
+@endsection
+
 @section('description', $programme->description)
 
 @section('body')
