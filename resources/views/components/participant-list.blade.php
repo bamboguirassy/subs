@@ -40,7 +40,7 @@
                         </div>
                     </div>
                     <div style="overflow-x:auto;">
-                        <table class="table-responsive"
+                        <table class="table table-striped isSearch table-responsive-stack" cellspacing="0"
                             data-empty="No matching records found">
                             <thead >
                                 <tr class="table-heads">
