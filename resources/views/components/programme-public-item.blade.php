@@ -2,7 +2,7 @@
     <div class="container">
         <div class="row align-left justify-content-center align-items-center">
             <div class="col-12 col-md-12 col-lg-6 image-wrapper">
-                <div class="price-wrapper">
+                <div class="price-wrapper" style="right: 20px;">
                     @foreach ($programme->profilConcernes as $profilConcerne)
                         <h5 class="price-title mbr-fonts-style m-0 display-8">
                             <strong>

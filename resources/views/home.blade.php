@@ -43,5 +43,4 @@
 
     <x-social-sharing />
 
-    <x-separator />
 @endsection
