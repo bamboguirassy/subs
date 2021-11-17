@@ -57,12 +57,6 @@ Route::post('login', function (Request $request) {
     return;
 })->name('login.request');
 
-/*Route::get('logout', function () {
-    Auth::logout();
-    notify()->success("Vous êtes déconnecté avec succès !");
-    return redirect()->route('home');
-})->name('logout')->middleware('auth');*/
-
 Route::resource('programme', ProgrammeController::class, [
     'only' => ['create', 'store', 'show']
 ])->middleware('web');
