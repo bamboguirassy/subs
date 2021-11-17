@@ -4,8 +4,13 @@
             <h4 class="mbr-section-subtitle mbr-fonts-style mb-4 display-5">
                 Description du programme</h4>
             <p class="mbr-text mbr-fonts-style display-7">
-                {!! $description !!}
+                {!! $programme->description !!}
             </p>
+            @if (!$programme->current_user_souscription)
+                <a class="btn btn-success display-4" href="{{ route('souscription.new', compact('programme')) }}">
+                    <span class="mbrib-edit mbr-iconfont mbr-iconfont-btn"></span>Souscrire
+                </a>
+            @endif
         </div>
     </div>
 </section>

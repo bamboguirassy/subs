@@ -2,19 +2,20 @@
 
 namespace App\View\Components;
 
+use App\Models\Programme;
 use Illuminate\View\Component;
 
 class ProgrammeDescription extends Component
 {
-    public $description;
+    public $programme;
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct($description)
+    public function __construct(Programme $programme)
     {
-        $this->description = $description;
+        $this->programme = $programme;
     }
 
     /**

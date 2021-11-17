@@ -27,10 +27,10 @@
                                 heures&nbsp;&nbsp;&nbsp;&nbsp; -
                                 &nbsp;&nbsp;&nbsp;&nbsp;{{ $programme->nombreSeance }} séances&nbsp;</strong></p>
                         <p class="mbr-text mbr-fonts-style mb-4 display-7">Nombre places :
-                            {{ $programme->nombreParticipants == 0 ? 'Illimité' : $programme->nombreParticipants }}
+                            <b>{{ $programme->nombreParticipants == 0 ? 'Illimité' : $programme->nombreParticipants }}</b>
                             <br>
-                            Clôture inscription: {{ date_format(new DateTime($programme->dateCloture), 'd/m/Y') }}
-                            <br>Démarrage Programme: {{ date_format(new DateTime($programme->dateDemarrage), 'd/m/Y') }}
+                            Clôture inscription: <b>{{ date_format(new DateTime($programme->dateCloture), 'd/m/Y') }}</b>
+                            <br>Démarrage Programme: <b>{{ date_format(new DateTime($programme->dateDemarrage), 'd/m/Y') }}</b>
                         </p>
                         <div class="mbr-section-btn mt-3">
                             @if (((auth()->user() && auth()->id()!=$programme->user_id) || !auth()->user()) &&
@@ -112,7 +112,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-9">
-                                    <x-programme-description :description="$programme->description" />
+                                    <x-programme-description :programme="$programme" />
                                 </div>
                             </div>
                         </div>
