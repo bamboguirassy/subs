@@ -71,9 +71,6 @@
             </div>
         </div>
     </section>
-
-    <x-responsable-programme :user="$programme->user" />
-
     {{-- tab section --}}
     <section data-bs-version="5.1" class="tabs list1 cid-sODO1Mi024" id="list1-1r">
         <div class="container-fluid">
@@ -179,6 +176,7 @@
         </div>
     </section>
     {{-- end tab section --}}
+    <x-responsable-programme :user="$programme->user" />
 
     <x-separator />
 
