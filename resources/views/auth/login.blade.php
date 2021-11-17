@@ -6,7 +6,7 @@
 
 @section('body')
     <section data-bs-version="5.1" class="header3 cid-sOcnUFYG0i" id="header3-1i">
-        <div class="mbr-overlay" style="opacity: 0.8; background-color: rgb(16, 49, 120);"></div>
+        <div class="mbr-overlay" style="opacity: 0.8; background-color: #2ca9d7;"></div>
         <div class="align-center container">
             <div class="row justify-content-center">
                 <div class="col-12 col-lg-6">
