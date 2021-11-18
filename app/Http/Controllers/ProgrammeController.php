@@ -107,6 +107,7 @@ class ProgrammeController extends Controller
                 $programme->user_id = $user->id;
             }
             $programme->save();
+
             // reccuperer les profils selectionnés
             foreach ($request->get('profils') as $profilId) {
                 // et créer les profils concernés avec les montants et les associer avec le programme
@@ -154,7 +155,7 @@ class ProgrammeController extends Controller
     {
         $typeProgrammes = TypeProgramme::orderBy('nom')->get();
         $profils = Profil::orderBy('nom')->get();
-        return view('programme.edit', compact('typeProgrammes', 'profils', 'programme'));
+        return view('programme.edit', compact('typeProgrammes', 'profils','programme'));
     }
 
     /**
@@ -177,22 +178,25 @@ class ProgrammeController extends Controller
             'description' => 'required',
             'modeDeroulement' => 'required',
         ]);
+
         DB::beginTransaction();
         try {
-            if ($request->has('image')) {
-                Storage::delete('programmes/images/' . $programme->image);
-                $filename = $request->get('nom') . '.' . $request->file('image')->extension();
+            if($request->has('image'))
+            {
+                Storage::delete('programmes/images/'.$programme->image);
+                $filename = $request->get('nom').'.'.$request->file('image')->extension();
                 $request->file('image')->storeAs('programmes/images', $filename);
                 $programme->image = $filename;
             }
             $programme->update($request->except('image'));
-            DB::commit();
-            notify()->success("Le programme a bien été Modifier !!!");
-            return redirect()->route('programme.show', compact('programme'));
-        } catch (Exception $e) {
+                DB::commit();
+                notify()->success("Le programme a bien été Modifier !!!");
+                return redirect()->route('programme.show', compact('programme'));
+        }catch(Exception $e) {
             DB::rollback();
             throw $e;
         }
+
     }
 
     /**
@@ -213,13 +217,10 @@ class ProgrammeController extends Controller
             ProfilConcerne::destroy($programme->profilConcernes);
             if ($programme->delete()) {
                 notify("Suppression reussie !");
+                Storage::delete(['programmes/images/'.$programme->image]);
+otify("Suppression reussie !");
                 Storage::delete(['programmes/images/' . $programme->image]);
-            } else {
-                notify()->error("Une erreur est survenue lors de la suppression de la souscription.");
-            }
-            DB::commit();
-        } catch (\Throwable $th) {
-            DB::rollback();
+ck();
             throw $th;
         }
         return redirect()->route('mes.programmes');

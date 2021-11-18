@@ -150,6 +150,9 @@
                                 <a class="dropdown-item show text-primary display-4"
                                     href="{{ route('mes.souscriptions') }}" aria-expanded="false"
                                     data-bs-auto-close="outside">Mes souscriptions</a>
+                                    <a class="dropdown-item show text-primary display-4"
+                                    href="{{ route('profile') }}" aria-expanded="false"
+                                    data-bs-auto-close="outside">Mon Profil</a>
                                 <a class="dropdown-item show text-primary display-4" href="{{ route('logout') }}"
                                     aria-expanded="false" data-bs-auto-close="outside">Se déconnecter</a>
                             </div>

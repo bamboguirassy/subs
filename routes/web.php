@@ -1,10 +1,13 @@
 <?php
 
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProgrammeController;
 use App\Http\Controllers\SouscriptionController;
 use App\Models\Programme;
 use App\Models\Souscription;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -37,6 +40,10 @@ Route::get('login', function (Request $request) {
     return view('auth.login');
 })->name('login');
 
+Route::get('profile', function(User $user=null) {
+    return view('auth.profile',compact('user'));
+    })->middleware('auth')->name('profile');
+
 Route::post('login', function (Request $request) {
     $request->validate([
         'email' => 'required|exists:users,email|email',
@@ -56,6 +63,10 @@ Route::post('login', function (Request $request) {
     }
     return;
 })->name('login.request');
+
+Route::put('users/{id}', function ($id) {
+
+});
 
 Route::get('logout', function () {
     Auth::logout();
@@ -98,6 +109,27 @@ Route::post('souscription_pin', 'App\Http\Controllers\SouscriptionController@ins
 Route::resource('souscription', SouscriptionController::class, [
     'only' => ['store']
 ]);
+
+Route::resource('user', UserController::class, [
+    'only' => ['update']
+]);
+// changement mdp
+Route::put('change-password',function(Request $request, User $user=null) {
+    $request->validate([
+        'currentPassword'=>'required|min:6',
+        'password'=>'confirmed'
+    ]);
+    $user = User::find(Auth::user()->id);
+    if(Hash::check($request->get('currentPassword'), $user->password)) {
+        $user->password = Hash::make($request->get('password'));
+        $user->update();
+        notify()->success("Votre mot de passe a été changé avec succès !");
+        Auth::logout();
+    } else {
+        notify()->error("Le mot de passe saisi est incorrect !");
+    }
+    return back();
+})->name('change.password.request')->middleware('auth');
 
 Route::get('paymentconfirmation', function (Request $request) {
     $souscription = Souscription::find($request->get('id'));
