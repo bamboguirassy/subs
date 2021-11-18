@@ -110,7 +110,7 @@ Route::post('souscription/{programme}/contact', [SouscriptionController::class, 
 ->middleware('auth')->name('send.email.to.participants');
 
 Route::resource('souscription', SouscriptionController::class, [
-    'only' => ['store']
+    'only' => ['store','update']
 ]);
 
 Route::resource('user', UserController::class, [

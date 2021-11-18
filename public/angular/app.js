@@ -1,9 +1,9 @@
 angular.module('Subs', [], () => {
-    $(()=>{
+    $(() => {
         var editor = new Simditor({
             textarea: $('#wysiwyg')
             //optional options
-          });
+        });
     });
 })
     .controller('ProgrammeNewController', ($scope) => {
@@ -16,4 +16,14 @@ angular.module('Subs', [], () => {
         $scope.selectProfil = (profil) => {
             profil.selected = !profil.selected;
         }
+    }).controller('SouscriptionController', ($scope) => {
+        $scope.selected = {};
+        $scope.select = (item) => {
+            $scope.selected = item;
+        };
+
+        $scope.submitMontantEditForm = () => {
+            $('#souscriptionMontantEdit').attr('action','/souscription/'+$scope.selected.id)
+            $('#souscriptionMontantEdit').submit();
+        };
     });

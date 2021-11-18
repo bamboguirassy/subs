@@ -136,12 +136,20 @@ class SouscriptionController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  Souscription  $souscription
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Souscription $souscription)
     {
-        //
+        if ($request->has('montant')) {
+            $request->validate([
+                'montant' => 'required|numeric|min:0'
+            ]);
+            $souscription->montant = $request->montant;
+        }
+        $souscription->update();
+        notify("La souscription est mise à jour avec succès !");
+        return back();
     }
 
     /**
@@ -177,7 +185,7 @@ class SouscriptionController extends Controller
             try {
                 // recuperer la souscription temp
                 $souscriptionTemp = SouscriptionTemp::where('uid', $uid)->first();
-                if(!$souscriptionTemp) {
+                if (!$souscriptionTemp) {
                     throw new Error("Aucune souscription pour le uid {$uid} n'est trouvée !");
                 }
                 $souscription = Helper::convertTempSouscription($souscriptionTemp);
@@ -191,7 +199,7 @@ class SouscriptionController extends Controller
                 $facture->clientPhone = $client_phone;
                 $facture->libelle = $item_name;
                 $facture->montant = $item_price;
-                $facture->currency = $currency??'xof';
+                $facture->currency = $currency ?? 'xof';
                 $facture->uid = $uid;
                 $facture->souscription_id = $souscription->id;
                 $facture->save();
@@ -206,19 +214,20 @@ class SouscriptionController extends Controller
         }
     }
 
-    public function sendMail(Request $request, Programme $programme) {
+    public function sendMail(Request $request, Programme $programme)
+    {
         $request->validate([
-            'objet'=>'required',
-            'message'=>'required'
+            'objet' => 'required',
+            'message' => 'required'
         ]);
         // find participants
-        $souscriptions = Souscription::where('programme_id',$programme->id)->get();
+        $souscriptions = Souscription::where('programme_id', $programme->id)->get();
         // recuperer les mails
         $mails = [];
         foreach ($souscriptions as $souscription) {
             $mails[] = $souscription->user->email;
         }
-        Mail::to($mails)->bcc(config('mail.cc'))->send(new ContactParticipants($programme, $request->only('message','objet')));
+        Mail::to($mails)->bcc(config('mail.cc'))->send(new ContactParticipants($programme, $request->only('message', 'objet')));
         notify()->success("Le mail est envoyé à tous les participants...");
         return back();
     }
