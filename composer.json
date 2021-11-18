@@ -11,7 +11,7 @@
         "guzzlehttp/guzzle": "^7.0.1",
         "laravel/framework": "^8.65",
         "laravel/sanctum": "^2.11",
-        "laravel/tinker": "^2.5",
+        "laravel/tinker": "^2.6",
         "laravel/ui": "^3.3",
         "martinbutt/laravel-adsense": "^2.0",
         "yoeunes/notify": "^1.0"
