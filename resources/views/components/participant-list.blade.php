@@ -51,6 +51,7 @@
                                     <th class="head-item mbr-fonts-style display-4 nowrap">Téléphone</th>
                                     <th class="head-item mbr-fonts-style display-4 nowrap">DATE</th>
                                     <th class="head-item mbr-fonts-style display-4 nowrap">Profession</th>
+                                    <th class="head-item mbr-fonts-style display-4 nowrap">Montant</th>
                                     {{-- <th class="head-item mbr-fonts-style display-4 nowrap">ACTION</th> --}}
                                 </tr>
                             </thead>
@@ -74,6 +75,8 @@
                                             {{ date_format($souscription->created_at, 'd/m/Y H:i:s') }}</td>
                                         <td class="body-item mbr-fonts-style display-7 nowrap">
                                             {{ $souscription->user->profession }}</td>
+                                        <td class="body-item mbr-fonts-style display-7 nowrap">
+                                            {{ $souscription->montant>0?$souscription->montant.' FCFA':'gratuit' }}</td>
                                         {{-- <td class="body-item mbr-fonts-style display-7 nowrap">button</td> --}}
                                     </tr>
                                 @endforeach
@@ -96,62 +99,60 @@
             </div>
         </div>
     </section>
-@endif
-
-{{-- send mail modal --}}
-<div class="modal mbr-popup cid-sODVeVmwHy fade" tabindex="-1" role="dialog" data-overlay-color="#000000"
-    data-overlay-opacity="0.8" id="mbr-popup-1w" aria-hidden="true">
-    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="container position-static margin-center-pos">
-                <div class="modal-header pb-0">
-                    <h5 class="modal-title mbr-fonts-style display-5">Envoyer un email</h5>
-                    <button type="button" class="close d-flex" data-dismiss="modal" data-bs-dismiss="modal"
-                        aria-label="Close">
-                        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="23" height="23" viewBox="0 0 23 23"
-                            fill="currentColor">
-                            <path
-                                d="M13.4 12l10.3 10.3-1.4 1.4L12 13.4 1.7 23.7.3 22.3 10.6 12 .3 1.7 1.7.3 12 10.6 22.3.3l1.4 1.4L13.4 12z">
-                            </path>
-                        </svg>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <p class="mbr-text mbr-fonts-style display-7">
-                        Envoyer un mail à tous les participants.</p>
-                    <div>
-                        <div class="form-wrapper">
-                            <!--Formbuilder Form-->
-                            <form action="https://mobirise.eu/" method="POST" class="mbr-form form-with-styler">
-                                <div class="">
-                                    <div hidden="hidden" data-form-alert-danger="" class="alert alert-danger col-12">
+    {{-- send mail modal --}}
+    <div class="modal mbr-popup cid-sODVeVmwHy fade" tabindex="-1" role="dialog" data-overlay-color="#000000"
+        data-overlay-opacity="0.8" id="mbr-popup-1w" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="container position-static margin-center-pos">
+                    <div class="modal-header pb-0">
+                        <h5 class="modal-title mbr-fonts-style display-5">Envoyer un email</h5>
+                        <button type="button" class="close d-flex" data-dismiss="modal" data-bs-dismiss="modal"
+                            aria-label="Close">
+                            <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="23" height="23" viewBox="0 0 23 23"
+                                fill="currentColor">
+                                <path
+                                    d="M13.4 12l10.3 10.3-1.4 1.4L12 13.4 1.7 23.7.3 22.3 10.6 12 .3 1.7 1.7.3 12 10.6 22.3.3l1.4 1.4L13.4 12z">
+                                </path>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p class="mbr-text mbr-fonts-style display-7">
+                            Envoyer un mail à tous les participants.</p>
+                        <div>
+                            <div class="form-wrapper">
+                                <!--Formbuilder Form-->
+                                <form action="{{ route('send.email.to.participants',['programme'=>$souscriptions[0]->programme]) }}" method="POST" class="mbr-form form-with-styler">
+                                    @csrf
+                                    <x-form-errors :errors="$errors->all()"/>
+                                    <div class="dragArea">
+                                        <div class="col-lg-12 col-md-12 col-sm-12 form-group" data-for="objet">
+                                            <label for="objet-mbr-popup-1w"
+                                                class="form-control-label mbr-fonts-style display-7">Objet</label>
+                                            <input type="text" name="objet" placeholder="Objet du mail"
+                                                data-form-field="objet" class="form-control display-7" required="required"
+                                                value="" id="objet-mbr-popup-1w">
+                                        </div>
+                                        <div class="col-lg-12 col-md-12 col-sm-12 form-group" data-for="message">
+                                            <label for="message-mbr-popup-1w"
+                                                class="form-control-label mbr-fonts-style display-7">Message</label>
+                                            <textarea id="wysiwyg" name="message" placeholder="Rédiger le mail ici..."
+                                                data-form-field="message" class="form-control display-7" required="required"
+                                                id="message-mbr-popup-1w"></textarea>
+                                        </div>
+                                        <div class="col-md-auto input-group-btn"><button type="submit"
+                                                class="btn btn-primary display-4">Envoyer</button></div>
                                     </div>
-                                </div>
-                                <div class="dragArea">
-                                    <div class="col-lg-12 col-md-12 col-sm-12 form-group" data-for="objet">
-                                        <label for="objet-mbr-popup-1w"
-                                            class="form-control-label mbr-fonts-style display-7">Objet</label>
-                                        <input type="text" name="objet" placeholder="Objet du mail"
-                                            data-form-field="objet" class="form-control display-7" required="required"
-                                            value="" id="objet-mbr-popup-1w">
-                                    </div>
-                                    <div class="col-lg-12 col-md-12 col-sm-12 form-group" data-for="message">
-                                        <label for="message-mbr-popup-1w"
-                                            class="form-control-label mbr-fonts-style display-7">Message</label>
-                                        <textarea name="message" placeholder="Rédiger le mail ici..."
-                                            data-form-field="message" class="form-control display-7" required="required"
-                                            id="message-mbr-popup-1w"></textarea>
-                                    </div>
-                                    <div class="col-md-auto input-group-btn"><button type="submit"
-                                            class="btn btn-primary display-4">Envoyer</button></div>
-                                </div>
-                            </form>
-                            <!--Formbuilder Form-->
+                                </form>
+                                <!--Formbuilder Form-->
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-{{-- end send mail modal --}}
+    {{-- end send mail modal --}}
+@endif
+

@@ -1,8 +1,10 @@
 angular.module('Subs', [], () => {
-    var editor = new Simditor({
-        textarea: $('#wysiwyg')
-        //optional options
-      });
+    $(()=>{
+        var editor = new Simditor({
+            textarea: $('#wysiwyg')
+            //optional options
+          });
+    });
 })
     .controller('ProgrammeNewController', ($scope) => {
         $scope.profils = [];

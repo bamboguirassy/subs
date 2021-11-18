@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Custom\Helper;
 use App\Models\Profil;
 use App\Models\ProfilConcerne;
 use App\Models\Programme;
@@ -77,33 +78,11 @@ class ProgrammeController extends Controller
                 // si user connecté, associer le programme à l'utilisateur connecté
                 $programme->user_id = Auth::id();
             } else {
-                $userVerif = User::where('email', $request->get('email'))
-                    ->first();
-                if ($userVerif) {
-                    $warningMessage = "Cette adresse email est déja utilisée par un autre compte, si c'est la votre, merci de vous connecter avec votre compte. <a href='" . route('login') . "?ret=" . URL::previous() . "'>Se connecter</a>";
-                    notify()->warning($warningMessage);
-                    return back()->withErrors([$warningMessage])->withInput();
-                }
-                // si user non connecté, valider le formulaire avec les infos user du formulaire
+                // forcer la validation de présentation pour le formateur ou responsable de programme
                 $request->validate([
-                    'name' => 'required',
-                    'email' => 'required|unique:users,email',
-                    'profession' => 'required',
-                    'telephone' => 'required',
-                    'presentation' => 'required',
-                    'password' => 'confirmed|min:6',
-                    'photo' => 'required|image'
+                    'presentation' => 'required'
                 ]);
-                // créer le user dans la DB et l'associer au programme
-                $user = new User($request->all());
-                $password = Hash::make($request->get('password'));
-                $user->password = $password;
-                // gérer upload image
-                $photoname = $user->email . '_' . uniqid() . '.' . $request->file('photo')->extension();
-                $request->file('photo')->storeAs('users/photos', $photoname);
-                $user->photo = $photoname;
-                $user->save();
-                /** notofier l'utilisateur pour le compte */
+                $user = Helper::createUserFromRequest();
                 $programme->user_id = $user->id;
             }
             $programme->save();

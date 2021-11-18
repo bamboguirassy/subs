@@ -155,6 +155,11 @@
                                     data-bs-auto-close="outside">Mon Profil</a>
                                 <a class="dropdown-item show text-primary display-4" href="{{ route('logout') }}"
                                     aria-expanded="false" data-bs-auto-close="outside">Se déconnecter</a>
+                                    <form action="{{ route('logout') }}" method="post">
+                                        @csrf
+                                        <button class="dropdown-item show text-primary display-4"
+                                            aria-expanded="false" data-bs-auto-close="outside">Se déconnecter</button>
+                                    </form>
                             </div>
                         </li>
                     @endauth
@@ -208,6 +213,7 @@
     <script src="{{ asset('bower_components/simditor/site/assets/scripts/uploader.js') }}"></script>
     <script src="{{ asset('bower_components/simditor/site/assets/scripts/simditor.js') }}"></script>
     <script src="{{ asset('bower_components/angular/angular.min.js') }}"></script>
+    @yield('inline-script')
     @notify_js
     @notify_render
     <script src="{{ asset('angular/app.js') }}"></script>

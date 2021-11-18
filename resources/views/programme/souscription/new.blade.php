@@ -2,6 +2,11 @@
 
 @section('title', 'Souscrire au programme ' . $programme->nom)
 
+@section('social-sharing')
+    <meta name="twitter:image:src" content="{{ asset('uploads/programmes/images/' . $programme->image) }}">
+    <meta property="og:image" content="{{ asset('uploads/programmes/images/' . $programme->image) }}">
+@endsection
+
 @section('description', $programme->description)
 
 @section('body')
@@ -28,7 +33,7 @@
                     <p class="mbr-text mbr-fonts-style display-7">Vous pouvez souscrire au programme en remplissant le
                         formulaire ci-dessous. <br>
                         Si vous avez déja un compte, merci de vous
-                        <a style="font-weight: bold; color: orange;" href="{{ route('login') }}?ret={{Request::url()}}">connecter en cliquant ici</a>
+                        <a style="font-weight: bold; color: white;" href="{{ route('login') }}?ret={{Request::url()}}">connecter en cliquant ici</a>
                     </p>
 
                 </div>
@@ -104,9 +109,9 @@
                                 </div>
                                 <div data-for="photo" class="col-lg-12 col-md-12 col-sm-12 form-group">
                                     <label for="photo-formbuilder-13" class="form-control-label mbr-fonts-style display-7">
-                                        Chosir une photo de profil</label>
+                                        Chosir une photo de profil (optionnel)</label>
                                     <input type="file" accept="image/*" name="photo" max="100" min="0" step="1"
-                                        data-form-field="photo" required="required" class="form-control display-7" value="{{ old('photo') }}"
+                                        data-form-field="photo" class="form-control display-7" value="{{ old('photo') }}"
                                         id="photo-formbuilder-13">
                                 </div>
                                 <div class="col-lg-12 col-md-12 col-sm-12 form-group" data-for="password">

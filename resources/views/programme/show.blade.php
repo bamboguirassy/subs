@@ -1,6 +1,6 @@
 @extends("base")
 
-@section('title', $programme->nom)
+@section('title', $programme->nom." à partir du ".date_format(new DateTime($programme->dateDemarrage),'d/m/Y').". Les inscriptions sont ouvertes jusqu'au ".date_format(new DateTime($programme->dateCloture),'d/m/Y'))
 
 @section('social-sharing')
     <meta name="twitter:image:src" content="{{ asset('uploads/programmes/images/' . $programme->image) }}">
@@ -26,11 +26,25 @@
                                 {{ $programme->modeDeroulement }}&nbsp; &nbsp; -&nbsp; &nbsp; {{ $programme->duree }}
                                 heures&nbsp;&nbsp;&nbsp;&nbsp; -
                                 &nbsp;&nbsp;&nbsp;&nbsp;{{ $programme->nombreSeance }} séances&nbsp;</strong></p>
-                        <p></p>
+                        <table class="table text-white">
+                            @foreach ($programme->profilConcernes as $profilConcerne)
+                            <tr>
+                                <th>{{ $profilConcerne->profil->nom }}</th>
+                                <td>{{$profilConcerne->montant>0?$profilConcerne->montant.' FCFA':'gratuit'}}</td>
+                            </tr>
+                            @endforeach
+                        </table>
+                        <p class="mbr-text mbr-fonts-style mb-4 display-7">Nombre places :
+                            <b>{{ $programme->nombreParticipants == 0 ? 'Illimité' : $programme->nombreParticipants }}</b>
+                            <br>
+                            Clôture inscription: <b>{{ date_format(new DateTime($programme->dateCloture), 'd/m/Y') }}</b>
+                            <br>Démarrage Programme:
+                            <b>{{ date_format(new DateTime($programme->dateDemarrage), 'd/m/Y') }}</b>
+                        </p>
                         <div class="mbr-section-btn mt-3">
                             @if (((auth()->user() && auth()->id()!=$programme->user_id) || !auth()->user()) &&
                             !$programme->current_user_souscription)
-                            <a class="btn btn-success display-4"
+                            <a class="btn btn-white display-4"
                                 href="{{ route('souscription.new', compact('programme')) }}">
                                 <span class="mbrib-edit mbr-iconfont mbr-iconfont-btn"></span>Souscrire
                             </a>
@@ -48,7 +62,8 @@
                                     </form>
                                     <a class="btn btn-danger display-4" href="#table01-x">
                                         <span class="mbrib-users mbr-iconfont mbr-iconfont-btn"></span>Participants</a>
-                                    <a class="btn btn-warning display-4" href="{{ route('programme.edit', compact('programme')) }}"><span
+                                    <a class="btn btn-warning display-4"
+                                        href="{{ route('programme.edit', compact('programme')) }}"><span
                                             class="mobi-mbri mobi-mbri-edit-2 mbr-iconfont mbr-iconfont-btn"></span>Modifier</a>
                                 @else
                                     @if ($programme->current_user_souscription && $programme->active)
@@ -65,9 +80,6 @@
             </div>
         </div>
     </section>
-
-    <x-responsable-programme :user="$programme->user" />
-
     {{-- tab section --}}
     <section data-bs-version="5.1" class="tabs list1 cid-sODO1Mi024" id="list1-1r">
         <div class="container-fluid">
@@ -106,7 +118,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-9">
-                                    <x-programme-description :description="$programme->description" />
+                                    <x-programme-description :programme="$programme" />
                                 </div>
                             </div>
                         </div>
@@ -161,7 +173,7 @@
                                 <div id="tab5" class="tab-pane" role="tabpanel">
                                     <div class="row">
                                         <div class="col-md-12">
-                                            <x-souscription-details :souscription="$programme->current_user_souscription"/>
+                                            <x-souscription-details :souscription="$programme->current_user_souscription" />
                                         </div>
                                     </div>
                                 </div>
@@ -173,6 +185,7 @@
         </div>
     </section>
     {{-- end tab section --}}
+    <x-responsable-programme :user="$programme->user" />
 
     <x-separator />
 

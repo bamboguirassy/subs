@@ -1,6 +1,11 @@
 @extends("base")
 
-@section('title', config('app.name'))
+@section('title', config('app.name')." - Plateforme de souscription à des programmes de formations, conférences, séminaires...")
+
+@section('social-sharing')
+<meta name="twitter:image:src" content="{{ asset('assets/images/index-meta.png') }}">
+<meta property="og:image" content="{{ asset('assets/images/index-meta.png') }}">
+@endsection
 
 @section('description',
     "Plateforme d'inscription à des programmes importants tels que les formations, les séminaires,

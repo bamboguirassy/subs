@@ -106,6 +106,9 @@ Route::get('souscription/{programme}/create', function (Programme $programme) {
 Route::post('souscription_pin', 'App\Http\Controllers\SouscriptionController@instantPaymentNotificate')
     ->name('souscription.pin');
 
+Route::post('souscription/{programme}/contact', [SouscriptionController::class, 'sendMail'])
+->middleware('auth')->name('send.email.to.participants');
+
 Route::resource('souscription', SouscriptionController::class, [
     'only' => ['store']
 ]);
@@ -135,4 +138,3 @@ Route::get('paymentconfirmation', function (Request $request) {
     $souscription = Souscription::find($request->get('id'));
     return view('programme.souscription.payment-confirmation', ['state' => $request->get('state'), 'souscription' => $souscription]);
 });
-

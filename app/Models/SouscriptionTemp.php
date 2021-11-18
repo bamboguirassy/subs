@@ -38,4 +38,14 @@ class SouscriptionTemp extends Model
     {
         return $this->belongsTo(Programme::class);
     }
+
+    /**
+     * Get the user that owns the SouscriptionTemp
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
 }
