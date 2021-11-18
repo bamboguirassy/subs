@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\URL;
+use Throwable;
 
 class ProgrammeController extends Controller
 {
@@ -134,7 +135,7 @@ class ProgrammeController extends Controller
     {
         $typeProgrammes = TypeProgramme::orderBy('nom')->get();
         $profils = Profil::orderBy('nom')->get();
-        return view('programme.edit', compact('typeProgrammes', 'profils','programme'));
+        return view('programme.edit', compact('typeProgrammes', 'profils', 'programme'));
     }
 
     /**
@@ -160,22 +161,20 @@ class ProgrammeController extends Controller
 
         DB::beginTransaction();
         try {
-            if($request->has('image'))
-            {
-                Storage::delete('programmes/images/'.$programme->image);
-                $filename = $request->get('nom').'.'.$request->file('image')->extension();
+            if ($request->has('image')) {
+                Storage::delete('programmes/images/' . $programme->image);
+                $filename = $request->get('nom') . '.' . $request->file('image')->extension();
                 $request->file('image')->storeAs('programmes/images', $filename);
                 $programme->image = $filename;
             }
             $programme->update($request->except('image'));
-                DB::commit();
-                notify()->success("Le programme a bien été Modifier !!!");
-                return redirect()->route('programme.show', compact('programme'));
-        }catch(Exception $e) {
+            DB::commit();
+            notify()->success("Le programme a bien été Modifier !!!");
+            return redirect()->route('programme.show', compact('programme'));
+        } catch (Exception $e) {
             DB::rollback();
             throw $e;
         }
-
     }
 
     /**
@@ -196,10 +195,13 @@ class ProgrammeController extends Controller
             ProfilConcerne::destroy($programme->profilConcernes);
             if ($programme->delete()) {
                 notify("Suppression reussie !");
-                Storage::delete(['programmes/images/'.$programme->image]);
-otify("Suppression reussie !");
                 Storage::delete(['programmes/images/' . $programme->image]);
-ck();
+            } else {
+                notify()->error("Une erreur est survenue lors de la suppression du programme !");
+            }
+            DB::commit();
+        } catch (Throwable $th) {
+            DB::rollBack();
             throw $th;
         }
         return redirect()->route('mes.programmes');
