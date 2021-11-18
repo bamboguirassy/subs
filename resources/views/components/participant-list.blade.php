@@ -188,11 +188,11 @@
                                    <x-form-errors :errors="$errors->all()"/>
                                    <div class="dragArea">
                                        <div class="col-lg-12 col-md-12 col-sm-12 form-group" data-for="objet">
-                                           <label for="objet-mbr-popup-2w"
+                                           <label for="montant-mbr-popup-2w"
                                                class="form-control-label mbr-fonts-style display-7">Le montant</label>
-                                           <input type="text" name="objet" placeholder="Montant"
-                                               data-form-field="objet" class="form-control display-7" required="required"
-                                               value="" id="objet-mbr-popup-1w">
+                                           <input type="text" name="montant" placeholder="Montant"
+                                               data-form-field="montant" class="form-control display-7" required="required"
+                                               value="" id="montant-mbr-popup-1w">
                                        </div>
 
                                        <div class="col-md-auto input-group-btn"><button type="submit"
