@@ -51,6 +51,7 @@
                                     <th class="head-item mbr-fonts-style display-4 nowrap">Téléphone</th>
                                     <th class="head-item mbr-fonts-style display-4 nowrap">DATE</th>
                                     <th class="head-item mbr-fonts-style display-4 nowrap">Profession</th>
+                                    <th class="head-item mbr-fonts-style display-4 nowrap">Montant</th>
                                     {{-- <th class="head-item mbr-fonts-style display-4 nowrap">ACTION</th> --}}
                                 </tr>
                             </thead>
@@ -74,6 +75,8 @@
                                             {{ date_format($souscription->created_at, 'd/m/Y H:i:s') }}</td>
                                         <td class="body-item mbr-fonts-style display-7 nowrap">
                                             {{ $souscription->user->profession }}</td>
+                                        <td class="body-item mbr-fonts-style display-7 nowrap">
+                                            {{ $souscription->montant>0?$souscription->montant.' FCFA':'gratuit' }}</td>
                                         {{-- <td class="body-item mbr-fonts-style display-7 nowrap">button</td> --}}
                                     </tr>
                                 @endforeach
