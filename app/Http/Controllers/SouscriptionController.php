@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Custom\Helper;
 use App\Custom\PaymentManager;
+use App\Mail\ContactParticipants;
 use App\Models\Facture;
 use App\Models\ProfilConcerne;
 use App\Models\Programme;
@@ -203,5 +204,22 @@ class SouscriptionController extends Controller
         } else {
             // notifier de paiement sale_canceled
         }
+    }
+
+    public function sendMail(Request $request, Programme $programme) {
+        $request->validate([
+            'objet'=>'required',
+            'message'=>'required'
+        ]);
+        // find participants
+        $souscriptions = Souscription::where('programme_id',$programme->id)->get();
+        // recuperer les mails
+        $mails = [];
+        foreach ($souscriptions as $souscription) {
+            $mails[] = $souscription->user->email;
+        }
+        Mail::to($mails)->bcc(config('mail.cc'))->send(new ContactParticipants($programme, $request->only('message','objet')));
+        notify()->success("Le mail est envoyé à tous les participants...");
+        return back();
     }
 }
