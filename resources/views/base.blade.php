@@ -153,8 +153,6 @@
                                     <a class="dropdown-item show text-primary display-4"
                                     href="{{ route('profile') }}" aria-expanded="false"
                                     data-bs-auto-close="outside">Mon Profil</a>
-                                <a class="dropdown-item show text-primary display-4" href="{{ route('logout') }}"
-                                    aria-expanded="false" data-bs-auto-close="outside">Se déconnecter</a>
                                     <form action="{{ route('logout') }}" method="post">
                                         @csrf
                                         <button class="dropdown-item show text-primary display-4"
