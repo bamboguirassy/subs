@@ -3,8 +3,8 @@
 @section('title', config('app.name')." - Plateforme de souscription à des programmes de formations, conférences, séminaires...")
 
 @section('social-sharing')
-<meta name="twitter:image:src" content="{{ asset('assets/images/index-meta.png') }}">
-<meta property="og:image" content="{{ asset('assets/images/index-meta.png') }}">
+<meta name="twitter:image:src" content="{{ asset('assets/images/subs-logo.png') }}">
+<meta property="og:image" content="{{ asset('assets/images/subs-logo.png') }}">
 @endsection
 
 @section('description',
