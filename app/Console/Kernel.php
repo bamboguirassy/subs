@@ -25,8 +25,12 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         // $schedule->command('inspire')->hourly();
-        $schedule->command('remind:programme:closing')->dailyAt('20:00')->timezone('Africa/Dakar');
-        $schedule->command('remind:leads-to-subscribe')->dailyAt('10:00')->timezone('Africa/Dakar');
+        $schedule->command('remind:programme:closing')
+            ->dailyAt('20:00')->timezone('Africa/Dakar')
+            ->emailOutputOnFailure(config('mail.cc'));
+        $schedule->command('remind:leads-to-subscribe')
+            ->dailyAt('11:30')->timezone('Africa/Dakar')
+            ->emailOutputOnFailure(config('mail.cc'));
     }
 
     /**
@@ -36,7 +40,7 @@ class Kernel extends ConsoleKernel
      */
     protected function commands()
     {
-        $this->load(__DIR__.'/Commands');
+        $this->load(__DIR__ . '/Commands');
 
         require base_path('routes/console.php');
     }

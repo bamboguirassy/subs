@@ -22,7 +22,7 @@ class Helper
         return $souscription;
     }
 
-    public static function createUserFromRequest(): User
+    public static function createUserFromRequest()
     {
         $request = request();
         $userVerif = User::where('email', $request->get('email'))
