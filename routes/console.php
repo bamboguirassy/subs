@@ -39,6 +39,25 @@ Artisan::command('remind:programme:closing', function () {
 Artisan::command('remind:leads-to-subscribe', function () {
     /** les programmes qui expirent demain */
     $today = today();
+    $programmes = Programme::where('dateCloture', $today)
+        ->get();
+    $this->comment("Vous avez " . count($programmes) . " programmes qui seront cloturés pour " . date_format($today, 'd/m/Y'));
+    foreach ($programmes as $programme) {
+        $this->comment("Programme - {$programme->nom} :");
+        // recuperer les users ayant des souscriptionTemp pour ce programme
+        $souscriptionTemps = SouscriptionTemp::where('programme_id', $programme->id)
+            ->get();
+        $contactedEmails = [];
+        foreach ($souscriptionTemps as $souscriptionTemp) {
+            if (!in_array($souscriptionTemp->user_id, $contactedEmails)) {
+                $contactedEmails[] = $souscriptionTemp->user_id;
+                Mail::to($souscriptionTemp->user)->send(new RemindLeadsToSouscribe($souscriptionTemp, " aujourd'hui"));
+                $this->comment("Rappel envoyé à {$souscriptionTemp->user->name} - {$souscriptionTemp->user->email}");
+            }
+        }
+    }
+
+    /** les programmes qui expirent demain */
     $tomorrow = $today->addDay("+1");
     $programmes = Programme::where('dateCloture', $tomorrow)
         ->get();
