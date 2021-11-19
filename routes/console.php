@@ -90,4 +90,4 @@ Artisan::command('remind:leads-to-subscribe', function () {
         }
     }
     $this->comment("Vous avez " . count($programmes) . " programmes qui seront cloturés pour " . date_format($inAWeek, 'd/m/Y'));
-})->purpose("Cette commande rappel la finalisation de la souscription pour les leads - programmes expirant demain, dans 3 jours, dans une semaine...");
+})->purpose("Cette commande rappel la finalisation de la souscription pour les leads.");
