@@ -24,11 +24,11 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes(['verify' => true]);
 
-Route::get('/', function () {
+Route::get('/home', function () {
     return redirect()->route('home');
 });
 
-Route::get('/home', function () {
+Route::get('/', function () {
     $programmeActives = Programme::where('dateCloture', '>=', new DateTime())
         ->orderBy('dateCloture')->paginate(20);
     return view('home', compact('programmeActives'));
