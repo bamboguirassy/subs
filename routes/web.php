@@ -28,7 +28,7 @@ Route::get('/home', function () {
     return redirect()->route('home');
 });
 
-Route::get('/', function () {
+Route::get('', function () {
     $programmeActives = Programme::where('dateCloture', '>=', new DateTime())
         ->orderBy('dateCloture')->paginate(20);
     return view('home', compact('programmeActives'));
