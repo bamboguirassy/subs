@@ -1,15 +1,16 @@
 @extends("base")
 
-@section('title', config('app.name')." - Plateforme de souscription à des programmes de formations, conférences, séminaires...")
+@section('title', config('app.name') . ' - Plateforme de souscription à des programmes de formations, conférences,
+    séminaires...')
 
 @section('social-sharing')
-<meta name="twitter:image:src" content="{{ asset('assets/images/subs-logo.png') }}">
-<meta property="og:image" content="{{ asset('assets/images/subs-logo.png') }}">
+    <meta name="twitter:image:src" content="{{ asset('assets/images/subs-logo.png') }}">
+    <meta property="og:image" content="{{ asset('assets/images/subs-logo.png') }}">
 @endsection
 
 @section('description',
     "Plateforme d'inscription à des programmes importants tels que les formations, les séminaires,
-    les conférences...")
+    les conférences...",)
 
 @section('body')
     <section data-bs-version="5.1" class="header3 cid-sOaM0h03gs" id="header03-2">
@@ -45,7 +46,8 @@
             <x-programme-public-item :programme="$programmeActive" />
         @endforeach
     @endif
-
     <x-social-sharing />
+    <x-separator />
+    <x-project-contributor />
 
 @endsection
