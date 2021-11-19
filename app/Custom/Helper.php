@@ -6,6 +6,7 @@ use App\Models\Souscription;
 use App\Models\SouscriptionTemp;
 use App\Models\User;
 use Illuminate\Auth\Notifications\VerifyEmail;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\URL;
 
@@ -30,7 +31,7 @@ class Helper
         if ($userVerif) {
             $warningMessage = "Cette adresse email est déja utilisée par un autre compte, si c'est la votre, merci de vous connecter avec votre compte. <a href='" . route('login') . "?ret=" . URL::previous() . "'>Se connecter</a>";
             notify()->warning($warningMessage);
-            return back()->withErrors([$warningMessage])->withInput();
+            return null;
         }
         // si user non connecté, valider le formulaire avec les infos user du formulaire
         $request->validate([

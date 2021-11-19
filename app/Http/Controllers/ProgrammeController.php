@@ -84,6 +84,9 @@ class ProgrammeController extends Controller
                     'presentation' => 'required'
                 ]);
                 $user = Helper::createUserFromRequest();
+                if($user==null) {
+                    return back()->withInput();
+                }
                 $programme->user_id = $user->id;
             }
             $programme->save();

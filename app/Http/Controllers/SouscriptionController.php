@@ -71,6 +71,9 @@ class SouscriptionController extends Controller
                 $userId = Auth::id();
             } else {
                 $user = Helper::createUserFromRequest();
+                if($user==null) {
+                    return back()->withInput();
+                }
                 $userId = $user->id;
             }
             // recuperer le profil selectionné
