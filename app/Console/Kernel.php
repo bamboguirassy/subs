@@ -29,7 +29,7 @@ class Kernel extends ConsoleKernel
             ->dailyAt('20:00')->timezone('Africa/Dakar')
             ->emailOutputTo(config('mail.cc'));
         $schedule->command('remind:leads-to-subscribe')
-            ->dailyAt('11:30')->timezone('Africa/Dakar')
+            ->dailyAt('11:42')->timezone('Africa/Dakar')
             ->emailOutputTo(config('mail.cc'));
     }
 
