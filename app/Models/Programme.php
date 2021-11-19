@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use DateTime;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -77,7 +78,7 @@ class Programme extends Model
     }
 
     public function getActiveAttribute() {
-        return now()>$this->dateCloture;
+        return $this->dateCloture>=date_format(new DateTime(),'Y-m-d');
     }
 
     public function getCurrentUserSouscriptionAttribute(): ?Souscription {

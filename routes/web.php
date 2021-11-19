@@ -93,6 +93,9 @@ Route::get('souscription/{programme}/create', function (Programme $programme) {
     if ($programme->current_user_souscription) {
         notify()->warning("Vous avez déja souscrit à ce programme !");
         return redirect()->route('programme.show', compact('programme'));
+    } else if(!$programme->active) {
+        notify()->warning("Ce programme est déja cloturé, vous ne pourrez malheureusement plus postuler...");
+        return back();
     }
     return view('programme.souscription.new', compact('programme'));
 })->name('souscription.new');

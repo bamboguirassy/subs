@@ -42,7 +42,12 @@
                             <b>{{ date_format(new DateTime($programme->dateDemarrage), 'd/m/Y') }}</b>
                         </p>
                         <div class="mbr-section-btn mt-3">
-                            @if (((auth()->user() && auth()->id()!=$programme->user_id) || !auth()->user()) &&
+                            @if(!$programme->active)
+                            <div class="alert alert-danger" role="alert">
+                                <strong>Ce programme est cloturé le {{ date_format(new DateTime($programme->dateCloture),'d/m/Y') }}</strong>
+                            </div>
+
+                            @elseif (((auth()->user() && auth()->id()!=$programme->user_id) || !auth()->user()) &&
                             !$programme->current_user_souscription)
                             <a class="btn btn-white display-4"
                                 href="{{ route('souscription.new', compact('programme')) }}">
