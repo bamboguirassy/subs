@@ -27,10 +27,10 @@ class Kernel extends ConsoleKernel
         // $schedule->command('inspire')->hourly();
         $schedule->command('remind:programme:closing')
             ->dailyAt('20:00')->timezone('Africa/Dakar')
-            ->emailOutputOnFailure(config('mail.cc'));
+            ->emailOutputTo(config('mail.cc'));
         $schedule->command('remind:leads-to-subscribe')
             ->dailyAt('11:30')->timezone('Africa/Dakar')
-            ->emailOutputOnFailure(config('mail.cc'));
+            ->emailOutputTo(config('mail.cc'));
     }
 
     /**
