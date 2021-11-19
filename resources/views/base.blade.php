@@ -45,7 +45,7 @@
     <link rel="preload" as="style" href="{{ asset('assets/mobirise/css/mbr-additional.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/mobirise/css/mbr-additional.css') }}" type="text/css">
     <link rel="stylesheet" href="{{ asset('bower_components/froala-wysiwyg-editor/css/froala_editor.css') }}">
-    <meta name="theme-color" content="#6592e6">
+    <meta name="theme-color" content="#2ca9d7">
     <link rel="manifest" href="{{ asset('manifest.json') }}">
     <script src="{{ asset('sw-connect.js') }}"></script>
     <meta name="apple-mobile-web-app-capable" content="yes">

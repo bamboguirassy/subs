@@ -66,9 +66,9 @@
       "enabled": true
     },
     "favicon": false,
-    "mbrsiteDomain": "yiczhaybxx",
+    "mbrsiteDomain": "5bvnu0kosd",
     "cssOptimize": true,
-    "lazyLoad": false,
+    "lazyLoad": true,
     "robotsSwitcher": true,
     "sitemapSwitcher": true,
     "sitemapSwitcherAuto": "on",
@@ -84,7 +84,7 @@
       "enabled": true,
       "name": "",
       "icon": "@PROJECT_PATH@/assets/images/subs-logo-512x512.png",
-      "themeColor": "#2ca9d7"
+      "themeColor": "#6592e6"
     },
     "site_lang": "fr",
     "global_after_body": "    <meta name=\"keywords\" content=\"Inscription,formation,séminaire,conférence,participation,Bambogroup,Subs\">",
@@ -1249,13 +1249,13 @@
               }
             },
             ".mbr-section-title, .underline": {
-              "color": "#2ca9d7"
+              "color": "#4479d9"
             },
             ".mbr-section-subtitle": {
-              "color": "#2ca9d7"
+              "color": "#4479d9"
             },
             ".item-name": {
-              "color": "#2ca9d7"
+              "color": "#4479d9"
             }
           },
           "_cid": "sPfyrV5FgJ",
