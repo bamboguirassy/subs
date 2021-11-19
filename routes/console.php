@@ -52,7 +52,7 @@ Artisan::command('remind:leads-to-subscribe', function () {
         foreach ($souscriptionTemps as $souscriptionTemp) {
             if (!in_array($souscriptionTemp->user_id, $contactedEmails)) {
                 $contactedEmails[] = $souscriptionTemp->user_id;
-                Mail::to($souscriptionTemp->user)->bcc(config('mail.cc'))->send(new RemindLeadsToSouscribe($souscriptionTemp, ' demain'));
+                Mail::to($souscriptionTemp->user)->send(new RemindLeadsToSouscribe($souscriptionTemp, ' demain'));
                 $this->comment("Rappel envoyé à {$souscriptionTemp->user->name} - {$souscriptionTemp->user->email}");
             }
         }
@@ -72,7 +72,7 @@ Artisan::command('remind:leads-to-subscribe', function () {
         foreach ($souscriptionTemps as $souscriptionTemp) {
             if (!in_array($souscriptionTemp->user_id, $contactedEmails)) {
                 $contactedEmails[] = $souscriptionTemp->user_id;
-                Mail::to($souscriptionTemp->user)->bcc(config('mail.cc'))->send(new RemindLeadsToSouscribe($souscriptionTemp, " dans 3 jours"));
+                Mail::to($souscriptionTemp->user)->send(new RemindLeadsToSouscribe($souscriptionTemp, " dans 3 jours"));
                 $this->comment("Rappel envoyé à {$souscriptionTemp->user->name} - {$souscriptionTemp->user->email}");
             }
         }
