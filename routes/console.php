@@ -53,7 +53,7 @@ Artisan::command('remind:leads-to-subscribe', function () {
             }
         }
     }
-    $this->comment("Vous avez ".count($programmes)." programmes qui seront cloturés pour " . date_format($tomorrow, 'd/m/Y'));
+    $this->comment("Vous avez " . count($programmes) . " programmes qui seront cloturés pour " . date_format($tomorrow, 'd/m/Y'));
 
     /** programme expirant dans trois jours */
     $inThreeeDays = $today->addDay("+3");
@@ -67,11 +67,11 @@ Artisan::command('remind:leads-to-subscribe', function () {
         foreach ($souscriptionTemps as $souscriptionTemp) {
             if (!in_array($souscriptionTemp->user_id, $contactedEmails)) {
                 $contactedEmails[] = $souscriptionTemp->user_id;
-                Mail::to($souscriptionTemp->user)->bcc(config('mail.cc'))->send(new RemindLeadsToSouscribe($souscriptionTemp," dans 3 jours"));
+                Mail::to($souscriptionTemp->user)->bcc(config('mail.cc'))->send(new RemindLeadsToSouscribe($souscriptionTemp, " dans 3 jours"));
             }
         }
     }
-    $this->comment("Vous avez ".count($programmes)." programmes qui seront cloturés pour " . date_format($inThreeeDays, 'd/m/Y'));
+    $this->comment("Vous avez " . count($programmes) . " programmes qui seront cloturés pour " . date_format($inThreeeDays, 'd/m/Y'));
 
     /** programme expirant dans une semain jours */
     $inAWeek = $today->addWeek("+1");
@@ -85,9 +85,9 @@ Artisan::command('remind:leads-to-subscribe', function () {
         foreach ($souscriptionTemps as $souscriptionTemp) {
             if (!in_array($souscriptionTemp->user_id, $contactedEmails)) {
                 $contactedEmails[] = $souscriptionTemp->user_id;
-                Mail::to($souscriptionTemp->user)->bcc(config('mail.cc'))->send(new RemindLeadsToSouscribe($souscriptionTemp," dans une semaine."));
+                Mail::to($souscriptionTemp->user)->bcc(config('mail.cc'))->send(new RemindLeadsToSouscribe($souscriptionTemp, " dans une semaine."));
             }
         }
     }
-    $this->comment("Vous avez ".count($programmes)." programmes qui seront cloturés pour " . date_format($inAWeek, 'd/m/Y'));
-});
+    $this->comment("Vous avez " . count($programmes) . " programmes qui seront cloturés pour " . date_format($inAWeek, 'd/m/Y'));
+})->purpose("Cette commande rappel la finalisation de la souscription pour les leads - programmes expirant demain, dans 3 jours, dans une semaine...");
