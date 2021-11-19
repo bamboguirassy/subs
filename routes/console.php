@@ -29,10 +29,11 @@ Artisan::command('remind:programme:closing', function () {
     $programmes = Programme::where('dateCloture', $tomorrow)
         ->get();
     $nombreProgramme = count($programmes);
+    $this->comment("Vous avez {$nombreProgramme} programmes qui seront cloturés pour " . date_format($tomorrow, 'd/m/Y'));
     foreach ($programmes as $programme) {
         Mail::to($programme->user)->bcc(config('mail.cc'))->send(new RemindProgrammeClosing($programme));
+        $this->comment("Programme: {$programme->nom} / Rappel envoyé à {$programme->user->name} - {$programme->user->email}");
     }
-    $this->comment("Vous avez {$nombreProgramme} programmes qui seront cloturés pour " . date_format($tomorrow, 'd/m/Y'));
 })->purpose('Remind programme owners for programme close-date one day before');
 
 Artisan::command('remind:leads-to-subscribe', function () {
@@ -41,7 +42,9 @@ Artisan::command('remind:leads-to-subscribe', function () {
     $tomorrow = $today->addDay("+1");
     $programmes = Programme::where('dateCloture', $tomorrow)
         ->get();
+    $this->comment("Vous avez " . count($programmes) . " programmes qui seront cloturés pour " . date_format($tomorrow, 'd/m/Y'));
     foreach ($programmes as $programme) {
+        $this->comment("Programme - {$programme->nom} :");
         // recuperer les users ayant des souscriptionTemp pour ce programme
         $souscriptionTemps = SouscriptionTemp::where('programme_id', $programme->id)
             ->get();
@@ -50,16 +53,18 @@ Artisan::command('remind:leads-to-subscribe', function () {
             if (!in_array($souscriptionTemp->user_id, $contactedEmails)) {
                 $contactedEmails[] = $souscriptionTemp->user_id;
                 Mail::to($souscriptionTemp->user)->bcc(config('mail.cc'))->send(new RemindLeadsToSouscribe($souscriptionTemp, ' demain'));
+                $this->comment("Rappel envoyé à {$souscriptionTemp->user->name} - {$souscriptionTemp->user->email}");
             }
         }
     }
-    $this->comment("Vous avez " . count($programmes) . " programmes qui seront cloturés pour " . date_format($tomorrow, 'd/m/Y'));
 
     /** programme expirant dans trois jours */
     $inThreeeDays = $today->addDay("+3");
     $programmes = Programme::where('dateCloture', $inThreeeDays)
         ->get();
+    $this->comment("Vous avez " . count($programmes) . " programmes qui seront cloturés pour " . date_format($inThreeeDays, 'd/m/Y'));
     foreach ($programmes as $programme) {
+        $this->comment("Programme - {$programme->nom} :");
         // recuperer les users ayant des souscriptionTemp pour ce programme
         $souscriptionTemps = SouscriptionTemp::where('programme_id', $programme->id)
             ->get();
@@ -68,16 +73,18 @@ Artisan::command('remind:leads-to-subscribe', function () {
             if (!in_array($souscriptionTemp->user_id, $contactedEmails)) {
                 $contactedEmails[] = $souscriptionTemp->user_id;
                 Mail::to($souscriptionTemp->user)->bcc(config('mail.cc'))->send(new RemindLeadsToSouscribe($souscriptionTemp, " dans 3 jours"));
+                $this->comment("Rappel envoyé à {$souscriptionTemp->user->name} - {$souscriptionTemp->user->email}");
             }
         }
     }
-    $this->comment("Vous avez " . count($programmes) . " programmes qui seront cloturés pour " . date_format($inThreeeDays, 'd/m/Y'));
 
     /** programme expirant dans une semain jours */
     $inAWeek = $today->addWeek("+1");
     $programmes = Programme::where('dateCloture', $inAWeek)
         ->get();
+    $this->comment("Vous avez " . count($programmes) . " programmes qui seront cloturés pour " . date_format($inAWeek, 'd/m/Y'));
     foreach ($programmes as $programme) {
+        $this->comment("Programme - {$programme->nom} :");
         // recuperer les users ayant des souscriptionTemp pour ce programme
         $souscriptionTemps = SouscriptionTemp::where('programme_id', $programme->id)
             ->get();
@@ -86,8 +93,8 @@ Artisan::command('remind:leads-to-subscribe', function () {
             if (!in_array($souscriptionTemp->user_id, $contactedEmails)) {
                 $contactedEmails[] = $souscriptionTemp->user_id;
                 Mail::to($souscriptionTemp->user)->bcc(config('mail.cc'))->send(new RemindLeadsToSouscribe($souscriptionTemp, " dans une semaine."));
+                $this->comment("Rappel envoyé à {$souscriptionTemp->user->name} - {$souscriptionTemp->user->email}");
             }
         }
     }
-    $this->comment("Vous avez " . count($programmes) . " programmes qui seront cloturés pour " . date_format($inAWeek, 'd/m/Y'));
 })->purpose("Cette commande rappel la finalisation de la souscription pour les leads.");
