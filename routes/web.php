@@ -29,7 +29,7 @@ Route::get('/home', function () {
 });
 
 Route::get('', function () {
-    $programmeActives = Programme::where('dateCloture', '>=', new DateTime())
+    $programmeActives = Programme::where('dateCloture', '>', new DateTime())
         ->orderBy('dateCloture')->paginate(20);
     return view('home', compact('programmeActives'));
 })->name('home');
