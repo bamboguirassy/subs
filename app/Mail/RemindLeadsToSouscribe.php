@@ -32,6 +32,6 @@ class RemindLeadsToSouscribe extends Mailable
      */
     public function build()
     {
-        return $this->subject('Emails de rappel pour souscription - '.$this->souscriptionTemp->programme->nom)->markdown('emails.remind-leads-to-subscribe',['souscriptionTemp'=>$this->souscriptionTemp,'remainDate'=>$this->remainDate]);
+        return $this->subject('[Rappel] - finalisation inscription - '.$this->souscriptionTemp->programme->nom)->markdown('emails.remind-leads-to-subscribe',['souscriptionTemp'=>$this->souscriptionTemp,'remainDate'=>$this->remainDate]);
     }
 }
