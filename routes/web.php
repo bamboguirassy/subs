@@ -31,7 +31,6 @@ Route::get('/home', function () {
 Route::get('', function () {
     $programmeActives = Programme::where('dateCloture', '>=', date_format(new DateTime(),'Y-m-d'))
         ->orderBy('dateCloture')->paginate(20);
-        dd($programmeActives);
     return view('home', compact('programmeActives'));
 })->name('home');
 
