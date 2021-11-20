@@ -1,17 +1,20 @@
 @component('mail::message')
 # Bonjour **{{ $souscriptionTemp->user->name }}** <br>
-|  Ceci est un mail de rappel <br>
+| Ceci est un mail de rappel <br>
 
-Le programme ***{{ $souscriptionTemp->programme->nom }}*** sera cloturé {{$remainDate}}. <br>
+Le programme ***{{ $souscriptionTemp->programme->nom }}*** sera cloturé {{ $remainDate }}. <br>
 Il faut finaliser vite votre inscription pour y prendre part. <br>
-|  NB: Une fois la date de cloture dépassée, il ne vous sera plus possible de prendre part au programme. <br>
+| NB: Une fois la date de cloture dépassée, il ne vous sera plus possible de prendre part au programme. <br>
 
-@component('mail::button', ['url' => route('souscription.new',['programme'=>$souscriptionTemp->programme])])
-Finaliser mon inscription
+@component('mail::button', ['url' => route('souscription.new',['programme'=>$souscriptionTemp->programme])])Finaliser mon inscription
 @endcomponent
 
+Si vous avez du mal avec le lien, merci de cliquer sur le lien ci-dessous ou de le copier/coller dans votre navigateur : {{ route('souscription.new', ['programme'=>$souscriptionTemp->programme]) }} <br>
+Ou encore cliquer ici: <a href="{{route('souscription.new',['programme'=>$souscriptionTemp->programme])}}">{{route('souscription.new',['programme'=>$souscriptionTemp->programme])}}</a>
 
-Pour rappel, le programme débute le {{date_format(new DateTime($souscriptionTemp->programme->dateDemarrage),'d/m/Y')}} <br>
+
+Pour rappel, le programme débute le {{ date_format(new DateTime($souscriptionTemp->programme->dateDemarrage), 'd/m/Y') }}
+<br>
 
 
 Cordialement,<br>
