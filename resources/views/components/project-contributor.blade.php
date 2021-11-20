@@ -25,7 +25,7 @@
                     </div>
                     <div class="item-role px-2">
                         <p class="mbr-fonts-style display-7">
-                            Etudiant en Licence Informatique</p>
+                            Etudiant en Master Informatique</p>
                     </div>
                 </div>
             </div>
