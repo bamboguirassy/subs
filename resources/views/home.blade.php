@@ -29,17 +29,6 @@
                             Vous souhaitez lever des fonds pour une cause noble ? <br>
                             Publiez vos programmes dès maintenant sur {{ config('app.name') }} pour collecter
                             les participants et récuperez vos fonds à votre demande. <br>
-                            <div class="card">
-                                <div class="card-body">
-                                    <blockquote class="blockquote mb-0 text-white">
-                                        <p>Vous pouvez même publier des programes juste pour recueillir les participants
-                                            cela en publiant des programmes gratuits.
-                                        </p>
-                                        <footer class="blockquote-footer">Footer<cite title="Source title">Source
-                                                title</cite></footer>
-                                    </blockquote>
-                                </div>
-                            </div>
                         </strong>
                         <br>
                     </p>
