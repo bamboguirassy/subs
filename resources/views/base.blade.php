@@ -127,6 +127,13 @@
                                     Mes souscriptions
                                 </a>
                             </li>
+                            @else
+                            <li class="nav-item">
+                                <a class="nav-link link text-secondary display-4" href="{{ route('login') }}"
+                                    aria-expanded="false">
+                                    Se connecter
+                                </a>
+                            </li>
                         @endauth
                     </ul>
                 </div>
