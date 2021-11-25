@@ -4,6 +4,10 @@ angular.module('Subs', [], () => {
             textarea: $('#wysiwyg')
             //optional options
         });
+        var editor2 = new Simditor({
+            textarea: $('#editor')
+            //optional options
+        });
     });
 })
     .controller('ProgrammeNewController', ($scope) => {

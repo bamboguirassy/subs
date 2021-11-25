@@ -191,19 +191,11 @@
                                         id="profession-formbuilder-13">
                                 </div>
                                 <div data-for="presentation" class="col-lg-12 col-md-12 col-sm-12 form-group">
-                                    <label for="presentation-formbuilder-13"
+                                    <label for="editor"
                                         class="form-control-label mbr-fonts-style display-7">Présenation</label>
                                     <textarea name="presentation" data-form-field="presentation" class="form-control display-7"
-                                        id="presentation-formbuilder-13">{{ old('presentation') }}</textarea>
+                                        id="editor">{{ old('presentation') }}</textarea>
                                 </div>
-                                @section('more-script')
-                                <script>
-                                    new Simditor({
-                                        textarea: $('#presentation-formbuilder-13')
-                                        //optional options
-                                    });
-                                </script>
-                                @endsection
                                 <div data-for="photo" class="col-lg-12 col-md-12 col-sm-12 form-group">
                                     <label for="photo-formbuilder-13" class="form-control-label mbr-fonts-style display-7">
                                         Chosir une photo de profil</label>
