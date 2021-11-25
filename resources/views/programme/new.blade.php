@@ -94,8 +94,7 @@
                             </ng-container>
                             <div data-for="dateCloture" class="col-lg-12 col-md-12 col-sm-12 form-group">
                                 <label for="dateCloture-formbuilder-13"
-                                    class="form-control-label mbr-fonts-style display-7">Date de cloture des
-                                    inscriptions</label>
+                                    class="form-control-label mbr-fonts-style display-7">Date de clôture</label>
                                 <input type="date" name="dateCloture" data-form-field="dateCloture" required="required"
                                     class="form-control display-7" value="{{ old('dateCloture') }}"
                                     id="dateCloture-formbuilder-13">
