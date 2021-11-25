@@ -29,7 +29,7 @@
                     </div>
                 </div>
             </div>
-            <div class="team-item col-lg-3 col-md-6  flip-card">
+            {{-- <div class="team-item col-lg-3 col-md-6  flip-card">
                 <div class="item-image">
                     <img src="{{ asset('assets/images/photo-profil-200x200.jpeg') }}">
                     <ul class="item-social">
@@ -50,7 +50,7 @@
                             Ingénieur en Génie Logiciel, Project Manager</p>
                     </div>
                 </div>
-            </div>
+            </div> --}}
             <div class="team-item col-lg-3 col-md-6  flip-card">
                 <div class="item-image">
                     <img src="{{ asset('assets/images/profil-cole-1-384x512.jpeg') }}">
