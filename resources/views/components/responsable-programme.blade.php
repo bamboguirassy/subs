@@ -1,5 +1,5 @@
 <section data-bs-version="5.1" class="people1 cid-sOcl1Sl4ki" id="people1-1e">
-    <div class="mbr-overlay" style="opacity: 0.6; background-color: #2ca9d7;">
+    <div class="mbr-overlay" style="opacity: 0.6; background-color: rgb(254, 82, 91);">
     </div>
     <div class="container">
         <h3 class="mbr-fonts-style heading display-2"><strong>Responsable du programme</strong></h3>
