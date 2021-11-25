@@ -20,7 +20,7 @@
             </div>
             <div class="col-12 col-md-12 col-lg-6">
                 <div class="text-wrapper">
-                    <h1 class="mbr-section-title mbr-fonts-style mb-4 display-2">
+                    <h1 class="mbr-section-title mbr-fonts-style mb-4 display-5">
                         <strong><a href="{{ route('programme.show',compact('programme')) }}">{{ $programme->nom }}</a></strong>
                     </h1>
                     <p class="mbr-text mbr-fonts-style mb-4 display-7">Nombre participants attendus :
