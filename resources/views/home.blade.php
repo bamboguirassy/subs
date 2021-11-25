@@ -1,7 +1,9 @@
 @extends("base")
 
-@section('title', config('app.name') . ' - Plateforme de souscription à des programmes de formations, conférences,
-    séminaires...')
+@section('title',
+    config('app.name') .
+    ' - Plateforme de souscription à des programmes de formations, conférences,
+    séminaires...',)
 
 @section('social-sharing')
     <meta name="twitter:image:src" content="{{ asset('assets/images/subs-logo.png') }}">
@@ -20,8 +22,27 @@
                 <div class="col-12 col-lg-8">
                     <h1 class="mbr-section-title mbr-fonts-style mb-3 display-1"><strong>Subs</strong></h1>
 
-                    <p class="mbr-text mbr-fonts-style mb-4 display-7"><strong>Votre plateforme de souscription aux
-                            programmes les plus importants (Formations, Séminaires, Conférences, ...)</strong><br></p>
+                    <p class="mbr-text mb-4 display-7">
+                        <strong>
+                            Vous planifiez un séminaire, une conférence ou une formation ? <br>
+                            Vous voulez cotiser entre amis pour un but bien déterminé ? <br>
+                            Vous souhaitez lever des fonds pour une cause noble ? <br>
+                            Publiez vos programmes dès maintenant sur {{ config('app.name') }} pour collecter
+                            les participants et récuperez vos fonds à votre demande. <br>
+                            <div class="card">
+                                <div class="card-body">
+                                    <blockquote class="blockquote mb-0 text-white">
+                                        <p>Vous pouvez même publier des programes juste pour recueillir les participants
+                                            cela en publiant des programmes gratuits.
+                                        </p>
+                                        <footer class="blockquote-footer">Footer<cite title="Source title">Source
+                                                title</cite></footer>
+                                    </blockquote>
+                                </div>
+                            </div>
+                        </strong>
+                        <br>
+                    </p>
                     <div class="mbr-section-btn mt-3">
                         @guest
                             <a class="btn btn-lg btn-primary display-4" href="{{ route('login') }}"><span

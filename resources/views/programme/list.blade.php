@@ -38,8 +38,16 @@
                                 <h6 class="item-subtitle mbr-fonts-style mt-1 display-7">
                                     <strong>{{ $programme->modeDeroulement }}</strong>
                                 </h6>
+                                @if ($programme->active)
+                                    <div class="alert alert-success" role="alert">
+                                        <strong>Active</strong>
+                                    </div>
+                                @else
+                                    <div class="alert alert-danger" role="alert">
+                                        <strong>Fermée</strong>
+                                    </div>
+                                @endif
                             </div>
-
                         </div>
                     </div>
                 @empty
