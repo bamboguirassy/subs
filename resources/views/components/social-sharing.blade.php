@@ -2,7 +2,7 @@
     <div class="container">
         <div class="media-container-row">
             <div class="col-12">
-                <h3 class="mbr-section-title mb-3 align-center mbr-fonts-style display-5">
+                <h3 class="mbr-section-title mb-3 align-center mbr-fonts-style display-5 text-primary">
                     <strong>Partager sur&nbsp;</strong>
                 </h3>
                 <div>

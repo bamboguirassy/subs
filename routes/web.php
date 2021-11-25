@@ -29,7 +29,7 @@ Route::get('/home', function () {
 });
 
 Route::get('', function () {
-    $programmeActives = Programme::where('dateCloture', '>=', date_format(new DateTime(),'Y-m-d'))
+    $programmeActives = Programme::where('dateCloture', '>=', date_format(new DateTime(), 'Y-m-d'))
         ->orderBy('dateCloture')->paginate(20);
     return view('home', compact('programmeActives'));
 })->name('home');
@@ -40,9 +40,9 @@ Route::get('login', function (Request $request) {
     return view('auth.login');
 })->name('login');
 
-Route::get('profile', function(User $user=null) {
-    return view('auth.profile',compact('user'));
-    })->middleware('auth')->name('profile');
+Route::get('profile', function (User $user = null) {
+    return view('auth.profile', compact('user'));
+})->middleware('auth')->name('profile');
 
 Route::post('login', function (Request $request) {
     $request->validate([
@@ -65,7 +65,6 @@ Route::post('login', function (Request $request) {
 })->name('login.request');
 
 Route::put('users/{id}', function ($id) {
-
 });
 
 Route::resource('programme', ProgrammeController::class, [
@@ -93,7 +92,7 @@ Route::get('souscription/{programme}/create', function (Programme $programme) {
     if ($programme->current_user_souscription) {
         notify()->warning("Vous avez déja souscrit à ce programme !");
         return redirect()->route('programme.show', compact('programme'));
-    } else if(!$programme->active) {
+    } else if (!$programme->active) {
         notify()->warning("Ce programme est déja cloturé, vous ne pourrez malheureusement plus postuler...");
         return back();
     }
@@ -104,23 +103,23 @@ Route::post('souscription_pin', 'App\Http\Controllers\SouscriptionController@ins
     ->name('souscription.pin');
 
 Route::post('souscription/{programme}/contact', [SouscriptionController::class, 'sendMail'])
-->middleware('auth')->name('send.email.to.participants');
+    ->middleware('auth')->name('send.email.to.participants');
 
 Route::resource('souscription', SouscriptionController::class, [
-    'only' => ['store','update']
+    'only' => ['store', 'update']
 ]);
 
 Route::resource('user', UserController::class, [
     'only' => ['update']
 ]);
 // changement mdp
-Route::put('change-password',function(Request $request, User $user=null) {
+Route::put('change-password', function (Request $request, User $user = null) {
     $request->validate([
-        'currentPassword'=>'required|min:6',
-        'password'=>'confirmed'
+        'currentPassword' => 'required|min:6',
+        'password' => 'confirmed'
     ]);
     $user = User::find(Auth::user()->id);
-    if(Hash::check($request->get('currentPassword'), $user->password)) {
+    if (Hash::check($request->get('currentPassword'), $user->password)) {
         $user->password = Hash::make($request->get('password'));
         $user->update();
         notify()->success("Votre mot de passe a été changé avec succès !");
@@ -135,3 +134,11 @@ Route::get('paymentconfirmation', function (Request $request) {
     $souscription = Souscription::find($request->get('id'));
     return view('programme.souscription.payment-confirmation', ['state' => $request->get('state'), 'souscription' => $souscription]);
 });
+
+Route::get('contact', function () {
+    return view('contact');
+})->name('contact');
+
+Route::get('apropos', function () {
+    return view('apropos');
+})->name('apropos');

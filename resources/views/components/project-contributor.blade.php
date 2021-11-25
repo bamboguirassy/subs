@@ -20,8 +20,9 @@
                 </div>
                 <div class="item-caption py-3">
                     <div class="item-name px-2">
-                        <p class="mbr-fonts-style display-7"><strong>Abdou Aziz Sy NDIAYE
-                            </strong></p>
+                        <p class="mbr-fonts-style display-7">
+                            <strong class="text-primary">Abdou Aziz Sy NDIAYE</strong>
+                        </p>
                     </div>
                     <div class="item-role px-2">
                         <p class="mbr-fonts-style display-7">
@@ -64,8 +65,9 @@
                 </div>
                 <div class="item-caption py-3">
                     <div class="item-name px-2">
-                        <p class="mbr-fonts-style display-7"><strong>
-                                Aminata Samb Fofana</strong></p>
+                        <p class="mbr-fonts-style display-7">
+                            <strong class="text-primary">Aminata Samb Fofana</strong>
+                        </p>
                     </div>
                     <div class="item-role px-2">
                         <p class="mbr-fonts-style display-7">

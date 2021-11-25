@@ -45,7 +45,7 @@
     <link rel="preload" as="style" href="{{ asset('assets/mobirise/css/mbr-additional.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/mobirise/css/mbr-additional.css') }}" type="text/css">
     <link rel="stylesheet" href="{{ asset('bower_components/froala-wysiwyg-editor/css/froala_editor.css') }}">
-    <meta name="theme-color" content="#2ca9d7">
+    <meta name="theme-color" content="#ff3366">
     <link rel="manifest" href="{{ asset('manifest.json') }}">
     <script src="{{ asset('sw-connect.js') }}"></script>
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -102,17 +102,81 @@
 </head>
 
 <body>
-    <section data-bs-version="5.1" class="extMenu5 menu cid-sOaHUDr7NW" once="menu" id="extMenu5-0">
-        <nav class="navbar navbar-dropdown navbar-expand-lg">
-            <div class="navbar-brand">
-                <span class="navbar-logo">
-                    <a href="{{ route('home') }}">
-                        <img lt="{{ config('app.name') }}" style="height: 3.8rem;"
-                            src="{{ asset('assets/images/subs-logo-121x141.png') }}">
-                    </a>
-                </span>
-                <span class="pt-2 navbar-caption-wrap"><a class="navbar-caption text-primary display-5"
-                        href="{{ route('home') }}">{{ config('app.name') }}</a></span>
+    <section data-bs-version="5.1" class="extMenu12 menu popup-btn-cards cid-sPMLiMsHDQ" once="menu" id="extMenu13-2c">
+        <nav class="navbar navbar-dropdown navbar-fixed-top navbar-expand-lg">
+            <div class="mbr-overlay" style="opacity: 0.9;"></div>
+
+            <a class="full-link" href="#">
+                <div class="menu-top card-wrapper mbr-fonts-style mbr-white display-7">La plateforme de collecte de&nbsp;
+                    souscriptions</div>
+            </a>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+                <div class="left-menu">
+                    <ul class="navbar-nav nav-dropdown" data-app-modern-menu="true">
+                        @auth
+                            <li class="nav-item">
+                                <a class="nav-link link text-secondary display-4" href="{{ route('mes.programmes') }}"
+                                    aria-expanded="false">
+                                    Mes programmes
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link link text-secondary display-4"
+                                    href="{{ route('mes.souscriptions') }}">
+                                    Mes souscriptions
+                                </a>
+                            </li>
+                        @endauth
+                    </ul>
+                </div>
+                <div class="brand-container">
+                    <div class="navbar-brand">
+                        <span class="navbar-logo">
+                            <a href="{{ route('home') }}">
+                                <img src="{{ asset('assets/images/mbr-121x129.png') }}" alt=""
+                                    style="height: 3.8rem;">
+                            </a>
+                        </span>
+                        <span class="navbar-caption-wrap">
+                            <a class="navbar-caption text-secondary display-5" href="{{ route('home') }}">
+                                {{ config('app.name') }}
+                            </a>
+                        </span>
+                    </div>
+                </div>
+                <div class="right-menu">
+                    <ul class="navbar-nav nav-dropdown" data-app-modern-menu="true">
+                        @auth
+                            <li class="nav-item dropdown">
+                                <a class="nav-link link dropdown-toggle text-secondary display-4" href="#"
+                                    data-toggle="dropdown-submenu" data-bs-toggle="dropdown" data-bs-auto-close="outside"
+                                    aria-expanded="false">
+                                    Mon compte
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="dropdown-undefined">
+                                    <a class="dropdown-item text-secondary display-4" href="{{ route('profile') }}">Mon
+                                        profil<br>
+                                    </a>
+                                    <form action="{{ route('logout') }}" method="post">
+                                        @csrf
+                                        <button class="dropdown-item text-secondary display-4">
+                                            Se déconnecter
+                                        </button>
+                                    </form>
+                                </div>
+                            </li>
+                        @endauth
+                        <li class="nav-item">
+                            <a class="nav-link link text-secondary display-4" href="{{ route('apropos') }}">A propos</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link link text-secondary display-4" href="{{ route('contact') }}">
+                                Contacts
+                            </a>
+                        </li>
+                    </ul>
+                </div>
             </div>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-bs-toggle="collapse"
                 data-target="#navbarSupportedContent" data-bs-target="#navbarSupportedContent"
@@ -124,67 +188,17 @@
                     <span></span>
                 </div>
             </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav nav-dropdown" data-app-modern-menu="true">
-                    <li class="nav-item"><a class="nav-link link text-primary display-4"
-                            href="{{ route('home') }}" aria-expanded="false"><span
-                                class="mobi-mbri mobi-mbri-home mbr-iconfont mbr-iconfont-btn"></span>Accueil</a></li>
-                    {{-- <li class="nav-item dropdown"><a class="nav-link link dropdown-toggle text-primary display-4"
-                            href="#" aria-expanded="false" data-toggle="dropdown-submenu" data-bs-toggle="dropdown"
-                            data-bs-auto-close="outside"><span
-                                class="mobi-mbri mobi-mbri-setting mbr-iconfont mbr-iconfont-btn"></span>Admin</a>
-                        <div class="dropdown-menu" aria-labelledby="dropdown-undefined"><a
-                                class="dropdown-item text-primary display-4" href="{{ route('programme.index') }}"
-                                aria-expanded="false">Les programmes</a><a class="dropdown-item text-primary display-4"
-                                href="#" aria-expanded="false">Les utilisateurs</a></div>
-                    </li> --}}
-                    @auth
-
-                        <li class="nav-item dropdown"><a class="nav-link link dropdown-toggle text-primary display-4"
-                                href="#" aria-expanded="false" data-toggle="dropdown-submenu" data-bs-toggle="dropdown"
-                                data-bs-auto-close="outside">
-                                <span class="mdi-action-account-circle mbr-iconfont mbr-iconfont-btn"></span>Compte</a>
-                            <div class="dropdown-menu" aria-labelledby="dropdown-undefined">
-                                <a class="dropdown-item text-primary display-4" href="{{ route('mes.programmes') }}"
-                                    aria-expanded="false" data-bs-auto-close="outside">Mes programmes</a>
-                                <a class="dropdown-item show text-primary display-4"
-                                    href="{{ route('mes.souscriptions') }}" aria-expanded="false"
-                                    data-bs-auto-close="outside">Mes souscriptions</a>
-                                    <a class="dropdown-item show text-primary display-4"
-                                    href="{{ route('profile') }}" aria-expanded="false"
-                                    data-bs-auto-close="outside">Mon Profil</a>
-                                    <form action="{{ route('logout') }}" method="post">
-                                        @csrf
-                                        <button class="dropdown-item show text-primary display-4"
-                                            aria-expanded="false" data-bs-auto-close="outside">Se déconnecter</button>
-                                    </form>
-                            </div>
-                        </li>
-                    @endauth
-                </ul>
-                <div class="navbar-buttons px-2 mbr-section-btn"><a class="btn btn-sm btn-primary display-4"
-                        href="{{ route('programme.create') }}"><span
-                            class="icon54-v1-add-file mbr-iconfont mbr-iconfont-btn"></span>Publier un programme</a>
-                    @guest
-                        <a class="btn btn-sm btn-primary display-4"
-                            href="{{ route('login') }}?ret={{ request()->url() }}"><span
-                                class="mobi-mbri mobi-mbri-login mbr-iconfont mbr-iconfont-btn"></span>Se connecter</a>
-                    @endguest
-                </div>
-            </div>
         </nav>
     </section>
-
     @yield("body")
     <x-separator />
     <section data-bs-version="5.1" class="footer7 cid-sOaHY68q1p" once="footers" id="footer7-1">
-
         <div class="container">
             <div class="media-container-row align-center mbr-white">
                 <div class="col-12">
                     <p class="mbr-text mb-0 mbr-fonts-style display-7">
                         © Copyright {{ date_format(new DateTime(), 'Y') }} <a href="https://bambogroup.net"
-                            class="text-primary" target="_blank"><strong>Bambo GROUP</strong></a> - Tous droits
+                            class="text-white" target="_blank"><strong>Bambo GROUP</strong></a> - Tous droits
                         réservés
                     </p>
                 </div>
@@ -194,6 +208,7 @@
 
     <script src="{{ asset('bower_components/jquery/dist/jquery.min.js') }}"></script>
     <script src="{{ asset('assets/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ asset('assets/typed/typed.js') }}"></script>
     <script src="{{ asset('assets/smoothscroll/smooth-scroll.js') }}"></script>
     <script src="{{ asset('assets/ytplayer/index.js') }}"></script>
     <script src="{{ asset('assets/chatbutton/floating-wpp.js') }}"></script>
@@ -211,6 +226,8 @@
     <script src="{{ asset('bower_components/simditor/site/assets/scripts/uploader.js') }}"></script>
     <script src="{{ asset('bower_components/simditor/site/assets/scripts/simditor.js') }}"></script>
     <script src="{{ asset('bower_components/angular/angular.min.js') }}"></script>
+    <script src="{{ asset('assets/mbr-flip-card/mbr-flip-card.js') }}"></script>
+
     @yield('inline-script')
     @notify_js
     @notify_render
@@ -221,7 +238,7 @@
 
 Ecris un message ici. Il te dirigera vers ton téléphone ! 🔥
 
-Bambogroup Team" data-placeholder="Ecrire ici..." data-position="left" data-headercolor="#2ca9d7"
+Bambogroup Team" data-placeholder="Ecrire ici..." data-position="left" data-headercolor="#fe525b"
         data-backgroundcolor="#e5ddd5" data-autoopentimeout="0" data-size="65px">
         <div class="floating-wpp-button" style="width: 65px; height: 65px;">
             <div class="floating-wpp-button-image">
