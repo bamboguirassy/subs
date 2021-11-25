@@ -15,7 +15,57 @@
     les conférences...",)
 
 @section('body')
-    <section data-bs-version="5.1" class="header3 cid-sOaM0h03gs" id="header03-2">
+    <section data-bs-version="5.1" class="extHeader cid-sPMNZDPZTn mb-2" id="extHeader13-2f">
+        <div class="container">
+            <div class="row justify-content-center align-items-center">
+                <div class="mbr-white col-md-12 col-lg-6 py-lg-0 pt-4 order-2">
+                    <div class="typed-text pb-3 align-left display-2">
+                        <span class="mbr-section-subtitle mbr-fonts-style display-2">Avec <strong>{{ config('app.name') }}
+                            </strong>c'est</span>
+                        <span>
+                            <span class="animated-element mbr-bold" data-word1="révolutionnaire."
+                                data-word2="plus simple et rapide." data-word3="Lorem" data-word4="Lorem" data-word5="Ipsum"
+                                data-speed="50" data-words="2">
+                            </span>
+                        </span>
+                    </div>
+                    <p class="mbr-section-text mbr-fonts-style align-left display-5">
+                        Collectez les souscriptions et les fonds pour tous vos programmes.</p>
+                    <div class="pt-3 mbr-section-btn align-left">
+                        @guest
+                            <a class="btn btn-md btn-white display-4" href="{{ route('login') }}">
+                                <span class="mobi-mbri mobi-mbri-login mbr-iconfont mbr-iconfont-btn"></span>
+                                Se connecter
+                            </a>
+                        @endguest
+                        <a class="btn btn-md btn-danger display-4" href="{{ route('programme.create') }}">
+                            <span class="icon54-v2-add-note mbr-iconfont mbr-iconfont-btn"></span>
+                            Lancer un programme
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-6 py-lg-0 pb-2">
+                    <div class="mbr-figure">
+                        <img src="{{ asset('assets/images/mbr-1076x1145.png') }}" alt="{{ config('app.name') }}"
+                            title="{{ config('app.name') }}">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section data-bs-version="5.1" class="info3 cid-sObQ7wD3QR" id="info3-n">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="card col-12 col-lg-10">
+                    <div class="card-wrapper">
+                        <div class="card-box align-center">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    {{-- <section data-bs-version="5.1" class="header3 cid-sOaM0h03gs" id="header03-2">
         <div class="mbr-overlay" style="opacity: 0.5; background-color: #2ca9d7;"></div>
         <div class="container">
             <div class="row justify-content-center">
@@ -43,13 +93,10 @@
                 </div>
             </div>
         </div>
-    </section>
-
-    <x-separator />
+    </section> --}}
     @if (count($programmeActives) < 1)
         <x-empty-message title="Pas encore de programme"
             message="Aucun programme n'est encore disponible pour le moment !" />
-
         <x-separator />
     @else
         @foreach ($programmeActives as $programmeActive)

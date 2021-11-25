@@ -6,7 +6,6 @@
 
 @section('body')
     <section data-bs-version="5.1" class="header3 cid-sOcnUFYG0i" id="header3-1i">
-        <div class="mbr-overlay" style="opacity: 0.8; background-color: #2ca9d7;"></div>
         <div class="align-center container">
             <div class="row justify-content-center">
                 <div class="col-12 col-lg-6">
@@ -20,8 +19,6 @@
     </section>
 
     <section class="form cid-sOcnqXmnWl" id="formbuilder-1h">
-
-
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 mx-auto mbr-form">
@@ -32,7 +29,7 @@
                         <x-form-errors :errors="$errors->all()" />
                         <div class="dragArea form-row">
                             <div class="col-lg-12 col-md-12 col-sm-12">
-                                <h4 class="mbr-fonts-style display-5">Se connecter</h4>
+                                <h4 class="mbr-fonts-style display-5 text-primary">Se connecter</h4>
                             </div>
                             <div class="col-lg-12 col-md-12 col-sm-12">
                                 <hr>
@@ -85,20 +82,6 @@
                 <!--Formbuilder Form-->
             </div>
         </div>
-        </div>
-    </section>
-
-    <section data-bs-version="5.1" class="info3 cid-sOcooptlj0" id="info3-1j">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="card col-12 col-lg-10">
-                    <div class="card-wrapper">
-                        <div class="card-box align-center">
-
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
     </section>
 @endsection

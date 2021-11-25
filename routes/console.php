@@ -58,6 +58,7 @@ Artisan::command('remind:leads-to-subscribe', function () {
     }
 
     /** les programmes qui expirent demain */
+    $today = today();
     $tomorrow = $today->addDay("+1");
     $programmes = Programme::where('dateCloture', $tomorrow)
         ->get();
@@ -78,6 +79,7 @@ Artisan::command('remind:leads-to-subscribe', function () {
     }
 
     /** programme expirant dans trois jours */
+    $today = today();
     $inThreeeDays = $today->addDay("+3");
     $programmes = Programme::where('dateCloture', $inThreeeDays)
         ->get();
@@ -98,6 +100,7 @@ Artisan::command('remind:leads-to-subscribe', function () {
     }
 
     /** programme expirant dans une semain jours */
+    $today = today();
     $inAWeek = $today->addWeek("+1");
     $programmes = Programme::where('dateCloture', $inAWeek)
         ->get();
