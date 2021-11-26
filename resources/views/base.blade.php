@@ -127,7 +127,7 @@
                             </li>
                             @else
                             <li class="nav-item">
-                                <a class="nav-link link text-secondary display-4" href="{{ route('login') }}"
+                                <a class="nav-link link text-secondary display-4" href="{{ route('login') }}?ret={{request()->fullUrl()}}"
                                     aria-expanded="false">
                                     Se connecter
                                 </a>
@@ -196,7 +196,6 @@
         </nav>
     </section>
     @yield("body")
-    <x-separator />
     <section data-bs-version="5.1" class="footer7 cid-sOaHY68q1p" once="footers" id="footer7-1">
         <div class="container">
             <div class="media-container-row align-center mbr-white">

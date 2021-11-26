@@ -33,12 +33,12 @@
                         Collectez les souscriptions et les fonds pour tous vos programmes.</p>
                     <div class="pt-3 mbr-section-btn align-left">
                         @guest
-                            <a class="btn btn-md btn-white display-4" href="{{ route('login') }}">
+                            <a class="btn btn-md btn-white display-4" href="{{ route('login') }}?ret={{ request()->fullUrl() }}">
                                 <span class="mobi-mbri mobi-mbri-login mbr-iconfont mbr-iconfont-btn"></span>
                                 Se connecter
                             </a>
                         @endguest
-                        <a class="btn btn-md btn-danger display-4" href="{{ route('programme.create') }}">
+                        <a class="btn btn-md btn-danger display-4" href="{{ route('programme.pre.publish') }}">
                             <span class="icon54-v2-add-note mbr-iconfont mbr-iconfont-btn"></span>
                             Lancer un programme
                         </a>

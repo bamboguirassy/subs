@@ -33,13 +33,18 @@ class ProgrammeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        $typeProgrammes = TypeProgramme::orderBy('nom')->get();
+        if($request->exists('type')) {
+            $request->validate(['type'=>'exists:type_programmes,code']);
+            $typeProgramme = TypeProgramme::whereCode($request->get('type'))->first();
+        } else {
+            $typeProgramme = TypeProgramme::whereCode('PROG')->first();
+        }
         $profils = Profil::orderBy('nom')->get();
         $countrieSrv = new Countries();
         $senegal = $countrieSrv->where('cca2', 'SN')->first();
-        return view('programme.new', compact('typeProgrammes', 'profils','senegal'));
+        return view('programme.new', compact('profils','senegal','typeProgramme'));
     }
 
     /**
@@ -52,19 +57,18 @@ class ProgrammeController extends Controller
     {
         // valider les champs obligatoires propres à programme
         $request->validate([
-            'type_programme_id' => 'required|exists:type_programmes,id',
-            'nom' => 'required',
-            'dateCloture' => 'required',
-            'dateDemarrage' => 'required',
-            'duree' => 'required',
-            'nombreSeance' => 'required|numeric',
-            'nombreParticipants' => 'required|numeric',
-            'description' => 'required',
-            'modeDeroulement' => 'required',
-            'image' => 'image|required',
-            'profils' => 'array|required',
-            'cout' => 'array|required'
+            'type_programme_id' => 'required|exists:type_programmes,id'
         ]);
+        $typeProgramme = TypeProgramme::find($request->get('type_programme_id'));
+        if($typeProgramme->code=='COTI') {
+            $this->validateCotisation();
+        } else if($typeProgramme->code=='LFON') {
+            $this->validateLeveeFond();
+        } else if($typeProgramme->code=='PROG') {
+            $this->validateProgramme();
+        } else if($typeProgramme->code=='TONTINE') {
+            $this->validateTontine();
+        }
         //    --     démarrer la transaction
         DB::beginTransaction();
         try {
@@ -208,5 +212,57 @@ class ProgrammeController extends Controller
             throw $th;
         }
         return redirect()->route('mes.programmes');
+    }
+
+    function validateProgramme() {
+        // valider les champs obligatoires propres à programme
+        request()->validate([
+            'type_programme_id' => 'required|exists:type_programmes,id',
+            'nom' => 'required',
+            'dateCloture' => 'required',
+            'dateDemarrage' => 'required',
+            'duree' => 'required',
+            'nombreSeance' => 'required|numeric',
+            'nombreParticipants' => 'required|numeric',
+            'description' => 'required',
+            'modeDeroulement' => 'required',
+            'image' => 'image|required',
+            'profils' => 'array|required',
+            'cout' => 'array|required'
+        ]);
+    }
+
+    function validateCotisation() {
+        // valider les champs obligatoires propres à programme
+        request()->validate([
+            'type_programme_id' => 'required|exists:type_programmes,id',
+            'nom' => 'required',
+            'dateCloture' => 'required',
+            'description' => 'required',
+            'montant'=>'required',
+        ]);
+    }
+
+    function validateTontine() {
+        // valider les champs obligatoires propres à programme
+        request()->validate([
+            'type_programme_id' => 'required|exists:type_programmes,id',
+            'nom' => 'required',
+            'dateCloture' => 'required',
+            'description' => 'required',
+            'montant'=>'required',
+            'frequence'=>'required|in_array:journalière,hebdomadaire,mensuelle',
+            'dateLimitePremierPaiement'=>'required'
+        ]);
+    }
+
+    function validateLeveeFond() {
+        // valider les champs obligatoires propres à programme
+        request()->validate([
+            'type_programme_id' => 'required|exists:type_programmes,id',
+            'nom' => 'required',
+            'dateCloture' => 'required',
+            'description' => 'required',
+        ]);
     }
 }

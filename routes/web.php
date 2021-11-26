@@ -5,7 +5,9 @@ use App\Http\Controllers\ProgrammeController;
 use App\Http\Controllers\SouscriptionController;
 use App\Models\Programme;
 use App\Models\Souscription;
+use App\Models\TypeProgramme;
 use App\Models\User;
+use App\Notifications\SendSms;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
@@ -31,6 +33,7 @@ Route::get('/home', function () {
 });
 
 Route::get('', function () {
+    // Auth::user()->notify(new SendSms('+221780165026','hello world !'));
     $programmeActives = Programme::where('dateCloture', '>=', date_format(new DateTime(), 'Y-m-d'))
         ->orderBy('dateCloture')->paginate(20);
     return view('home', compact('programmeActives'));
@@ -68,6 +71,11 @@ Route::post('login', function (Request $request) {
 
 Route::put('users/{id}', function ($id) {
 });
+
+Route::get('programme/pre-publish',function() {
+    $typeProgrammes = TypeProgramme::orderBy('nom')->whereEnabled(true)->get();
+    return view('programme.pre-publish',compact('typeProgrammes'));
+})->name('programme.pre.publish');
 
 Route::resource('programme', ProgrammeController::class, [
     'only' => ['create', 'store', 'show']

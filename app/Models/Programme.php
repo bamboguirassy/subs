@@ -24,7 +24,10 @@ class Programme extends Model
         'description',
         'modeDeroulement',
         'image',
-        'user_id'
+        'user_id',
+        'montant',
+        'frequence',
+        'dateLimitePremierPaiement'
     ];
 
     /**
