@@ -236,6 +236,7 @@
     @yield('inline-script')
     @notify_js
     @notify_render
+
     <script src="{{ asset('angular/app.js') }}"></script>
     <script src="{{ asset('angular/service.js') }}"></script>
 
