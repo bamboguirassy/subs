@@ -8,15 +8,13 @@ use App\Models\ProfilConcerne;
 use App\Models\Programme;
 use App\Models\SouscriptionTemp;
 use App\Models\TypeProgramme;
-use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\URL;
 use Throwable;
+use PragmaRX\Countries\Package\Countries;
 
 class ProgrammeController extends Controller
 {
@@ -39,7 +37,9 @@ class ProgrammeController extends Controller
     {
         $typeProgrammes = TypeProgramme::orderBy('nom')->get();
         $profils = Profil::orderBy('nom')->get();
-        return view('programme.new', compact('typeProgrammes', 'profils'));
+        $countrieSrv = new Countries();
+        $senegal = $countrieSrv->where('cca2', 'SN')->first();
+        return view('programme.new', compact('typeProgrammes', 'profils','senegal'));
     }
 
     /**
@@ -84,7 +84,7 @@ class ProgrammeController extends Controller
                     'presentation' => 'required'
                 ]);
                 $user = Helper::createUserFromRequest();
-                if($user==null) {
+                if ($user == null) {
                     return back()->withInput();
                 }
                 $programme->user_id = $user->id;

@@ -34,7 +34,6 @@
     <link rel="stylesheet" href="{{ asset('assets/theme/css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/datatables/vanilla-dataTables.min.css') }}">
     <link rel="stylesheet" href="{{ asset('bower_components/simditor/site/assets/styles/simditor.css') }}">
-    <link rel="stylesheet" href="{{ asset('bower_components/froala-wysiwyg-editor/css/plugins/table.min.css') }}">
     <link rel="preload"
         href="https://fonts.googleapis.com/css?family=Jost:100,200,300,400,500,600,700,800,900,100i,200i,300i,400i,500i,600i,700i,800i,900i&display=swap"
         as="style" onload="this.onload=null;this.rel='stylesheet'">
@@ -44,7 +43,6 @@
     </noscript>
     <link rel="preload" as="style" href="{{ asset('assets/mobirise/css/mbr-additional.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/mobirise/css/mbr-additional.css') }}" type="text/css">
-    <link rel="stylesheet" href="{{ asset('bower_components/froala-wysiwyg-editor/css/froala_editor.css') }}">
     <meta name="theme-color" content="#ff3366">
     <link rel="manifest" href="{{ asset('manifest.json') }}">
     <script src="{{ asset('sw-connect.js') }}"></script>
@@ -239,6 +237,7 @@
     @notify_js
     @notify_render
     <script src="{{ asset('angular/app.js') }}"></script>
+    <script src="{{ asset('angular/service.js') }}"></script>
 
     <div id="chatbutton-wa" data-phone="+221778224129" data-showpopup="true"
         data-headertitle="👋 Echangeons sur WhatsApp!" data-popupmessage="Salut !👋

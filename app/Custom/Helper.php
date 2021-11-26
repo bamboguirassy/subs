@@ -38,8 +38,8 @@ class Helper
             'name' => 'required',
             'email' => 'required|unique:users,email',
             'profession' => 'required',
-            'telephone' => 'required',
-            'password' => 'confirmed|min:6',
+            'telephone' => 'required|starts_with:+',
+            'password' => 'confirmed|min:6'
         ]);
         // créer le user dans la DB et l'associer au programme
         $user = new User($request->all());

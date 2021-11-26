@@ -94,11 +94,20 @@
                                         class="form-control display-7" required="required" value="{{ old('profession') }}"
                                         id="profession-formbuilder-17">
                                 </div>
+                                <div class="col-12">
+                                    <div class="mb-3">
+                                        <label for="country_cca2" class="form-label">Pays</label>
+                                        <select ng-change="selectCountry()" ng-model="country_cca2" class="form-control" name="country_cca2" id="country_cca2">
+                                            <option value="{{ $senegal['cca2'] }}">{{ $senegal['admin'] }}</option>
+                                            <option ng-repeat="country in countries" ng-value="country.cca2">@{{ country.admin }}</option>
+                                        </select>
+                                    </div>
+                                </div>
                                 <div class="col-lg-12 col-md-12 col-sm-12 form-group" data-for="telephone">
                                     <label for="telephone-formbuilder-17"
                                         class="form-control-label mbr-fonts-style display-7">Téléphone</label>
                                     <input type="tel" name="telephone" placeholder="Téléphone" data-form-field="telephone"
-                                        class="form-control display-7" required="required" value="{{ old('telephone') }}"
+                                        class="form-control display-7" required="required" ng-value="selectedCountry.calling_codes[0]"
                                         id="telephone-formbuilder-17">
                                 </div>
                                 <div class="col-lg-12 col-md-12 col-sm-12 form-group" data-for="email">
