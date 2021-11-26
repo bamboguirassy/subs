@@ -24,8 +24,8 @@
                             </strong>c'est</span>
                         <span>
                             <span class="animated-element mbr-bold" data-word1="révolutionnaire."
-                                data-word2="plus simple et rapide." data-word3="Lorem" data-word4="Lorem" data-word5="Ipsum"
-                                data-speed="50" data-words="2">
+                                data-word2="simple." data-word3="plus efficace." data-word4="Lorem" data-word5="Ipsum"
+                                data-speed="50" data-words="3">
                             </span>
                         </span>
                     </div>
