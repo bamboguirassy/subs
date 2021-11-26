@@ -69,12 +69,12 @@
                                         </a>
                                     @endif
                                 </div>
-                                <div class="col-6">
+                                {{-- <div class="col-6">
                                     @if (Route::has('register'))
                                         <a class="btn btn-link"
                                             href="{{ route('register') }}">{{ __("S'inscrire") }}</a>
                                     @endif
-                                </div>
+                                </div> --}}
                             </div>
                         </div>
                 </div>

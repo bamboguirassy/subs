@@ -2,8 +2,9 @@
 
 @section('title', 'Publier un nouveau programme')
 
-@section('description', 'Publier un nouveau programme et permettez aux interessés de souscrire pour prendre part au
-    programme.')
+@section('description',
+    'Publier un nouveau programme et permettez aux interessés de souscrire pour prendre part au
+    programme.',)
 
 @section('body')
     <section data-bs-version="5.1" class="content2 cid-sOc3YTgSUN" id="content2-12">
@@ -25,7 +26,6 @@
             </div>
         </div>
     </section>
-
     <section class="form cid-sOc41298IC" id="formbuilder-13">
 
         <div class="container" ng-controller="ProgrammeNewController">
@@ -174,12 +174,21 @@
                                         required="required" class="form-control display-7" value="{{ old('name') }}"
                                         id="name-formbuilder-13">
                                 </div>
+                                <div class="col-12">
+                                    <div class="mb-3">
+                                        <label for="country_cca2" class="form-label">Pays</label>
+                                        <select ng-change="selectCountry()" ng-model="country_cca2" class="form-control" name="country_cca2" id="country_cca2">
+                                            <option value="{{ $senegal['cca2'] }}">{{ $senegal['admin'] }}</option>
+                                            <option ng-repeat="country in countries" ng-value="country.cca2">@{{ country.admin }}</option>
+                                        </select>
+                                    </div>
+                                </div>
                                 <div data-for="telephone" class="col-lg-12 col-md-12 col-sm-12 form-group">
                                     <label for="telephone-formbuilder-13" class="form-control-label mbr-fonts-style display-7">
                                         Téléphone
                                     </label>
                                     <input type="tel" name="telephone" placeholder="Téléphone" data-form-field="telephone"
-                                        required="required" class="form-control display-7" value="{{ old('telephone') }}"
+                                        required="required" class="form-control display-7" ng-value="selectedCountry.calling_codes[0]"
                                         id="telephone-formbuilder-13">
                                 </div>
                                 <div data-for="profession" class="col-lg-12 col-md-12 col-sm-12 form-group">
@@ -191,7 +200,7 @@
                                 </div>
                                 <div data-for="presentation" class="col-lg-12 col-md-12 col-sm-12 form-group">
                                     <label for="editor"
-                                        class="form-control-label mbr-fonts-style display-7">Présenation</label>
+                                        class="form-control-label mbr-fonts-style display-7">Présentation</label>
                                     <textarea name="presentation" data-form-field="presentation" class="form-control display-7"
                                         id="editor">{{ old('presentation') }}</textarea>
                                 </div>

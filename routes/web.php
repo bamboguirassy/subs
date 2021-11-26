@@ -10,6 +10,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use PragmaRX\Countries\Package\Countries;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -96,7 +98,10 @@ Route::get('souscription/{programme}/create', function (Programme $programme) {
         notify()->warning("Ce programme est déja cloturé, vous ne pourrez malheureusement plus postuler...");
         return back();
     }
-    return view('programme.souscription.new', compact('programme'));
+
+    $countrieSrv = new Countries();
+    $senegal = $countrieSrv->where('cca2', 'SN')->first();
+    return view('programme.souscription.new', compact('programme','senegal'));
 })->name('souscription.new');
 
 Route::post('souscription_pin', 'App\Http\Controllers\SouscriptionController@instantPaymentNotificate')
@@ -142,3 +147,13 @@ Route::get('contact', function () {
 Route::get('apropos', function () {
     return view('apropos');
 })->name('apropos');
+
+Route::get('countries',function() {
+    $countrieSrv = new Countries();
+    $data = $countrieSrv->all();
+    $countries = [];
+    foreach ($data as $country) {
+        $countries[] = $country;
+    }
+    return $countries;
+});
