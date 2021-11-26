@@ -11,7 +11,7 @@
 
 @section('body')
     <section data-bs-version="5.1" class="header3 cid-sOcbVln16Y" id="header03-16">
-        <div class="mbr-overlay" style="opacity: 0.7; background-color: #2ca9d7;"></div>
+        <div class="mbr-overlay" style="opacity: 0.7; background-color: #fe525b;"></div>
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-12 col-md-4 image-wrapper">
