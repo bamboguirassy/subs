@@ -53,7 +53,6 @@ class SouscriptionController extends Controller
     {
         // valider les champs obligatoires propres à programme
         $request->validate([
-            'profil_concerne_id' => 'required|exists:profil_concernes,id',
             'programme_id' => 'required|exists:programmes,id',
         ]);
         // démarrer la transaction
@@ -71,32 +70,69 @@ class SouscriptionController extends Controller
                 $userId = Auth::id();
             } else {
                 $user = Helper::createUserFromRequest();
-                if($user==null) {
+                if ($user == null) {
                     return back()->withInput();
                 }
                 $userId = $user->id;
             }
-            // recuperer le profil selectionné
-            $profilConcerne = ProfilConcerne::find($request->get('profil_concerne_id'));
-            // recuperer le profil concerne et verifier si le paiement est gratuit
-            if ($profilConcerne->montant == 0) {
-                // convert temp souscription to souscription
+            if ($programme->is_programme) {
+                $request->validate([
+                    'profil_concerne_id' => 'required|exists:profil_concernes,id',
+                ]);
+            }
+            if ($request->exists('profil_concerne_id')) {
+                // recuperer le profil selectionné
+                $profilConcerne = ProfilConcerne::find($request->get('profil_concerne_id'));
+                // recuperer le profil concerne et verifier si le paiement est gratuit
+                if ($profilConcerne->montant == 0) {
+                    // souscribe directly
+                    $souscription = new Souscription($request->all());
+                    $souscription->user_id = $userId;
+                    $souscription->montant = 0;
+                    $souscription->uid = uniqid();
+                    $souscription->save();
+                    $souscription->user->notify(new NotifyNewSouscription($souscription));
+                    notify()->success("Vous avez souscrit avec succès au programme !!!");
+                } else {
+                    // instancier la souscription temp avec le contenu du request
+                    $souscriptionTemp = new SouscriptionTemp($request->all());
+                    $souscriptionTemp->uid = uniqid();
+                    $souscriptionTemp->user_id = $userId;
+                    $souscriptionTemp->montant = $profilConcerne->montant;
+                    $souscriptionTemp->save();
+                    // terminer la transaction
+                    $redirectUrl = PaymentManager::initPayment($souscriptionTemp);
+                }
+            } else if ($programme->typeProgramme->code == 'TONTINE') {
+                // souscribe directly
                 $souscription = new Souscription($request->all());
                 $souscription->user_id = $userId;
                 $souscription->montant = 0;
                 $souscription->uid = uniqid();
                 $souscription->save();
                 $souscription->user->notify(new NotifyNewSouscription($souscription));
-                notify()->success("Vous avez souscrit avec succès au programme !!!");
-            } else {
+                notify()->success("Vous avez souscrit avec succès à la tontine !!!");
+            } else if ($programme->is_collecte_fond) {
+                $request->validate([
+                    'montant' => 'required'
+                ]);
                 // instancier la souscription temp avec le contenu du request
                 $souscriptionTemp = new SouscriptionTemp($request->all());
                 $souscriptionTemp->uid = uniqid();
                 $souscriptionTemp->user_id = $userId;
-                $souscriptionTemp->montant = $profilConcerne->montant;
+                $souscriptionTemp->montant = $request->montant;
                 $souscriptionTemp->save();
                 // terminer la transaction
-                $redirectUrl = PaymentManager::initPayment($souscriptionTemp, $profilConcerne);
+                $redirectUrl = PaymentManager::initPayment($souscriptionTemp);
+            } else if ($programme->typeProgramme->code == "COTI") {
+                // instancier la souscription temp avec le contenu du request
+                $souscriptionTemp = new SouscriptionTemp($request->all());
+                $souscriptionTemp->uid = uniqid();
+                $souscriptionTemp->user_id = $userId;
+                $souscriptionTemp->montant = $programme->montant;
+                $souscriptionTemp->save();
+                // terminer la transaction
+                $redirectUrl = PaymentManager::initPayment($souscriptionTemp);
             }
             DB::commit();
             if (!Auth::check()) {
@@ -105,7 +141,7 @@ class SouscriptionController extends Controller
                 }
             }
             // gérer le paiement par paytech
-            return $profilConcerne->montant > 0 ? redirect()->to($redirectUrl) : redirect()->route('programme.show', compact('programme'));
+            return isset($redirectUrl) ? redirect()->to($redirectUrl) : redirect()->route('programme.show', compact('programme'));
         } catch (Exception $e) {
             notify()->error("Une erreur s'est produite pendant la souscription, merci de réssayer !");
             DB::rollBack();

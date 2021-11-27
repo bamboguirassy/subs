@@ -15,7 +15,6 @@ class AddMorePaymentFieldToProgrammesTable extends Migration
     {
         Schema::table('programmes', function (Blueprint $table) {
             $table->string('frequence')->default('mensuelle');
-            $table->date('dateLimitePremierPaiement')->nullable();
             $table->dropColumn('paiementMultiple');
         });
     }

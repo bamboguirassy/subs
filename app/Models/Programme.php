@@ -93,4 +93,16 @@ class Programme extends Model
         }
         return null;
     }
+
+    public function getIsPublicAttribute() {
+        return $this->typeProgramme->code=="PROG" || $this->typeProgramme->code=="CFON";
+    }
+
+    public function getIsCollecteFondAttribute() {
+        return $this->typeProgramme->code=="CFON";
+    }
+
+    public function getIsProgrammeAttribute() {
+        return $this->typeProgramme->code=="PROG";
+    }
 }

@@ -36,6 +36,9 @@ Route::get('', function () {
     // Auth::user()->notify(new SendSms('+221780165026','hello world !'));
     $programmeActives = Programme::where('dateCloture', '>=', date_format(new DateTime(), 'Y-m-d'))
         ->orderBy('dateCloture')->paginate(20);
+    $programmeActives = $programmeActives->filter(function ($programme) {
+        return $programme->is_public;
+    });
     return view('home', compact('programmeActives'));
 })->name('home');
 
@@ -72,9 +75,9 @@ Route::post('login', function (Request $request) {
 Route::put('users/{id}', function ($id) {
 });
 
-Route::get('programme/pre-publish',function() {
+Route::get('programme/pre-publish', function () {
     $typeProgrammes = TypeProgramme::orderBy('nom')->whereEnabled(true)->get();
-    return view('programme.pre-publish',compact('typeProgrammes'));
+    return view('programme.pre-publish', compact('typeProgrammes'));
 })->name('programme.pre.publish');
 
 Route::resource('programme', ProgrammeController::class, [
@@ -109,7 +112,7 @@ Route::get('souscription/{programme}/create', function (Programme $programme) {
 
     $countrieSrv = new Countries();
     $senegal = $countrieSrv->where('cca2', 'SN')->first();
-    return view('programme.souscription.new', compact('programme','senegal'));
+    return view('programme.souscription.new', compact('programme', 'senegal'));
 })->name('souscription.new');
 
 Route::post('souscription_pin', 'App\Http\Controllers\SouscriptionController@instantPaymentNotificate')
@@ -156,7 +159,7 @@ Route::get('apropos', function () {
     return view('apropos');
 })->name('apropos');
 
-Route::get('countries',function() {
+Route::get('countries', function () {
     $countrieSrv = new Countries();
     $data = $countrieSrv->all();
     $countries = [];

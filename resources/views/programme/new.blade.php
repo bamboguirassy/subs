@@ -70,8 +70,8 @@
                                             type="checkbox" value="@{{ profil . id }}" name="profils[]"
                                             data-form-field="@{{ profil . nom }}" class="form-check-input display-7"
                                             id="@{{ profil . nom }}-formbuilder-13">
-                                        <label for="@{{ profil . nom }}-formbuilder-13" class="form-check-label display-7"
-                                            ng-bind="profil.nom">Professionnel</label>
+                                        <label for="@{{ profil . nom }}-formbuilder-13"
+                                            class="form-check-label display-7" ng-bind="profil.nom">Professionnel</label>
                                     </div>
                                 </div>
                                 <ng-container ng-repeat="profil in profils">
@@ -91,46 +91,39 @@
                             @if ($typeProgramme->code == 'TONTINE' || $typeProgramme->code == 'COTI')
                                 <div class="mb-3">
                                     <label for="montant" class="form-label">Montant à payer</label>
-                                    <input required="required" type="number" class="form-control" name="montant" id="montant"
-                                        placeholder="Montant que chacun doit payer">
+                                    <input required="required" type="number" class="form-control" name="montant"
+                                        id="montant" placeholder="Montant que chacun doit payer"
+                                        value="{{ old('montant') }}">
                                 </div>
                                 @if ($typeProgramme->code == 'TONTINE')
                                     <div class="mb-3">
                                         <label for="frequence" class="form-label">Frequence de cotisation</label>
                                         <select required="required" class="form-control" name="frequence" id="frequence">
-                                            <option>journalière</option>
-                                            <option>hebdomadaire</option>
                                             <option>mensuelle</option>
+                                            <option>hebdomadaire</option>
                                         </select>
-                                    </div>
-                                    <div class="mb-3">
-                                      <label for="dateLimitePremierPaiement" class="form-label">Date Limite premier paiement</label>
-                                      <input type="date" required="required"
-                                        class="form-control" name="dateLimitePremierPaiement" id="dateLimitePremierPaiement" aria-describedby="dateLimitePremierPaiementHelperId" placeholder="">
-                                      <small id="dateLimitePremierPaiementHelperId" class="form-text text-muted">Toutes les autres dates limites de paiement seront déterminées en fonction de cette première date limite de paiement selon la fréquence...</small>
                                     </div>
                                 @endif
                             @endif
-                            @if ($typeProgramme->code != 'TONTINE')
-                                <div data-for="dateCloture" class="col-lg-12 col-md-12 col-sm-12 form-group">
-                                    <label for="dateCloture-formbuilder-13"
-                                        class="form-control-label mbr-fonts-style display-7">
-                                        Date de clôture
-                                    </label>
-                                    <input type="date" name="dateCloture" data-form-field="dateCloture" required="required"
-                                        class="form-control display-7" value="{{ old('dateCloture') }}"
-                                        id="dateCloture-formbuilder-13">
-                                </div>
-                            @endif
-                            @if ($typeProgramme->code == 'PROG')
+                            <div data-for="dateCloture" class="col-lg-12 col-md-12 col-sm-12 form-group">
+                                <label for="dateCloture-formbuilder-13"
+                                    class="form-control-label mbr-fonts-style display-7">
+                                    Date de clôture des inscriptions (souscriptions)
+                                </label>
+                                <input type="date" name="dateCloture" data-form-field="dateCloture" required="required"
+                                    class="form-control display-7" value="{{ old('dateCloture') }}"
+                                    id="dateCloture-formbuilder-13">
+                            </div>
+                            @if ($typeProgramme->code == 'PROG' || $typeProgramme->code == 'TONTINE')
                                 <div data-for="dateDemarrage" class="col-lg-12 col-md-12 col-sm-12 form-group">
                                     <label for="dateDemarrage-formbuilder-13"
-                                        class="form-control-label mbr-fonts-style display-7">Date Démarrage du
-                                        programme</label>
+                                        class="form-control-label mbr-fonts-style display-7">Date Démarrage</label>
                                     <input type="date" name="dateDemarrage" data-form-field="dateDemarrage"
                                         required="required" class="form-control display-7"
                                         value="{{ old('dateDemarrage') }}" id="dateDemarrage-formbuilder-13">
                                 </div>
+                            @endif
+                            @if ($typeProgramme->code == 'PROG')
                                 <div data-for="duree" class="col-lg-12 col-md-12 col-sm-12 form-group">
                                     <label for="duree-formbuilder-13"
                                         class="form-control-label mbr-fonts-style display-7">Durée
@@ -162,7 +155,8 @@
                                 <label for="description-formbuilder-13"
                                     class="form-control-label mbr-fonts-style display-7">Description du programme</label>
                                 <textarea id="wysiwyg" name="description" data-form-field="description" required="required"
-                                    class="form-control display-7" id="description-formbuilder-13"></textarea>
+                                    class="form-control display-7"
+                                    id="description-formbuilder-13">{{ old('description') }}</textarea>
                             </div>
                             @if ($typeProgramme->code == 'PROG')
                                 <div data-for="modeDeroulement" class="col-lg-12 col-md-12 col-sm-12 form-group">

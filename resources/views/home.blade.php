@@ -40,7 +40,7 @@
                         @endguest
                         <a class="btn btn-md btn-danger display-4" href="{{ route('programme.pre.publish') }}">
                             <span class="icon54-v2-add-note mbr-iconfont mbr-iconfont-btn"></span>
-                            Lancer un programme
+                            Démarrer un programme
                         </a>
                     </div>
                 </div>
@@ -100,7 +100,11 @@
         <x-separator />
     @else
         @foreach ($programmeActives as $programmeActive)
+        @if ($programmeActive->is_collecte_fond)
+        <x-levee-fond-public-item  :programme="$programmeActive"/>
+        @else
             <x-programme-public-item :programme="$programmeActive" />
+        @endif
         @endforeach
     @endif
     <x-social-sharing />

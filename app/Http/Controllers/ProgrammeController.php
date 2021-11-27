@@ -8,6 +8,7 @@ use App\Models\ProfilConcerne;
 use App\Models\Programme;
 use App\Models\SouscriptionTemp;
 use App\Models\TypeProgramme;
+use Error;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -35,8 +36,8 @@ class ProgrammeController extends Controller
      */
     public function create(Request $request)
     {
-        if($request->exists('type')) {
-            $request->validate(['type'=>'exists:type_programmes,code']);
+        if ($request->exists('type')) {
+            $request->validate(['type' => 'exists:type_programmes,code']);
             $typeProgramme = TypeProgramme::whereCode($request->get('type'))->first();
         } else {
             $typeProgramme = TypeProgramme::whereCode('PROG')->first();
@@ -44,7 +45,7 @@ class ProgrammeController extends Controller
         $profils = Profil::orderBy('nom')->get();
         $countrieSrv = new Countries();
         $senegal = $countrieSrv->where('cca2', 'SN')->first();
-        return view('programme.new', compact('profils','senegal','typeProgramme'));
+        return view('programme.new', compact('profils', 'senegal', 'typeProgramme'));
     }
 
     /**
@@ -60,14 +61,17 @@ class ProgrammeController extends Controller
             'type_programme_id' => 'required|exists:type_programmes,id'
         ]);
         $typeProgramme = TypeProgramme::find($request->get('type_programme_id'));
-        if($typeProgramme->code=='COTI') {
+        if ($typeProgramme->code == 'COTI') {
             $this->validateCotisation();
-        } else if($typeProgramme->code=='LFON') {
-            $this->validateLeveeFond();
-        } else if($typeProgramme->code=='PROG') {
+        } else if ($typeProgramme->code == 'CFON') {
+            $this->validateCollecteFond();
+        } else if ($typeProgramme->code == 'PROG') {
             $this->validateProgramme();
-        } else if($typeProgramme->code=='TONTINE') {
+        } else if ($typeProgramme->code == 'TONTINE') {
             $this->validateTontine();
+        } else {
+            notify()->error("Type de programme non reconnu...");
+            return back()->withErrors(["Type de programme inconnu..."]);
         }
         //    --     démarrer la transaction
         DB::beginTransaction();
@@ -75,9 +79,11 @@ class ProgrammeController extends Controller
             // instancier le programme avec le contenu du request
             $programme = new Programme($request->all());
             //gérer l'upload de l'image de couverture
-            $filename = $programme->nom . '_' . uniqid() . '.' . $request->file('image')->extension();
-            $request->file('image')->storeAs('programmes/images', $filename);
-            $programme->image = $filename;
+            if ($request->hasFile('image')) {
+                $filename = $programme->nom . '_' . uniqid() . '.' . $request->file('image')->extension();
+                $request->file('image')->storeAs('programmes/images', $filename);
+                $programme->image = $filename;
+            }
             // verifier si l'utilisateur est connecté
             if (Auth::check()) {
                 // si user connecté, associer le programme à l'utilisateur connecté
@@ -95,15 +101,17 @@ class ProgrammeController extends Controller
             }
             $programme->save();
 
-            // reccuperer les profils selectionnés
-            foreach ($request->get('profils') as $profilId) {
-                // et créer les profils concernés avec les montants et les associer avec le programme
-                $profilConcerne = new ProfilConcerne([
-                    'profil_id' => $profilId,
-                    'programme_id' => $programme->id,
-                    'montant' => $request->get('cout')[$profilId]
-                ]);
-                $profilConcerne->save();
+            if ($typeProgramme->code == "PROG") {
+                // reccuperer les profils selectionnés
+                foreach ($request->get('profils') as $profilId) {
+                    // et créer les profils concernés avec les montants et les associer avec le programme
+                    $profilConcerne = new ProfilConcerne([
+                        'profil_id' => $profilId,
+                        'programme_id' => $programme->id,
+                        'montant' => $request->get('cout')[$profilId]
+                    ]);
+                    $profilConcerne->save();
+                }
             }
             //      -- terminer la transaction
             DB::commit();
@@ -214,7 +222,8 @@ class ProgrammeController extends Controller
         return redirect()->route('mes.programmes');
     }
 
-    function validateProgramme() {
+    function validateProgramme()
+    {
         // valider les champs obligatoires propres à programme
         request()->validate([
             'type_programme_id' => 'required|exists:type_programmes,id',
@@ -232,31 +241,33 @@ class ProgrammeController extends Controller
         ]);
     }
 
-    function validateCotisation() {
+    function validateCotisation()
+    {
         // valider les champs obligatoires propres à programme
         request()->validate([
             'type_programme_id' => 'required|exists:type_programmes,id',
             'nom' => 'required',
             'dateCloture' => 'required',
             'description' => 'required',
-            'montant'=>'required',
+            'montant' => 'required',
         ]);
     }
 
-    function validateTontine() {
+    function validateTontine()
+    {
         // valider les champs obligatoires propres à programme
         request()->validate([
             'type_programme_id' => 'required|exists:type_programmes,id',
             'nom' => 'required',
-            'dateCloture' => 'required',
             'description' => 'required',
-            'montant'=>'required',
-            'frequence'=>'required|in_array:journalière,hebdomadaire,mensuelle',
-            'dateLimitePremierPaiement'=>'required'
+            'montant' => 'required',
+            'frequence' => 'required',
+            'dateDemarrage' => 'required'
         ]);
     }
 
-    function validateLeveeFond() {
+    function validateCollecteFond()
+    {
         // valider les champs obligatoires propres à programme
         request()->validate([
             'type_programme_id' => 'required|exists:type_programmes,id',
