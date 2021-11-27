@@ -15,7 +15,7 @@ class AddProgrammeFkFieldToProgrammesTable extends Migration
     public function up()
     {
         Schema::table('programmes', function (Blueprint $table) {
-            $table->foreignIdFor(Programme::class)->default(null)->nullable();
+            $table->foreignId('programme_id')->default(null)->nullable();
         });
     }
 
