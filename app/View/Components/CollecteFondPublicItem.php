@@ -4,7 +4,7 @@ namespace App\View\Components;
 
 use Illuminate\View\Component;
 
-class LeveeFondPublicItem extends Component
+class CollecteFondPublicItem extends Component
 {
     public $programme;
     /**
@@ -24,6 +24,6 @@ class LeveeFondPublicItem extends Component
      */
     public function render()
     {
-        return view('components.levee-fond-public-item');
+        return view('components.collecte-fond-public-item');
     }
 }

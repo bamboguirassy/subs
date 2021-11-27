@@ -14,7 +14,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-12">
-                    <h3 class="mbr-section-title mb-3 align-center mbr-fonts-style display-5">
+                    <h3 class="mbr-section-title mb-3 align-center mbr-fonts-style display-5 text-primary">
                         Selectionner le type de programme que vous souhaitez publier...
                     </h3>
                 </div>

@@ -24,6 +24,9 @@
                 </div>
                 <div class="col-12 col-md">
                     <div class="text-wrapper">
+                        <h1 class="mbr-section-title mbr-fonts-style mb-3 display-4">
+                            <strong>{{ $programme->typeProgramme->nom }}</strong>
+                        </h1>
                         <h1 class="mbr-section-title mbr-fonts-style mb-3 display-2">
                             <strong>{{ $programme->nom }}</strong>
                         </h1>

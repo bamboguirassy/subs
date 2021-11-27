@@ -78,6 +78,21 @@ class ProgrammeController extends Controller
         try {
             // instancier le programme avec le contenu du request
             $programme = new Programme($request->all());
+            // vérifier les dates
+            if(isset($programme->dateCloture)) {
+                if($programme->dateCloture<today()->addDay()) {
+                    $errorMessage = "La date de cloture doit prendre environ 1 jour à l'avance pour permettre aux gens de souscrire...";
+                    notify()->error($errorMessage);
+                    return back()->withErrors([$errorMessage])->withInput();
+                }
+            }
+            if(isset($programme->dateDemarrage)) {
+                if($programme->dateDemarrage<$programme->dateCloture) {
+                    $errorMessage = "La date de démarrage ne peut être antérieure à la date de cloture, merci de revoir les dates.";
+                    notify()->error($errorMessage);
+                    return back()->withErrors([$errorMessage])->withInput();
+                }
+            }
             //gérer l'upload de l'image de couverture
             if ($request->hasFile('image')) {
                 $filename = $programme->nom . '_' . uniqid() . '.' . $request->file('image')->extension();

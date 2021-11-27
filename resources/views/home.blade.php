@@ -23,9 +23,9 @@
                         <span class="mbr-section-subtitle mbr-fonts-style display-2">Avec <strong>{{ config('app.name') }}
                             </strong>c'est</span>
                         <span>
-                            <span class="animated-element mbr-bold" data-word1="révolutionnaire."
-                                data-word2="simple." data-word3="plus efficace." data-word4="Lorem" data-word5="Ipsum"
-                                data-speed="50" data-words="3">
+                            <span class="animated-element mbr-bold" data-word1="révolutionnaire." data-word2="simple."
+                                data-word3="plus efficace." data-word4="Lorem" data-word5="Ipsum" data-speed="50"
+                                data-words="3">
                             </span>
                         </span>
                     </div>
@@ -33,7 +33,8 @@
                         Collectez les souscriptions et les fonds pour tous vos programmes.</p>
                     <div class="pt-3 mbr-section-btn align-left">
                         @guest
-                            <a class="btn btn-md btn-white display-4" href="{{ route('login') }}?ret={{ request()->fullUrl() }}">
+                            <a class="btn btn-md btn-white display-4"
+                                href="{{ route('login') }}?ret={{ request()->fullUrl() }}">
                                 <span class="mobi-mbri mobi-mbri-login mbr-iconfont mbr-iconfont-btn"></span>
                                 Se connecter
                             </a>
@@ -100,11 +101,11 @@
         <x-separator />
     @else
         @foreach ($programmeActives as $programmeActive)
-        @if ($programmeActive->is_collecte_fond)
-        <x-levee-fond-public-item  :programme="$programmeActive"/>
-        @else
-            <x-programme-public-item :programme="$programmeActive" />
-        @endif
+            @if ($programmeActive->is_collecte_fond)
+                <x-collecte-fond-public-item :programme="$programmeActive" />
+            @else
+                <x-programme-public-item :programme="$programmeActive" />
+            @endif
         @endforeach
     @endif
     <x-social-sharing />

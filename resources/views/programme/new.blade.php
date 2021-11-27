@@ -146,9 +146,9 @@
                                         0
                                         pour illimité)</label>
                                     <input type="number" name="nombreParticipants"
-                                        placeholder="Nombre maximum de participants" max="100" min="0" step="1"
+                                        placeholder="Nombre maximum de participants" max="" min="0" step="1"
                                         data-form-field="nombreParticipants" required="required"
-                                        class="form-control display-7" value="" id="nombreParticipants-formbuilder-13">
+                                        class="form-control display-7" value="{{ old('nombreParticipants') }}" id="nombreParticipants-formbuilder-13">
                                 </div>
                             @endif
                             <div data-for="description" class="col-lg-12 col-md-12 col-sm-12 form-group">
@@ -181,7 +181,7 @@
                             @endif
                             <div data-for="image" class="col-lg-12 col-md-12 col-sm-12 form-group">
                                 <label for="image-formbuilder-13" class="form-control-label mbr-fonts-style display-7">
-                                    Chosir une image de couverture @if ($typeProgramme->code == 'PROG') <span class="text-primary">(optionnelle)</span> @endif</label>
+                                    Chosir une image de couverture @if ($typeProgramme->code != 'PROG') <span class="text-primary">(optionnelle)</span> @endif</label>
                                 <input type="file" accept="image/*" name="image" max="100" min="0" step="1"
                                     data-form-field="image" @if ($typeProgramme->code == 'PROG') required="required" @endif class="form-control display-7" value=""
                                     id="image-formbuilder-13">

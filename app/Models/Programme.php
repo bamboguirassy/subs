@@ -7,11 +7,15 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Support\Facades\Auth;
 
 class Programme extends Model
 {
     use HasFactory;
+
+    public const FREQUENCE_HEBDO = 'hebdomadaire';
+    public const FREQUENCE_MENSUEL = 'mensuelle';
 
     protected $fillable = [
         'type_programme_id',
@@ -27,7 +31,7 @@ class Programme extends Model
         'user_id',
         'montant',
         'frequence',
-        'dateLimitePremierPaiement'
+        'programme_id'
     ];
 
     /**
@@ -80,29 +84,135 @@ class Programme extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function getActiveAttribute() {
-        return $this->dateCloture>=date_format(new DateTime(),'Y-m-d');
+    /**
+     * Get all of the children for the Programme
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function children(): HasMany
+    {
+        return $this->hasMany(Programme::class);
     }
 
-    public function getCurrentUserSouscriptionAttribute(): ?Souscription {
-        if(Auth::check()) {
-            $souscriptions = Souscription::where('user_id',Auth::id())
-            ->where('programme_id',$this->id)
-            ->get();
-            return count($souscriptions)>0?$souscriptions[0]:null;
+    /**
+     * Get the parent that owns the Programme
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function parent(): BelongsTo
+    {
+        return $this->belongsTo(Programme::class);
+    }
+
+    /**
+     * Get the lastChild associated with the Programme
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function lastChild(): HasOne
+    {
+        return $this->hasOne(Programme::class)->orderBy('created_at', 'desc');
+    }
+
+    public function getHasChildrenAttribute()
+    {
+        return count($this->children) > 0;
+    }
+
+    public function getNombreMainAttribute()
+    {
+        if ($this->typeProgramme->code == 'TONTINE') {
+            if ($this->nombreParticipants > 0) {
+                return $this->nombreParticipants;
+            } else {
+                return count($this->souscriptions);
+            }
+        }
+        return 0;
+    }
+
+    public function getActiveAttribute()
+    {
+        return $this->dateCloture >= date_format(new DateTime(), 'Y-m-d');
+    }
+
+    public function getCurrentUserSouscriptionAttribute(): ?Souscription
+    {
+        if (Auth::check()) {
+            $souscriptions = Souscription::where('user_id', Auth::id())
+                ->where('programme_id', $this->id)
+                ->get();
+            return count($souscriptions) > 0 ? $souscriptions[0] : null;
         }
         return null;
     }
 
-    public function getIsPublicAttribute() {
-        return $this->typeProgramme->code=="PROG" || $this->typeProgramme->code=="CFON";
+    public function getIsParentAttribute()
+    {
+        return $this->programme_id == null;
     }
 
-    public function getIsCollecteFondAttribute() {
-        return $this->typeProgramme->code=="CFON";
+    public function getIsPublicAttribute()
+    {
+        return $this->typeProgramme->code == "PROG" || $this->typeProgramme->code == "CFON";
     }
 
-    public function getIsProgrammeAttribute() {
-        return $this->typeProgramme->code=="PROG";
+    public function getIsCollecteFondAttribute()
+    {
+        return $this->typeProgramme->code == "CFON";
+    }
+
+    public function getIsProgrammeAttribute()
+    {
+        return $this->typeProgramme->code == "PROG";
+    }
+
+    public function getIsTontineAttribute()
+    {
+        return $this->typeProgramme->code == "TONTINE";
+    }
+
+    public static function createChildFromParent(Programme $parent)
+    {
+        $programme = new Programme();
+        $programme->programme_id = $parent->id;
+        $programme->type_programme_id = $parent->type_programme_id;
+        $index = count($parent->children) + 1;
+        $programme->nom = $parent->nom . '_tranche_' . $index;
+        $programme->montant = $parent->montant;
+        $programme->frequence = $parent->frequence;
+        $programme->description = $parent->description;
+        $programme->image = $parent->image;
+        $programme->user_id = $parent->user_id;
+        $programme->nombreParticipants = $parent->nombre_main;
+        $programme->dateDemarrage = today();
+        if ($parent->frequence == Programme::FREQUENCE_HEBDO) {
+            $programme->dateCloture = today()->addWeek();
+        } else if ($parent->frequence == Programme::FREQUENCE_MENSUEL) {
+            $programme->dateCloture = today()->addMonth();
+        }
+        return $programme;
+    }
+
+    public static function createChildFromChild(Programme $child)
+    {
+        $programme = new Programme();
+        $programme->programme_id = $child->parent->id;
+        $programme->type_programme_id = $child->parent->type_programme_id;
+        $index = count($child->parent->children) + 1;
+        $programme->nom = $child->parent->nom . '_tranche_' . $index;
+        $programme->montant = $child->parent->montant;
+        $programme->frequence = $child->parent->frequence;
+        $programme->description = $child->parent->description;
+        $programme->image = $child->parent->image;
+        $programme->user_id = $child->parent->user_id;
+        $programme->nombreParticipants = $child->parent->nombre_main;
+        $programme->dateDemarrage = today();
+        if ($child->parent->frequence == Programme::FREQUENCE_HEBDO) {
+            $programme->dateCloture = today()->addWeek();
+        } else if ($child->parent->frequence == Programme::FREQUENCE_MENSUEL) {
+            $programme->dateCloture = today()->addMonth();
+        }
+        return $programme;
     }
 }
