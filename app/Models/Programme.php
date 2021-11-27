@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Mail\RemindTontineTrancheStart;
 use DateTime;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -9,6 +10,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class Programme extends Model
 {
@@ -191,7 +193,8 @@ class Programme extends Model
         } else if ($parent->frequence == Programme::FREQUENCE_MENSUEL) {
             $programme->dateCloture = today()->addMonth();
         }
-        return $programme;
+        $programme->save();
+        Programme::notifyTontinePayment($programme, $parent->souscriptions);
     }
 
     public static function createChildFromChild(Programme $child)
@@ -213,6 +216,15 @@ class Programme extends Model
         } else if ($child->parent->frequence == Programme::FREQUENCE_MENSUEL) {
             $programme->dateCloture = today()->addMonth();
         }
-        return $programme;
+        $programme->save();
+        Programme::notifyTontinePayment($programme, $child->parent->souscriptions);
+    }
+
+    public static function notifyTontinePayment(Programme $programme,$souscriptions)
+    {
+        foreach ($souscriptions as $souscription) {
+            // envoyer mail au particpant avec les détails du paiement et rappel
+            Mail::to($souscription->user)->send(new RemindTontineTrancheStart($programme, $souscription));
+        }
     }
 }
