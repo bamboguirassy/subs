@@ -64,6 +64,14 @@ class SouscriptionController extends Controller
                 notify()->warning("Vous avez déja souscrit à ce programme !");
                 return redirect()->route('programme.show', compact('programme'));
             }
+            // vérifier si le nombre de souscription est atteint
+            if ($programme->nombreParticipants > 0) {
+                if ($programme->nombreParticipants == count($programme->souscriptions)) {
+                    $errorMsg = "Il n'y a plus de place disponible, merci de contacter le responsable du programme...";
+                    notify()->error($errorMsg);
+                    return back()->withErrors($errorMsg);
+                }
+            }
             // verifier si l'utilisateur est connecté
             if (Auth::check()) {
                 // si user connecté, associer le programme à l'utilisateur connecté
@@ -107,8 +115,8 @@ class SouscriptionController extends Controller
                 // si child programme, s'assurer que le participant a souscrit à la tontine
                 if ($programme->programme_id != null && !$programme->parent->current_user_souscription) {
                     $errorMsg = "Vous n'êtes pas autorisé à participer à ce programme car vous ne vous étiez pas inscrit, merci de contacter le responsable...";
-                    notify()->error();
-                    return back()->withErrors("Vous n'êtes pas autorisé à souscrire à ce programme, merci de contacter le responsable...");
+                    notify()->error($errorMsg);
+                    return back()->withErrors($errorMsg);
                 }
                 $souscription = new Souscription($request->all());
                 $souscription->user_id = $userId;
