@@ -57,7 +57,7 @@
                             @isset($programme->montant)
                                 <tr>
                                     <td>Montant:</td>
-                                    <th>{{ $programme->montant  }} FCFA</th>
+                                    <th>{{ $programme->montant }} FCFA</th>
                                 </tr>
                             @endisset
                             @if ($programme->is_programme || $programme->typeProgramme->code == 'TONTINE')
@@ -122,6 +122,153 @@
             </div>
         </div>
     </section>
+    {{-- statistique globale --}}
+    @if ($programme->is_proprietaire || $programme->is_collecte_fond || (($programme->is_tontine || $programme->is_cotisation) && $programme->current_user_souscription))
+        <section data-bs-version="5.1" class="numbers02 cid-sQ5yFl7EbG" id="numbers02-2v">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="card md-pb col-12 col-md-6 col-lg-3">
+                        <div class="card-wrapper">
+                            <div class="icon-wrapper">
+                                <span class="mbr-iconfont m-auto mobi-mbri-users mobi-mbri"></span>
+                            </div>
+                            <div class="card-box">
+                                <h4 class="card-title mbr-fonts-style mb-1 display-5">
+                                    <strong>{{ count($programme->souscriptions) }}</strong>
+                                </h4>
+                                <h5 class="card-text mbr-fonts-style display-7"><strong>Participant(s)</strong></h5>
+                            </div>
+                        </div>
+                    </div>
+                    @if (!$programme->is_tontine)
+                        <div class="card md-pb col-12 col-md-6 col-lg-3">
+                            <div class="card-wrapper">
+                                <div class="icon-wrapper">
+                                    <span class="mbr-iconfont m-auto icon54-v1-send-money"></span>
+                                </div>
+                                <div class="card-box">
+                                    <h4 class="card-title mbr-fonts-style mb-1 display-5"><strong>{{ $programme->gain }}
+                                            FCFA</strong></h4>
+                                    <h5 class="card-text mbr-fonts-style display-7"><strong>Gain</strong></h5>
+                                </div>
+                            </div>
+                        </div>
+                    @endif
+                    @if (!$programme->is_tontine && $programme->is_proprietaire)
+                        <div class="card md-pb col-12 col-md-6 col-lg-3">
+                            <div class="card-wrapper">
+                                <div class="icon-wrapper">
+                                    <span class="mbr-iconfont m-auto icon54-v1-send-money"></span>
+                                </div>
+                                <div class="card-box">
+                                    <h4 class="card-title mbr-fonts-style mb-1 display-5"><strong>{{ $programme->gain_net }}
+                                            FCFA</strong></h4>
+                                    <h5 class="card-text mbr-fonts-style display-7"><strong>Gain Net (-5%)</strong></h5>
+                                </div>
+                            </div>
+                        </div>
+                    @endif
+                    @if ($programme->is_proprietaire)
+                    <div class="card md-pb col-12 col-md-6 col-lg-3">
+                        <div class="card-wrapper">
+                            <div class="icon-wrapper">
+                                <span class="mbr-iconfont m-auto icon54-v1-video-message"></span>
+                            </div>
+                            <div class="card-box">
+                                <h4 class="card-title mbr-fonts-style mb-1 display-5">
+                                    <strong>25</strong>
+                                </h4>
+                                <h5 class="card-text mbr-fonts-style display-7"><strong>SMS disponible(s)</strong></h5>
+                            </div>
+                        </div>
+                    </div>
+                    @endif
+                </div>
+            </div>
+        </section>
+        <x-separator />
+    @endif
+    {{-- statistique des tontines --}}
+    @if (($programme->is_tontine && $programme->current_user_souscription) || $programme->is_proprietaire)
+        <section data-bs-version="5.1" class="extProgressBars cid-sQ5CwoL2FK" id="extProgressBars5-2x">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-8 col-md-12">
+                        <h2 class="mbr-section-title pb-2 mbr-bold mbr-fonts-style align-left display-5">Evolution des
+                            paiements
+                            de la tontine</h2>
+                        <div class="line-wrap">
+                            <div class="line"></div>
+                        </div>
+                        <h3 class="mbr-section-sub-title pb-4 mbr-normal mbr-fonts-style align-left display-7">Suivez
+                            l'évolution des paiements pour chaque tranche de la tontine...</h3>
+                        <div class="progress_elements">
+                            <div class="progress1 pb-5">
+                                <div class="title-wrap">
+                                    <div class="progressbar-title mbr-fonts-style display-5">
+                                        <p>
+                                            Tranche 1</p>
+                                    </div>
+                                    <div class="progress_value mbr-fonts-style display-7">
+                                        <div class="progressbar-number"></div>
+                                        <span> %</span>
+                                    </div>
+                                </div>
+                                <progress class="progress progress-primary mbr-bold" max="100" value="43">
+                                </progress>
+                            </div>
+
+                            <div class="progress2 pb-5">
+                                <div class="title-wrap">
+                                    <div class="progressbar-title mbr-fonts-style display-5">
+                                        <p>
+                                            Tranche 2</p>
+                                    </div>
+                                    <div class="progress_value mbr-fonts-style display-7">
+                                        <div class="progressbar-number"></div>
+                                        <span>%</span>
+                                    </div>
+                                </div>
+                                <progress class="progress progress-primary" max="100" value="73">
+                                </progress>
+                            </div>
+
+                            <div class="progress3 pb-5">
+                                <div class="title-wrap">
+                                    <div class="progressbar-title mbr-fonts-style display-5">
+                                        <p>
+                                            Tranche 3</p>
+                                    </div>
+                                    <div class="progress_value mbr-fonts-style display-7">
+                                        <div class="progressbar-number"></div>
+                                        <span>%</span>
+                                    </div>
+                                </div>
+                                <progress class="progress progress-primary" max="100" value="90">
+                                </progress>
+                            </div>
+
+                            <div class="progress4">
+                                <div class="title-wrap">
+                                    <div class="progressbar-title mbr-fonts-style display-5">
+                                        <p>
+                                            Tranche 4</p>
+                                    </div>
+                                    <div class="progress_value mbr-fonts-style display-7">
+                                        <div class="progressbar-number"></div>
+                                        <span>%</span>
+                                    </div>
+                                </div>
+                                <progress class="progress progress-primary" max="100" value="100">
+                                </progress>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <x-separator />
+    @endif
     {{-- tab section --}}
     <section data-bs-version="5.1" class="tabs list1 cid-sODO1Mi024" id="list1-1r">
         <div class="container-fluid">

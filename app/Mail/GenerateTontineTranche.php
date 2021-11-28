@@ -9,7 +9,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class RemindTontineTrancheStart extends Mailable
+class GenerateTontineTranche extends Mailable
 {
     use Queueable, SerializesModels;
     public $programme;

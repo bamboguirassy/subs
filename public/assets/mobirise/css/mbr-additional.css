@@ -1805,7 +1805,7 @@ a {
 .cid-sObVJU3AUD {
   padding-top: 10rem;
   padding-bottom: 1rem;
-  background-color: #c73737;
+  background-color: #fe525b;
 }
 .cid-sObVJU3AUD .row {
   flex-direction: row-reverse;
@@ -1906,6 +1906,163 @@ a {
 }
 .cid-sOcl1Sl4ki .small {
   margin-bottom: 0;
+}
+.cid-sQ5yFl7EbG {
+  padding-top: 0rem;
+  padding-bottom: 0rem;
+  background-color: #efefef;
+}
+.cid-sQ5yFl7EbG .container {
+  margin-right: 0;
+  max-width: 1500px;
+}
+.cid-sQ5yFl7EbG .row {
+  background: #ffffff;
+  padding: 4rem 2rem;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  padding-right: 15rem;
+}
+@media (max-width: 1400px) {
+  .cid-sQ5yFl7EbG .row {
+    padding-right: 2rem;
+  }
+}
+@media (max-width: 767px) {
+  .cid-sQ5yFl7EbG .row {
+    padding: 3rem 1rem;
+    border-radius: 0px;
+  }
+}
+.cid-sQ5yFl7EbG .card-wrapper {
+  display: flex;
+  justify-content: center;
+}
+.cid-sQ5yFl7EbG .mbr-iconfont {
+  font-size: 2rem;
+  color: #ffffff;
+}
+.cid-sQ5yFl7EbG .icon-wrapper {
+  background: #fe525b;
+  border-radius: 50%;
+  min-width: 60px;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.cid-sQ5yFl7EbG .card-box {
+  padding-left: 1.5rem;
+  width: fit-content;
+  min-width: 170px;
+}
+.cid-sQ5yFl7EbG .card-text {
+  color: #777777;
+}
+.cid-sQ5yFl7EbG .card-title {
+  color: #fe525b;
+}
+.cid-sQ5CwoL2FK {
+  padding-top: 0px;
+  padding-bottom: 15px;
+  background-color: #ffffff;
+}
+.cid-sQ5CwoL2FK .progress {
+  width: 100%;
+}
+.cid-sQ5CwoL2FK progress {
+  height: 20px;
+}
+.cid-sQ5CwoL2FK .line-wrap {
+  display: inline-block;
+  width: 100%;
+}
+.cid-sQ5CwoL2FK p {
+  margin-bottom: 0.5rem;
+}
+.cid-sQ5CwoL2FK .line {
+  display: inline-block;
+  width: 8%;
+  height: 4px;
+  background-color: #c73737;
+  margin-top: 0.5rem;
+  margin-bottom: 2rem;
+}
+.cid-sQ5CwoL2FK .mbr-section-subtitle {
+  color: #767676;
+}
+.cid-sQ5CwoL2FK .progress_value {
+  position: relative;
+}
+.cid-sQ5CwoL2FK .progress_elements {
+  margin: 0 auto;
+}
+.cid-sQ5CwoL2FK .title-wrap {
+  display: flex;
+  -webkit-justify-content: space-between;
+  justify-content: space-between;
+}
+.cid-sQ5CwoL2FK .progress1 .progressbar-number:before,
+.cid-sQ5CwoL2FK .progress2 .progressbar-number:before,
+.cid-sQ5CwoL2FK .progress3 .progressbar-number:before,
+.cid-sQ5CwoL2FK .progress4 .progressbar-number:before {
+  position: absolute;
+  right: 15px;
+  top: 0;
+}
+.cid-sQ5CwoL2FK progress[value]::-webkit-progress-bar {
+  background: #ebebeb;
+}
+.cid-sQ5CwoL2FK progress::-webkit-progress-value {
+  background-color: #fe525b;
+  background-size: 40px 40px;
+  background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+}
+.cid-sQ5CwoL2FK progress[value]::-moz-progress-bar {
+  background-color: #fe525b;
+  background-size: 40px 40px;
+  background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+}
+.cid-sQ5CwoL2FK progress::-ms-fill {
+  background-color: #fe525b;
+  background-size: 40px 40px;
+  background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+}
+.cid-sQ5CwoL2FK .progress1 .progressbar-number:before {
+  content: "43";
+}
+.cid-sQ5CwoL2FK .progress2 .progressbar-number:before {
+  content: "73";
+}
+.cid-sQ5CwoL2FK .progress3 .progressbar-number:before {
+  content: "90";
+}
+.cid-sQ5CwoL2FK .progress4 .progressbar-number:before {
+  content: "100";
+}
+.cid-sQ5CwoL2FK .progress-primary {
+  background: #ebebeb;
+  border: none;
+  outline: none;
+}
+.cid-sQ5CwoL2FK .progress-primary::-webkit-progress-bar {
+  background: #ebebeb;
+}
+.cid-sQ5CwoL2FK .progress_value span {
+  padding-left: 30px;
+}
+.cid-sQ5CwoL2FK .mbr-section-title,
+.cid-sQ5CwoL2FK .line-wrap {
+  text-align: center;
+  color: #ff3366;
+}
+.cid-sQ5CwoL2FK .mbr-section-sub-title {
+  text-align: center;
+  color: #767676;
+}
+.cid-sQ5CwoL2FK .progressbar-title p,
+.cid-sQ5CwoL2FK .progress_value {
+  color: #ff3366;
 }
 .cid-sOGZSPGq1N {
   padding-top: 15px;

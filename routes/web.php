@@ -91,12 +91,17 @@ Route::resource('programme', ProgrammeController::class, [
 Route::get('mesprogrammes', function () {
     $title = "mes programmes";
     $programmes = Auth::user()->programmes;
+    $programmes = $programmes->filter(function ($programme) {
+        return $programme->programme_id == null;
+    });
     return view('programme.list', compact('programmes', 'title'));
 })->middleware('verified')->name('mes.programmes');
 
 Route::get('messouscriptions', function () {
     $title = "mes souscriptions";
-    $programmes = Auth::user()->programmeSouscrits;
+    $programmes = Auth::user()->programmeSouscrits->filter(function ($programme) {
+        return $programme->programme_id == null;
+    });
     return view('programme.list', compact('programmes', 'title'));
 })->middleware('verified')->name('mes.souscriptions');
 

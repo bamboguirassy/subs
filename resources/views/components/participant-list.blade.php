@@ -11,14 +11,14 @@
                             data-target="#mbr-popup-1w" data-bs-target="#mbr-popup-1w"><span
                                 class="mdi-communication-email mbr-iconfont mbr-iconfont-btn"></span>Contacter
                         </a>
-                        <a class="btn btn-info display-4" href="">
+                        {{-- <a class="btn btn-info display-4" href="">
                             <span class="icon54-v3-export mbr-iconfont mbr-iconfont-btn"></span>
                             Exporter
                         </a>
                         <a class="btn btn-secondary display-4" href="">
                             <span class="mobi-mbri mobi-mbri-trash mbr-iconfont mbr-iconfont-btn"></span>
                             Supprimer
-                        </a>
+                        </a> --}}
                     </div>
                 </div>
             </div>
@@ -56,7 +56,9 @@
                                         <th class="head-item mbr-fonts-style display-4 nowrap">DATE</th>
                                         <th class="head-item mbr-fonts-style display-4 nowrap">Profession</th>
                                         <th class="head-item mbr-fonts-style display-4 nowrap">Montant</th>
-                                        <th class="head-item mbr-fonts-style display-4 nowrap"> Action</th>
+                                        @if ($souscriptions[0]->programme->active)
+                                            <th class="head-item mbr-fonts-style display-4 nowrap"> Action</th>
+                                        @endif
                                     </tr>
                                 </thead>
 
@@ -87,13 +89,16 @@
                                             <td class="body-item mbr-fonts-style display-7 nowrap">
                                                 {{ $souscription->montant > 0 ? $souscription->montant . ' FCFA' : 'gratuit' }}
                                             </td>
-                                            <td class="body-item mbr-fonts-style display-7 nowrap">
-                                                <a ng-click="select({{ $souscription }})"
-                                                    class="btn btn-warning nowrap" href="#" data-toggle="modal"
-                                                    data-bs-toggle="modal" data-target="#mbr-popup-2w"
-                                                    data-bs-target="#mbr-popup-2w"><span class="mbri-cash"></span>
-                                                </a>
-                                            </td>
+                                            @if ($souscriptions[0]->programme->active)
+                                                <td class="body-item mbr-fonts-style display-7 nowrap">
+                                                    <a ng-click="select({{ $souscription }})"
+                                                        class="btn btn-warning nowrap" href="#" data-toggle="modal"
+                                                        data-bs-toggle="modal" data-target="#mbr-popup-2w"
+                                                        data-bs-target="#mbr-popup-2w"><span
+                                                            class="mbri-cash"></span>
+                                                    </a>
+                                                </td>
+                                            @endif
                                         </tr>
                                     @endforeach
                                 </tbody>
