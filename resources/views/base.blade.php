@@ -232,7 +232,7 @@
     <script src="{{ asset('assets/theme/js/script.js') }}"></script>
     <script src="{{ asset('bower_components/simditor/site/assets/scripts/module.js') }}"></script>
     <script src="{{ asset('bower_components/simditor/site/assets/scripts/hotkeys.js') }}"></script>
-    <script src="{{ asset('bower_components/simditor/site/assets/scripts/uploader.js') }}"></script>
+    {{-- <script src="{{ asset('bower_components/simditor/site/assets/scripts/uploader.js') }}"></script> --}}
     <script src="{{ asset('bower_components/simditor/site/assets/scripts/simditor.js') }}"></script>
     <script src="{{ asset('bower_components/angular/angular.min.js') }}"></script>
     <script src="{{ asset('assets/mbr-flip-card/mbr-flip-card.js') }}"></script>
