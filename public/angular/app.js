@@ -32,7 +32,7 @@ angular.module('Subs', [], () => {
         $scope.selectCountry = () => {
             $scope.selectedCountry = $scope.countries.find((item) => item.cca2 == $scope.country_cca2);
         }
-    }).controller('SouscriptionController', ($scope) => {
+    }).controller('SouscriptionController', ($scope, Country) => {
         $scope.selected = {};
         $scope.selectedCountry;
         $scope.countries = [];

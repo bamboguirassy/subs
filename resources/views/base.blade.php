@@ -125,10 +125,10 @@
                                     Mes souscriptions
                                 </a>
                             </li>
-                            @else
+                        @else
                             <li class="nav-item">
-                                <a class="nav-link link text-secondary display-4" href="{{ route('login') }}"
-                                    aria-expanded="false">
+                                <a class="nav-link link text-secondary display-4"
+                                    href="{{ route('login') }}?ret={{ request()->fullUrl() }}" aria-expanded="false">
                                     Se connecter
                                 </a>
                             </li>
@@ -160,6 +160,10 @@
                                     Mon compte
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="dropdown-undefined">
+                                    <a class="dropdown-item text-secondary display-4"
+                                        href="{{ route('programme.pre.publish') }}" aria-expanded="false">
+                                        Démarrer nouveau programme
+                                    </a>
                                     <a class="dropdown-item text-secondary display-4" href="{{ route('profile') }}">Mon
                                         profil<br>
                                     </a>
@@ -173,7 +177,8 @@
                             </li>
                         @endauth
                         <li class="nav-item">
-                            <a class="nav-link link text-secondary display-4" href="{{ route('apropos') }}">A propos</a>
+                            <a class="nav-link link text-secondary display-4" href="{{ route('apropos') }}">A
+                                propos</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link link text-secondary display-4" href="{{ route('contact') }}">
@@ -196,7 +201,6 @@
         </nav>
     </section>
     @yield("body")
-    <x-separator />
     <section data-bs-version="5.1" class="footer7 cid-sOaHY68q1p" once="footers" id="footer7-1">
         <div class="container">
             <div class="media-container-row align-center mbr-white">
@@ -236,6 +240,7 @@
     @yield('inline-script')
     @notify_js
     @notify_render
+
     <script src="{{ asset('angular/app.js') }}"></script>
     <script src="{{ asset('angular/service.js') }}"></script>
 

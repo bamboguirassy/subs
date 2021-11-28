@@ -8,6 +8,7 @@ use App\Models\ProfilConcerne;
 use App\Models\Programme;
 use App\Models\SouscriptionTemp;
 use App\Models\TypeProgramme;
+use Error;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -33,13 +34,18 @@ class ProgrammeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        $typeProgrammes = TypeProgramme::orderBy('nom')->get();
+        if ($request->exists('type')) {
+            $request->validate(['type' => 'exists:type_programmes,code']);
+            $typeProgramme = TypeProgramme::whereCode($request->get('type'))->first();
+        } else {
+            $typeProgramme = TypeProgramme::whereCode('PROG')->first();
+        }
         $profils = Profil::orderBy('nom')->get();
         $countrieSrv = new Countries();
         $senegal = $countrieSrv->where('cca2', 'SN')->first();
-        return view('programme.new', compact('typeProgrammes', 'profils','senegal'));
+        return view('programme.new', compact('profils', 'senegal', 'typeProgramme'));
     }
 
     /**
@@ -52,28 +58,47 @@ class ProgrammeController extends Controller
     {
         // valider les champs obligatoires propres à programme
         $request->validate([
-            'type_programme_id' => 'required|exists:type_programmes,id',
-            'nom' => 'required',
-            'dateCloture' => 'required',
-            'dateDemarrage' => 'required',
-            'duree' => 'required',
-            'nombreSeance' => 'required|numeric',
-            'nombreParticipants' => 'required|numeric',
-            'description' => 'required',
-            'modeDeroulement' => 'required',
-            'image' => 'image|required',
-            'profils' => 'array|required',
-            'cout' => 'array|required'
+            'type_programme_id' => 'required|exists:type_programmes,id'
         ]);
+        $typeProgramme = TypeProgramme::find($request->get('type_programme_id'));
+        if ($typeProgramme->code == 'COTI') {
+            $this->validateCotisation();
+        } else if ($typeProgramme->code == 'CFON') {
+            $this->validateCollecteFond();
+        } else if ($typeProgramme->code == 'PROG') {
+            $this->validateProgramme();
+        } else if ($typeProgramme->code == 'TONTINE') {
+            $this->validateTontine();
+        } else {
+            notify()->error("Type de programme non reconnu...");
+            return back()->withErrors(["Type de programme inconnu..."]);
+        }
         //    --     démarrer la transaction
         DB::beginTransaction();
         try {
             // instancier le programme avec le contenu du request
             $programme = new Programme($request->all());
+            // vérifier les dates
+            if(isset($programme->dateCloture)) {
+                if($programme->dateCloture<today()->addDay()) {
+                    $errorMessage = "La date de cloture doit prendre environ 1 jour à l'avance pour permettre aux gens de souscrire...";
+                    notify()->error($errorMessage);
+                    return back()->withErrors([$errorMessage])->withInput();
+                }
+            }
+            if(isset($programme->dateDemarrage)) {
+                if($programme->dateDemarrage<$programme->dateCloture) {
+                    $errorMessage = "La date de démarrage ne peut être antérieure à la date de cloture, merci de revoir les dates.";
+                    notify()->error($errorMessage);
+                    return back()->withErrors([$errorMessage])->withInput();
+                }
+            }
             //gérer l'upload de l'image de couverture
-            $filename = $programme->nom . '_' . uniqid() . '.' . $request->file('image')->extension();
-            $request->file('image')->storeAs('programmes/images', $filename);
-            $programme->image = $filename;
+            if ($request->hasFile('image')) {
+                $filename = $programme->nom . '_' . uniqid() . '.' . $request->file('image')->extension();
+                $request->file('image')->storeAs('programmes/images', $filename);
+                $programme->image = $filename;
+            }
             // verifier si l'utilisateur est connecté
             if (Auth::check()) {
                 // si user connecté, associer le programme à l'utilisateur connecté
@@ -91,15 +116,17 @@ class ProgrammeController extends Controller
             }
             $programme->save();
 
-            // reccuperer les profils selectionnés
-            foreach ($request->get('profils') as $profilId) {
-                // et créer les profils concernés avec les montants et les associer avec le programme
-                $profilConcerne = new ProfilConcerne([
-                    'profil_id' => $profilId,
-                    'programme_id' => $programme->id,
-                    'montant' => $request->get('cout')[$profilId]
-                ]);
-                $profilConcerne->save();
+            if ($typeProgramme->code == "PROG") {
+                // reccuperer les profils selectionnés
+                foreach ($request->get('profils') as $profilId) {
+                    // et créer les profils concernés avec les montants et les associer avec le programme
+                    $profilConcerne = new ProfilConcerne([
+                        'profil_id' => $profilId,
+                        'programme_id' => $programme->id,
+                        'montant' => $request->get('cout')[$profilId]
+                    ]);
+                    $profilConcerne->save();
+                }
             }
             //      -- terminer la transaction
             DB::commit();
@@ -208,5 +235,60 @@ class ProgrammeController extends Controller
             throw $th;
         }
         return redirect()->route('mes.programmes');
+    }
+
+    function validateProgramme()
+    {
+        // valider les champs obligatoires propres à programme
+        request()->validate([
+            'type_programme_id' => 'required|exists:type_programmes,id',
+            'nom' => 'required',
+            'dateCloture' => 'required',
+            'dateDemarrage' => 'required',
+            'duree' => 'required',
+            'nombreSeance' => 'required|numeric',
+            'nombreParticipants' => 'required|numeric',
+            'description' => 'required',
+            'modeDeroulement' => 'required',
+            'image' => 'image|required',
+            'profils' => 'array|required',
+            'cout' => 'array|required'
+        ]);
+    }
+
+    function validateCotisation()
+    {
+        // valider les champs obligatoires propres à programme
+        request()->validate([
+            'type_programme_id' => 'required|exists:type_programmes,id',
+            'nom' => 'required',
+            'dateCloture' => 'required',
+            'description' => 'required',
+            'montant' => 'required',
+        ]);
+    }
+
+    function validateTontine()
+    {
+        // valider les champs obligatoires propres à programme
+        request()->validate([
+            'type_programme_id' => 'required|exists:type_programmes,id',
+            'nom' => 'required',
+            'description' => 'required',
+            'montant' => 'required',
+            'frequence' => 'required',
+            'dateDemarrage' => 'required'
+        ]);
+    }
+
+    function validateCollecteFond()
+    {
+        // valider les champs obligatoires propres à programme
+        request()->validate([
+            'type_programme_id' => 'required|exists:type_programmes,id',
+            'nom' => 'required',
+            'dateCloture' => 'required',
+            'description' => 'required',
+        ]);
     }
 }

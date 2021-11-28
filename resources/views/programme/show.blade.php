@@ -1,6 +1,12 @@
 @extends("base")
 
-@section('title', $programme->nom." à partir du ".date_format(new DateTime($programme->dateDemarrage),'d/m/Y').". Les inscriptions sont ouvertes jusqu'au ".date_format(new DateTime($programme->dateCloture),'d/m/Y'))
+@section('title',
+    $programme->nom .
+    ' à partir du ' .
+    date_format(new DateTime($programme->dateDemarrage), 'd/m/Y') .
+    ".
+    Les inscriptions sont ouvertes jusqu'au " .
+    date_format(new DateTime($programme->dateCloture), 'd/m/Y'),)
 
 @section('social-sharing')
     <meta name="twitter:image:src" content="{{ asset('uploads/programmes/images/' . $programme->image) }}">
@@ -18,41 +24,73 @@
                 </div>
                 <div class="col-12 col-md">
                     <div class="text-wrapper">
+                        <h1 class="mbr-section-title mbr-fonts-style mb-3 display-4">
+                            <strong>{{ $programme->typeProgramme->nom }}</strong>
+                        </h1>
                         <h1 class="mbr-section-title mbr-fonts-style mb-3 display-2">
                             <strong>{{ $programme->nom }}</strong>
                         </h1>
                         <p class="mbr-text mbr-fonts-style display-7"></p>
-                        <p><strong>
-                                {{ $programme->modeDeroulement }}&nbsp; &nbsp; -&nbsp; &nbsp; {{ $programme->duree }}
-                                heures&nbsp;&nbsp;&nbsp;&nbsp; -
-                                &nbsp;&nbsp;&nbsp;&nbsp;{{ $programme->nombreSeance }} séances&nbsp;</strong></p>
+                        @if ($programme->is_programme)
+                            <p>
+                                <strong>
+                                    {{ $programme->modeDeroulement }}&nbsp; &nbsp; -&nbsp; &nbsp;
+                                    {{ $programme->duree }}
+                                    heures&nbsp;&nbsp;&nbsp;&nbsp; -
+                                    &nbsp;&nbsp;&nbsp;&nbsp;{{ $programme->nombreSeance }} séances&nbsp;</strong>
+                            </p>
+                        @endif
                         <table class="table text-white">
                             @foreach ($programme->profilConcernes as $profilConcerne)
-                            <tr>
-                                <th>{{ $profilConcerne->profil->nom }}</th>
-                                <td>{{$profilConcerne->montant>0?$profilConcerne->montant.' FCFA':'gratuit'}}</td>
-                            </tr>
+                                <tr>
+                                    <th>{{ $profilConcerne->profil->nom }}</th>
+                                    <td>{{ $profilConcerne->montant > 0 ? $profilConcerne->montant . ' FCFA' : 'gratuit' }}
+                                    </td>
+                                </tr>
                             @endforeach
+                            @isset($programme->dateCloture)
+                                <tr>
+                                    <td>Clôture programme:</td>
+                                    <th>{{ date_format(new DateTime($programme->dateCloture), 'd/m/Y') }}</th>
+                                </tr>
+                            @endisset
+                            @isset($programme->montant)
+                                <tr>
+                                    <td>Montant:</td>
+                                    <th>{{ $programme->montant  }} FCFA</th>
+                                </tr>
+                            @endisset
+                            @if ($programme->is_programme || $programme->typeProgramme->code == 'TONTINE')
+                                <tr>
+                                    <td>Démarrage Programme:</td>
+                                    <th>{{ date_format(new DateTime($programme->dateDemarrage), 'd/m/Y') }}</th>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        @if ($programme->is_programme)
+                                            Nombre places :
+                                        @elseif ($programme->typeProgramme->code=='TONTINE')
+                                            Nombre de mains
+                                        @endif
+                                    </td>
+                                    <th>{{ $programme->nombreParticipants == 0 ? 'Illimité' : $programme->nombreParticipants }}
+                                    </th>
+                                </tr>
+                            @endif
                         </table>
-                        <p class="mbr-text mbr-fonts-style mb-4 display-7">Nombre places :
-                            <b>{{ $programme->nombreParticipants == 0 ? 'Illimité' : $programme->nombreParticipants }}</b>
-                            <br>
-                            Clôture inscription: <b>{{ date_format(new DateTime($programme->dateCloture), 'd/m/Y') }}</b>
-                            <br>Démarrage Programme:
-                            <b>{{ date_format(new DateTime($programme->dateDemarrage), 'd/m/Y') }}</b>
-                        </p>
                         <div class="mbr-section-btn mt-3">
-                            @if(!$programme->active)
-                            <div class="alert alert-danger" role="alert">
-                                <strong>Ce programme est cloturé le {{ date_format(new DateTime($programme->dateCloture),'d/m/Y') }}</strong>
-                            </div>
+                            @if (!$programme->active)
+                                <div class="alert alert-danger" role="alert">
+                                    <strong>Ce programme est cloturé le
+                                        {{ date_format(new DateTime($programme->dateCloture), 'd/m/Y') }}</strong>
+                                </div>
 
                             @elseif (((auth()->user() && auth()->id()!=$programme->user_id) || !auth()->user()) &&
-                            !$programme->current_user_souscription)
-                            <a class="btn btn-white display-4"
-                                href="{{ route('souscription.new', compact('programme')) }}">
-                                <span class="mbrib-edit mbr-iconfont mbr-iconfont-btn"></span>Souscrire
-                            </a>
+                                !$programme->current_user_souscription)
+                                <a class="btn btn-white display-4"
+                                    href="{{ route('souscription.new', compact('programme')) }}">
+                                    <span class="mbrib-edit mbr-iconfont mbr-iconfont-btn"></span>Souscrire
+                                </a>
                             @endif
                             @auth
                                 @if (auth()->id() == $programme->user_id)

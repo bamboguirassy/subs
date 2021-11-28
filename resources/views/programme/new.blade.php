@@ -12,7 +12,8 @@
             <div class="row content-row align-items-center">
                 <div class="col-md-12 col-lg-12">
                     <h1 class="mbr-section-title mbr-fonts-style mb-3 mbr-bold display-5">
-                        Publier un prgramme<br></h1>
+                        Publication - {{ $typeProgramme->nom }}<br>
+                    </h1>
                     <p class="mbr-text mbr-black mbr-regular mbr-light mbr-fonts-style display-7">
                         Merci de remplir le formulaire ci-dessous pour lancer votre programme...
                         @guest
@@ -27,7 +28,6 @@
         </div>
     </section>
     <section class="form cid-sOc41298IC" id="formbuilder-13">
-
         <div class="container" ng-controller="ProgrammeNewController">
             <div class="row" ng-init="initVals({{ $profils }})">
                 <div class="col-lg-8 mx-auto mbr-form">
@@ -39,23 +39,17 @@
                         <x-form-errors :errors="$errors->all()" />
                         <div class="dragArea form-row">
                             <div class="col-lg-12 col-md-12 col-sm-12">
-                                <h4 class="mbr-fonts-style display-5">Programme - Nouveau</h4>
+                                <h4 class="mbr-fonts-style display-5">Programme Nouveau</h4>
+                                <p class="mbr-text mbr-black mbr-regular mbr-light mbr-fonts-style display-7">
+                                    {{ $typeProgramme->description }}</p>
                             </div>
                             <div class="col-lg-12 col-md-12 col-sm-12">
                                 <hr>
                             </div>
-                            <div data-for="type_programme_id" class="col-lg-12 col-md-12 col-sm-12 form-group">
-                                <label for="type_programme_id-formbuilder-13"
-                                    class="form-control-label mbr-fonts-style display-7">Type
-                                    programme</label>
-                                <select required="required" name="type_programme_id" data-form-field="type_programme_id"
-                                    class="form-control display-7" id="type_programme_id-formbuilder-13">
-                                    <option value="" disabled selected>Sélectionner le type</option>
-                                    @foreach ($typeProgrammes as $typeProgramme)
-                                        <option @if (old('type_programme_id') == $typeProgramme->id) selectec @endif value="{{ $typeProgramme->id }}">
-                                            {{ $typeProgramme->nom }}</option>
-                                    @endforeach
-                                </select>
+                            <div hidden="hidden" data-for="type_programme_id"
+                                class="col-lg-12 col-md-12 col-sm-12 form-group">
+                                <input name="type_programme_id" id="type_programme_id" type="number"
+                                    value="{{ $typeProgramme->id }}">
                             </div>
                             <div data-for="nom" class="col-lg-12 col-md-12 col-sm-12 form-group">
                                 <label for="nom-formbuilder-13"
@@ -64,100 +58,132 @@
                                     class="form-control display-7" required="required" value="{{ old('nom') }}"
                                     id="nom-formbuilder-13">
                             </div>
-                            <div class="col-lg-12 col-md-12 col-sm-12 form-group">
-                                <div class="form-control-label">
-                                    <label for="Autre-formbuilder-13" class="mbr-fonts-style display-7">Profils
-                                        ciblés</label>
+                            @if ($typeProgramme->code == 'PROG')
+                                <div class="col-lg-12 col-md-12 col-sm-12 form-group">
+                                    <div class="form-control-label">
+                                        <label for="Autre-formbuilder-13" class="mbr-fonts-style display-7">Profils
+                                            ciblés</label>
+                                    </div>
+                                    <div ng-repeat="profil in profils" data-for="@{{ profil . nom }}"
+                                        class="form-check form-check-inline">
+                                        <input ng-change="selectProfil(profil)" ng-model="programme.profils[profil.id]"
+                                            type="checkbox" value="@{{ profil . id }}" name="profils[]"
+                                            data-form-field="@{{ profil . nom }}" class="form-check-input display-7"
+                                            id="@{{ profil . nom }}-formbuilder-13">
+                                        <label for="@{{ profil . nom }}-formbuilder-13"
+                                            class="form-check-label display-7" ng-bind="profil.nom">Professionnel</label>
+                                    </div>
                                 </div>
-                                <div ng-repeat="profil in profils" data-for="@{{ profil . nom }}"
-                                    class="form-check form-check-inline">
-                                    <input ng-change="selectProfil(profil)" ng-model="programme.profils[profil.id]"
-                                        type="checkbox" value="@{{ profil . id }}" name="profils[]"
-                                        data-form-field="@{{ profil . nom }}" class="form-check-input display-7"
-                                        id="@{{ profil . nom }}-formbuilder-13">
-                                    <label for="@{{ profil . nom }}-formbuilder-13" class="form-check-label display-7"
-                                        ng-bind="profil.nom">Professionnel</label>
+                                <ng-container ng-repeat="profil in profils">
+                                    <div ng-if="profil.selected" data-for="coutPour@{{ profil . id }}"
+                                        class="col-lg-12 col-md-12 col-sm-12 form-group">
+                                        <label for="coutPour@{{ profil . id }}-formbuilder-13"
+                                            class="form-control-label mbr-fonts-style display-7">Coût pour
+                                            @{{ profil . nom }}</label>
+                                        <input type="number" name="cout[@{{ profil . id }}]"
+                                            placeholder="Prix du ticket pour les @{{ profil . nom }}s" min="0" step="1"
+                                            data-form-field="coutPour@{{ profil . nom }}" required="required"
+                                            class="form-control display-7" value=""
+                                            id="coutPour@{{ profil . id }}-formbuilder-13">
+                                    </div>
+                                </ng-container>
+                            @endif
+                            @if ($typeProgramme->code == 'TONTINE' || $typeProgramme->code == 'COTI')
+                                <div class="mb-3">
+                                    <label for="montant" class="form-label">Montant à payer</label>
+                                    <input required="required" type="number" class="form-control" name="montant"
+                                        id="montant" placeholder="Montant que chacun doit payer"
+                                        value="{{ old('montant') }}">
                                 </div>
-                            </div>
-                            <ng-container ng-repeat="profil in profils">
-                                <div ng-if="profil.selected" data-for="coutPour@{{ profil . id }}"
-                                    class="col-lg-12 col-md-12 col-sm-12 form-group">
-                                    <label for="coutPour@{{ profil . id }}-formbuilder-13"
-                                        class="form-control-label mbr-fonts-style display-7">Coût pour
-                                        @{{ profil . nom }}</label>
-                                    <input type="number" name="cout[@{{ profil . id }}]"
-                                        placeholder="Prix du ticket pour les @{{ profil . nom }}s" min="0" step="1"
-                                        data-form-field="coutPour@{{ profil . nom }}" required="required"
-                                        class="form-control display-7" value=""
-                                        id="coutPour@{{ profil . id }}-formbuilder-13">
-                                </div>
-                            </ng-container>
+                                @if ($typeProgramme->code == 'TONTINE')
+                                    <div class="mb-3">
+                                        <label for="frequence" class="form-label">Frequence de cotisation</label>
+                                        <select required="required" class="form-control" name="frequence" id="frequence">
+                                            <option>mensuelle</option>
+                                            <option>hebdomadaire</option>
+                                        </select>
+                                    </div>
+                                @endif
+                            @endif
                             <div data-for="dateCloture" class="col-lg-12 col-md-12 col-sm-12 form-group">
                                 <label for="dateCloture-formbuilder-13"
-                                    class="form-control-label mbr-fonts-style display-7">Date de clôture</label>
+                                    class="form-control-label mbr-fonts-style display-7">
+                                    Date de clôture des inscriptions (souscriptions)
+                                </label>
                                 <input type="date" name="dateCloture" data-form-field="dateCloture" required="required"
                                     class="form-control display-7" value="{{ old('dateCloture') }}"
                                     id="dateCloture-formbuilder-13">
                             </div>
-                            <div data-for="dateDemarrage" class="col-lg-12 col-md-12 col-sm-12 form-group">
-                                <label for="dateDemarrage-formbuilder-13"
-                                    class="form-control-label mbr-fonts-style display-7">Date Démarrage du programme</label>
-                                <input type="date" name="dateDemarrage" data-form-field="dateDemarrage" required="required"
-                                    class="form-control display-7" value="{{ old('dateDemarrage') }}"
-                                    id="dateDemarrage-formbuilder-13">
-                            </div>
-                            <div data-for="duree" class="col-lg-12 col-md-12 col-sm-12 form-group">
-                                <label for="duree-formbuilder-13" class="form-control-label mbr-fonts-style display-7">Durée
-                                    (en heures)
-                                    du programme</label>
-                                <input type="number" name="duree" placeholder="Durée programme" max="" min="0" step="1"
-                                    data-form-field="duree" class="form-control display-7" value="{{ old('duree') }}"
-                                    id="duree-formbuilder-13">
-                            </div>
-                            <div data-for="nombreSeance" class="col-lg-12 col-md-12 col-sm-12 form-group">
-                                <label for="nombreSeance-formbuilder-13"
-                                    class="form-control-label mbr-fonts-style display-7">Nombre de séances</label>
-                                <input type="number" name="nombreSeance" placeholder="Nombre de séances" max="" min="0"
-                                    step="1" data-form-field="nombreSeance" class="form-control display-7"
-                                    value="{{ old('nombreSeance') }}" id="nombreSeance-formbuilder-13">
-                            </div>
-                            <div data-for="nombreParticipants" class="col-lg-12 col-md-12 col-sm-12 form-group">
-                                <label for="nombreParticipants-formbuilder-13"
-                                    class="form-control-label mbr-fonts-style display-7">Nombre Max Participants (Mettre 0
-                                    pour illimité)</label>
-                                <input type="number" name="nombreParticipants" placeholder="Nombre maximum de participants"
-                                    max="100" min="0" step="1" data-form-field="nombreParticipants" required="required"
-                                    class="form-control display-7" value="" id="nombreParticipants-formbuilder-13">
-                            </div>
+                            @if ($typeProgramme->code == 'PROG' || $typeProgramme->code == 'TONTINE')
+                                <div data-for="dateDemarrage" class="col-lg-12 col-md-12 col-sm-12 form-group">
+                                    <label for="dateDemarrage-formbuilder-13"
+                                        class="form-control-label mbr-fonts-style display-7">Date Démarrage</label>
+                                    <input type="date" name="dateDemarrage" data-form-field="dateDemarrage"
+                                        required="required" class="form-control display-7"
+                                        value="{{ old('dateDemarrage') }}" id="dateDemarrage-formbuilder-13">
+                                </div>
+                            @endif
+                            @if ($typeProgramme->code == 'PROG')
+                                <div data-for="duree" class="col-lg-12 col-md-12 col-sm-12 form-group">
+                                    <label for="duree-formbuilder-13"
+                                        class="form-control-label mbr-fonts-style display-7">Durée
+                                        (en heures)
+                                        du programme</label>
+                                    <input type="number" name="duree" placeholder="Durée programme" max="" min="0" step="1"
+                                        data-form-field="duree" class="form-control display-7" value="{{ old('duree') }}"
+                                        id="duree-formbuilder-13">
+                                </div>
+                                <div data-for="nombreSeance" class="col-lg-12 col-md-12 col-sm-12 form-group">
+                                    <label for="nombreSeance-formbuilder-13"
+                                        class="form-control-label mbr-fonts-style display-7">Nombre de séances</label>
+                                    <input type="number" name="nombreSeance" placeholder="Nombre de séances" max="" min="0"
+                                        step="1" data-form-field="nombreSeance" class="form-control display-7"
+                                        value="{{ old('nombreSeance') }}" id="nombreSeance-formbuilder-13">
+                                </div>
+                                <div data-for="nombreParticipants" class="col-lg-12 col-md-12 col-sm-12 form-group">
+                                    <label for="nombreParticipants-formbuilder-13"
+                                        class="form-control-label mbr-fonts-style display-7">Nombre Max Participants (Mettre
+                                        0
+                                        pour illimité)</label>
+                                    <input type="number" name="nombreParticipants"
+                                        placeholder="Nombre maximum de participants" max="" min="0" step="1"
+                                        data-form-field="nombreParticipants" required="required"
+                                        class="form-control display-7" value="{{ old('nombreParticipants') }}" id="nombreParticipants-formbuilder-13">
+                                </div>
+                            @endif
                             <div data-for="description" class="col-lg-12 col-md-12 col-sm-12 form-group">
                                 <label for="description-formbuilder-13"
                                     class="form-control-label mbr-fonts-style display-7">Description du programme</label>
                                 <textarea id="wysiwyg" name="description" data-form-field="description" required="required"
-                                    class="form-control display-7" id="description-formbuilder-13"></textarea>
+                                    class="form-control display-7"
+                                    id="description-formbuilder-13">{{ old('description') }}</textarea>
                             </div>
-                            <div data-for="modeDeroulement" class="col-lg-12 col-md-12 col-sm-12 form-group">
-                                <div class="form-control-label">
-                                    <label for="modeDeroulement-formbuilder-13" class="mbr-fonts-style display-7">Mode de
-                                        déroulement</label>
+                            @if ($typeProgramme->code == 'PROG')
+                                <div data-for="modeDeroulement" class="col-lg-12 col-md-12 col-sm-12 form-group">
+                                    <div class="form-control-label">
+                                        <label for="modeDeroulement-formbuilder-13" class="mbr-fonts-style display-7">Mode
+                                            de
+                                            déroulement</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input type="radio" name="modeDeroulement" data-form-field="modeDeroulementOnline"
+                                            class="form-check-input display-7" value="En ligne" checked="checked"
+                                            id="modeDeroulementOnline-formbuilder-13">
+                                        <label class="form-check-label display-7">En ligne</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input type="radio" name="modeDeroulement"
+                                            data-form-field="modeDeroulementPresentiel" class="form-check-input display-7"
+                                            value="En présentiel" id="modeDeroulementPresentiel-formbuilder-13">
+                                        <label class="form-check-label display-7">En présentiel</label>
+                                    </div>
                                 </div>
-                                <div class="form-check form-check-inline">
-                                    <input type="radio" name="modeDeroulement" data-form-field="modeDeroulementOnline"
-                                        class="form-check-input display-7" value="En ligne" checked="checked"
-                                        id="modeDeroulementOnline-formbuilder-13">
-                                    <label class="form-check-label display-7">En ligne</label>
-                                </div>
-                                <div class="form-check form-check-inline">
-                                    <input type="radio" name="modeDeroulement" data-form-field="modeDeroulementPresentiel"
-                                        class="form-check-input display-7" value="En présentiel"
-                                        id="modeDeroulementPresentiel-formbuilder-13">
-                                    <label class="form-check-label display-7">En présentiel</label>
-                                </div>
-                            </div>
+                            @endif
                             <div data-for="image" class="col-lg-12 col-md-12 col-sm-12 form-group">
                                 <label for="image-formbuilder-13" class="form-control-label mbr-fonts-style display-7">
-                                    Chosir une image de couverture</label>
+                                    Chosir une image de couverture @if ($typeProgramme->code != 'PROG') <span class="text-primary">(optionnelle)</span> @endif</label>
                                 <input type="file" accept="image/*" name="image" max="100" min="0" step="1"
-                                    data-form-field="image" required="required" class="form-control display-7" value=""
+                                    data-form-field="image" @if ($typeProgramme->code == 'PROG') required="required" @endif class="form-control display-7" value=""
                                     id="image-formbuilder-13">
                             </div>
                             @guest
@@ -177,9 +203,11 @@
                                 <div class="col-12">
                                     <div class="mb-3">
                                         <label for="country_cca2" class="form-label">Pays</label>
-                                        <select ng-change="selectCountry()" ng-model="country_cca2" class="form-control" name="country_cca2" id="country_cca2">
+                                        <select ng-change="selectCountry()" ng-model="country_cca2" class="form-control"
+                                            name="country_cca2" id="country_cca2">
                                             <option value="{{ $senegal['cca2'] }}">{{ $senegal['admin'] }}</option>
-                                            <option ng-repeat="country in countries" ng-value="country.cca2">@{{ country.admin }}</option>
+                                            <option ng-repeat="country in countries" ng-value="country.cca2">
+                                                @{{ country . admin }}</option>
                                         </select>
                                     </div>
                                 </div>
@@ -188,8 +216,8 @@
                                         Téléphone
                                     </label>
                                     <input type="tel" name="telephone" placeholder="Téléphone" data-form-field="telephone"
-                                        required="required" class="form-control display-7" ng-value="selectedCountry.calling_codes[0]"
-                                        id="telephone-formbuilder-13">
+                                        required="required" class="form-control display-7"
+                                        ng-value="selectedCountry.calling_codes[0]" id="telephone-formbuilder-13">
                                 </div>
                                 <div data-for="profession" class="col-lg-12 col-md-12 col-sm-12 form-group">
                                     <label for="profession-formbuilder-13"
@@ -244,37 +272,5 @@
         </div>
     </section>
     <x-separator />
-    <section data-bs-version="5.1" class="social1 cid-sOflmUjTLx" id="share1-1o">
-        <div class="container">
-            <div class="media-container-row">
-                <div class="col-12">
-                    <h3 class="mbr-section-title mb-3 align-center mbr-fonts-style display-5">
-                        <strong>Partager sur !</strong>
-                    </h3>
-                    <div>
-                        <div class="mbr-social-likes align-center">
-                            <span class="btn btn-social socicon-bg-facebook facebook m-2">
-                                <i class="socicon socicon-facebook"></i>
-                            </span>
-                            <span class="btn btn-social twitter socicon-bg-twitter m-2">
-                                <i class="socicon socicon-twitter"></i>
-                            </span>
-                            <span class="btn btn-social vkontakte socicon-bg-vkontakte m-2">
-                                <i class="socicon socicon-vkontakte"></i>
-                            </span>
-                            <span class="btn btn-social odnoklassniki socicon-bg-odnoklassniki m-2">
-                                <i class="socicon socicon-odnoklassniki"></i>
-                            </span>
-                            <span class="btn btn-social pinterest socicon-bg-pinterest m-2">
-                                <i class="socicon socicon-pinterest"></i>
-                            </span>
-                            <span class="btn btn-social mailru socicon-bg-mail m-2">
-                                <i class="socicon socicon-mail"></i>
-                            </span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+    <x-social-sharing />
 @endsection

@@ -48,7 +48,9 @@
                                     <tr class="table-heads">
                                         <th class="head-item mbr-fonts-style display-4">#</th>
                                         <th class="head-item mbr-fonts-style display-4 nowrap">Nom complet</th>
-                                        <th class="head-item mbr-fonts-style display-4 nowrap">Profil</th>
+                                        @if ($souscriptions[0]->programme->is_programme)
+                                            <th class="head-item mbr-fonts-style display-4 nowrap">Profil</th>
+                                        @endif
                                         <th class="head-item mbr-fonts-style display-4 nowrap">Email</th>
                                         <th class="head-item mbr-fonts-style display-4 nowrap">Téléphone</th>
                                         <th class="head-item mbr-fonts-style display-4 nowrap">DATE</th>
@@ -66,8 +68,10 @@
                                             </td>
                                             <td class="body-item mbr-fonts-style display-7 nowrap">
                                                 {{ $souscription->user->name }}</td>
-                                            <td class="body-item mbr-fonts-style display-7 nowrap">
-                                                {{ $souscription->profilConcerne->profil->nom }}</td>
+                                            @if ($souscription->programme->is_programme)
+                                                <td class="body-item mbr-fonts-style display-7 nowrap">
+                                                    {{ $souscription->profilConcerne->profil->nom }}</td>
+                                            @endif
                                             <td class="body-item mbr-fonts-style display-7 nowrap">
                                                 <a
                                                     href="mailto:{{ $souscription->user->email }}">{{ $souscription->user->email }}</a>
@@ -179,7 +183,8 @@
                 <div class="modal-content">
                     <div class="container position-static margin-center-pos">
                         <div class="modal-header pb-0">
-                            <h5 class="modal-title mbr-fonts-style display-5">Modifier le Montant - Souscription @{{selected.uid}}</h5>
+                            <h5 class="modal-title mbr-fonts-style display-5">Modifier le Montant - Souscription
+                                @{{ selected . uid }}</h5>
                             <button type="button" class="close d-flex" data-dismiss="modal" data-bs-dismiss="modal"
                                 aria-label="Close">
                                 <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="23" height="23"

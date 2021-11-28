@@ -85,14 +85,16 @@ Artisan::command('remind:leads-to-subscribe', function () {
             }
         }
         // recuperer ceux qui ont souscrit
-        $souscriptions = Souscription::where('programme_id', $programme->id)
-            ->get();
-        $contactedEmails = [];
-        $this->comment("Les souscriptions confirmées");
-        foreach ($souscriptions as $souscription) {
-            $contactedEmails[] = $souscription->user_id;
-            Mail::to($souscription->user)->send(new RemindSubscribedUsers($souscription));
-            $this->comment("Rappel envoyé à {$souscription->user->name} - {$souscription->user->email}");
+        if ($programme->is_programe || $programme->typeProgramme->code == 'TONTINE') {
+            $souscriptions = Souscription::where('programme_id', $programme->id)
+                ->get();
+            $contactedEmails = [];
+            $this->comment("Les souscriptions confirmées");
+            foreach ($souscriptions as $souscription) {
+                $contactedEmails[] = $souscription->user_id;
+                Mail::to($souscription->user)->send(new RemindSubscribedUsers($souscription));
+                $this->comment("Rappel envoyé à {$souscription->user->name} - {$souscription->user->email}");
+            }
         }
     }
 
@@ -116,14 +118,17 @@ Artisan::command('remind:leads-to-subscribe', function () {
             }
         }
         // recuperer ceux qui ont souscrit
-        $souscriptions = Souscription::where('programme_id', $programme->id)
-            ->get();
-        $contactedEmails = [];
-        $this->comment("Les souscriptions confirmées");
-        foreach ($souscriptions as $souscription) {
-            $contactedEmails[] = $souscription->user_id;
-            Mail::to($souscription->user)->send(new RemindSubscribedUsers($souscription));
-            $this->comment("Rappel envoyé à {$souscription->user->name} - {$souscription->user->email}");
+        if ($programme->is_programe || $programme->typeProgramme->code == 'TONTINE') {
+
+            $souscriptions = Souscription::where('programme_id', $programme->id)
+                ->get();
+            $contactedEmails = [];
+            $this->comment("Les souscriptions confirmées");
+            foreach ($souscriptions as $souscription) {
+                $contactedEmails[] = $souscription->user_id;
+                Mail::to($souscription->user)->send(new RemindSubscribedUsers($souscription));
+                $this->comment("Rappel envoyé à {$souscription->user->name} - {$souscription->user->email}");
+            }
         }
     }
 
@@ -147,14 +152,16 @@ Artisan::command('remind:leads-to-subscribe', function () {
             }
         }
         // recuperer ceux qui ont souscrit
-        $souscriptions = Souscription::where('programme_id', $programme->id)
-            ->get();
-        $contactedEmails = [];
-        $this->comment("Les souscriptions confirmées");
-        foreach ($souscriptions as $souscription) {
-            $contactedEmails[] = $souscription->user_id;
-            Mail::to($souscription->user)->send(new RemindSubscribedUsers($souscription));
-            $this->comment("Rappel envoyé à {$souscription->user->name} - {$souscription->user->email}");
+        if ($programme->is_programe || $programme->typeProgramme->code == 'TONTINE') {
+            $souscriptions = Souscription::where('programme_id', $programme->id)
+                ->get();
+            $contactedEmails = [];
+            $this->comment("Les souscriptions confirmées");
+            foreach ($souscriptions as $souscription) {
+                $contactedEmails[] = $souscription->user_id;
+                Mail::to($souscription->user)->send(new RemindSubscribedUsers($souscription));
+                $this->comment("Rappel envoyé à {$souscription->user->name} - {$souscription->user->email}");
+            }
         }
     }
 
@@ -178,14 +185,16 @@ Artisan::command('remind:leads-to-subscribe', function () {
             }
         }
         // recuperer ceux qui ont souscrit
-        $souscriptions = Souscription::where('programme_id', $programme->id)
-            ->get();
-        $contactedEmails = [];
-        $this->comment("Les souscriptions confirmées");
-        foreach ($souscriptions as $souscription) {
-            $contactedEmails[] = $souscription->user_id;
-            Mail::to($souscription->user)->send(new RemindSubscribedUsers($souscription));
-            $this->comment("Rappel envoyé à {$souscription->user->name} - {$souscription->user->email}");
+        if ($programme->is_programe || $programme->typeProgramme->code == 'TONTINE') {
+            $souscriptions = Souscription::where('programme_id', $programme->id)
+                ->get();
+            $contactedEmails = [];
+            $this->comment("Les souscriptions confirmées");
+            foreach ($souscriptions as $souscription) {
+                $contactedEmails[] = $souscription->user_id;
+                Mail::to($souscription->user)->send(new RemindSubscribedUsers($souscription));
+                $this->comment("Rappel envoyé à {$souscription->user->name} - {$souscription->user->email}");
+            }
         }
     }
 })->purpose("Cette commande rappel la finalisation de la souscription pour les leads.");

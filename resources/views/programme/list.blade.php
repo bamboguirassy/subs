@@ -11,9 +11,16 @@
                         <strong>{{ Str::upper($title) }}</strong>
                     </h6>
                 </div>
-                <div class="col-12 col-md-12 text-col col-lg-7">
+                <div class="col-12 col-md-12 text-col col-lg-12">
                     <p class="mbr-text align-left mbr-fonts-style mb-0 display-5"><strong>La liste de
-                            {{ $title }}</strong><br></p>
+                            {{ $title }}</strong>
+                    </p>
+                </div>
+                <div class="col-12 col-md-12 text-col col-lg-12">
+                    <a class="btn btn-md btn-danger display-4" href="{{ route('programme.pre.publish') }}">
+                        <span class="icon54-v2-add-note mbr-iconfont mbr-iconfont-btn"></span>
+                        Lancer un programme
+                    </a>
                 </div>
             </div>
         </div>
@@ -27,10 +34,14 @@
                         <div class="item-wrapper">
                             <div class="item-img">
                                 <a href="{{ route('programme.show', compact('programme')) }}">
-                                    <img src="{{ asset('uploads/programmes/images/' . $programme->image) }}">
+                                    <img
+                                        src="{{ isset($programme->image) ? asset('uploads/programmes/images/' . $programme->image) : 'https://via.placeholder.com/100' }}">
                                 </a>
                             </div>
                             <div class="item-content">
+                                <strong class="text-primary text-center">
+                                    {{ $programme->typeProgramme->nom }}
+                                </strong>
                                 <h5 class="item-title mbr-fonts-style display-4">
                                     <a
                                         href="{{ route('programme.show', compact('programme')) }}">{{ $programme->nom }}</a>
@@ -38,6 +49,12 @@
                                 <h6 class="item-subtitle mbr-fonts-style mt-1 display-7">
                                     <strong>{{ $programme->modeDeroulement }}</strong>
                                 </h6>
+                                <table class="table">
+                                    <tr>
+                                        <th>Délai :</th>
+                                        <td>{{ date_format(new DateTime($programme->dateCloture), 'd/m/Y') }}</td>
+                                    </tr>
+                                </table>
                                 @if ($programme->active)
                                     <div class="alert alert-success" role="alert">
                                         <strong>Active</strong>

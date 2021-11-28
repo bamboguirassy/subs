@@ -20,7 +20,9 @@ Accéder au programme
 - **Nombre de participants:** : {{count($programme->souscriptions)}} <br>
 - **Montant Gain:** : (à calculer) en FCFA <br/>
 
+@isset($programme->dateDemarrage)
 Pour rappel, le programme débute le {{date_format(new DateTime($programme->dateDemarrage),'d/m/Y')}} <br>
+@endisset
 
 
 Cordialement,<br>

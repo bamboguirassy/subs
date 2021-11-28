@@ -9,11 +9,11 @@ use Error;
 class PaymentManager
 {
 
-    public static function initPayment(SouscriptionTemp $souscriptionTemp, ProfilConcerne $profilConcerne)
+    public static function initPayment(SouscriptionTemp $souscriptionTemp)
     {
         $jsonResponse = (new PayTech(config('paytech.api.key'), config('paytech.api.secret')))->setQuery([
             'item_name' => $souscriptionTemp->programme->nom,
-            'item_price' => $profilConcerne->montant,
+            'item_price' => $souscriptionTemp->montant,
             'command_name' => "Paiement {$souscriptionTemp->programme->nom}",
         ])->setCustomeField([
             'time_command' => time(),
