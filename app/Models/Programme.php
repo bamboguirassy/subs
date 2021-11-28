@@ -180,7 +180,7 @@ class Programme extends Model
         $programme->programme_id = $parent->id;
         $programme->type_programme_id = $parent->type_programme_id;
         $index = count($parent->children) + 1;
-        $programme->nom = $parent->nom . '_tranche_' . $index;
+        $programme->nom = $parent->nom . ' Tranche ' . $index;
         $programme->montant = $parent->montant;
         $programme->frequence = $parent->frequence;
         $programme->description = $parent->description;
@@ -203,7 +203,7 @@ class Programme extends Model
         $programme->programme_id = $child->parent->id;
         $programme->type_programme_id = $child->parent->type_programme_id;
         $index = count($child->parent->children) + 1;
-        $programme->nom = $child->parent->nom . '_tranche_' . $index;
+        $programme->nom = $child->parent->nom . ' - Tranche ' . $index;
         $programme->montant = $child->parent->montant;
         $programme->frequence = $child->parent->frequence;
         $programme->description = $child->parent->description;
