@@ -236,7 +236,18 @@
     <script src="{{ asset('bower_components/simditor/site/assets/scripts/simditor.js') }}"></script>
     <script src="{{ asset('bower_components/angular/angular.min.js') }}"></script>
     <script src="{{ asset('assets/mbr-flip-card/mbr-flip-card.js') }}"></script>
-
+    <script>
+        $(() => {
+            var editor = new Simditor({
+                textarea: $('#wysiwyg')
+                //optional options
+            });
+            var editor2 = new Simditor({
+                textarea: $('#editor')
+                //optional options
+            });
+        });
+    </script>
     @yield('inline-script')
     @notify_js
     @notify_render

@@ -1,15 +1,4 @@
-angular.module('Subs', [], () => {
-    $(() => {
-        var editor = new Simditor({
-            textarea: $('#wysiwyg')
-            //optional options
-        });
-        var editor2 = new Simditor({
-            textarea: $('#editor')
-            //optional options
-        });
-    });
-})
+angular.module('Subs', [], () => {})
     .controller('ProgrammeNewController', ($scope, Country) => {
         $scope.profils = [];
         $scope.programme = {};
