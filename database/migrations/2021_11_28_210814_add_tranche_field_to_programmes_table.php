@@ -14,7 +14,7 @@ class AddTrancheFieldToProgrammesTable extends Migration
     public function up()
     {
         Schema::table('programmes', function (Blueprint $table) {
-            //
+            $table->integer('tranche')->nullable();
         });
     }
 
