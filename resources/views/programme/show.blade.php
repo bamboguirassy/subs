@@ -85,8 +85,7 @@
                                         {{ date_format(new DateTime($programme->dateCloture), 'd/m/Y') }}</strong>
                                 </div>
 
-                            @elseif (((auth()->user() && auth()->id()!=$programme->user_id) || !auth()->user()) &&
-                                !$programme->current_user_souscription)
+                            @elseif (!$programme->current_user_souscription)
                                 <a class="btn btn-white display-4"
                                     href="{{ route('souscription.new', compact('programme')) }}">
                                     <span class="mbrib-edit mbr-iconfont mbr-iconfont-btn"></span>Souscrire
