@@ -228,6 +228,7 @@ class Programme extends Model
         $programme->nom = 'Tranche ' . uniqid();
         $programme->tranche = $index;
         $programme->montant = $parent->montant;
+        $programme->nombreParticipants = 0;
         $programme->frequence = $parent->frequence;
         $programme->description = $parent->description;
         $programme->image = $parent->image;
@@ -252,6 +253,7 @@ class Programme extends Model
         $programme->nom = 'Tranche ' . uniqid();
         $programme->tranche = $index;
         $programme->montant = $child->parent->montant;
+        $programme->nombreParticipants = 0;
         $programme->frequence = $child->parent->frequence;
         $programme->description = $child->parent->description;
         $programme->image = $child->parent->image;

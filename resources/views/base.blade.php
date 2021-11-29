@@ -9,8 +9,8 @@
     @hasSection('social-sharing')
         @yield('social-sharing')
     @else
-        <meta name="twitter:image:src" content="{{ asset('assets/images/subs-logo.png') }}">
-        <meta property="og:image" content="{{ asset('assets/images/subs-logo.png') }}">
+        <meta name="twitter:image:src" content="{{ asset('assets/images/mbr-1076x1145-512x512.png') }}">
+        <meta property="og:image" content="{{ asset('assets/images/mbr-1076x1145-512x512.png') }}">
     @endif
     <meta name="twitter:title" content="@yield('title')">
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
@@ -22,8 +22,9 @@
     <link rel="stylesheet" href="{{ asset('assets/web/assets/mobirise-icons2/mobirise2.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/web/assets/mobirise-icons-bold/mobirise-icons-bold.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/Material-Design-Icons/css/material.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/icon54-v3/style.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/icon54/style.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/icon54-v2/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/Material-Design-Icons/css/material.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/web/assets/mobirise-icons/mobirise-icons.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/bootstrap/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/bootstrap/css/bootstrap-grid.min.css') }}">
@@ -238,14 +239,18 @@
     <script src="{{ asset('assets/mbr-flip-card/mbr-flip-card.js') }}"></script>
     <script>
         $(() => {
-            var editor = new Simditor({
-                textarea: $('#wysiwyg')
-                //optional options
-            });
-            var editor2 = new Simditor({
-                textarea: $('#editor')
-                //optional options
-            });
+            if ($('#wysiwyg').length) {
+                var editor = new Simditor({
+                    textarea: $('#wysiwyg')
+                    //optional options
+                });
+            }
+            if ($('#editor').length) {
+                var editor2 = new Simditor({
+                    textarea: $('#editor')
+                    //optional options
+                });
+            }
         });
     </script>
     @yield('inline-script')

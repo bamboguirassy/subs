@@ -1,11 +1,7 @@
 @extends("base")
 
 @section('title',
-    $programme->nom .
-    ' à partir du ' .
-    date_format(new DateTime($programme->dateDemarrage), 'd/m/Y') .
-    ".
-    Les inscriptions sont ouvertes jusqu'au " .
+    $programme->nom ." - Date clôture prévue - " .
     date_format(new DateTime($programme->dateCloture), 'd/m/Y'),)
 
 @section('social-sharing')
@@ -97,7 +93,7 @@
                                         class="btn">
                                         @method('delete')
                                         @csrf
-                                        <button class="btn btn-secondary display-4" href="#">
+                                        <button class="btn btn-primary display-4" href="#">
                                             <span class="mobi-mbri mobi-mbri-trash mbr-iconfont mbr-iconfont-btn"></span>
                                             Supprimer
                                         </button>

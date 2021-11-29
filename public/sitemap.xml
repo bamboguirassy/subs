@@ -1,20 +1,17 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 	<url>
-		<loc>https://subs.bambogroup.net/index.html</loc>
+		<loc>https://subs.bambogroup.net</loc>
 	</url>
 	<url>
-		<loc>https://subs.bambogroup.net/program-details.html</loc>
+		<loc>https://subs.bambogroup.net/login</loc>
 	</url>
 	<url>
-		<loc>https://subs.bambogroup.net/program-new.html</loc>
+		<loc>https://subs.bambogroup.net/programme/pre-publish</loc>
 	</url>
 	<url>
-		<loc>https://subs.bambogroup.net/subscription-new.html</loc>
+		<loc>https://subs.bambogroup.net/apropos</loc>
 	</url>
 	<url>
-		<loc>https://subs.bambogroup.net/login.html</loc>
-	</url>
-	<url>
-		<loc>https://subs.bambogroup.net/programmes-subscriptions.html</loc>
+		<loc>https://subs.bambogroup.net/contact</loc>
 	</url>
 </urlset>
