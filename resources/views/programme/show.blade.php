@@ -1,8 +1,7 @@
 @extends("base")
 
-@section('title',
-    $programme->nom ." - Date clôture prévue - " .
-    date_format(new DateTime($programme->dateCloture), 'd/m/Y'),)
+@section('title', $programme->nom . ' - Date clôture prévue - ' . date_format(new DateTime($programme->dateCloture),
+    'd/m/Y'))
 
 @section('social-sharing')
     <meta name="twitter:image:src" content="{{ asset('uploads/programmes/images/' . $programme->image) }}">
@@ -103,6 +102,13 @@
                                     <a class="btn btn-warning display-4"
                                         href="{{ route('programme.edit', compact('programme')) }}"><span
                                             class="mobi-mbri mobi-mbri-edit-2 mbr-iconfont mbr-iconfont-btn"></span>Modifier</a>
+                                    @if (!$programme->active && $programme->gain_net > 0 && $programme->appelFond == null)
+                                        <a class="btn btn-success display-4" href="#" data-toggle="modal" data-bs-toggle="modal"
+                                            data-target="#mbr-popup-2y" data-bs-target="#mbr-popup-2y"><span
+                                                class="icon54-v1-send-money mbr-iconfont mbr-iconfont-btn"></span>
+                                            Faire un appel de fond
+                                        </a>
+                                    @endif
                                 @else
                                     @if ($programme->current_user_souscription && $programme->active)
                                         <a class="btn btn-danger display-4" href="">
@@ -157,27 +163,30 @@
                                     <span class="mbr-iconfont m-auto icon54-v1-send-money"></span>
                                 </div>
                                 <div class="card-box">
-                                    <h4 class="card-title mbr-fonts-style mb-1 display-5"><strong>{{ $programme->gain_net }}
-                                            FCFA</strong></h4>
-                                    <h5 class="card-text mbr-fonts-style display-7"><strong>Gain Net (-5%)</strong></h5>
+                                    <h4 class="card-title mbr-fonts-style mb-1 display-5">
+                                        <strong>{{ $programme->gain_net }}
+                                            FCFA</strong>
+                                    </h4>
+                                    <h5 class="card-text mbr-fonts-style display-7"><strong>Gain Net
+                                            (-{{ $programme->tauxPrelevement }}%)</strong></h5>
                                 </div>
                             </div>
                         </div>
                     @endif
                     @if ($programme->is_proprietaire)
-                    <div class="card md-pb col-12 col-md-6 col-lg-3">
-                        <div class="card-wrapper">
-                            <div class="icon-wrapper">
-                                <span class="mbr-iconfont m-auto icon54-v1-video-message"></span>
-                            </div>
-                            <div class="card-box">
-                                <h4 class="card-title mbr-fonts-style mb-1 display-5">
-                                    <strong>25</strong>
-                                </h4>
-                                <h5 class="card-text mbr-fonts-style display-7"><strong>SMS disponible(s)</strong></h5>
+                        <div class="card md-pb col-12 col-md-6 col-lg-3">
+                            <div class="card-wrapper">
+                                <div class="icon-wrapper">
+                                    <span class="mbr-iconfont m-auto icon54-v1-video-message"></span>
+                                </div>
+                                <div class="card-box">
+                                    <h4 class="card-title mbr-fonts-style mb-1 display-5">
+                                        <strong>25</strong>
+                                    </h4>
+                                    <h5 class="card-text mbr-fonts-style display-7"><strong>SMS disponible(s)</strong></h5>
+                                </div>
                             </div>
                         </div>
-                    </div>
                     @endif
                 </div>
             </div>
@@ -377,5 +386,7 @@
     <x-social-sharing />
 
     <x-separator />
+
+    <x-appel-fond-new :programme="$programme" />
 
 @endsection

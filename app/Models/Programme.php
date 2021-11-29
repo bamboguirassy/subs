@@ -34,7 +34,8 @@ class Programme extends Model
         'montant',
         'frequence',
         'programme_id',
-        'tranche'
+        'tranche',
+        'tauxPrelevement'
     ];
 
     /**
@@ -117,6 +118,16 @@ class Programme extends Model
         return $this->hasOne(Programme::class)->orderBy('created_at', 'desc');
     }
 
+    /**
+     * Get the appelFond associated with the Programme
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function appelFond(): HasOne
+    {
+        return $this->hasOne(AppelFond::class);
+    }
+
     public function getGainAttribute()
     {
         $total = 0;
@@ -132,7 +143,8 @@ class Programme extends Model
         foreach ($this->souscriptions as $souscription) {
             $total += $souscription->montant;
         }
-        return 0.95 * $total;
+        $prelevementPercent = (100 - $this->tauxPrelevement) / 100;
+        return  $prelevementPercent * $total;
     }
 
     public function getHasChildrenAttribute()
