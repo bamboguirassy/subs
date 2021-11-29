@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AppelFondController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProgrammeController;
 use App\Http\Controllers\SouscriptionController;
@@ -173,3 +174,7 @@ Route::get('countries', function () {
     }
     return $countries;
 });
+
+Route::resource('appelfond', AppelFondController::class,[
+    'only'=>['store']
+])->middleware('auth');

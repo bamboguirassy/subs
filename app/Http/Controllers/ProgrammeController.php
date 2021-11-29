@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Custom\Helper;
+use App\Models\Parametrage;
 use App\Models\Profil;
 use App\Models\ProfilConcerne;
 use App\Models\Programme;
@@ -114,6 +115,7 @@ class ProgrammeController extends Controller
                 }
                 $programme->user_id = $user->id;
             }
+            $programme->tauxPrelevement = Parametrage::getInstance()->tauxPrelevement;
             $programme->save();
 
             if ($typeProgramme->code == "PROG") {
