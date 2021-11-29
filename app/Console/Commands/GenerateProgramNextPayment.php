@@ -63,8 +63,9 @@ class GenerateProgramNextPayment extends Command
                 ->get();
             $this->comment("Children programs arrivant à expiration : " . count($childrenPrograms));
             foreach ($childrenPrograms as $childProgram) {
-                /** vérifier si le nombre de main n'est pas fini */
-                Programme::createChildFromChild($childProgram);
+                if(!$childProgram->has_next){
+                    Programme::createChildFromChild($childProgram);
+                }
             }
             DB::commit();
         } catch (Exception $e) {

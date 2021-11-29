@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Mail\RemindTontineTrancheStart;
+use App\Mail\GenerateTontineTranche;
 use DateTime;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -33,7 +33,8 @@ class Programme extends Model
         'user_id',
         'montant',
         'frequence',
-        'programme_id'
+        'programme_id',
+        'tranche'
     ];
 
     /**
@@ -116,6 +117,24 @@ class Programme extends Model
         return $this->hasOne(Programme::class)->orderBy('created_at', 'desc');
     }
 
+    public function getGainAttribute()
+    {
+        $total = 0;
+        foreach ($this->souscriptions as $souscription) {
+            $total += $souscription->montant;
+        }
+        return $total;
+    }
+
+    public function getGainNetAttribute()
+    {
+        $total = 0;
+        foreach ($this->souscriptions as $souscription) {
+            $total += $souscription->montant;
+        }
+        return 0.95 * $total;
+    }
+
     public function getHasChildrenAttribute()
     {
         return count($this->children) > 0;
@@ -131,6 +150,16 @@ class Programme extends Model
             }
         }
         return 0;
+    }
+
+    public function getIsProprietaireAttribute()
+    {
+        if (Auth::check()) {
+            if (Auth::id() == $this->user_id) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public function getActiveAttribute()
@@ -164,6 +193,11 @@ class Programme extends Model
         return $this->typeProgramme->code == "CFON";
     }
 
+    public function getIsCotisationAttribute()
+    {
+        return $this->typeProgramme->code == "COTI";
+    }
+
     public function getIsProgrammeAttribute()
     {
         return $this->typeProgramme->code == "PROG";
@@ -174,14 +208,27 @@ class Programme extends Model
         return $this->typeProgramme->code == "TONTINE";
     }
 
+    public function getHasNextAttribute()
+    {
+        if ($this->programme_id != null) {
+            $nextPrograms = Programme::whereProgrammeId($this->programme_id)
+                ->whereTranche($this->tranche + 1)
+                ->get();
+            return count($nextPrograms) > 0;
+        }
+        return false;
+    }
+
     public static function createChildFromParent(Programme $parent)
     {
         $programme = new Programme();
         $programme->programme_id = $parent->id;
         $programme->type_programme_id = $parent->type_programme_id;
         $index = count($parent->children) + 1;
-        $programme->nom = $parent->nom . ' Tranche ' . $index;
+        $programme->nom = 'Tranche ' . uniqid();
+        $programme->tranche = $index;
         $programme->montant = $parent->montant;
+        $programme->nombreParticipants = 0;
         $programme->frequence = $parent->frequence;
         $programme->description = $parent->description;
         $programme->image = $parent->image;
@@ -203,8 +250,10 @@ class Programme extends Model
         $programme->programme_id = $child->parent->id;
         $programme->type_programme_id = $child->parent->type_programme_id;
         $index = count($child->parent->children) + 1;
-        $programme->nom = $child->parent->nom . ' - Tranche ' . $index;
+        $programme->nom = 'Tranche ' . uniqid();
+        $programme->tranche = $index;
         $programme->montant = $child->parent->montant;
+        $programme->nombreParticipants = 0;
         $programme->frequence = $child->parent->frequence;
         $programme->description = $child->parent->description;
         $programme->image = $child->parent->image;
@@ -220,11 +269,11 @@ class Programme extends Model
         Programme::notifyTontinePayment($programme, $child->parent->souscriptions);
     }
 
-    public static function notifyTontinePayment(Programme $programme,$souscriptions)
+    public static function notifyTontinePayment(Programme $programme, $souscriptions)
     {
         foreach ($souscriptions as $souscription) {
             // envoyer mail au particpant avec les détails du paiement et rappel
-            Mail::to($souscription->user)->send(new RemindTontineTrancheStart($programme, $souscription));
+            Mail::to($souscription->user)->send(new GenerateTontineTranche($programme, $souscription));
         }
     }
 }
