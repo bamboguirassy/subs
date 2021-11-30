@@ -58,7 +58,6 @@ class RegisterController extends Controller
             'password' => ['required', 'string', 'min:8', 'confirmed'],
             'profession' => 'required',
             'telephone' => 'required',
-            'photo' => 'required|image'
         ]);
     }
 
@@ -71,20 +70,13 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         $request = request();
-        // gérer upload image
-        $photoname = $data['email'] . '_' . uniqid() . '.' . $request->file('photo')->extension();
-        $request->file('photo')->storeAs('users/photos', $photoname);
-        $data['photo'] = $photoname;
+        if ($request->hasFile('photo')) {
+            // gérer upload image
+            $photoname = $data['email'] . '_' . uniqid() . '.' . $request->file('photo')->extension();
+            $request->file('photo')->storeAs('users/photos', $photoname);
+            $data['photo'] = $photoname;
+        }
         $data['password'] = Hash::make($request->password);
         return  User::create($data);
     }
-
-
-
-
-
-
-
-
-
 }

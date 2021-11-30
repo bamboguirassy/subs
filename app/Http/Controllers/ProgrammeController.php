@@ -27,7 +27,9 @@ class ProgrammeController extends Controller
      */
     public function index()
     {
-        return view('programme.list');
+        $programmes = Programme::orderBy('dateCloture','desc')
+        ->get();
+        return view('admin.programme.list',compact('programmes'));
     }
 
     /**

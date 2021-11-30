@@ -16,7 +16,8 @@ class AppelFondController extends Controller
      */
     public function index()
     {
-        //
+        $appelFonds = AppelFond::orderBy('traite','desc')->orderBy('created_at','desc')->get();
+        return view('admin.appelfond.list',compact('appelFonds'));
     }
 
     /**

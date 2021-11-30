@@ -186,6 +186,29 @@
                                 Contacts
                             </a>
                         </li>
+                        @auth
+                            @if (auth()->user()->type == 'admin')
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link link dropdown-toggle text-secondary display-4" href="#"
+                                        data-toggle="dropdown-submenu" data-bs-toggle="dropdown"
+                                        data-bs-auto-close="outside" aria-expanded="false">
+                                        Admin
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="dropdown-undefined">
+                                        <a class="dropdown-item text-secondary display-4"
+                                            href="{{ route('admin.programme.index') }}" aria-expanded="false">
+                                            Programmes
+                                        </a>
+                                        <a class="dropdown-item text-secondary display-4"
+                                            href="{{ route('admin.appelfond.index') }}">Appels de fonds<br>
+                                        </a>
+                                        <a class="dropdown-item text-secondary display-4"
+                                            href="{{ route('admin.user.index') }}">Utilisateurs<br>
+                                        </a>
+                                    </div>
+                                </li>
+                            @endif
+                        @endauth
                     </ul>
                 </div>
             </div>
