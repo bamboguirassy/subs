@@ -86,7 +86,7 @@ Route::resource('programme', ProgrammeController::class, [
 ])->middleware('web');
 
 Route::resource('programme', ProgrammeController::class, [
-    'only' => ['destroy', 'edit', 'update', 'index']
+    'only' => ['destroy', 'edit', 'update']
 ])->middleware('auth');
 
 Route::get('mesprogrammes', function () {
@@ -178,3 +178,5 @@ Route::get('countries', function () {
 Route::resource('appelfond', AppelFondController::class,[
     'only'=>['store']
 ])->middleware('auth');
+
+include_once "admin.php";

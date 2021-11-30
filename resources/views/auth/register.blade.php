@@ -10,9 +10,10 @@
                     <div class="card-body">
                         <form enctype="multipart/form-data" method="POST" action="{{ route('register') }}">
                             @csrf
-
+                            <form-errors $errors="$errors->all()" />
                             <div class="form-group row">
-                                <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Nom complet') }}</label>
+                                <label for="name"
+                                    class="col-md-4 col-form-label text-md-right">{{ __('Nom complet') }}</label>
 
                                 <div class="col-md-6">
                                     <input id="name" type="text" class="form-control @error('name') is-invalid @enderror"
@@ -30,14 +31,14 @@
                                     Téléphone
                                 </label>
                                 <input type="tel" name="telephone" placeholder="Téléphone" data-form-field="telephone"
-                                    required="required" class="form-control display-7" value=""
+                                    required="required" class="form-control display-7" value="{{ old('telephone') }}"
                                     id="telephone-formbuilder-13">
                             </div>
                             <div data-for="profession" class="col-lg-12 col-md-12 col-sm-12 form-group">
                                 <label for="profession-formbuilder-13"
                                     class="form-control-label mbr-fonts-style display-7">Profession</label>
                                 <input type="text" name="profession" placeholder="Profession" data-form-field="profession"
-                                    required="required" class="form-control display-7" value=""
+                                    required="required" class="form-control display-7" value="{{ old('profession') }}"
                                     id="profession-formbuilder-13">
                             </div>
                             <div data-for="presentation" class="col-lg-12 col-md-12 col-sm-12 form-group">
@@ -52,7 +53,7 @@
                                 <label for="photo-formbuilder-13" class="form-control-label mbr-fonts-style display-7">
                                     Chosir une photo de profil</label>
                                 <input type="file" accept="image/*" name="photo" max="100" min="0" step="1"
-                                    data-form-field="photo" required="required" class="form-control display-7" value=""
+                                    data-form-field="photo" class="form-control display-7" value=""
                                     id="photo-formbuilder-13">
                             </div>
                             <div class="form-group row">
@@ -74,7 +75,6 @@
                             <div class="form-group row">
                                 <label for="password"
                                     class="col-md-4 col-form-label text-md-right">{{ __('Mot de passe') }}</label>
-
                                 <div class="col-md-6">
                                     <input id="password" type="password"
                                         class="form-control @error('password') is-invalid @enderror" name="password"
@@ -101,7 +101,7 @@
                             <div class="form-group row mb-0">
                                 <div class="col-md-6 offset-md-4">
                                     <button type="submit" class="btn btn-primary">
-                                        {{ __("Créer le compte") }}
+                                        {{ __('Créer le compte') }}
                                     </button>
                                 </div>
                             </div>

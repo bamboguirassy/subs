@@ -13,6 +13,7 @@ use Laravel\Sanctum\HasApiTokens;
 class User extends Authenticatable implements MustVerifyEmail
 {
     use HasApiTokens, HasFactory, Notifiable;
+    public const ADMIN = 'admin';
 
     /**
      * The attributes that are mass assignable.
@@ -27,7 +28,8 @@ class User extends Authenticatable implements MustVerifyEmail
         'presentation',
         'telephone',
         'photo',
-        'country_cca2'
+        'country_cca2',
+        'type'
     ];
 
     /**
@@ -67,5 +69,9 @@ class User extends Authenticatable implements MustVerifyEmail
     public function programmes(): HasMany
     {
         return $this->hasMany(Programme::class);
+    }
+
+    public function getIsAdminAttribute() {
+        return $this->type==User::ADMIN;
     }
 }
