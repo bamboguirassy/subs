@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Mail\AdviseNewAppelFond;
 use App\Models\AppelFond;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 
 class AppelFondController extends Controller
@@ -45,6 +46,7 @@ class AppelFondController extends Controller
             'montant'=>'required'
         ]);
         $appelFond = new AppelFond($request->all());
+        $appelFond->user_id = Auth::id();
         if($appelFond->save()) {
             notify("L'appel de fond a passé, vous serez contactés pour la suite...");
             Mail::to(config('mail.cc'))->send(new AdviseNewAppelFond($appelFond));
