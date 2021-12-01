@@ -140,6 +140,8 @@
                                         step="1" data-form-field="nombreSeance" class="form-control display-7"
                                         value="{{ old('nombreSeance') }}" id="nombreSeance-formbuilder-13">
                                 </div>
+                            @endif
+                            @if ($typeProgramme->code == 'PROG' || $typeProgramme->code == 'TONTINE')
                                 <div data-for="nombreParticipants" class="col-lg-12 col-md-12 col-sm-12 form-group">
                                     <label for="nombreParticipants-formbuilder-13"
                                         class="form-control-label mbr-fonts-style display-7">Nombre Max Participants (Mettre
@@ -148,7 +150,8 @@
                                     <input type="number" name="nombreParticipants"
                                         placeholder="Nombre maximum de participants" max="" min="0" step="1"
                                         data-form-field="nombreParticipants" required="required"
-                                        class="form-control display-7" value="{{ old('nombreParticipants') }}" id="nombreParticipants-formbuilder-13">
+                                        class="form-control display-7" value="{{ old('nombreParticipants') }}"
+                                        id="nombreParticipants-formbuilder-13">
                                 </div>
                             @endif
                             <div data-for="description" class="col-lg-12 col-md-12 col-sm-12 form-group">

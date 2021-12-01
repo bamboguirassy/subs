@@ -22,7 +22,7 @@ class AdminMiddleware
             if (Auth::user()->type == User::ADMIN)
                 return $next($request);
         }
-        notify()->error("Autorisation non requise !!!");
+        notify()->error("Privilège insuffisant !!!");
         return redirect()->route('home');
     }
 }
