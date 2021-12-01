@@ -45,7 +45,7 @@
                                     <th class="head-item mbr-fonts-style display-4 nowrap">Date création</th>
                                     <th class="head-item mbr-fonts-style display-4 nowrap">Email</th>
                                     <th class="head-item mbr-fonts-style display-4 nowrap">Téléphone</th>
-                                    <th class="head-item mbr-fonts-style display-4 nowrap">Profession</th>
+                                    <th class="head-item mbr-fonts-style display-4 nowrap">Statut</th>
                                     <th class="head-item mbr-fonts-style display-4 nowrap">Nombre souscription</th>
                                     <th class="head-item mbr-fonts-style display-4 nowrap">Nombre leads</th>
                                     <th class="head-item mbr-fonts-style display-4 nowrap"> Action</th>
@@ -59,7 +59,7 @@
                                             {{ $loop->index + 1 }}
                                         </td>
                                         <td class="body-item mbr-fonts-style display-7 nowrap">
-                                            {{ $programme->nom }}
+                                            <a href="{{ route('programme.show',compact('programme')) }}">{{ $programme->nom }}</a>
                                         </td>
                                         <td class="body-item mbr-fonts-style display-7 nowrap">
                                             {{ $programme->dateCloture }}
@@ -77,7 +77,8 @@
                                                 href="tel:{{ $programme->user->telephone }}">{{ $programme->user->telephone }}</a>
                                         </td>
                                         <td class="body-item mbr-fonts-style display-7 nowrap">
-                                            {{ $programme->user->profession }}</td>
+                                            {{ $programme->active?'Active':'Inactive' }}
+                                        </td>
                                         <td class="body-item mbr-fonts-style display-7 nowrap">
                                             {{ count($programme->souscriptions) }}
                                         </td>
