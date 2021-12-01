@@ -57,14 +57,17 @@ class GenerateProgramNextPayment extends Command
                 }
             }
             // recupérer les programmes enfants qui seront cloturées aujourd'hui
-            $childrenPrograms = Programme::whereRelation('typeProgramme', 'code', 'TONTINE')
-                ->where('programme_id', '!=', null)
+            $childrenPrograms = Programme::where('programme_id', '!=', null)
                 ->where('dateCloture', today())
+                ->whereRelation('typeProgramme', 'code', 'TONTINE')
                 ->get();
             $this->comment("Children programs arrivant à expiration : " . count($childrenPrograms));
             foreach ($childrenPrograms as $childProgram) {
-                if(!$childProgram->has_next){
+                if (!$childProgram->has_next && ($childProgram->parent->nombre_main != count($childProgram->parent->children))) {
                     Programme::createChildFromChild($childProgram);
+                }
+                if (($childProgram->parent->nombre_main == count($childProgram->parent->children))) {
+                    $this->comment("La tontine {$childProgram->parent->nom} est terminé aujourd'hui, il y'a {$childProgram->parent->nombre_main} main(s) et c'est la derniere tranche (id:{$childProgram->id}) qui est cloturée aujourd'hui...");
                 }
             }
             DB::commit();
