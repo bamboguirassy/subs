@@ -18,6 +18,7 @@ class Programme extends Model
 
     public const FREQUENCE_HEBDO = 'hebdomadaire';
     public const FREQUENCE_MENSUEL = 'mensuelle';
+    public const FREQUENCE_PAR_DIZAINE = 'par 10 jours';
 
     protected $fillable = [
         'type_programme_id',
@@ -105,7 +106,7 @@ class Programme extends Model
      */
     public function parent(): BelongsTo
     {
-        return $this->belongsTo(Programme::class);
+        return $this->belongsTo(Programme::class,'programme_id');
     }
 
     /**
@@ -231,6 +232,10 @@ class Programme extends Model
         return false;
     }
 
+    /**
+     * Créer un programme enfant à partir de la tontine principale
+     * Cette méthode est appelée uniquement à la date de démarrage de la tontine et créé le premier child
+     */
     public static function createChildFromParent(Programme $parent)
     {
         $programme = new Programme();
@@ -251,11 +256,17 @@ class Programme extends Model
             $programme->dateCloture = today()->addWeek();
         } else if ($parent->frequence == Programme::FREQUENCE_MENSUEL) {
             $programme->dateCloture = today()->addMonth();
+        } else if($parent->frequence == Programme::FREQUENCE_PAR_DIZAINE) {
+            $programme->dateCloture = today()->addDays(10);
         }
         $programme->save();
         Programme::notifyTontinePayment($programme, $parent->souscriptions);
     }
 
+    /**
+     * Créer un programme child à partir d'un child
+     * Lorsqu'une tranche de la tontine est terminée, la tranche suivante est générée
+     */
     public static function createChildFromChild(Programme $child)
     {
         $programme = new Programme();
@@ -276,6 +287,8 @@ class Programme extends Model
             $programme->dateCloture = today()->addWeek();
         } else if ($child->parent->frequence == Programme::FREQUENCE_MENSUEL) {
             $programme->dateCloture = today()->addMonth();
+        } else if($child->parent->frequence == Programme::FREQUENCE_PAR_DIZAINE) {
+            $programme->dateCloture = today()->addDays(10);
         }
         $programme->save();
         Programme::notifyTontinePayment($programme, $child->parent->souscriptions);

@@ -2,8 +2,7 @@
 
 @section('title',
     config('app.name') .
-    ' - Plateforme de souscription à des programmes de formations, conférences,
-    séminaires...',)
+    ' - Plateforme de collecte pour les formations, tontines, cotisation et levée de fond pour tous...',)
 
 @section('social-sharing')
     <meta name="twitter:image:src" content="{{ asset('assets/images/mbr-1076x1145-512x512.png') }}">
@@ -12,7 +11,7 @@
 
 @section('description',
     "Plateforme d'inscription à des programmes importants tels que les formations, les séminaires,
-    les conférences...",)
+    les conférences...")
 
 @section('body')
     <section data-bs-version="5.1" class="extHeader cid-sPMNZDPZTn mb-2" id="extHeader13-2f">

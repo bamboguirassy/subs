@@ -14,9 +14,11 @@
     <section data-bs-version="5.1" class="header14 cid-sObVJU3AUD" id="header14-u">
         <div class="container">
             <div class="row justify-content-center align-items-center">
-                <div class="col-12 col-md-4 image-wrapper">
-                    <img src="{{ asset('uploads/programmes/images/' . $programme->image) }}">
-                </div>
+                @isset($programme->image)
+                    <div class="col-12 col-md-4 image-wrapper">
+                        <img src="{{ asset('uploads/programmes/images/' . $programme->image) }}">
+                    </div>
+                @endisset
                 <div class="col-12 col-md">
                     <div class="text-wrapper">
                         <h1 class="mbr-section-title mbr-fonts-style mb-3 display-4">
@@ -181,7 +183,7 @@
                                 </div>
                                 <div class="card-box">
                                     <h4 class="card-title mbr-fonts-style mb-1 display-5">
-                                        <strong>25</strong>
+                                        <strong>0</strong>
                                     </h4>
                                     <h5 class="card-text mbr-fonts-style display-7"><strong>SMS disponible(s)</strong></h5>
                                 </div>
@@ -194,7 +196,7 @@
         <x-separator />
     @endif
     {{-- statistique des tontines --}}
-    @if (($programme->is_tontine && $programme->current_user_souscription) || $programme->is_proprietaire)
+    @if ($programme->is_tontine && ($programme->current_user_souscription || $programme->is_proprietaire))
         <section data-bs-version="5.1" class="extProgressBars cid-sQ5CwoL2FK" id="extProgressBars5-2x">
             <div class="container">
                 <div class="row justify-content-center">
@@ -304,14 +306,16 @@
                     <div class="tab-content p-5">
                         <div id="tab1" class="tab-pane in active" role="tabpanel">
                             <div class="row">
-                                <div class="col-md-3 logo-container d-flex justify-content-center align-items-center">
-                                    <div class="d-flex flex-wrap">
-                                        <div class="mb-md-0 mb-3">
-                                            <img src="{{ asset('uploads/programmes/images/' . $programme->image) }}">
+                                @isset($programme->image)
+                                    <div class="col-md-3 logo-container d-flex justify-content-center align-items-center">
+                                        <div class="d-flex flex-wrap">
+                                            <div class="mb-md-0 mb-3">
+                                                <img src="{{ asset('uploads/programmes/images/' . $programme->image) }}">
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col-md-9">
+                                @endisset
+                                <div class="col-md">
                                     <x-programme-description :programme="$programme" />
                                 </div>
                             </div>
