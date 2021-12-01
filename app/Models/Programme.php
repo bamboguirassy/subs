@@ -18,6 +18,7 @@ class Programme extends Model
 
     public const FREQUENCE_HEBDO = 'hebdomadaire';
     public const FREQUENCE_MENSUEL = 'mensuelle';
+    public const FREQUENCE_PAR_DIZAINE = 'par 10 jours';
 
     protected $fillable = [
         'type_programme_id',
@@ -251,6 +252,8 @@ class Programme extends Model
             $programme->dateCloture = today()->addWeek();
         } else if ($parent->frequence == Programme::FREQUENCE_MENSUEL) {
             $programme->dateCloture = today()->addMonth();
+        } else if($parent->frequence == Programme::FREQUENCE_PAR_DIZAINE) {
+            $programme->dateCloture = today()->addDays(10);
         }
         $programme->save();
         Programme::notifyTontinePayment($programme, $parent->souscriptions);
@@ -276,6 +279,8 @@ class Programme extends Model
             $programme->dateCloture = today()->addWeek();
         } else if ($child->parent->frequence == Programme::FREQUENCE_MENSUEL) {
             $programme->dateCloture = today()->addMonth();
+        } else if($child->parent->frequence == Programme::FREQUENCE_PAR_DIZAINE) {
+            $programme->dateCloture = today()->addDays(10);
         }
         $programme->save();
         Programme::notifyTontinePayment($programme, $child->parent->souscriptions);

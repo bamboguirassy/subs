@@ -100,6 +100,7 @@
                                         <label for="frequence" class="form-label">Frequence de cotisation</label>
                                         <select required="required" class="form-control" name="frequence" id="frequence">
                                             <option>mensuelle</option>
+                                            <option>par 10 jours</option>
                                             <option>hebdomadaire</option>
                                         </select>
                                     </div>
