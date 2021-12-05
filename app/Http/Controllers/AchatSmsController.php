@@ -148,7 +148,7 @@ class AchatSmsController extends Controller
                 $facture->uid = $uid;
                 $facture->achat_sms_id = $achatSms->id;
                 $facture->save();
-                $achatSms->user->notify(new SendSms($achatSms->user->telephone,"Votre achat du pack SMS {$achatSms->packSms->nom} a reussie. ".config('app.name')));
+                $achatSms->user->notify(new SendSms(null,"Votre achat du pack SMS {$achatSms->packSms->nom} a reussie. ".config('app.name')));
                 DB::commit();
             } catch (\Throwable $th) {
                 DB::rollback();
