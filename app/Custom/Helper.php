@@ -34,6 +34,7 @@ class Helper
         $achatSms->uid = $achatSmsTmp->uid;
         $achatSms->pack_sms_id = $achatSmsTmp->pack_sms_id;
         $achatSms->user->nombreSms+=$achatSms->nombreSms;
+        $achatSms->user->update();
         return $achatSms;
     }
 
