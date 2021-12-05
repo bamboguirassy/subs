@@ -4,26 +4,30 @@ namespace App\Notifications;
 
 use App\Channels\SmsChannel;
 use App\Custom\Osms;
+use App\Models\Parametrage;
+use App\Models\User;
+use Exception;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
+use Illuminate\Support\Facades\DB;
 
 class SendSms extends Notification
 {
     use Queueable;
     public $osms;
-    public $receiverAddress;
     public $message;
+    public $initiator;
 
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct($to, $message)
+    public function __construct(?User $user, $message)
     {
-        $this->receiverAddress = $to;
         $this->message = $message;
+        $this->initiator = $user;
         $config = array(
             'clientId' => env('ORANGE_CLIENT_ID'),
             'clientSecret' => env('ORANGE_CLIENT_SECRET')
@@ -35,7 +39,7 @@ class SendSms extends Notification
         $response = $this->osms->getTokenFromConsumerKey();
         if (array_key_exists('error', $response)) {
             notify()->error($response['error']);
-        } else if(empty($response['access_token'])) {
+        } else if (empty($response['access_token'])) {
             notify()->error("Aucun token pour l'envoi de SMS n'a été trouvé...");
         }
     }
@@ -51,15 +55,47 @@ class SendSms extends Notification
         return [SmsChannel::class];
     }
 
+    /**
+     * SI l'initiateur est défini, le SMS n'est envoyé que lorsque son solde SMS est solvable
+     * Si l'initiateur n'est pas défini, les SMS sont considérés comme publics
+     */
     public function toSms($notifiable)
     {
-       $senderAddress = config('orange.from');
+        $senderAddress = config('orange.from');
         $senderName = config('app.name');
-        $response = $this->osms->sendSMS($senderAddress, 'tel:'.$this->receiverAddress, $this->message, $senderName);
-        if (array_key_exists('error', $response)) {
-            notify()->error($response['error']);
+        $mailSent = false;
+        if ($this->initiator != null) {
+            if ($this->initiator->soldeSms > 0) {
+                $response = $this->osms->sendSMS($senderAddress, 'tel:' . $notifiable->telephone, $this->message, $senderName);
+                $mailSent = true;
+            } else {
+                notify()->error("Le solde SMS de l'initiateur est insuffisant, SMS non envoyé.");
+            }
+        } else {
+            $response = $this->osms->sendSMS($senderAddress, 'tel:' . $notifiable->telephone, $this->message, $senderName);
+            $mailSent = true;
         }
-        return $response;
+        if ($mailSent) {
+            if (array_key_exists('error', $response)) {
+                notify()->error($response['error']);
+            } else {
+                DB::beginTransaction();
+                try {
+                    $parametrage = Parametrage::getInstance();
+                    $parametrage->soldeSms = $parametrage->soldeSms - 1;
+                    $parametrage->update();
+                    if ($this->initiator) {
+                        $this->initiator->soldeSms = $this->initiator->soldeSms - 1;
+                        $this->initiator->update();
+                    }
+                    DB::commit();
+                } catch (Exception $e) {
+                    DB::rollBack();
+                    throw $e;
+                }
+            }
+        }
+        return null;
     }
 
     /**

@@ -39,11 +39,6 @@ Route::get('/home', function () {
 });
 
 Route::get('', function () {
-    //+221777240514
-    if (Auth::check()) {
-        //Auth::user()->notify(new SendSms('+221780165026','Salut !'));
-        notify("SMS envoyé avec succès");
-    }
     $programmeActives = Programme::where('dateCloture', '>=', date_format(new DateTime(), 'Y-m-d'))
         ->orderBy('dateCloture')->paginate(20);
     $programmeActives = $programmeActives->filter(function ($programme) {

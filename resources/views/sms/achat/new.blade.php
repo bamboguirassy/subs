@@ -87,7 +87,7 @@
                                     </div>
                                     <p class="card-text">{!! $packSm->description !!}</p>
                                 </div>
-                                <div class="card-body text-center">
+                                <div class="card-body text-center justify-content-center">
                                     <button type="submit" class="btn btn-outline-primary btn-lg"
                                         style="border-radius:30px">Choisir</button>
                                 </div>

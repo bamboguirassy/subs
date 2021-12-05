@@ -8,6 +8,7 @@ use App\Models\AchatSms;
 use App\Models\AchatSmsTmp;
 use App\Models\Facture;
 use App\Models\PackSms;
+use App\Notifications\SendSms;
 use Error;
 use Exception;
 use Illuminate\Http\Request;
@@ -33,7 +34,7 @@ class AchatSmsController extends Controller
     public function create()
     {
         $packSms = PackSms::all();
-        return view('sms.new-pack', compact('packSms'));
+        return view('sms.achat.new', compact('packSms'));
     }
 
     /**
@@ -148,7 +149,7 @@ class AchatSmsController extends Controller
                 $facture->uid = $uid;
                 $facture->achat_sms_id = $achatSms->id;
                 $facture->save();
-                $achatSms->user->notify(new NotifyNewAchatSms($achatSms));
+                $achatSms->user->notify(new SendSms($achatSms->user->telephone,"Votre achat du pack SMS {$achatSms->packSms->nom} a reussie. ".config('app.name')));
                 DB::commit();
             } catch (\Throwable $th) {
                 DB::rollback();
