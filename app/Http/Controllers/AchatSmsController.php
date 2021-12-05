@@ -124,7 +124,6 @@ class AchatSmsController extends Controller
         $item_price = $request->input('item_price');
         $currency = $request->input('devise');
 
-        $achatSms = new AchatSms();
         //from PayTech
         if ($type_event == 'sale_complete') {
             DB::beginTransaction();

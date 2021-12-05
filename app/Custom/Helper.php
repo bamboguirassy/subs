@@ -28,7 +28,7 @@ class Helper
     {
         $achatSms = new AchatSms();
         $achatSms->user_id = $achatSmsTmp->user_id;
-        $achatSms->confirmed = $achatSmsTmp->confirmed;
+        $achatSms->confirmed = true;
         $achatSms->montant = $achatSmsTmp->montant;
         $achatSms->nombreSms = $achatSmsTmp->nombreSms;
         $achatSms->uid = $achatSmsTmp->uid;
