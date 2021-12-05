@@ -167,9 +167,8 @@ class ProgrammeController extends Controller
      */
     public function edit(Programme $programme)
     {
-        $typeProgrammes = TypeProgramme::orderBy('nom')->get();
         $profils = Profil::orderBy('nom')->get();
-        return view('programme.edit', compact('typeProgrammes', 'profils', 'programme'));
+        return view('programme.edit', compact('programme'));
     }
 
     /**
@@ -185,12 +184,7 @@ class ProgrammeController extends Controller
             'type_programme_id' => 'required|exists:type_programmes,id',
             'nom' => 'required',
             'dateCloture' => 'required',
-            'dateDemarrage' => 'required',
-            'duree' => 'required',
-            'nombreSeance' => 'required|numeric',
-            'nombreParticipants' => 'required|numeric',
             'description' => 'required',
-            'modeDeroulement' => 'required',
         ]);
 
         DB::beginTransaction();
@@ -200,6 +194,13 @@ class ProgrammeController extends Controller
                 $filename = $request->get('nom') . '.' . $request->file('image')->extension();
                 $request->file('image')->storeAs('programmes/images', $filename);
                 $programme->image = $filename;
+            }
+            if(count($request->cout)) {
+                foreach ($request->cout as $profilConcerneId => $montant) {
+                    $profilConcerne = ProfilConcerne::find($profilConcerneId);
+                    $profilConcerne->montant = $montant;
+                    $profilConcerne->update();
+                }
             }
             $programme->update($request->except('image'));
             DB::commit();

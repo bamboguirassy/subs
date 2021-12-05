@@ -183,7 +183,7 @@
                                 </div>
                                 <div class="card-box">
                                     <h4 class="card-title mbr-fonts-style mb-1 display-5">
-                                        <strong>0</strong>
+                                        <strong>{{ Auth::user()->nombreSms }}</strong>
                                     </h4>
                                     <h5 class="card-text mbr-fonts-style display-7"><strong>SMS disponible(s)</strong></h5>
                                 </div>
