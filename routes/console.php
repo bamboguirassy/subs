@@ -3,6 +3,7 @@
 use App\Mail\RemindLeadsToSouscribe;
 use App\Mail\RemindProgrammeClosing;
 use App\Mail\RemindSubscribedUsers;
+use App\Models\Parametrage;
 use App\Models\Programme;
 use App\Models\Souscription;
 use App\Models\SouscriptionTemp;
@@ -24,6 +25,10 @@ use Illuminate\Support\Facades\Mail;
 Artisan::command('inspire', function () {
     $this->comment(Inspiring::quote());
 })->purpose('Display an inspiring quote');
+
+Artisan::command('display:solde-sms', function () {
+    $this->comment(Parametrage::getInstance()->soldeSms." SMS restant(s) dans le système !");
+})->purpose('Display solde SMS....');
 
 Artisan::command('remind:programme:closing', function () {
     $today = today();
