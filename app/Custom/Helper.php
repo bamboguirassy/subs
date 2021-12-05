@@ -8,7 +8,6 @@ use App\Models\Souscription;
 use App\Models\SouscriptionTemp;
 use App\Models\User;
 use Illuminate\Auth\Notifications\VerifyEmail;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\URL;
 
@@ -25,7 +24,7 @@ class Helper
         return $souscription;
     }
 
-    public static function convertTempAchatSms(AchatSmsTmp $achatSmsTmp): AchatSmsTmp
+    public static function convertTempAchatSms(AchatSmsTmp $achatSmsTmp): AchatSms
     {
         $achatSms = new AchatSms();
         $achatSms->user_id = $achatSmsTmp->user_id;

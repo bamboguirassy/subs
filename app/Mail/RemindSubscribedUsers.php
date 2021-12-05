@@ -28,6 +28,10 @@ class RemindSubscribedUsers extends Mailable
      */
     public function build()
     {
-        return $this->markdown('emails.remind-subscribed-users',['souscription'=>$this->souscription])->subject("Rappel de programme - ".$this->souscription->programme->nom);
+        return $this->markdown('emails.remind-subscribed-users', [
+            'souscription' => $this->souscription
+        ])
+            ->subject("Rappel de programme - " . $this->souscription->programme->nom)
+            ->replyTo(config('mail.cc'));
     }
 }

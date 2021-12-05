@@ -279,7 +279,7 @@ class SouscriptionController extends Controller
         foreach ($souscriptions as $souscription) {
             $mails[] = $souscription->user->email;
         }
-        Mail::to($mails)->bcc(config('mail.cc'))->send(new ContactParticipants($programme, $request->only('message', 'objet')));
+        Mail::to(config('mail.cc'))->bcc($mails)->send(new ContactParticipants($programme, $request->only('message', 'objet')));
         notify()->success("Le mail est envoyé à tous les participants...");
         return back();
     }

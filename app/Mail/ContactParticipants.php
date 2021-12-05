@@ -32,6 +32,10 @@ class ContactParticipants extends Mailable
      */
     public function build()
     {
-        return $this->markdown('emails.contact-participants',['mailObject'=>$this->mailObject])->subject($this->mailObject['objet'].' - '.$this->programme->nom);
+        return $this->markdown('emails.contact-participants',[
+            'mailObject'=>$this->mailObject
+            ])
+        ->subject($this->mailObject['objet'].' - '.$this->programme->nom)
+        ->replyTo(config('mail.cc'));
     }
 }

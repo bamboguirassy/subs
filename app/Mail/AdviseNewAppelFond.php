@@ -30,6 +30,8 @@ class AdviseNewAppelFond extends Mailable
      */
     public function build()
     {
-        return $this->markdown('emails.advise-new-appel-fond',['appelFond'=>$this->appelFond])->subject("Appel de fond - ".$this->appelFond->programme->nom);
+        return $this->markdown('emails.advise-new-appel-fond',['appelFond'=>$this->appelFond])
+        ->subject("Appel de fond - ".$this->appelFond->programme->nom)
+        ->replyTo(config('mail.cc'));
     }
 }

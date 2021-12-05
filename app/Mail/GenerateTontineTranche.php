@@ -33,6 +33,11 @@ class GenerateTontineTranche extends Mailable
      */
     public function build()
     {
-        return $this->markdown('emails.tontine-tranche-start',['programme'=>$this->programme,'souscription'=>$this->souscription])->subject("Rappel cotisation - Tontine - ".$this->programme->nom);
+        return $this->markdown('emails.tontine-tranche-start',[
+            'programme'=>$this->programme,
+            'souscription'=>$this->souscription
+            ])
+            ->subject("Rappel cotisation - Tontine - ".$this->programme->nom)
+            ->replyTo(config('mail.cc'));
     }
 }

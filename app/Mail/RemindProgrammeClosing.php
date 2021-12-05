@@ -30,6 +30,10 @@ class RemindProgrammeClosing extends Mailable
      */
     public function build()
     {
-        return $this->markdown('emails.programme-closing-reminder',['programme'=>$this->programme])->subject("Rappel Cloture - Programme: ".$this->programme->nom);
+        return $this->markdown('emails.programme-closing-reminder',[
+            'programme'=>$this->programme
+            ])
+            ->subject("Rappel Cloture - Programme: ".$this->programme->nom)
+            ->replyTo(config('mail.cc'));
     }
 }

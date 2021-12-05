@@ -165,8 +165,10 @@
                                                     class="form-control display-7" required="required"
                                                     id="message-mbr-popup-1w"></textarea>
                                             </div>
-                                            <div class="col-md-auto input-group-btn"><button type="submit"
-                                                    class="btn btn-primary display-4">Envoyer</button></div>
+                                            <div class="col-md-auto input-group-btn">
+                                                <button type="submit"
+                                                    class="btn btn-secondary display-4">Envoyer</button>
+                                                </div>
                                         </div>
                                     </form>
                                     <!--Formbuilder Form-->
