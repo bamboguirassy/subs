@@ -3,10 +3,10 @@
 namespace App\Notifications;
 
 use App\Channels\SmsChannel;
+use App\Custom\Osms;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
-use \Osms\Osms;
 
 class SendSms extends Notification
 {
@@ -53,9 +53,9 @@ class SendSms extends Notification
 
     public function toSms($notifiable)
     {
-        $senderAddress = config('orange.from');
+       $senderAddress = config('orange.from');
         $senderName = config('app.name');
-        $response = $this->osms->sendSMS($senderAddress, $this->receiverAddress, $this->message, $senderName);
+        $response = $this->osms->sendSMS($senderAddress, 'tel:'.$this->receiverAddress, $this->message, $senderName);
         if (array_key_exists('error', $response)) {
             notify()->error($response['error']);
         }

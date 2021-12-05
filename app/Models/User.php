@@ -29,7 +29,8 @@ class User extends Authenticatable implements MustVerifyEmail
         'telephone',
         'photo',
         'country_cca2',
-        'type'
+        'type',
+        'nombreSms'
     ];
 
     /**

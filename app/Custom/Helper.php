@@ -2,6 +2,8 @@
 
 namespace App\Custom;
 
+use App\Models\AchatSms;
+use App\Models\AchatSmsTmp;
 use App\Models\Souscription;
 use App\Models\SouscriptionTemp;
 use App\Models\User;
@@ -21,6 +23,19 @@ class Helper
         $souscription->user_id = $souscriptionTemp->user_id;
         $souscription->programme_id = $souscriptionTemp->programme_id;
         return $souscription;
+    }
+
+    public static function convertTempAchatSms(AchatSmsTmp $achatSmsTmp): AchatSmsTmp
+    {
+        $achatSms = new AchatSms();
+        $achatSms->user_id = $achatSmsTmp->user_id;
+        $achatSms->confirmed = $achatSmsTmp->confirmed;
+        $achatSms->montant = $achatSmsTmp->montant;
+        $achatSms->nombreSms = $achatSmsTmp->nombreSms;
+        $achatSms->uid = $achatSmsTmp->uid;
+        $achatSms->pack_sms_id = $achatSmsTmp->pack_sms_id;
+        $achatSms->user->nombreSms+=$achatSms->nombreSms;
+        return $achatSms;
     }
 
     public static function createUserFromRequest(): ?User

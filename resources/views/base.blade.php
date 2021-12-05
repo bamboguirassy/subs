@@ -83,6 +83,66 @@
         integrity="sha512-5A8nwdMOWrSz20fDsjczgUidUBR8liPYU+WymTZP1lmY9G6Oc7HlZv156XqnsgNUzTyMefFTcsFH/tnJE/+xBg=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     @notify_css
+    <script>
+        function notifyMe(title, options) {
+            // Vérifions si le navigateur prend en charge les notifications
+            if (!('Notification' in window)) {
+                alert('Ce navigateur ne prend pas en charge la notification de bureau')
+            }
+
+            // Vérifions si les autorisations de notification ont déjà été accordées
+            else if (Notification.permission === 'granted') {
+                // Si tout va bien, créons une notification
+                const notification = new Notification(title, options);
+            }
+
+            // Sinon, nous devons demander la permission à l'utilisateur
+            else if (Notification.permission !== 'denied') {
+                Notification.requestPermission().then((permission) => {
+                    // Si l'utilisateur accepte, créons une notification
+                    if (permission === 'granted') {
+                        const notification = new Notification(title, options);
+                    }
+                })
+            }
+
+            // Enfin, si l'utilisateur a refusé les notifications, et que vous
+            // voulez être respectueux, il n'est plus nécessaire de les déranger.
+        }
+    </script>
+    <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
+    <script>
+        // Enable pusher logging - don't include this in production
+       // Pusher.logToConsole = true;
+
+        var pusher = new Pusher('{{ config('broadcasting.connections.pusher.key') }}', {
+            cluster: '{{ config('broadcasting.connections.pusher.options.cluster') }}'
+        });
+
+        var generalChannel = pusher.subscribe('general');
+        generalChannel.bind('general-event', function(data) {
+            const options = {
+                body: data.message,
+                icon: '{{ asset('assets/images/mbr-121x129.png') }}',
+                badge: '{{ asset('assets/images/mbr-121x129.png') }}'
+            };
+            toastr.info(data.message, data.title);
+            notifyMe(title, options);
+        }, { name: 'Pusher' });
+
+        @auth
+        var userChannel = pusher.subscribe('user-{{auth()->id()}}');
+        userChannel.bind('user-event', function(data) {
+            const options = {
+                body: data.message,
+                icon: '{{ asset('assets/images/mbr-121x129.png') }}',
+                badge: '{{ asset('assets/images/mbr-121x129.png') }}'
+            };
+            toastr.info(data.message,data.title);
+            notifyMe(data.title, options);
+        }, { name: 'Pusher2' });
+        @endauth
+    </script>
     <!-- Analytics -->
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-3CLXFYMR2H"></script>
@@ -165,6 +225,10 @@
                                         href="{{ route('programme.pre.publish') }}" aria-expanded="false">
                                         Démarrer nouveau programme
                                     </a>
+                                    <a class="dropdown-item text-secondary display-4"
+                                        href="{{ route('achatsms.create') }}" aria-expanded="false">
+                                        Acheter pack SMS
+                                    </a>
                                     <a class="dropdown-item text-secondary display-4" href="{{ route('profile') }}">Mon
                                         profil<br>
                                     </a>
@@ -242,6 +306,7 @@
     <script src="{{ asset('bower_components/jquery/dist/jquery.min.js') }}"></script>
     <script src="{{ asset('assets/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('assets/typed/typed.js') }}"></script>
+    <script src="{{ asset('bower_components/pusher-js/dist/web/pusher.js') }}"></script>
     <script src="{{ asset('assets/smoothscroll/smooth-scroll.js') }}"></script>
     <script src="{{ asset('assets/ytplayer/index.js') }}"></script>
     <script src="{{ asset('assets/chatbutton/floating-wpp.js') }}"></script>

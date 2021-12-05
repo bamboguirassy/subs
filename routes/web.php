@@ -1,6 +1,10 @@
 <?php
 
+use App\Custom\Event;
+use App\Events\SouscriptionConfirmationEvent;
+use App\Http\Controllers\AchatSmsController;
 use App\Http\Controllers\AppelFondController;
+use App\Http\Controllers\PackSmsController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProgrammeController;
 use App\Http\Controllers\SouscriptionController;
@@ -14,6 +18,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use PragmaRX\Countries\Package\Countries;
+
 
 
 /*
@@ -34,7 +39,11 @@ Route::get('/home', function () {
 });
 
 Route::get('', function () {
-    // Auth::user()->notify(new SendSms('+221780165026','hello world !'));
+    //+221777240514
+    if (Auth::check()) {
+        //Auth::user()->notify(new SendSms('+221780165026','Salut !'));
+        notify("SMS envoyé avec succès");
+    }
     $programmeActives = Programme::where('dateCloture', '>=', date_format(new DateTime(), 'Y-m-d'))
         ->orderBy('dateCloture')->paginate(20);
     $programmeActives = $programmeActives->filter(function ($programme) {
@@ -175,8 +184,23 @@ Route::get('countries', function () {
     return $countries;
 });
 
-Route::resource('appelfond', AppelFondController::class,[
-    'only'=>['store']
+Route::resource('appelfond', AppelFondController::class, [
+    'only' => ['store']
 ])->middleware('auth');
+
+Route::get('trigger-event', function () {
+    if (Auth::check()) {
+        Event::dispatchUserEvent(Event::Message('User Event', "Salut User - " . Auth::user()->name), Auth::id());
+    } else {
+        Event::dispatchGeneralEvent(Event::Message('Public Message', 'Message complet de user !'));
+    }
+});
+
+Route::post('achat_sms_pin', 'App\Http\Controllers\AchatSmsController@instantPaymentNotificate')
+    ->name('achatsms.pin');
+
+Route::resource('achatsms', AchatSmsController::class, [
+    'only' => ['create', 'store']
+])->middleware("auth");
 
 include_once "admin.php";
