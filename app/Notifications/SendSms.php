@@ -63,19 +63,19 @@ class SendSms extends Notification
     {
         $senderAddress = config('orange.from');
         $senderName = config('app.name');
-        $mailSent = false;
+        $initSmsSend = false;
         if ($this->initiator != null) {
             if ($this->initiator->soldeSms > 0) {
                 $response = $this->osms->sendSMS($senderAddress, 'tel:' . $notifiable->telephone, $this->message, $senderName);
-                $mailSent = true;
+                $initSmsSend = true;
             } else {
                 notify()->error("Le solde SMS de l'initiateur est insuffisant, SMS non envoyé.");
             }
         } else {
             $response = $this->osms->sendSMS($senderAddress, 'tel:' . $notifiable->telephone, $this->message, $senderName);
-            $mailSent = true;
+            $initSmsSend = true;
         }
-        if ($mailSent) {
+        if ($initSmsSend) {
             if (array_key_exists('error', $response)) {
                 notify()->error($response['error']);
             } else {
