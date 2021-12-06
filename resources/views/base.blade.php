@@ -44,7 +44,7 @@
     </noscript>
     <link rel="preload" as="style" href="{{ asset('assets/mobirise/css/mbr-additional.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/mobirise/css/mbr-additional.css') }}" type="text/css">
-    <meta name="theme-color" content="#FE525B">
+    <meta name="theme-color" content="#F2DEDD">
     <link rel="manifest" href="{{ asset('manifest.json') }}">
     <script src="{{ asset('sw-connect.js') }}"></script>
     <meta name="apple-mobile-web-app-capable" content="yes">
