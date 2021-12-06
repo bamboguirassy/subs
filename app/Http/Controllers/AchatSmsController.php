@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Custom\Event;
 use App\Custom\Helper;
 use App\Custom\PaymentManager;
 use App\Models\AchatSms;
 use App\Models\AchatSmsTmp;
 use App\Models\Facture;
 use App\Models\PackSms;
+use App\Models\Parametrage;
 use App\Notifications\SendSms;
 use Error;
 use Exception;
@@ -150,6 +152,9 @@ class AchatSmsController extends Controller
                 $facture->save();
                 $achatSms->user->notify(new SendSms(null,"Votre achat du pack SMS {$achatSms->packSms->nom} a reussie. ".config('app.name')));
                 DB::commit();
+                foreach (Parametrage::getInstance()->admins as $user) {
+                    Event::dispatchUserEvent(Event::Message("Nouveau achat d'SMS","{$achatSms->user->name} a acheté des SMS : {$achatSms->packSms->nom}."),$user->id);
+                }
             } catch (\Throwable $th) {
                 DB::rollback();
                 throw $th;

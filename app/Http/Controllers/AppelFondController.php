@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Custom\Event;
 use App\Mail\AdviseNewAppelFond;
 use App\Models\AppelFond;
+use App\Models\Parametrage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
@@ -50,6 +52,9 @@ class AppelFondController extends Controller
         if($appelFond->save()) {
             notify("L'appel de fond a passé, vous serez contactés pour la suite...");
             Mail::to(config('mail.cc'))->send(new AdviseNewAppelFond($appelFond));
+            foreach (Parametrage::getInstance()->admins as $user) {
+                Event::dispatchUserEvent(Event::Message("Nouvel appel de fond","{$appelFond->user->name} a fait un appel de fond d'une valeur de {$appelFond->montant}."),$user->id);
+            }
         } else {
             notify()->error("Une erreur est survenue lors de l'appel de fond, merci de réssayer");
         }

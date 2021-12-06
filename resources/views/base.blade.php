@@ -82,6 +82,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css"
         integrity="sha512-5A8nwdMOWrSz20fDsjczgUidUBR8liPYU+WymTZP1lmY9G6Oc7HlZv156XqnsgNUzTyMefFTcsFH/tnJE/+xBg=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet" />
     @notify_css
     <script>
         function notifyMe(title, options) {
@@ -94,6 +95,10 @@
             else if (Notification.permission === 'granted') {
                 // Si tout va bien, créons une notification
                 const notification = new Notification(title, options);
+                toastr.info(options.body, title, {
+                    tapToDismiss: true,
+                    timeOut: 0
+                });
             }
 
             // Sinon, nous devons demander la permission à l'utilisateur
@@ -102,6 +107,10 @@
                     // Si l'utilisateur accepte, créons une notification
                     if (permission === 'granted') {
                         const notification = new Notification(title, options);
+                        toastr.info(options.body, title, {
+                            tapToDismiss: true,
+                            timeOut: 0
+                        });
                     }
                 })
             }
@@ -113,7 +122,7 @@
     <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
     <script>
         // Enable pusher logging - don't include this in production
-       // Pusher.logToConsole = true;
+        // Pusher.logToConsole = true;
 
         var pusher = new Pusher('{{ config('broadcasting.connections.pusher.key') }}', {
             cluster: '{{ config('broadcasting.connections.pusher.options.cluster') }}'
@@ -126,21 +135,21 @@
                 icon: '{{ asset('assets/images/mbr-121x129.png') }}',
                 badge: '{{ asset('assets/images/mbr-121x129.png') }}'
             };
-            toastr.info(data.message, data.title);
             notifyMe(title, options);
-        }, { name: 'Pusher' });
+        }, {
+            name: 'Pusher'
+        });
 
         @auth
-        var userChannel = pusher.subscribe('user-{{auth()->id()}}');
-        userChannel.bind('user-event', function(data) {
+            var userChannel = pusher.subscribe('user-{{ auth()->id() }}');
+            userChannel.bind('user-event', function(data) {
             const options = {
-                body: data.message,
-                icon: '{{ asset('assets/images/mbr-121x129.png') }}',
-                badge: '{{ asset('assets/images/mbr-121x129.png') }}'
+            body: data.message,
+            icon: '{{ asset('assets/images/mbr-121x129.png') }}',
+            badge: '{{ asset('assets/images/mbr-121x129.png') }}'
             };
-            toastr.info(data.message,data.title);
             notifyMe(data.title, options);
-        }, { name: 'Pusher2' });
+            }, { name: 'Pusher2' });
         @endauth
     </script>
     <!-- Analytics -->
@@ -324,6 +333,7 @@
     <script src="{{ asset('bower_components/simditor/site/assets/scripts/simditor.js') }}"></script>
     <script src="{{ asset('bower_components/angular/angular.min.js') }}"></script>
     <script src="{{ asset('assets/mbr-flip-card/mbr-flip-card.js') }}"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
     <script>
         $(() => {
             if ($('#wysiwyg').length) {

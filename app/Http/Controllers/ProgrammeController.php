@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Custom\Event;
 use App\Custom\Helper;
 use App\Models\Parametrage;
 use App\Models\Profil;
@@ -134,6 +135,9 @@ class ProgrammeController extends Controller
             }
             //      -- terminer la transaction
             DB::commit();
+            foreach (Parametrage::getInstance()->admins as $user) {
+                Event::dispatchUserEvent(Event::Message("Nouveau programme","{$programme->user->name} a publié un programme : {$programme->nom}."),$user->id);
+            }
             notify()->success("Le programme a bien été enregistré !!!");
             if (!Auth::check()) {
                 if (Auth::attempt($request->only('email', 'password'))) {

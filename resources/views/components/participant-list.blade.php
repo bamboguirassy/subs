@@ -172,7 +172,7 @@
                                             <div class="col-md-auto input-group-btn">
                                                 <button type="submit"
                                                     class="btn btn-secondary display-4">Envoyer</button>
-                                                </div>
+                                            </div>
                                         </div>
                                     </form>
                                     <!--Formbuilder Form-->
@@ -185,8 +185,8 @@
         </div>
         {{-- end send mail modal --}}
         {{-- send sms modal --}}
-        <div class="modal mbr-popup cid-sODVeVmwHy cid-sms-modal fade" tabindex="-1" role="dialog" data-overlay-color="#000000"
-            data-overlay-opacity="0.8" id="mbr-sms-modal" aria-hidden="true">
+        <div class="modal mbr-popup cid-sODVeVmwHy cid-sms-modal fade" tabindex="-1" role="dialog"
+            data-overlay-color="#000000" data-overlay-opacity="0.8" id="mbr-sms-modal" aria-hidden="true">
             <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="container position-static margin-center-pos">
@@ -204,31 +204,47 @@
                         </div>
                         <div class="modal-body">
                             <p class="mbr-text mbr-fonts-style display-7">
-                                Envoyer un SMS à tous les participants.</p>
-                            <div>
-                                <div class="form-wrapper">
-                                    <!--Formbuilder Form-->
-                                    <form
-                                        action="{{ route('send.sms.to.participants', ['programme' => $souscriptions[0]->programme]) }}"
-                                        method="POST" class="mbr-form form-with-styler">
-                                        @csrf
-                                        <x-form-errors :errors="$errors->all()" />
-                                        <div class="dragArea">
-                                            <div class="col-lg-12 col-md-12 col-sm-12 form-group" data-for="message">
-                                                <textarea maxlength="160" name="message"
-                                                    placeholder="Rédiger le sms ici..." data-form-field="message"
-                                                    class="form-control display-7" required="required"
-                                                    id="message-mbr-popup-1w-sms"></textarea>
-                                            </div>
-                                            <div class="col-md-auto input-group-btn">
-                                                <button type="submit"
-                                                    class="btn btn-secondary display-4">Envoyer</button>
+                                Envoyer un SMS à tous les participants. <br>
+                                Vous avez présentement {{ auth()->user()->nombreSms }} SMS disponible(s).
+                                @if (auth()->user()->nombreSms < count($souscriptions))
+                                    <br>
+                                    <div class="mbr-text mbr-fonts-style display-7"
+                                        style="background-color: rgb(211, 125, 125);">Vous ne pouvez malheureusement pas
+                                        envoyer de SMS à tous les participants car le solde SMS est insuffisant. &nbsp;
+                                        Le nombre de participant est {{ count($souscriptions) }}. &nbsp;
+                                        Pour les contacter, merci d'acheter un pack SMS ici : <a
+                                            href="{{ route('achatsms.create') }}" style="font-weight: bold;">Acheter
+                                            des SMS</a>
+                                    </div>
+                                @endif
+                            </p>
+                            @if (auth()->user()->nombreSms > count($souscriptions))
+                                <div>
+                                    <div class="form-wrapper">
+                                        <!--Formbuilder Form-->
+                                        <form
+                                            action="{{ route('send.sms.to.participants', ['programme' => $souscriptions[0]->programme]) }}"
+                                            method="POST" class="mbr-form form-with-styler">
+                                            @csrf
+                                            <x-form-errors :errors="$errors->all()" />
+                                            <div class="dragArea">
+                                                <div class="col-lg-12 col-md-12 col-sm-12 form-group"
+                                                    data-for="message">
+                                                    <textarea maxlength="160" name="message"
+                                                        placeholder="Rédiger le sms ici..." data-form-field="message"
+                                                        class="form-control display-7" required="required"
+                                                        id="message-mbr-popup-1w-sms"></textarea>
                                                 </div>
-                                        </div>
-                                    </form>
-                                    <!--Formbuilder Form-->
+                                                <div class="col-md-auto input-group-btn">
+                                                    <button type="submit"
+                                                        class="btn btn-secondary display-4">Envoyer</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                        <!--Formbuilder Form-->
+                                    </div>
                                 </div>
-                            </div>
+                            @endif
                         </div>
                     </div>
                 </div>

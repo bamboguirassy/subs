@@ -26,4 +26,8 @@ class Parametrage extends Model
         }
         return $parametrage;
     }
+
+    public function getAdminsAttribute() {
+        return User::where('type','admin')->get();
+    }
 }
