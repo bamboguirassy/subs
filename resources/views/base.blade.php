@@ -88,17 +88,17 @@
         function notifyMe(title, options) {
             // Vérifions si le navigateur prend en charge les notifications
             if (!('Notification' in window)) {
-                alert('Ce navigateur ne prend pas en charge la notification de bureau')
+                console.log('Ce navigateur ne prend pas en charge la notification de bureau')
             }
 
             // Vérifions si les autorisations de notification ont déjà été accordées
             else if (Notification.permission === 'granted') {
-                // Si tout va bien, créons une notification
-                const notification = new Notification(title, options);
                 toastr.info(options.body, title, {
                     tapToDismiss: true,
                     timeOut: 0
                 });
+                // Si tout va bien, créons une notification
+                const notification = new Notification(title, options);
             }
 
             // Sinon, nous devons demander la permission à l'utilisateur
@@ -106,11 +106,11 @@
                 Notification.requestPermission().then((permission) => {
                     // Si l'utilisateur accepte, créons une notification
                     if (permission === 'granted') {
-                        const notification = new Notification(title, options);
                         toastr.info(options.body, title, {
                             tapToDismiss: true,
                             timeOut: 0
                         });
+                        const notification = new Notification(title, options);
                     }
                 })
             }
