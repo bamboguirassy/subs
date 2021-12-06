@@ -12,6 +12,7 @@ use App\Models\Souscription;
 use App\Models\SouscriptionTemp;
 use App\Models\User;
 use App\Notifications\NotifyNewSouscription;
+use App\Notifications\SendSms;
 use Error;
 use Exception;
 use Illuminate\Http\Request;
@@ -281,6 +282,25 @@ class SouscriptionController extends Controller
         }
         Mail::to(config('mail.cc'))->bcc($mails)->send(new ContactParticipants($programme, $request->only('message', 'objet')));
         notify()->success("Le mail est envoyé à tous les participants...");
+        return back();
+    }
+
+    public function sendSMS(Request $request, Programme $programme)
+    {
+        $request->validate([
+            'message' => 'required'
+        ]);
+        // find participants
+        $souscriptions = Souscription::where('programme_id', $programme->id)->get();
+        // recuperer les mails
+        $phones = [];
+        foreach ($souscriptions as $souscription) {
+            if(!in_array($souscription->user->telephone,$phones)) {
+                $souscription->user->notify(new SendSms(Auth::user(),$request->message));
+                $phones[] = $souscription->user->telephone;
+            }
+        }
+        notify()->info("Le traitement est terminé.");
         return back();
     }
 }

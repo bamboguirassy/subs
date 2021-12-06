@@ -65,7 +65,7 @@ class SendSms extends Notification
         $senderName = config('app.name');
         $initSmsSend = false;
         if ($this->initiator != null) {
-            if ($this->initiator->soldeSms > 0) {
+            if ($this->initiator->nombreSms > 0) {
                 $response = $this->osms->sendSMS($senderAddress, 'tel:' . $notifiable->telephone, $this->message, $senderName);
                 $initSmsSend = true;
             } else {
@@ -85,7 +85,7 @@ class SendSms extends Notification
                     $parametrage->soldeSms = $parametrage->soldeSms - 1;
                     $parametrage->update();
                     if ($this->initiator) {
-                        $this->initiator->soldeSms = $this->initiator->soldeSms - 1;
+                        $this->initiator->nombreSms = $this->initiator->nombreSms - 1;
                         $this->initiator->update();
                     }
                     DB::commit();

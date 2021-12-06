@@ -9,7 +9,11 @@
                     <div class="mbr-section-btn align-center">
                         <a class="btn btn-primary display-4" href="#" data-toggle="modal" data-bs-toggle="modal"
                             data-target="#mbr-popup-1w" data-bs-target="#mbr-popup-1w"><span
-                                class="mdi-communication-email mbr-iconfont mbr-iconfont-btn"></span>Contacter
+                                class="mdi-communication-email mbr-iconfont mbr-iconfont-btn"></span>Evoyer mail
+                        </a>
+                        <a class="btn btn-primary display-4" href="#" data-toggle="modal" data-bs-toggle="modal"
+                            data-target="#mbr-sms-modal" data-bs-target="#mbr-sms-modal"><span
+                                class="mdi-communication-email mbr-iconfont mbr-iconfont-btn"></span>Envoyer SMS
                         </a>
                         {{-- <a class="btn btn-info display-4" href="">
                             <span class="icon54-v3-export mbr-iconfont mbr-iconfont-btn"></span>
@@ -164,6 +168,57 @@
                                                     placeholder="Rédiger le mail ici..." data-form-field="message"
                                                     class="form-control display-7" required="required"
                                                     id="message-mbr-popup-1w"></textarea>
+                                            </div>
+                                            <div class="col-md-auto input-group-btn">
+                                                <button type="submit"
+                                                    class="btn btn-secondary display-4">Envoyer</button>
+                                                </div>
+                                        </div>
+                                    </form>
+                                    <!--Formbuilder Form-->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{-- end send mail modal --}}
+        {{-- send sms modal --}}
+        <div class="modal mbr-popup cid-sODVeVmwHy cid-sms-modal fade" tabindex="-1" role="dialog" data-overlay-color="#000000"
+            data-overlay-opacity="0.8" id="mbr-sms-modal" aria-hidden="true">
+            <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="container position-static margin-center-pos">
+                        <div class="modal-header pb-0">
+                            <h5 class="modal-title mbr-fonts-style display-5">Envoyer un SMS</h5>
+                            <button type="button" class="close d-flex" data-dismiss="modal" data-bs-dismiss="modal"
+                                aria-label="Close">
+                                <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="23" height="23"
+                                    viewBox="0 0 23 23" fill="currentColor">
+                                    <path
+                                        d="M13.4 12l10.3 10.3-1.4 1.4L12 13.4 1.7 23.7.3 22.3 10.6 12 .3 1.7 1.7.3 12 10.6 22.3.3l1.4 1.4L13.4 12z">
+                                    </path>
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <p class="mbr-text mbr-fonts-style display-7">
+                                Envoyer un SMS à tous les participants.</p>
+                            <div>
+                                <div class="form-wrapper">
+                                    <!--Formbuilder Form-->
+                                    <form
+                                        action="{{ route('send.sms.to.participants', ['programme' => $souscriptions[0]->programme]) }}"
+                                        method="POST" class="mbr-form form-with-styler">
+                                        @csrf
+                                        <x-form-errors :errors="$errors->all()" />
+                                        <div class="dragArea">
+                                            <div class="col-lg-12 col-md-12 col-sm-12 form-group" data-for="message">
+                                                <textarea maxlength="160" name="message"
+                                                    placeholder="Rédiger le sms ici..." data-form-field="message"
+                                                    class="form-control display-7" required="required"
+                                                    id="message-mbr-popup-1w-sms"></textarea>
                                             </div>
                                             <div class="col-md-auto input-group-btn">
                                                 <button type="submit"

@@ -128,8 +128,11 @@ Route::get('souscription/{programme}/create', function (Programme $programme) {
 Route::post('souscription_pin', 'App\Http\Controllers\SouscriptionController@instantPaymentNotificate')
     ->name('souscription.pin');
 
-Route::post('souscription/{programme}/contact', [SouscriptionController::class, 'sendMail'])
+Route::post('souscription/{programme}/email', [SouscriptionController::class, 'sendMail'])
     ->middleware('auth')->name('send.email.to.participants');
+
+Route::post('souscription/{programme}/sms', [SouscriptionController::class, 'sendSMS'])
+    ->middleware('auth')->name('send.sms.to.participants');
 
 Route::resource('souscription', SouscriptionController::class, [
     'only' => ['store', 'update']
