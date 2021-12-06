@@ -29,15 +29,14 @@ class SendSms extends Notification
         $this->message = $message;
         $this->initiator = $user;
         $config = array(
-            'clientId' => env('ORANGE_CLIENT_ID'),
-            'clientSecret' => env('ORANGE_CLIENT_SECRET')
+            'clientId' => config('orange.client.id'),
+            'clientSecret' => config('orange.client.secret')
         );
 
         $this->osms = new Osms($config);
         $this->osms->setVerifyPeerSSL(config('orange.verify_ssl'));
         // retrieve an access token
         $response = $this->osms->getTokenFromConsumerKey();
-        dd($config);
         if (array_key_exists('error', $response)) {
             notify()->error($response['error']);
         } else if (empty($response['access_token'])) {
