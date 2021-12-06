@@ -306,7 +306,6 @@
     <script src="{{ asset('bower_components/jquery/dist/jquery.min.js') }}"></script>
     <script src="{{ asset('assets/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('assets/typed/typed.js') }}"></script>
-    <script src="{{ asset('bower_components/pusher-js/dist/web/pusher.js') }}"></script>
     <script src="{{ asset('assets/smoothscroll/smooth-scroll.js') }}"></script>
     <script src="{{ asset('assets/ytplayer/index.js') }}"></script>
     <script src="{{ asset('assets/chatbutton/floating-wpp.js') }}"></script>
