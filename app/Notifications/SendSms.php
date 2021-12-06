@@ -37,7 +37,7 @@ class SendSms extends Notification
         $this->osms->setVerifyPeerSSL(config('orange.verify_ssl'));
         // retrieve an access token
         $response = $this->osms->getTokenFromConsumerKey();
-        dd($response);
+        dd($config);
         if (array_key_exists('error', $response)) {
             notify()->error($response['error']);
         } else if (empty($response['access_token'])) {
