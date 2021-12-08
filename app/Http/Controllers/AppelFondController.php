@@ -93,7 +93,8 @@ class AppelFondController extends Controller
     public function update(Request $request, AppelFond $appelfond)
     {
         $request->validate([
-            'etat' => 'required'
+            'etat' => 'required',
+            'frais'=>'required_if:etat,Traité'
         ]);
         $etats = ["En attente", "En cours", "Traité"];
         if (!in_array($request->etat, $etats)) {
@@ -101,14 +102,20 @@ class AppelFondController extends Controller
         } else {
             $appelfond->dateTraitement = now();
             $appelfond->user_id = Auth::id();
-            $appelfond->update($request->all());
             if ($request->etat == 'En cours') {
                 $message = "Votre appel de fond pour le programme '{$appelfond->programme->nom}' est en cours de traitement.";
             } else if ($request->etat == 'Traité') {
+                if($request->exists('frais')) {
+                    if($request->frais>=$appelfond->montant) {
+                        notify()->error("Les frais ne peuvent être supérieurs ou égaux au montant, merci de revoir la valeur saisie.");
+                        return back();
+                    }
+                }
                 $message = "Votre appel de fond pour le programme '{$appelfond->programme->nom}' est traité.";
             } else {
                 $message = "Votre appel de fond pour le programme '{$appelfond->programme->nom}' est en attente.";
             }
+            $appelfond->update($request->all());
             Event::dispatchUserEvent(Event::Message("Changement etat : Appel de fond", $message), $appelfond->programme->user_id);
         }
         return back();

@@ -14,6 +14,7 @@ class AppelFond extends Model
         'methodePaiement',
         'mobilePaiement',
         'montant',
+        'frais',
         'etat',
         'dateTraitement',
         'observation',

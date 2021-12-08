@@ -46,6 +46,7 @@
                                         <th class="head-item mbr-fonts-style display-4 nowrap">Méthode de paiement</th>
                                         <th class="head-item mbr-fonts-style display-4 nowrap">Mobile Paiement</th>
                                         <th class="head-item mbr-fonts-style display-4 nowrap">Montant</th>
+                                        <th class="head-item mbr-fonts-style display-4 nowrap">Frais d'envoi</th>
                                         <th class="head-item mbr-fonts-style display-4 nowrap">Date demande</th>
                                         <th class="head-item mbr-fonts-style display-4 nowrap">Traité</th>
                                         <th class="head-item mbr-fonts-style display-4 nowrap">Action</th>
@@ -72,6 +73,8 @@
                                             </td>
                                             <td class="body-item mbr-fonts-style display-7 nowrap">
                                                 {{ $appelFond->montant }} FCFA</td>
+                                            <td class="body-item mbr-fonts-style display-7 nowrap">
+                                                {{ $appelFond->frais }} FCFA</td>
                                             <td class="body-item mbr-fonts-style display-7 nowrap">
                                                 {{ date_format($appelFond->created_at, 'd/m/Y H:i:s') }}</td>
                                             <td class="body-item mbr-fonts-style display-7 nowrap">
@@ -135,11 +138,19 @@
                                         <div class="dragArea">
                                             <div class="mb-3">
                                                 <label for="etat" class="form-label">Etat</label>
-                                                <select class="form-control" name="etat" id="etat">
+                                                <select ng-model="selected.etat" class="form-control" name="etat"
+                                                    id="etat">
                                                     <option ng-selected="selected.etat=='En attente'">En attente</option>
                                                     <option ng-selected="selected.etat=='En cours'">En cours</option>
                                                     <option ng-selected="selected.etat=='Traité'">Traité</option>
                                                 </select>
+                                            </div>
+                                            <div class="col" ng-if="selected.etat=='Traité'">
+                                                <div class="mb-3">
+                                                    <label for="frais" class="form-label">Frais d'envoi</label>
+                                                    <input type="number" name="frais" id="frais" class="form-control"
+                                                        placeholder="Frais appliqués lors du paiement">
+                                                </div>
                                             </div>
                                             <div class="col-md-auto input-group-btn">
                                                 <button ng-click="changeEtat()" type="button"
