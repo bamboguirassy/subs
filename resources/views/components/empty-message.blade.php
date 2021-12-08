@@ -1,4 +1,4 @@
-<section data-bs-version="5.1" class="header2 cid-sObQ3swuEE" id="header02-l">
+<section data-bs-version="5.1" class="header2 cid-sObQ3swuEE mb-5" id="header02-l">
     <div class="container">
         <div class="row">
             <div class="col-12 col-md-12 col-lg-4 title-col">
