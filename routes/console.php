@@ -30,6 +30,18 @@ Artisan::command('display:solde-sms', function () {
     $this->comment(Parametrage::getInstance()->soldeSms." SMS restant(s) dans le système !");
 })->purpose('Display solde SMS....');
 
+Artisan::command('delete:programme-leads', function () {
+    $this->comment("### Script de suppression des leads, un mois après clôture d'un programme.");
+    // recuperer les programmes cloturées il y'a un mois
+    $programmes = Programme::where('dateCloture',today()->addMonths('-1'))->get();
+    foreach ($programmes as $programme) {
+        // recuperer les leads
+        $this->comment("Le programme {$programme->nom} a ".count($programme->souscriptionTemps)." leads qui sont supprimés.");
+        SouscriptionTemp::destroy($programme->souscriptionTemps);
+    }
+    $this->comment("Le traitement est terminé sans erreur !");
+})->purpose('Delete closed programs leads');
+
 Artisan::command('remind:programme:closing', function () {
     $today = today();
     $closingDate = $today->addDay("+1");

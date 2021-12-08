@@ -35,7 +35,7 @@
                             <ul class="list mbr-fonts-style display-7">
                                 <li>
                                     <strong class="text-primary">Comment publier un programme ?</strong><br>
-                                    Il suffit de cliquer <strong><a href="#top" class="text-primary">ici</a> </strong>pour
+                                    Il suffit de cliquer <strong><a href="#top" class="text-warning">ici</a> </strong>pour
                                     publier un programme.
                                 </li>
                                 <li><strong class="text-primary">Qui peut souscrire ?</strong><br>La souscription dépends
@@ -44,7 +44,7 @@
                                     directement au public, vous le partagez avec les concernés.</li>
                                 <li><strong class="text-primary">Comment récupérer&nbsp;les fonds</strong><br>Vous pouvez
                                     récupérer vos fonds
-                                    moyennant une déduction de <b class="text-secondary">{{ $parametrage->tauxPrelevement }}%</b> qui sera reversée à la
+                                    moyennant une déduction de <b class="text-warning">{{ $parametrage->tauxPrelevement }}%</b> qui sera reversée à la
                                     plateforme.</li>
                                 <li><strong class="text-primary">Peut-on organiser des tontines sur la plateforme
                                         ?<br></strong>Oui, vous avez la

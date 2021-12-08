@@ -34,6 +34,7 @@ class Kernel extends ConsoleKernel
             ->emailOutputTo(config('mail.cc'));
         $schedule->command('generate:program-next-payment')->dailyAt('08:00')->timezone('Africa/Dakar')->emailOutputTo(config('mail.cc'));
         $schedule->command('display:solde-sms')->dailyAt('07:00')->timezone('Africa/Dakar')->emailOutputTo(config('mail.cc'));
+        $schedule->command('delete:programme-leads')->dailyAt('23:59')->timezone('Africa/Dakar')->emailOutputTo(config('mail.cc'));
     }
 
     /**
