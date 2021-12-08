@@ -40,13 +40,17 @@ Route::get('/home', function () {
 });
 
 Route::get('', function () {
+    return view('home');
+})->name('home');
+
+Route::get('public', function () {
     $programmeActives = Programme::where('dateCloture', '>=', date_format(new DateTime(), 'Y-m-d'))
         ->orderBy('dateCloture')->paginate(20);
     $programmeActives = $programmeActives->filter(function ($programme) {
         return $programme->is_public;
     });
-    return view('home', compact('programmeActives'));
-})->name('home');
+    return view('programme.public', compact('programmeActives'));
+})->name('programme.public.list');
 
 Route::get('login', function (Request $request) {
     $ret = $request->get('ret');

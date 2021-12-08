@@ -22,14 +22,14 @@
                         <span class="mbr-section-subtitle mbr-fonts-style display-2">Avec <strong>{{ config('app.name') }}
                             </strong>c'est</span>
                         <span>
-                            <span class="animated-element mbr-bold" data-word1="révolutionnaire." data-word2="simple."
+                            <span class="animated-element mbr-bold" data-word1="révolutionnaire." data-word2="sécurisé."
                                 data-word3="plus efficace." data-word4="Lorem" data-word5="Ipsum" data-speed="50"
                                 data-words="3">
                             </span>
                         </span>
                     </div>
                     <p class="mbr-section-text mbr-fonts-style align-left display-5">
-                        Collectez les souscriptions et les fonds pour tous vos programmes.</p>
+                        Collectez les fonds et les inscriptions pour tous vos programmes de manière transparente, sécurisée et automatisée.</p>
                     <div class="pt-3 mbr-section-btn align-left">
                         @guest
                             <a class="btn btn-md btn-white display-4"
@@ -38,9 +38,13 @@
                                 Se connecter
                             </a>
                         @endguest
-                        <a class="btn btn-md btn-danger display-4" href="{{ route('programme.pre.publish') }}">
+                        <!--<a class="btn btn-md btn-danger display-4" href="{{ route('programme.pre.publish') }}">
                             <span class="icon54-v2-add-note mbr-iconfont mbr-iconfont-btn"></span>
                             Démarrer un programme
+                        </a>-->
+                        <a class="btn btn-md btn-warning display-4" href="{{ route('programme.public.list') }}">
+                            <span class="icon54-v2-add-note mbr-iconfont mbr-iconfont-btn"></span>
+                            Accéder à d'autres programmes
                         </a>
                     </div>
                 </div>
@@ -53,33 +57,7 @@
             </div>
         </div>
     </section>
-    <section data-bs-version="5.1" class="info3 cid-sObQ7wD3QR" id="info3-n">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="card col-12 col-lg-10">
-                    <div class="card-wrapper">
-                        <div class="card-box align-center">
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    @if (count($programmeActives) < 1)
-        <x-empty-message title="Pas encore de programme"
-            message="Aucun programme n'est encore disponible pour le moment !" />
-        <x-separator />
-    @else
-        @foreach ($programmeActives as $programmeActive)
-            @if ($programmeActive->is_collecte_fond)
-                <x-collecte-fond-public-item :programme="$programmeActive" />
-            @else
-                <x-programme-public-item :programme="$programmeActive" />
-            @endif
-        @endforeach
-    @endif
-    <x-social-sharing />
+    <x-programme-type-choice />
     <x-separator />
-    <x-project-contributor />
-
+    <x-social-sharing />
 @endsection

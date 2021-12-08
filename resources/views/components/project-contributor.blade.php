@@ -1,10 +1,10 @@
 <section data-bs-version="5.1" class="extFeatures cid-sPfyrV5FgJ" id="extTeams4-26">
     <div class="container align-center">
-        <h2 class="mbr-fonts-style mbr-section-title display-5">Ils ont contribué à ce projet&nbsp;</h2>
+        <h2 class="mbr-fonts-style mbr-section-title display-5 text-primary">Ils ont contribué à ce projet&nbsp;</h2>
         <div class="underline">
             <div class="line"></div>
         </div>
-        <h3 class="pt-3 mbr-section-subtitle mbr-fonts-style mbr-light display-7">Nous remerciements vont à l'endroit de
+        <h3 class="pt-3 mbr-section-subtitle mbr-fonts-style mbr-light display-7 text-secondary">Nous remerciements vont à l'endroit de
             ces braves développeurs qui ont beaucoup apporté à ce projet.</h3>
         <div class="row media-row">
             <div class="team-item col-lg-3 col-md-6  flip-card">

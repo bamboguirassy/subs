@@ -30,7 +30,7 @@
             </div>
             <div class="row justify-content-center text-white">
                 <div class="col-md-12 col-lg-10">
-                    <div class="row justify-content-center" style="background-color: #e0b0b0;">
+                    <div class="row justify-content-center" style="background-color: #d48181;font-weight: bold; font-size: 20px;">
                         <div class="col-12 col-lg-6">
                             <ul class="list mbr-fonts-style display-7">
                                 <li>
@@ -85,4 +85,7 @@
             </div>
         </div>
     </section>
+
+    <x-separator />
+    <x-project-contributor />
 @endsection
