@@ -199,11 +199,13 @@ class ProgrammeController extends Controller
                 $request->file('image')->storeAs('programmes/images', $filename);
                 $programme->image = $filename;
             }
-            if(count($request->cout)) {
-                foreach ($request->cout as $profilConcerneId => $montant) {
-                    $profilConcerne = ProfilConcerne::find($profilConcerneId);
-                    $profilConcerne->montant = $montant;
-                    $profilConcerne->update();
+            if($request->exists('cout')) {
+                if(count($request->cout)) {
+                    foreach ($request->cout as $profilConcerneId => $montant) {
+                        $profilConcerne = ProfilConcerne::find($profilConcerneId);
+                        $profilConcerne->montant = $montant;
+                        $profilConcerne->update();
+                    }
                 }
             }
             $programme->update($request->except('image'));
