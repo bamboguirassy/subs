@@ -8,6 +8,7 @@ use App\Http\Controllers\PackSmsController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProgrammeController;
 use App\Http\Controllers\SouscriptionController;
+use App\Models\Parametrage;
 use App\Models\Programme;
 use App\Models\Souscription;
 use App\Models\TypeProgramme;
@@ -169,7 +170,8 @@ Route::get('contact', function () {
 })->name('contact');
 
 Route::get('apropos', function () {
-    return view('apropos');
+    $parametrage = Parametrage::getInstance();
+    return view('apropos',compact('parametrage'));
 })->name('apropos');
 
 Route::get('countries', function () {

@@ -20,7 +20,7 @@ class Parametrage extends Model
         if (count($parametrages) > 0) {
             return $parametrages[0];
         }
-        $parametrage = new Parametrage(['soldeSms' => 0, 'tauxPrelevement' => 5]);
+        $parametrage = new Parametrage(['soldeSms' => 0, 'tauxPrelevement' => 3]);
         if (!$parametrage->save()) {
             notify()->error("Une erreur est survenue lors de l'enregistrement du paramétre !!!");
         }
