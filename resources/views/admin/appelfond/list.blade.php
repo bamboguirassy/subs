@@ -148,7 +148,7 @@
                                             <div class="col" ng-if="selected.etat=='En cours'">
                                                 <div class="mb-3">
                                                     <label for="frais" class="form-label">Frais d'envoi</label>
-                                                    <input type="number" name="frais" id="frais" class="form-control"
+                                                    <input ng-model="selected.frais" type="number" name="frais" id="frais" class="form-control"
                                                         placeholder="Frais appliqués lors du paiement">
                                                 </div>
                                             </div>
