@@ -145,7 +145,7 @@
                                                     <option ng-selected="selected.etat=='Traité'">Traité</option>
                                                 </select>
                                             </div>
-                                            <div class="col" ng-if="selected.etat=='Traité'">
+                                            <div class="col" ng-if="selected.etat=='En cours'">
                                                 <div class="mb-3">
                                                     <label for="frais" class="form-label">Frais d'envoi</label>
                                                     <input type="number" name="frais" id="frais" class="form-control"

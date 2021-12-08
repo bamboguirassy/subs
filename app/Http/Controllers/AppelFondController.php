@@ -94,7 +94,7 @@ class AppelFondController extends Controller
     {
         $request->validate([
             'etat' => 'required',
-            'frais'=>'required_if:etat,Traité'
+            'frais'=>'required_if:etat,En cours'
         ]);
         $etats = ["En attente", "En cours", "Traité"];
         if (!in_array($request->etat, $etats)) {
@@ -103,14 +103,14 @@ class AppelFondController extends Controller
             $appelfond->dateTraitement = now();
             $appelfond->user_id = Auth::id();
             if ($request->etat == 'En cours') {
-                $message = "Votre appel de fond pour le programme '{$appelfond->programme->nom}' est en cours de traitement.";
-            } else if ($request->etat == 'Traité') {
                 if($request->exists('frais')) {
                     if($request->frais>=$appelfond->montant) {
                         notify()->error("Les frais ne peuvent être supérieurs ou égaux au montant, merci de revoir la valeur saisie.");
                         return back();
                     }
                 }
+                $message = "Votre appel de fond pour le programme '{$appelfond->programme->nom}' est en cours de traitement.";
+            } else if ($request->etat == 'Traité') {
                 $message = "Votre appel de fond pour le programme '{$appelfond->programme->nom}' est traité.";
             } else {
                 $message = "Votre appel de fond pour le programme '{$appelfond->programme->nom}' est en attente.";
