@@ -53,7 +53,7 @@ class AppelFondController extends Controller
             notify("L'appel de fond a passé, vous serez contactés pour la suite...");
             Mail::to(config('mail.cc'))->send(new AdviseNewAppelFond($appelFond));
             foreach (Parametrage::getInstance()->admins as $user) {
-                Event::dispatchUserEvent(Event::Message("Nouvel appel de fond", "{$appelFond->user->name} a fait un appel de fond d'une valeur de {$appelFond->montant}."), $user->id);
+                Event::dispatchUserEvent(Event::Message("Nouvel appel de fond", Auth::user()->name." a fait un appel de fond d'une valeur de {$appelFond->montant}."), $user->id);
             }
         } else {
             notify()->error("Une erreur est survenue lors de l'appel de fond, merci de réssayer");
