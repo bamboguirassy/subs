@@ -168,7 +168,7 @@ class Programme extends Model
     public function getIsProprietaireAttribute()
     {
         if (Auth::check()) {
-            if (Auth::id() == $this->user_id) {
+            if (Auth::id() == $this->user_id || Auth::user()->type=='admin') {
                 return true;
             }
         }

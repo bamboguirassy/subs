@@ -89,7 +89,7 @@
                                 </a>
                             @endif
                             @auth
-                                @if (auth()->id() == $programme->user_id)
+                                @if ($programme->is_proprietaire)
                                     <form method="post" action="{{ route('programme.destroy', compact('programme')) }}"
                                         class="btn">
                                         @method('delete')
@@ -329,44 +329,6 @@
                                         </div>
                                     </div>
                                 </div>
-                                {{-- <div id="tab3" class="tab-pane" role="tabpanel">
-                                    <div class="row">
-                                        <div class="col-md-3 logo-container d-flex justify-content-center align-items-center">
-                                            <div class="d-flex flex-wrap">
-                                                <div class="mb-md-0 mb-3">
-                                                    <img src="assets/images/logo3.png">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-9">
-                                            <p class="mbr-text mbr-fonts-style display-7">
-                                                Aliquip ut amet adipisicing excepteur commodo officia mollit reprehenderit ex
-                                                proident qui consequat amet sint. Quis amet officia consequat irure. Velit
-                                                pariatur
-                                                esse ad Lorem amet non reprehenderit commodo cupidatat ut duis. Sunt qui et qui
-                                                ad
-                                                id esse qui non deserunt anim dolor.
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div id="tab4" class="tab-pane" role="tabpanel">
-                                    <div class="row">
-                                        <div class="col-md-3 logo-container d-flex justify-content-center align-items-center">
-                                            <div class="d-flex flex-wrap">
-                                                <div class="mb-md-0 mb-3">
-                                                    <img src="assets/images/logo4.png">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-9">
-                                            <p class="mbr-text mbr-fonts-style display-7">
-                                                Consequat cillum laborum tempor minim culpa minim. Ipsum incididunt ex officia
-                                                aute
-                                                exercitation officia deserunt voluptate. Proident aliqua commodo qui nulla.</p>
-                                        </div>
-                                    </div>
-                                </div> --}}
                             @elseif($programme->current_user_souscription)
                                 <div id="tab5" class="tab-pane" role="tabpanel">
                                     <div class="row">
