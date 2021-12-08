@@ -9,7 +9,7 @@ class Event
     public static function dispatch($channel, $event, $data)
     {
         $options = array(
-            'cluster' => env('PUSHER_APP_CLUSTER'),
+            'cluster' => config('broadcasting.connections.pusher.options.cluster'),
             'encrypted' => true
         );
         $pusher = new Pusher(
