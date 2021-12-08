@@ -43,4 +43,14 @@ angular.module('Subs', [], () => {})
         $scope.selectCountry = () => {
             $scope.selectedCountry = $scope.countries.find((item) => item.cca2 == $scope.country_cca2);
         }
+    }).controller('AppelFondController',($scope)=>{
+        $scope.selected = {};
+        $scope.select = (item) => {
+            $scope.selected = item;
+            console.log(item);
+        };
+        $scope.changeEtat = () => {
+            $('#appelFondEdit').attr('action', '/admin/appelfond/' + $scope.selected.id)
+            $('#appelFondEdit').submit();
+        };
     });

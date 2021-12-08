@@ -19,7 +19,6 @@ class CreateAppelFondsTable extends Migration
             $table->string('mobilePaiement');
             $table->string('montant')->require();
             $table->boolean('traite')->default(false);
-            $table->boolean('rejete')->default(false);
             $table->date('dateTraitement')->nullable();
             $table->text('observation')->nullable();
             $table->foreignId('programme_id')->constrained();

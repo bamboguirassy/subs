@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('admin')->name('admin.')->prefix('admin')->group(function () {
     Route::resource('appelfond', AppelFondController::class, [
-        'only' => ['index']
+        'only' => ['index','update']
     ]);
     Route::resource('user', UserController::class, [
         'only' => ['index']

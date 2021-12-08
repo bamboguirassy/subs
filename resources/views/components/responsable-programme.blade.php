@@ -8,7 +8,7 @@
                 <div class="col-12 col-md-6 col-lg-3">
                     <div class="user_image ">
                         <img alt="photo {{ $user->name }}"
-                            src="{{ asset('uploads/users/photos/' . $user->photo) }}">
+                            src="{{ $user->photo?asset('uploads/users/photos/' . $user->photo):'https://via.placeholder.com/100x100' }}">
                     </div>
                 </div>
 
@@ -23,7 +23,13 @@
                             <strong>{{ $user->name }}</strong>
                         </div>
                         <div class="user_desk mbr-fonts-style display-4">
-                            <span>{{ $user->profession }}</span>
+                            <span>{{ $user->profession }}</span> <br>
+                            <span>
+                                <a class="text-white" href="mailto:{{ $user->email }}">{{ $user->email }}</a>
+                            </span><br>
+                            <span>
+                                <a class="text-white" href="tel:{{ $user->telephone }}">{{ $user->telephone }}</a>
+                            </span>
                         </div>
                     </div>
                 </div>

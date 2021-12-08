@@ -19,8 +19,8 @@ class AppelFondController extends Controller
      */
     public function index()
     {
-        $appelFonds = AppelFond::orderBy('traite','desc')->orderBy('created_at','desc')->get();
-        return view('admin.appelfond.list',compact('appelFonds'));
+        $appelFonds = AppelFond::orderBy('created_at', 'desc')->get();
+        return view('admin.appelfond.list', compact('appelFonds'));
     }
 
     /**
@@ -42,18 +42,18 @@ class AppelFondController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'programme_id'=>'required|exists:programmes,id',
-            'methodePaiement'=>'required',
-            'mobilePaiement'=>'required',
-            'montant'=>'required'
+            'programme_id' => 'required|exists:programmes,id',
+            'methodePaiement' => 'required',
+            'mobilePaiement' => 'required',
+            'montant' => 'required'
         ]);
         $appelFond = new AppelFond($request->all());
         $appelFond->user_id = Auth::id();
-        if($appelFond->save()) {
+        if ($appelFond->save()) {
             notify("L'appel de fond a passé, vous serez contactés pour la suite...");
             Mail::to(config('mail.cc'))->send(new AdviseNewAppelFond($appelFond));
             foreach (Parametrage::getInstance()->admins as $user) {
-                Event::dispatchUserEvent(Event::Message("Nouvel appel de fond","{$appelFond->user->name} a fait un appel de fond d'une valeur de {$appelFond->montant}."),$user->id);
+                Event::dispatchUserEvent(Event::Message("Nouvel appel de fond", "{$appelFond->user->name} a fait un appel de fond d'une valeur de {$appelFond->montant}."), $user->id);
             }
         } else {
             notify()->error("Une erreur est survenue lors de l'appel de fond, merci de réssayer");
@@ -90,9 +90,28 @@ class AppelFondController extends Controller
      * @param  \App\Models\AppelFond  $appelFond
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, AppelFond $appelFond)
+    public function update(Request $request, AppelFond $appelfond)
     {
-        //
+        $request->validate([
+            'etat' => 'required'
+        ]);
+        $etats = ["En attente", "En cours", "Traité"];
+        if (!in_array($request->etat, $etats)) {
+            notify()->error("La valeur de état n'est pas reconnue !!!");
+        } else {
+            $appelfond->dateTraitement = now();
+            $appelfond->user_id = Auth::id();
+            $appelfond->update($request->all());
+            if ($request->etat == 'En cours') {
+                $message = "Votre appel de fond pour le programme '{$appelfond->programme->nom}' est en cours de traitement.";
+            } else if ($request->etat == 'Traité') {
+                $message = "Votre appel de fond pour le programme '{$appelfond->programme->nom}' est traité.";
+            } else {
+                $message = "Votre appel de fond pour le programme '{$appelfond->programme->nom}' est en attente.";
+            }
+            Event::dispatchUserEvent(Event::Message("Changement etat : Appel de fond", $message), $appelfond->programme->user_id);
+        }
+        return back();
     }
 
     /**
