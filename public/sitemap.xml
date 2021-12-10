@@ -1,17 +1,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 	<url>
-		<loc>https://subs.bambogroup.net</loc>
+		<loc>https://cotiplex.com</loc>
 	</url>
 	<url>
-		<loc>https://subs.bambogroup.net/login</loc>
+		<loc>https://cotiplex.com/login</loc>
 	</url>
 	<url>
-		<loc>https://subs.bambogroup.net/programme/pre-publish</loc>
+		<loc>https://cotiplex.com/programme/pre-publish</loc>
 	</url>
 	<url>
-		<loc>https://subs.bambogroup.net/apropos</loc>
+		<loc>https://cotiplex.com/apropos</loc>
 	</url>
 	<url>
-		<loc>https://subs.bambogroup.net/contact</loc>
+		<loc>https://cotiplex.com/contact</loc>
+	</url>
+	<url>
+		<loc>https://cotiplex.com/public</loc>
 	</url>
 </urlset>
