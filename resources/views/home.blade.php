@@ -50,7 +50,7 @@
                 </div>
                 <div class="col-lg-6 py-lg-0 pb-2">
                     <div class="mbr-figure">
-                        <img src="{{ asset('assets/images/mbr-1076x1145.png') }}" alt="{{ config('app.name') }}"
+                        <img src="{{ asset('assets/images/fulllogo_nobuffer.png') }}" alt="{{ config('app.name') }}"
                             title="{{ config('app.name') }}">
                     </div>
                 </div>
