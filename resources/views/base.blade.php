@@ -14,7 +14,7 @@
     @endif
     <meta name="twitter:title" content="@yield('title')">
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
-    <link rel="shortcut icon" href="{{ asset('assets/images/subs-logo-121x141.png') }}" type="image/x-icon">
+    <link rel="shortcut icon" href="{{ asset('assets/images/icononly.png') }}" type="image/x-icon">
     <meta name="description" content="@yield('description')">
 
 

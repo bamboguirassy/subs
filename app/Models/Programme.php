@@ -196,6 +196,21 @@ class Programme extends Model
         return $this->programme_id == null;
     }
 
+    public function getIsChildAttribute() {
+        return $this->programme_id != null;
+    }
+
+    /**
+     * cette fonction retourne la progression des cotisations pour les programmes enfants
+     * La progression est le nombre de participants fils sur le nombre de souscriptions parents
+     */
+    public function getProgressionAttribute() {
+        if($this->is_child && count($this->parent->souscriptions)>0) {
+            return (count($this->souscriptions)*100)/count($this->parent->souscriptions);
+        }
+        return null;
+    }
+
     public function getIsPublicAttribute()
     {
         return $this->typeProgramme->code == "PROG" || $this->typeProgramme->code == "CFON";
@@ -242,7 +257,7 @@ class Programme extends Model
         $programme->programme_id = $parent->id;
         $programme->type_programme_id = $parent->type_programme_id;
         $index = count($parent->children) + 1;
-        $programme->nom = 'Tranche ' . uniqid();
+        $programme->nom = 'Tranche ' . $index;
         $programme->tranche = $index;
         $programme->montant = $parent->montant;
         $programme->nombreParticipants = 0;
@@ -273,7 +288,7 @@ class Programme extends Model
         $programme->programme_id = $child->parent->id;
         $programme->type_programme_id = $child->parent->type_programme_id;
         $index = count($child->parent->children) + 1;
-        $programme->nom = 'Tranche ' . uniqid();
+        $programme->nom = 'Tranche ' . $index;
         $programme->tranche = $index;
         $programme->montant = $child->parent->montant;
         $programme->nombreParticipants = 0;

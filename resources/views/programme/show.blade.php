@@ -24,8 +24,13 @@
                         <h1 class="mbr-section-title mbr-fonts-style mb-3 display-4">
                             <strong>{{ $programme->typeProgramme->nom }}</strong>
                         </h1>
+                        @if($programme->isChild)
+                        <h1 class="mbr-section-title mbr-fonts-style mb-3 display-3">
+                            <strong>{{ $programme->parent->nom }}</strong>
+                        </h1>
+                        @endif
                         <h1 class="mbr-section-title mbr-fonts-style mb-3 display-2">
-                            <strong>{{ $programme->nom }}</strong>
+                            @if($programme->isChild) - &nbsp; @endif<strong>{{ $programme->nom }}</strong>
                         </h1>
                         <p class="mbr-text mbr-fonts-style display-7"></p>
                         @if ($programme->is_programme)
@@ -210,65 +215,22 @@
                         <h3 class="mbr-section-sub-title pb-4 mbr-normal mbr-fonts-style align-left display-7">Suivez
                             l'évolution des paiements pour chaque tranche de la tontine...</h3>
                         <div class="progress_elements">
+                            @foreach ($programme->children as $child)
                             <div class="progress1 pb-5">
                                 <div class="title-wrap">
                                     <div class="progressbar-title mbr-fonts-style display-5">
                                         <p>
-                                            Tranche 1</p>
+                                            <a href="{{ route('programme.show',['programme'=>$child]) }}">{{ $child->nom }}</a>
+                                        </p>
                                     </div>
                                     <div class="progress_value mbr-fonts-style display-7">
-                                        <div class="progressbar-number"></div>
-                                        <span> %</span>
+                                        <span>{{$child->progression}}%</span>
                                     </div>
                                 </div>
-                                <progress class="progress progress-primary mbr-bold" max="100" value="43">
+                                <progress class="progress progress-primary mbr-bold" max="100" value="{{$child->progression}}">
                                 </progress>
                             </div>
-
-                            <div class="progress2 pb-5">
-                                <div class="title-wrap">
-                                    <div class="progressbar-title mbr-fonts-style display-5">
-                                        <p>
-                                            Tranche 2</p>
-                                    </div>
-                                    <div class="progress_value mbr-fonts-style display-7">
-                                        <div class="progressbar-number"></div>
-                                        <span>%</span>
-                                    </div>
-                                </div>
-                                <progress class="progress progress-primary" max="100" value="73">
-                                </progress>
-                            </div>
-
-                            <div class="progress3 pb-5">
-                                <div class="title-wrap">
-                                    <div class="progressbar-title mbr-fonts-style display-5">
-                                        <p>
-                                            Tranche 3</p>
-                                    </div>
-                                    <div class="progress_value mbr-fonts-style display-7">
-                                        <div class="progressbar-number"></div>
-                                        <span>%</span>
-                                    </div>
-                                </div>
-                                <progress class="progress progress-primary" max="100" value="90">
-                                </progress>
-                            </div>
-
-                            <div class="progress4">
-                                <div class="title-wrap">
-                                    <div class="progressbar-title mbr-fonts-style display-5">
-                                        <p>
-                                            Tranche 4</p>
-                                    </div>
-                                    <div class="progress_value mbr-fonts-style display-7">
-                                        <div class="progressbar-number"></div>
-                                        <span>%</span>
-                                    </div>
-                                </div>
-                                <progress class="progress progress-primary" max="100" value="100">
-                                </progress>
-                            </div>
+                            @endforeach
                         </div>
                     </div>
                 </div>
