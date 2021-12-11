@@ -5,8 +5,8 @@
     ' - Plateforme de collecte pour les formations, tontines, cotisation et levée de fond pour tous...',)
 
 @section('social-sharing')
-    <meta name="twitter:image:src" content="{{ asset('assets/images/mbr-1076x1145-512x512.png') }}">
-    <meta property="og:image" content="{{ asset('assets/images/mbr-1076x1145-512x512.png') }}">
+    <meta name="twitter:image:src" content="{{ asset('assets/images/fulllogo_nobuffer.png') }}">
+    <meta property="og:image" content="{{ asset('assets/images/fulllogo_nobuffer.png') }}">
 @endsection
 
 @section('description',

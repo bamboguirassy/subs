@@ -1,7 +1,8 @@
 @component('mail::message')
 # Bonjour **{{ $souscriptionTemp->user->name }}** <br>
 | Ceci est un mail de rappel <br>
-
+[![{{ config('app.name') }}]({{ asset('assets/images/fulllogo_nobuffer.png') }})]({{ asset('assets/images/fulllogo_nobuffer.png') }})
+<br>
 Le programme ***{{ $souscriptionTemp->programme->nom }}*** sera cloturé {{ $remainDate }}. <br>
 @if ($souscriptionTemp->programme->is_programme)
 Il faut finaliser vite votre inscription pour y prendre part. <br>

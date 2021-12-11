@@ -1,4 +1,6 @@
 @component('mail::message')
+[![{{ config('app.name') }}]({{ asset('assets/images/fulllogo_nobuffer.png') }})]({{ asset('assets/images/fulllogo_nobuffer.png') }})
+
 # Bonjour **{{ $programme->user->name }}**
 
 Le programme ***{{ $programme->nom }}***, que vous avez initié, sera cloturé le {{date_format(new DateTime($programme->dateCloture),'d/m/Y')}}. <br>

@@ -1,7 +1,8 @@
 @component('mail::message')
 # Bonjour **{{ $souscription->user->name }}** <br>
 | Ceci est un mail de rappel <br>
-
+[![{{ config('app.name') }}]({{ asset('assets/images/fulllogo_nobuffer.png') }})]({{ asset('assets/images/fulllogo_nobuffer.png') }})
+<br>
 Le programme ***{{ $souscription->programme->nom }}***, auquel vous avez souscrit, démarre le {{ date_format(new DateTime($souscription->programme->dateDemarrage), 'd/m/Y') }}. <br>
 Ceci est un mail automatique envoyé par le système pour que vous ne l'oubliez pas dans votre agenda. <br>
 

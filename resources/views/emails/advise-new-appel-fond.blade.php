@@ -1,5 +1,6 @@
 @component('mail::message')
-# Appel de fond
+# Appel de fond <br>
+[![{{ config('app.name') }}]({{ asset('assets/images/fulllogo_nobuffer.png') }})]({{ asset('assets/images/fulllogo_nobuffer.png') }})
 -- Ceci est un mail automatique <br>
 Bonjour **Admin**, <br>
 Un appel de fond pour ***{{ $appelFond->programme->frequence }}*** est lancé. <br>

@@ -2,7 +2,7 @@
 # {{ config('app.name') }}
 ## _Confirmation Souscription_
 
-[![{{ config('app.name') }}]({{ asset('assets/images/mbr-1076x1145-512x512.png') }})]({{ asset('assets/images/mbr-1076x1145-512x512.png') }})
+[![{{ config('app.name') }}]({{ asset('assets/images/fulllogo_nobuffer.png') }})]({{ asset('assets/images/fulllogo_nobuffer.png') }})
 
 Bonjour **{{ $souscription->user->name }}**,<br>
 @if ($souscription->programme->is_programme)

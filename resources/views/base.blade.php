@@ -9,8 +9,8 @@
     @hasSection('social-sharing')
         @yield('social-sharing')
     @else
-        <meta name="twitter:image:src" content="{{ asset('assets/images/mbr-1076x1145-512x512.png') }}">
-        <meta property="og:image" content="{{ asset('assets/images/mbr-1076x1145-512x512.png') }}">
+        <meta name="twitter:image:src" content="{{ asset('assets/images/fulllogo_nobuffer.png') }}">
+        <meta property="og:image" content="{{ asset('assets/images/fulllogo_nobuffer.png') }}">
     @endif
     <meta name="twitter:title" content="@yield('title')">
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">

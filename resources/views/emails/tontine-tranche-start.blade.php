@@ -1,6 +1,8 @@
 @component('mail::message')
 # Mail de rappel - Tontine
 -- Ceci est un mail automatique <br>
+[![{{ config('app.name') }}]({{ asset('assets/images/fulllogo_nobuffer.png') }})]({{ asset('assets/images/fulllogo_nobuffer.png') }})
+<br>
 Bonjour **{{ $souscription->user->name }}**, <br>
 Les paiements pour votre tontine ***{{ $programme->frequence }}*** démarre aujourd'hui jusqu'au **{{ date_format(new DateTime($programme->dateCloture),'d/m/Y') }}**. <br>
 Merci de procéder au paiement avant la date d'échéance. <br>
