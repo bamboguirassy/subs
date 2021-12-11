@@ -18,7 +18,7 @@
                             </h5>
                             <p class="card-text mbr-fonts-style display-7">{{ $typeProgramme->description }}</p>
                             <h5 class="link mbr-fonts-style display-4">
-                                <a href="{{ route('programme.create') }}?type={{$typeProgramme->code}}" class="text-secondary mbr-fonts-style display-5">Continuer
+                                <a href="{{ route('programme.create') }}?type={{$typeProgramme->code}}" class="text-primary mbr-fonts-style display-5">Continuer
                                     avec&nbsp;
                                     <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                                         width="34px" height="16px" viewBox="0 0 34.53 16" xml:space="preserve">

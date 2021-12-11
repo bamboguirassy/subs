@@ -63,7 +63,7 @@
             </div>
         </div>
     </section>
-    <div class="container-fluid" style="background: linear-gradient(90deg, #FE525A 0%, #FE0000 100%);">
+    <div class="container-fluid" style="background: linear-gradient(90deg, #ba265e 0%, #b22f5F 100%);">
         <div class="container p-5">
             <div class="row">
                 @foreach ($packSms as $packSm)
@@ -98,4 +98,5 @@
             </div>
         </div>
     </div>
+    <hr color="white" class="pt-3">
 @endsection
