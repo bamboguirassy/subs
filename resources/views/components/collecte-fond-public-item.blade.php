@@ -3,7 +3,7 @@
         <div class="row justify-content-end">
             <div class="col-12 col-md-5 col-lg-3 m-auto image-wrapper">
                 <a href="{{ route('programme.show', compact('programme')) }}">
-                    <img src="{{ isset($programme->image) ? asset('uploads/programmes/images/' . $programme->image) : asset('assets/images/mbr-426x345.png') }}"
+                    <img src="{{ isset($programme->image) ? asset('uploads/programmes/images/' . $programme->image) : asset('assets/images/fulllogo_nobuffer.png') }}"
                         alt="{{ $programme->nom }}">
                 </a>
             </div>

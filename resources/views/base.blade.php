@@ -132,8 +132,8 @@
         generalChannel.bind('general-event', function(data) {
             const options = {
                 body: data.message,
-                icon: '{{ asset('assets/images/mbr-121x129.png') }}',
-                badge: '{{ asset('assets/images/mbr-121x129.png') }}'
+                icon: '{{ asset('assets/images/fulllogo_nobuffer.png') }}',
+                badge: '{{ asset('assets/images/fulllogo_nobuffer.png') }}'
             };
             notifyMe(title, options);
         }, {
@@ -145,8 +145,8 @@
             userChannel.bind('user-event', function(data) {
             const options = {
             body: data.message,
-            icon: '{{ asset('assets/images/mbr-121x129.png') }}',
-            badge: '{{ asset('assets/images/mbr-121x129.png') }}'
+            icon: '{{ asset('assets/images/fulllogo_nobuffer.png') }}',
+            badge: '{{ asset('assets/images/fulllogo_nobuffer.png') }}'
             };
             notifyMe(data.title, options);
             }, { name: 'Pusher2' });
