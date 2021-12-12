@@ -209,7 +209,7 @@
                     <div class="navbar-brand">
                         <span class="navbar-logo">
                             <a href="{{ route('home') }}">
-                                <img src="assets/images/fulllogo-nobuffer-612x123.png" alt="" style="height: 3.8rem;">
+                                <img src="{{ asset('assets/images/fulllogo-nobuffer-612x123.png') }}" alt="" style="height: 3.8rem;">
                             </a>
                         </span>
                     </div>
