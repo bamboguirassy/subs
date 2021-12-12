@@ -13,7 +13,6 @@
         "laravel/sanctum": "^2.11",
         "laravel/tinker": "^2.6",
         "laravel/ui": "^3.3",
-        "martinbutt/laravel-adsense": "^2.0",
         "pragmarx/countries": "^0.7.2",
         "pusher/pusher-php-server": "^7.0",
         "yoeunes/notify": "^1.0"
