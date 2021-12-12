@@ -327,7 +327,7 @@
     <script src="{{ asset('bower_components/simditor/site/assets/scripts/simditor.js') }}"></script>
     <script src="{{ asset('bower_components/angular/angular.min.js') }}"></script>
     <script src="{{ asset('assets/mbr-flip-card/mbr-flip-card.js') }}"></script>
-    <script src="http://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
     <script>
         $(() => {
             if ($('#wysiwyg').length) {
