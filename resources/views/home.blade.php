@@ -17,7 +17,7 @@
     <section data-bs-version="5.1" class="extHeader cid-sPMNZDPZTn mb-2" style="margin-top: 120px;" id="extHeader13-2f">
         <div class="container">
             <div class="row justify-content-center align-items-center">
-                <div class="mbr-white col-md-12 col-lg-8 py-lg-0 pt-4 order-2">
+                <div class="mbr-white col-md-12 col-lg-8 py-lg-0 pt-1 order-2">
                     <div class="typed-text pb-3 align-left display-2">
                         <span class="mbr-section-subtitle mbr-fonts-style display-2">Avec <strong>{{ config('app.name') }}
                             </strong>c'est</span>

@@ -161,7 +161,6 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
-        MartinButt\Laravel\Adsense\Providers\AdsenseServiceProvider::class,
 
         /*
          * Package Service Providers...
