@@ -84,8 +84,8 @@ class ProgrammeController extends Controller
             $programme = new Programme($request->all());
             // vérifier les dates
             if(isset($programme->dateCloture)) {
-                if($programme->dateCloture<today()->addDay()) {
-                    $errorMessage = "La date de cloture doit prendre environ 1 jour à l'avance pour permettre aux gens de souscrire...";
+                if($programme->dateCloture<date_format(now(),'Y-m-d')) {
+                    $errorMessage = "La date de cloture ne peut être antérieure à la date du jour...";
                     notify()->error($errorMessage);
                     return back()->withErrors([$errorMessage])->withInput();
                 }
