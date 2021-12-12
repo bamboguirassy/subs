@@ -231,6 +231,10 @@
                                         href="{{ route('achatsms.create') }}" aria-expanded="false">
                                         Acheter pack SMS
                                     </a>
+                                    <a class="dropdown-item text-primary display-4"
+                                        href="{{ route('user.appelfond.list') }}" aria-expanded="false">
+                                        Mes appels de fonds
+                                    </a>
                                     <a class="dropdown-item text-primary display-4" href="{{ route('profile') }}">Mon
                                         profil<br>
                                     </a>

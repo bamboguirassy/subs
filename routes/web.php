@@ -8,6 +8,7 @@ use App\Http\Controllers\PackSmsController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProgrammeController;
 use App\Http\Controllers\SouscriptionController;
+use App\Models\AppelFond;
 use App\Models\Parametrage;
 use App\Models\Programme;
 use App\Models\Souscription;
@@ -175,7 +176,7 @@ Route::get('contact', function () {
 
 Route::get('apropos', function () {
     $parametrage = Parametrage::getInstance();
-    return view('apropos',compact('parametrage'));
+    return view('apropos', compact('parametrage'));
 })->name('apropos');
 
 Route::get('countries', function () {
@@ -187,6 +188,11 @@ Route::get('countries', function () {
     }
     return $countries;
 });
+
+Route::get('user-appelfond', function () {
+    $appelFonds = AppelFond::whereRelation('programme','user_id',Auth::id())->get();
+    return view("programme.appelfond.list", compact('appelFonds'));
+})->name('user.appelfond.list')->middleware('auth');
 
 Route::resource('appelfond', AppelFondController::class, [
     'only' => ['store']
