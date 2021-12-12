@@ -40,7 +40,6 @@
                                 <tr class="table-heads">
                                     <th class="head-item mbr-fonts-style display-4">#</th>
                                     <th class="head-item mbr-fonts-style display-4 nowrap">Programme</th>
-                                    <th class="head-item mbr-fonts-style display-4 nowrap">User</th>
                                     <th class="head-item mbr-fonts-style display-4 nowrap">Méthode de paiement</th>
                                     <th class="head-item mbr-fonts-style display-4 nowrap">Mobile Paiement</th>
                                     <th class="head-item mbr-fonts-style display-4 nowrap">Montant</th>
@@ -60,8 +59,6 @@
                                             <a
                                                 href="{{ route('programme.show', ['programme' => $appelFond->programme]) }}">{{ $appelFond->programme->nom }}</a>
                                         </td>
-                                        <td class="body-item mbr-fonts-style display-7 nowrap">
-                                            {{ $appelFond->user->name ?? 'Non précisé' }}</td>
                                         <td class="body-item mbr-fonts-style display-7 nowrap">
                                             {{ $appelFond->methodePaiement }}</td>
                                         <td class="body-item mbr-fonts-style display-7 nowrap">
