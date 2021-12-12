@@ -218,7 +218,7 @@
                     <ul class="navbar-nav nav-dropdown" data-app-modern-menu="true">
                         @auth
                             <li class="nav-item dropdown">
-                                <a class="nav-link link dropdown-toggle text-secondary display-4" href="#"
+                                <a class="nav-link link dropdown-toggle text-primary display-4" href="#"
                                     data-toggle="dropdown-submenu" data-bs-toggle="dropdown" data-bs-auto-close="outside"
                                     aria-expanded="false">
                                     Mon compte
