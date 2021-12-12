@@ -99,18 +99,18 @@
                                         class="btn">
                                         @method('delete')
                                         @csrf
-                                        <button class="btn btn-primary display-4" href="#">
+                                        <button class="btn btn-danger display-4" href="#">
                                             <span class="mobi-mbri mobi-mbri-trash mbr-iconfont mbr-iconfont-btn"></span>
                                             Supprimer
                                         </button>
                                     </form>
-                                    <a class="btn btn-danger display-4" href="#table01-x">
+                                    <a class="btn btn-white display-4" href="#table01-x">
                                         <span class="mbrib-users mbr-iconfont mbr-iconfont-btn"></span>Participants</a>
                                     <a class="btn btn-warning display-4"
                                         href="{{ route('programme.edit', compact('programme')) }}"><span
                                             class="mobi-mbri mobi-mbri-edit-2 mbr-iconfont mbr-iconfont-btn"></span>Modifier</a>
                                     @if (!$programme->active && $programme->gain_net > 0 && $programme->appelFond == null)
-                                        <a class="btn btn-success display-4" href="#" data-toggle="modal" data-bs-toggle="modal"
+                                        <a class="btn btn-white display-4" href="#" data-toggle="modal" data-bs-toggle="modal"
                                             data-target="#mbr-popup-2y" data-bs-target="#mbr-popup-2y"><span
                                                 class="icon54-v1-send-money mbr-iconfont mbr-iconfont-btn"></span>
                                             Faire un appel de fond
