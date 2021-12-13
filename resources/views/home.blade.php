@@ -29,7 +29,7 @@
                         </span>
                     </div>
                     <p class="mbr-section-text mbr-fonts-style align-left display-5">
-                        Collectez les fonds et les inscriptions pour tous vos programmes de manière transparente, sécurisée et automatisée.</p>
+                        Collectez vos cotisations, les tontines, les levées de fonds, les souscriptions pour tous vos programmes de manière transparente, sécurisée et automatisée.</p>
                     <div class="pt-3 mbr-section-btn align-left">
                         @guest
                             <a class="btn btn-md btn-white display-4"
