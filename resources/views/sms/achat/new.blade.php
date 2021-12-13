@@ -38,7 +38,7 @@
 
         .card:hover .btn-outline-primary {
             color: white;
-            background: #007bff;
+            background: #BA265E;
         }
 
     </style>

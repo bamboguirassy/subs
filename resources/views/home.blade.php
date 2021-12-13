@@ -42,7 +42,7 @@
                             <span class="icon54-v2-add-note mbr-iconfont mbr-iconfont-btn"></span>
                             Démarrer un programme
                         </a>-->
-                        <a class="btn btn-md btn-danger display-4" href="{{ route('programme.public.list') }}">
+                        <a class="btn btn-md btn-white display-4" href="{{ route('programme.public.list') }}">
                             <span class="icon54-v2-add-note mbr-iconfont mbr-iconfont-btn"></span>
                             Accéder à d'autres programmes
                         </a>
