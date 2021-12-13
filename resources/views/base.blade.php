@@ -175,8 +175,7 @@
             <div class="mbr-overlay" style="opacity: 0.9;"></div>
 
             <a class="full-link" href="#">
-                <div class="menu-top card-wrapper mbr-fonts-style mbr-white display-7">La plateforme de collecte de&nbsp;
-                    souscriptions</div>
+                <div class="menu-top card-wrapper mbr-fonts-style mbr-white display-7">La collecte autrement !</div>
             </a>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
