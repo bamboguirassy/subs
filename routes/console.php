@@ -27,16 +27,16 @@ Artisan::command('inspire', function () {
 })->purpose('Display an inspiring quote');
 
 Artisan::command('display:solde-sms', function () {
-    $this->comment(Parametrage::getInstance()->soldeSms." SMS restant(s) dans le système !");
+    $this->comment(Parametrage::getInstance()->soldeSms . " SMS restant(s) dans le système !");
 })->purpose('Display solde SMS....');
 
 Artisan::command('delete:programme-leads', function () {
     $this->comment("### Script de suppression des leads, un mois après clôture d'un programme.");
     // recuperer les programmes cloturées il y'a un mois
-    $programmes = Programme::where('dateCloture',today()->addMonths('-1'))->get();
+    $programmes = Programme::where('dateCloture', today()->addMonths('-1'))->get();
     foreach ($programmes as $programme) {
         // recuperer les leads
-        $this->comment("Le programme {$programme->nom} a ".count($programme->souscriptionTemps)." leads qui sont supprimés.");
+        $this->comment("Le programme {$programme->nom} a " . count($programme->souscriptionTemps) . " leads qui sont supprimés.");
         SouscriptionTemp::destroy($programme->souscriptionTemps);
     }
     $this->comment("Le traitement est terminé sans erreur !");
@@ -92,11 +92,11 @@ Artisan::command('remind:leads-to-subscribe', function () {
         // recuperer les users ayant des souscriptionTemp pour ce programme
         $souscriptionTemps = SouscriptionTemp::where('programme_id', $programme->id)
             ->get();
-        $contactedEmails = [];
+        $contactedUsers = [];
         $this->comment("Les souscriptions en instances...");
         foreach ($souscriptionTemps as $souscriptionTemp) {
-            if (!in_array($souscriptionTemp->user_id, $contactedEmails)) {
-                $contactedEmails[] = $souscriptionTemp->user_id;
+            if (!in_array($souscriptionTemp->user_id, $contactedUsers)) {
+                $contactedUsers[] = $souscriptionTemp->user_id;
                 Mail::to($souscriptionTemp->user)->send(new RemindLeadsToSouscribe($souscriptionTemp, " aujourd'hui"));
                 $this->comment("Rappel envoyé à {$souscriptionTemp->user->name} - {$souscriptionTemp->user->email}");
             }
@@ -105,12 +105,14 @@ Artisan::command('remind:leads-to-subscribe', function () {
         if ($programme->is_programe || $programme->typeProgramme->code == 'TONTINE') {
             $souscriptions = Souscription::where('programme_id', $programme->id)
                 ->get();
-            $contactedEmails = [];
+            $contactedUsers = [];
             $this->comment("Les souscriptions confirmées");
             foreach ($souscriptions as $souscription) {
-                $contactedEmails[] = $souscription->user_id;
-                Mail::to($souscription->user)->send(new RemindSubscribedUsers($souscription));
-                $this->comment("Rappel envoyé à {$souscription->user->name} - {$souscription->user->email}");
+                if (!in_array($souscription->user_id, $contactedUsers)) {
+                    $contactedUsers[] = $souscription->user_id;
+                    Mail::to($souscription->user)->send(new RemindSubscribedUsers($souscription));
+                    $this->comment("Rappel envoyé à {$souscription->user->name} - {$souscription->user->email}");
+                }
             }
         }
     }
@@ -126,10 +128,10 @@ Artisan::command('remind:leads-to-subscribe', function () {
         // recuperer les users ayant des souscriptionTemp pour ce programme
         $souscriptionTemps = SouscriptionTemp::where('programme_id', $programme->id)
             ->get();
-        $contactedEmails = [];
+        $contactedUsers = [];
         foreach ($souscriptionTemps as $souscriptionTemp) {
-            if (!in_array($souscriptionTemp->user_id, $contactedEmails)) {
-                $contactedEmails[] = $souscriptionTemp->user_id;
+            if (!in_array($souscriptionTemp->user_id, $contactedUsers)) {
+                $contactedUsers[] = $souscriptionTemp->user_id;
                 Mail::to($souscriptionTemp->user)->send(new RemindLeadsToSouscribe($souscriptionTemp, ' demain'));
                 $this->comment("Rappel envoyé à {$souscriptionTemp->user->name} - {$souscriptionTemp->user->email}");
             }
@@ -139,10 +141,10 @@ Artisan::command('remind:leads-to-subscribe', function () {
 
             $souscriptions = Souscription::where('programme_id', $programme->id)
                 ->get();
-            $contactedEmails = [];
+            $contactedUsers = [];
             $this->comment("Les souscriptions confirmées");
             foreach ($souscriptions as $souscription) {
-                $contactedEmails[] = $souscription->user_id;
+                $contactedUsers[] = $souscription->user_id;
                 Mail::to($souscription->user)->send(new RemindSubscribedUsers($souscription));
                 $this->comment("Rappel envoyé à {$souscription->user->name} - {$souscription->user->email}");
             }
@@ -160,10 +162,10 @@ Artisan::command('remind:leads-to-subscribe', function () {
         // recuperer les users ayant des souscriptionTemp pour ce programme
         $souscriptionTemps = SouscriptionTemp::where('programme_id', $programme->id)
             ->get();
-        $contactedEmails = [];
+        $contactedUsers = [];
         foreach ($souscriptionTemps as $souscriptionTemp) {
-            if (!in_array($souscriptionTemp->user_id, $contactedEmails)) {
-                $contactedEmails[] = $souscriptionTemp->user_id;
+            if (!in_array($souscriptionTemp->user_id, $contactedUsers)) {
+                $contactedUsers[] = $souscriptionTemp->user_id;
                 Mail::to($souscriptionTemp->user)->send(new RemindLeadsToSouscribe($souscriptionTemp, " dans 3 jours"));
                 $this->comment("Rappel envoyé à {$souscriptionTemp->user->name} - {$souscriptionTemp->user->email}");
             }
@@ -172,10 +174,10 @@ Artisan::command('remind:leads-to-subscribe', function () {
         if ($programme->is_programe || $programme->typeProgramme->code == 'TONTINE') {
             $souscriptions = Souscription::where('programme_id', $programme->id)
                 ->get();
-            $contactedEmails = [];
+            $contactedUsers = [];
             $this->comment("Les souscriptions confirmées");
             foreach ($souscriptions as $souscription) {
-                $contactedEmails[] = $souscription->user_id;
+                $contactedUsers[] = $souscription->user_id;
                 Mail::to($souscription->user)->send(new RemindSubscribedUsers($souscription));
                 $this->comment("Rappel envoyé à {$souscription->user->name} - {$souscription->user->email}");
             }
@@ -193,10 +195,10 @@ Artisan::command('remind:leads-to-subscribe', function () {
         // recuperer les users ayant des souscriptionTemp pour ce programme
         $souscriptionTemps = SouscriptionTemp::where('programme_id', $programme->id)
             ->get();
-        $contactedEmails = [];
+        $contactedUsers = [];
         foreach ($souscriptionTemps as $souscriptionTemp) {
-            if (!in_array($souscriptionTemp->user_id, $contactedEmails)) {
-                $contactedEmails[] = $souscriptionTemp->user_id;
+            if (!in_array($souscriptionTemp->user_id, $contactedUsers)) {
+                $contactedUsers[] = $souscriptionTemp->user_id;
                 Mail::to($souscriptionTemp->user)->bcc(config('mail.cc'))->send(new RemindLeadsToSouscribe($souscriptionTemp, " dans une semaine."));
                 $this->comment("Rappel envoyé à {$souscriptionTemp->user->name} - {$souscriptionTemp->user->email}");
             }
@@ -205,10 +207,10 @@ Artisan::command('remind:leads-to-subscribe', function () {
         if ($programme->is_programe || $programme->typeProgramme->code == 'TONTINE') {
             $souscriptions = Souscription::where('programme_id', $programme->id)
                 ->get();
-            $contactedEmails = [];
+            $contactedUsers = [];
             $this->comment("Les souscriptions confirmées");
             foreach ($souscriptions as $souscription) {
-                $contactedEmails[] = $souscription->user_id;
+                $contactedUsers[] = $souscription->user_id;
                 Mail::to($souscription->user)->send(new RemindSubscribedUsers($souscription));
                 $this->comment("Rappel envoyé à {$souscription->user->name} - {$souscription->user->email}");
             }
