@@ -53,7 +53,7 @@ class Helper
             'name' => 'required',
             'email' => 'required|unique:users,email',
             'profession' => 'required',
-            'telephone' => 'required|starts_with:+',
+            'telephone' => 'required|starts_with:+|min:9',
             'password' => 'confirmed|min:6'
         ]);
         // créer le user dans la DB et l'associer au programme

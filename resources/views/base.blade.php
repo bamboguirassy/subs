@@ -23,6 +23,7 @@
     <link rel="stylesheet" href="{{ asset('assets/web/assets/mobirise-icons-bold/mobirise-icons-bold.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/Material-Design-Icons/css/material.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/icon54-v3/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/icon54-v2/style.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/icon54/style.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/Material-Design-Icons/css/material.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/web/assets/mobirise-icons/mobirise-icons.css') }}">

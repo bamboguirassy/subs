@@ -38,13 +38,13 @@
                                 Se connecter
                             </a>
                         @endguest
-                        <!--<a class="btn btn-md btn-danger display-4" href="{{ route('programme.pre.publish') }}">
+                        <a class="btn btn-md btn-white display-4" href="{{ route('programme.pre.publish') }}">
                             <span class="icon54-v2-add-note mbr-iconfont mbr-iconfont-btn"></span>
                             Démarrer un programme
-                        </a>-->
+                        </a>
                         <a class="btn btn-md btn-white display-4" href="{{ route('programme.public.list') }}">
-                            <span class="icon54-v2-add-note mbr-iconfont mbr-iconfont-btn"></span>
-                            Accéder à d'autres programmes
+                            <span class="icon54-v2-note-list mbr-iconfont mbr-iconfont-btn"></span>
+                            Découvrir d'autres programmes
                         </a>
                     </div>
                 </div>
