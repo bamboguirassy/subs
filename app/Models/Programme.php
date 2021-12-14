@@ -36,7 +36,8 @@ class Programme extends Model
         'frequence',
         'programme_id',
         'tranche',
-        'tauxPrelevement'
+        'tauxPrelevement',
+        'nombreMainMaxPersonne'
     ];
 
     /**
@@ -106,7 +107,7 @@ class Programme extends Model
      */
     public function parent(): BelongsTo
     {
-        return $this->belongsTo(Programme::class,'programme_id');
+        return $this->belongsTo(Programme::class, 'programme_id');
     }
 
     /**
@@ -159,8 +160,16 @@ class Programme extends Model
             if ($this->nombreParticipants > 0) {
                 return $this->nombreParticipants;
             } else {
-                return count($this->souscriptions);
+                return $this->souscriptions->sum('nombreMain');
             }
+        }
+        return 0;
+    }
+
+    public function getNombreMainSouscriteAttribute()
+    {
+        if ($this->typeProgramme->code == 'TONTINE') {
+            return $this->souscriptions->sum('nombreMain');
         }
         return 0;
     }
@@ -168,7 +177,7 @@ class Programme extends Model
     public function getIsProprietaireAttribute()
     {
         if (Auth::check()) {
-            if (Auth::id() == $this->user_id || Auth::user()->type=='admin') {
+            if (Auth::id() == $this->user_id || Auth::user()->type == 'admin') {
                 return true;
             }
         }
@@ -196,7 +205,8 @@ class Programme extends Model
         return $this->programme_id == null;
     }
 
-    public function getIsChildAttribute() {
+    public function getIsChildAttribute()
+    {
         return $this->programme_id != null;
     }
 
@@ -204,9 +214,10 @@ class Programme extends Model
      * cette fonction retourne la progression des cotisations pour les programmes enfants
      * La progression est le nombre de participants fils sur le nombre de souscriptions parents
      */
-    public function getProgressionAttribute() {
-        if($this->is_child && count($this->parent->souscriptions)>0) {
-            return (count($this->souscriptions)*100)/count($this->parent->souscriptions);
+    public function getProgressionAttribute()
+    {
+        if ($this->is_child && count($this->parent->souscriptions) > 0) {
+            return (count($this->souscriptions) * 100) / count($this->parent->souscriptions);
         }
         return null;
     }
@@ -271,7 +282,7 @@ class Programme extends Model
             $programme->dateCloture = today()->addWeek();
         } else if ($parent->frequence == Programme::FREQUENCE_MENSUEL) {
             $programme->dateCloture = today()->addMonth();
-        } else if($parent->frequence == Programme::FREQUENCE_PAR_DIZAINE) {
+        } else if ($parent->frequence == Programme::FREQUENCE_PAR_DIZAINE) {
             $programme->dateCloture = today()->addDays(10);
         }
         $programme->save();
@@ -286,7 +297,7 @@ class Programme extends Model
     {
         $programme = new Programme();
         $programme->programme_id = $child->parent->id;
-        $programme->type_programme_id = $child->parent->type_programme_id;
+        $programme->type_programme_id = $child->type_programme_id;
         $index = count($child->parent->children) + 1;
         $programme->nom = 'Tranche ' . $index;
         $programme->tranche = $index;
@@ -302,7 +313,7 @@ class Programme extends Model
             $programme->dateCloture = today()->addWeek();
         } else if ($child->parent->frequence == Programme::FREQUENCE_MENSUEL) {
             $programme->dateCloture = today()->addMonth();
-        } else if($child->parent->frequence == Programme::FREQUENCE_PAR_DIZAINE) {
+        } else if ($child->parent->frequence == Programme::FREQUENCE_PAR_DIZAINE) {
             $programme->dateCloture = today()->addDays(10);
         }
         $programme->save();

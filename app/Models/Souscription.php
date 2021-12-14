@@ -16,7 +16,8 @@ class Souscription extends Model
         'programme_id',
         'montant',
         'profil_concerne_id',
-        'uid'
+        'uid',
+        'nombreMain'
     ];
 
     /**

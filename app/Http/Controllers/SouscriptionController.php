@@ -102,7 +102,7 @@ class SouscriptionController extends Controller
                     $souscription->uid = uniqid();
                     $souscription->save();
                     $souscription->user->notify(new NotifyNewSouscription($souscription));
-                    Event::dispatchUserEvent(Event::Message("Nouvelle souscription","{$souscription->user->name} a souscrit au programme {$programme->nom}."),$programme->user->id);
+                    Event::dispatchUserEvent(Event::Message("Nouvelle souscription", "{$souscription->user->name} a souscrit au programme {$programme->nom}."), $programme->user->id);
                     notify()->success("Vous avez souscrit avec succès au programme !!!");
                 } else {
                     // instancier la souscription temp avec le contenu du request
@@ -119,16 +119,41 @@ class SouscriptionController extends Controller
                 if ($programme->programme_id != null && !$programme->parent->current_user_souscription) {
                     $errorMsg = "Vous n'êtes pas autorisé à participer à ce programme car vous ne vous étiez pas inscrit, merci de contacter le responsable...";
                     notify()->error($errorMsg);
-                    return back()->withErrors($errorMsg);
+                    return back()->withInput()->withErrors($errorMsg);
                 }
-                $souscription = new Souscription($request->all());
-                $souscription->user_id = $userId;
-                $souscription->montant = 0;
-                $souscription->uid = uniqid();
-                $souscription->save();
-                $souscription->user->notify(new NotifyNewSouscription($souscription));
-                Event::dispatchUserEvent(Event::Message("Nouvelle souscription","{$souscription->user->name} a souscrit au programme {$programme->nom}."),$programme->user->id);
-                notify()->success("Vous avez souscrit avec succès à la tontine !!!");
+                // verifier si programme parent -- que le nombre de place restant n'est pas épuisé
+                if ($programme->is_parent && $programme->nombreParticipants != 0) {
+                    if (($programme->nombre_main_souscrite + $request->get('nombreMain')) > $programme->nombreParticipants) {
+                        if ($programme->nombreParticipants == $programme->nombre_main_souscrite) {
+                            $errorMsg = "Ce programme a atteint le seuil de souscription. Rendez-vous pour d'autres tontines...,Merci.";
+                        } else {
+                            $errorMsg = "Le nombre de main proposé n'est pas disponible..., il reste actuellement " . ($programme->nombreParticipants - $programme->nombre_main_souscrite);
+                        }
+                        notify()->error($errorMsg);
+                        return back()->withInput()->withErrors($errorMsg);
+                    }
+                }
+                if ($programme->is_parent) {
+                    $souscription = new Souscription($request->all());
+                    $souscription->user_id = $userId;
+                    $souscription->montant = 0;
+                    $souscription->uid = uniqid();
+                    $souscription->save();
+                    $souscription->user->notify(new NotifyNewSouscription($souscription));
+                    Event::dispatchUserEvent(Event::Message("Nouvelle souscription", "{$souscription->user->name} a souscrit au programme {$programme->nom}."), $programme->user->id);
+                    notify()->success("Vous avez souscrit avec succès à la tontine !!!");
+                } else {
+                    // tontine enfant
+                    $montant = $programme->parent->current_user_souscription->nombreMain * $programme->montant;
+                    // instancier la souscription temp avec le contenu du request
+                    $souscriptionTemp = new SouscriptionTemp($request->all());
+                    $souscriptionTemp->uid = uniqid();
+                    $souscriptionTemp->user_id = $userId;
+                    $souscriptionTemp->montant = $montant;
+                    $souscriptionTemp->save();
+                    // terminer la transaction
+                    $redirectUrl = PaymentManager::initPayment($souscriptionTemp);
+                }
             } else if ($programme->is_collecte_fond) {
                 $request->validate([
                     'montant' => 'required'
@@ -261,7 +286,7 @@ class SouscriptionController extends Controller
                 $facture->save();
                 $souscription->user->notify(new NotifyNewSouscription($souscription));
                 DB::commit();
-                Event::dispatchUserEvent(Event::Message("Nouvelle souscription","{$souscription->user->name} a souscrit au programme {$souscription->programme->nom}."),$souscription->programme->user->id);
+                Event::dispatchUserEvent(Event::Message("Nouvelle souscription", "{$souscription->user->name} a souscrit au programme {$souscription->programme->nom}."), $souscription->programme->user->id);
             } catch (\Throwable $th) {
                 DB::rollback();
                 throw $th;
@@ -299,8 +324,8 @@ class SouscriptionController extends Controller
         // recuperer les mails
         $phones = [];
         foreach ($souscriptions as $souscription) {
-            if(!in_array($souscription->user->telephone,$phones)) {
-                $souscription->user->notify(new SendSms(Auth::user(),$request->message));
+            if (!in_array($souscription->user->telephone, $phones)) {
+                $souscription->user->notify(new SendSms(Auth::user(), $request->message));
                 $phones[] = $souscription->user->telephone;
             }
         }

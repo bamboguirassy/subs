@@ -248,7 +248,7 @@
                                 role="tab" data-toggle="tab" data-bs-toggle="tab" href="#list1-1r_tab0"
                                 aria-selected="true">Description</a></li>
                         @auth
-                            @if ($programme->user_id == auth()->id())
+                            @if ($programme->is_proprietaire)
                                 <li class="nav-item"><a class="nav-link mbr-fonts-style active display-7" role="tab"
                                         data-toggle="tab" data-bs-toggle="tab" href="#list1-1r_tab1"
                                         aria-selected="true">Participants</a></li>
@@ -283,7 +283,7 @@
                             </div>
                         </div>
                         @auth
-                            @if ($programme->user_id == auth()->id())
+                            @if ($programme->is_proprietaire)
                                 <div id="tab2" class="tab-pane" role="tabpanel">
                                     <div class="row">
                                         <div class="col-md-12">

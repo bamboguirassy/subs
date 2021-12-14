@@ -99,9 +99,19 @@
                                     <div class="mb-3">
                                         <label for="frequence" class="form-label">Frequence de cotisation</label>
                                         <select required="required" class="form-control" name="frequence" id="frequence">
-                                            <option>mensuelle</option>
-                                            <option>par 10 jours</option>
-                                            <option>hebdomadaire</option>
+                                            <option @if(old('frequence')=="mensuelle") selected @endif>mensuelle</option>
+                                            <option @if(old('frequence')=="par 10 jours") selected @endif>par 10 jours</option>
+                                            <option @if(old('frequence')=="hebdomadaire") selected @endif>hebdomadaire</option>
+                                        </select>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="nombreMainMaxPersonne" class="form-label">Nombre de mains maximum par personne</label>
+                                        <select required="required" class="form-control" name="nombreMainMaxPersonne" id="nombreMainMaxPersonne">
+                                            <option @if(old('nombreMainMaxPersonne')==1) selected @endif>1</option>
+                                            <option @if(old('nombreMainMaxPersonne')==2) selected @endif>2</option>
+                                            <option @if(old('nombreMainMaxPersonne')==3) selected @endif>3</option>
+                                            <option @if(old('nombreMainMaxPersonne')==4) selected @endif>4</option>
+                                            <option @if(old('nombreMainMaxPersonne')==5) selected @endif>5</option>
                                         </select>
                                     </div>
                                 @endif
@@ -157,7 +167,7 @@
                             @endif
                             <div data-for="description" class="col-lg-12 col-md-12 col-sm-12 form-group">
                                 <label for="description-formbuilder-13"
-                                    class="form-control-label mbr-fonts-style display-7">Description du programme</label>
+                                    class="form-control-label mbr-fonts-style display-7">Description du programme <strong class="text-primary">*</strong></label>
                                 <textarea id="wysiwyg" name="description" data-form-field="description" required="required"
                                     class="form-control display-7"
                                     id="description-formbuilder-13">{{ old('description') }}</textarea>

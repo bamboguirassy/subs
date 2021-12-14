@@ -11,13 +11,15 @@
 
 @section('body')
     <section data-bs-version="5.1" class="header3 cid-sOcbVln16Y" id="header03-16">
-        <div class="mbr-overlay" style="opacity: 0.7; background-color: #fe525b;"></div>
+        <div class="mbr-overlay" style="opacity: 0.7; background-color: #BA265E;"></div>
         <div class="container">
             <div class="row justify-content-center">
-                <div class="col-12 col-md-4 image-wrapper">
-                    <img src="{{ asset('uploads/programmes/images/' . $programme->image) }}">
-                </div>
-                <div class="col-12 col-lg-8 align-left">
+                @isset($programme->image)
+                    <div class="col-12 col-md-4 image-wrapper">
+                        <img src="{{ asset('uploads/programmes/images/' . $programme->image) }}">
+                    </div>
+                @endisset
+                <div class="col-12 @isset($programme->image) col-lg-8 @endisset align-left">
                     <h1 class="mbr-section-title mbr-fonts-style mb-3 display-5">
                         {{ $programme->typeProgramme->nom }} - <strong>{{ $programme->nom }}</strong>
                     </h1>
@@ -60,6 +62,7 @@
                                 <hr>
                             </div>
                             <input name="programme_id" type="number" value="{{ $programme->id }}" hidden>
+                            {!! $programme->description !!}
                             @if ($programme->is_programme)
                                 <div class="col-lg-12 col-md-12 col-sm-12 form-group" data-for="profil_concerne_id">
                                     <div class="form-control-label">
@@ -77,14 +80,34 @@
                                     @endforeach
                                 </div>
                             @elseif($programme->is_collecte_fond)
-                            <div class="mb-3">
-                              <label for="montant" class="form-label">Combien voulez vous offrir ?</label>
-                              <input type="number"
-                                class="form-control" name="montant" id="montant" aria-describedby="montantHelpId" placeholder="Préciser le montant de votre offre">
-                              <small id="montantHelpId" class="form-text text-muted">Suivez votre coeur !!!</small>
-                            </div>
-                            @else
-                                {!! $programme->description !!}
+                                <div class="mb-3">
+                                    <label for="montant" class="form-label">Combien voulez vous offrir ?</label>
+                                    <input type="number" class="form-control" name="montant" id="montant"
+                                        aria-describedby="montantHelpId" placeholder="Préciser le montant de votre offre">
+                                    <small id="montantHelpId" class="form-text text-muted">Suivez votre coeur !!!</small>
+                                </div>
+                            @elseif ($programme->is_tontine)
+                                <hr>
+                                @if ($programme->is_parent)
+                                    <div class="mb-3">
+                                        <label for="nombreMain" class="form-label">Vous postulez pour combien de mains
+                                            ?</label>
+                                        <select class="form-control" name="nombreMain" id="nombreMain">
+                                            @for ($i = 1; $i <= $programme->nombreMainMaxPersonne; $i++)
+                                                <option @if (old('nombreMain') == $i) selected @endif>{{ $i }}</option>
+                                            @endfor
+                                        </select>
+                                    </div>
+                                @elseif ($programme->parent->current_user_souscription)
+                                    <h3 class="pb-3">Vous avez souscrit à
+                                        {{ $programme->parent->current_user_souscription->nombreMain }} main(s). <br>
+                                        Vous allez payer un montant de
+                                        {{ $programme->parent->current_user_souscription->nombreMain * $programme->montant }}
+                                        FCFA
+                                    </h3>
+                                @else
+                                    <h3>Vous n'êtes pas autorisé à cotiser pour cette tontine...</h3>
+                                @endif
                             @endif
 
                             @guest
