@@ -47,10 +47,9 @@ class UserController extends Controller
     {
         $request->validate([
             'name'=>'required',
-            'email'=>Rule::unique('users','email')->ignore($user->id),
+            // 'email'=>Rule::unique('users','email')->ignore($user->id),
             'telephone' => 'required|starts_with:+|min:9',
             'profession'=>'required',
-            'presentation'=>'required'
         ]);
 
         DB::beginTransaction();
