@@ -109,7 +109,7 @@
                                     <a class="btn btn-warning display-4"
                                         href="{{ route('programme.edit', compact('programme')) }}"><span
                                             class="mobi-mbri mobi-mbri-edit-2 mbr-iconfont mbr-iconfont-btn"></span>Modifier</a>
-                                    @if (!$programme->active && $programme->gain_net > 0 && $programme->appelFond == null)
+                                    @if (!$programme->active && $programme->gain_net > 0 && $programme->appelFond == null && $programme->typeProgramme->code!="COTIR")
                                         <a class="btn btn-white display-4" href="#" data-toggle="modal" data-bs-toggle="modal"
                                             data-target="#mbr-popup-2y" data-bs-target="#mbr-popup-2y"><span
                                                 class="icon54-v1-send-money mbr-iconfont mbr-iconfont-btn"></span>
