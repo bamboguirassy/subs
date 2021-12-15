@@ -141,7 +141,7 @@ Route::post('souscription/{programme}/sms', [SouscriptionController::class, 'sen
     ->middleware('auth')->name('send.sms.to.participants');
 
 Route::resource('souscription', SouscriptionController::class, [
-    'only' => ['store', 'update']
+    'only' => ['store', 'update','destroy']
 ]);
 
 Route::resource('user', UserController::class, [

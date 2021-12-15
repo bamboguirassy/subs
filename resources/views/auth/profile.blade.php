@@ -25,7 +25,8 @@
                         <strong>{{ auth()->user()->name }}</strong>
                     </h1>
                     <p class="mbr-text mbr-fonts-style display-7">
-                        Bonjour <strong class="text-primary">{{ Auth::user()->name }}</strong>, vous souhaitez mettre à jour certains de vos
+                        Bonjour <strong class="text-primary">{{ Auth::user()->name }}</strong>, vous souhaitez mettre à
+                        jour certains de vos
                         informations ou gérer votre compte ? <br> Bienvenue !</p>
 
                 </div>
@@ -41,44 +42,40 @@
             <div class="row">
                 <div class="col-lg-8 mx-auto mbr-form">
                     <!--Formbuilder Form-->
+                    <hr>
+                    <div
+                        class="mt-2 form-control display-7">
+                        <strong>{{ auth()->user()->email }}</strong> <b class="text-primary">(en lecture seule)</b></div>
                     <form enctype="multipart/form-data" action="{{ route('user.update', ['user' => auth()->user()]) }}"
-                        method="POST" class="mbr-form form-with-styler" data-form-title="accountUpdateForm"><input
-                            type="hidden" name="email" data-form-email="true"
-                            value="t5EG3ENQJDVdLKNBqw1CugNlJSzld9GeEsj+7m7uP4QASm9neZrxXbOy8/U+PkIcuICI7XgaewJgKggp3gbShnZeBQlF0Hw1bOy1SdOV35eX8ZGN6h8o91NHJFfqPI1h.uQDLLkz44XITIw310BAFKEz0fD3XxjzYpCZunvTVYTjcr+UX1YPcH4b3ta8wGBN45VHhwxiMgJmFLRu5dqfBzh0xElpfz/BvGjDPLlaA8XUmQ6+UAWa4k6U40f8yesi3">
+                        method="POST" class="mbr-form form-with-styler" data-form-title="accountUpdateForm">
                         @csrf
                         @method('put')
                         <x-form-errors :errors="$errors->all()" />
                         <div class="dragArea form-row">
-                            <div class="col-lg-12 col-md-12 col-sm-12">
-                                <h4 class="mbr-fonts-style display-5 text-primary">Mettre à jour mes informations</h4>
+                            <div data-for="email" class="col-lg-12 col-md-12 col-sm-12 form-group">
                             </div>
                             <div class="col-lg-12 col-md-12 col-sm-12">
                                 <hr>
                             </div>
                             <div data-for="name" class="col-lg-12 col-md-12 col-sm-12 form-group">
                                 <label for="name-formbuilder-1u" class="form-control-label mbr-fonts-style display-7">Nom
-                                    complet</label>
+                                    complet
+                                    <x-required />
+                                </label>
                                 <input type="text" name="name" data-form-field="name" class="form-control display-7"
                                     required="required" value="{{ old('profession') ?? auth()->user()->name }}"
                                     id="name-formbuilder-1u">
                             </div>
                             <div data-for="profession" class="col-lg-12 col-md-12 col-sm-12 form-group">
                                 <label for="name-formbuilder-1u"
-                                    class="form-control-label mbr-fonts-style display-7">Profession</label>
+                                    class="form-control-label mbr-fonts-style display-7">Profession <x-required /></label>
                                 <input type="text" name="profession" data-form-field="name" class="form-control display-7"
                                     required="required" value="{{ old('profession') ?? auth()->user()->profession }}"
                                     id="profession-formbuilder-1u">
                             </div>
-                            <div data-for="email" class="col-lg-12 col-md-12 col-sm-12 form-group">
-                                <label for="email-formbuilder-1u"
-                                    class="form-control-label mbr-fonts-style display-7">Email</label>
-                                <input type="email" name="email" placeholder="Email" data-form-field="email"
-                                    class="form-control display-7" required="required"
-                                    value="{{ old('email') ?? auth()->user()->email }}" id="email-formbuilder-1u">
-                            </div>
                             <div data-for="telephone" class="col-lg-12 col-md-12 col-sm-12 form-group">
                                 <label for="telephone-formbuilder-1u"
-                                    class="form-control-label mbr-fonts-style display-7">Numéro Téléphone</label>
+                                    class="form-control-label mbr-fonts-style display-7">Numéro Téléphone <x-required /></label>
                                 <input type="tel" name="telephone" pattern="*" data-form-field="telephone"
                                     class="form-control display-7" required="required"
                                     value="{{ old('telephone') ?? auth()->user()->telephone }}"
@@ -88,7 +85,6 @@
                                 <label for="presentation-formbuilder-13"
                                     class="form-control-label mbr-fonts-style display-7">Présenation</label>
                                 <textarea id="wysiwyg" name="presentation"
-                                    placeholder="Présentez-vous clairement pour que les participants puissent vous connaitre"
                                     data-form-field="presentation" class="form-control display-7"
                                     id="presentation-formbuilder-13">{{ old('presentation') ?? auth()->user()->presentation }}</textarea>
                             </div>
@@ -135,14 +131,14 @@
                             </div>
                             <div class="col-lg-12 col-md-12 col-sm-12 form-group" data-for="currentPassword">
                                 <label for="currentPassword-formbuilder-1w"
-                                    class="form-control-label mbr-fonts-style display-7">Mot de passe actuel</label>
+                                    class="form-control-label mbr-fonts-style display-7">Mot de passe actuel <x-required /></label>
                                 <input type="password" name="currentPassword" placeholder="Mot de passe actuel"
                                     data-form-field="currentPassword" class="form-control display-7" required="required"
                                     value="" id="currentPassword-formbuilder-1w">
                             </div>
                             <div class="col-lg-12 col-md-12 col-sm-12 form-group" data-for="password" style="">
                                 <label for="password-formbuilder-1w"
-                                    class="form-control-label mbr-fonts-style display-7">Nouveau mot de passe</label>
+                                    class="form-control-label mbr-fonts-style display-7">Nouveau mot de passe <x-required /></label>
                                 <input type="password" name="password" placeholder="Nouveau mot de passe"
                                     data-form-field="password" class="form-control display-7" required="required" value=""
                                     id="password-formbuilder-1w">
@@ -150,7 +146,7 @@
                             <div class="col-lg-12 col-md-12 col-sm-12 form-group" data-for="password_confirmation">
                                 <label for="password_confirmation-formbuilder-1w"
                                     class="form-control-label mbr-fonts-style display-7">Confirmation - Nouveau mot de
-                                    passe</label>
+                                    passe <x-required /></label>
                                 <input type="password" name="password_confirmation"
                                     placeholder="Confirmation du mot de passe" data-form-field="password_confirmation"
                                     class="form-control display-7" required="required" value=""

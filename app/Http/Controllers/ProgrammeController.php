@@ -66,7 +66,9 @@ class ProgrammeController extends Controller
         ]);
         $typeProgramme = TypeProgramme::find($request->get('type_programme_id'));
         if ($typeProgramme->code == 'COTI') {
-            $this->validateCotisation();
+            $this->validateCotisationSpontanee();
+        } else if ($typeProgramme->code == 'COTIR') {
+            $this->validateCotisationRecurrente();
         } else if ($typeProgramme->code == 'CFON') {
             $this->validateCollecteFond();
         } else if ($typeProgramme->code == 'PROG') {
@@ -267,7 +269,7 @@ class ProgrammeController extends Controller
         ]);
     }
 
-    function validateCotisation()
+    function validateCotisationSpontanee()
     {
         // valider les champs obligatoires propres à programme
         request()->validate([
@@ -276,6 +278,20 @@ class ProgrammeController extends Controller
             'dateCloture' => 'required',
             'description' => 'required',
             'montant' => 'required',
+        ]);
+    }
+
+    function validateCotisationRecurrente()
+    {
+        // valider les champs obligatoires propres à programme
+        request()->validate([
+            'type_programme_id' => 'required|exists:type_programmes,id',
+            'nom' => 'required',
+            'dateCloture' => 'required',
+            'dateDemarrage' => 'required',
+            'description' => 'required',
+            'montant' => 'required',
+            'frequence'=>'required',
         ]);
     }
 

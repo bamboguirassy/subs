@@ -93,16 +93,27 @@
                                             <td class="body-item mbr-fonts-style display-7 nowrap">
                                                 {{ $souscription->montant > 0 ? $souscription->montant . ' FCFA' : 'gratuit' }}
                                             </td>
-                                            @if ($souscriptions[0]->programme->active)
-                                                <td class="body-item mbr-fonts-style display-7 nowrap">
+                                            <td class="body-item mbr-fonts-style display-7 nowrap">
+                                                @if ($souscriptions[0]->programme->active)
                                                     <a ng-click="select({{ $souscription }})"
                                                         class="btn btn-warning nowrap" href="#" data-toggle="modal"
                                                         data-bs-toggle="modal" data-target="#mbr-popup-2w"
                                                         data-bs-target="#mbr-popup-2w"><span
                                                             class="mbri-cash"></span>
                                                     </a>
-                                                </td>
-                                            @endif
+                                                @endif
+                                                @if ($souscription->programme->is_parent && count($souscription->children)<1)
+                                                    <form style="display: inline-block;" class="d-inline"
+                                                        action="{{ route('souscription.destroy', compact('souscription')) }}"
+                                                        method="post">
+                                                        @csrf
+                                                        @method('delete')
+                                                        <button href="" class="d-inline btn btn-danger nowrap"><span
+                                                                class="mbri-trash"></span>
+                                                        </button>
+                                                    </form>
+                                                @endif
+                                            </td>
                                         </tr>
                                     @endforeach
                                 </tbody>

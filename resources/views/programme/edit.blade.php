@@ -21,8 +21,8 @@
             <div class="row">
                 <div class="col-lg-8 mx-auto mbr-form">
                     <!--Formbuilder Form-->
-                    <form enctype="multipart/form-data" action="{{ route('programme.update',compact('programme')) }}" method="POST"
-                        class="mbr-form form-with-styler" data-form-title="programeNewForm">
+                    <form enctype="multipart/form-data" action="{{ route('programme.update', compact('programme')) }}"
+                        method="POST" class="mbr-form form-with-styler" data-form-title="programeNewForm">
                         @method('put')
                         @csrf
                         <x-form-errors :errors="$errors->all()" />
@@ -43,7 +43,7 @@
                             </div>
                             <div data-for="nom" class="col-lg-12 col-md-12 col-sm-12 form-group">
                                 <label for="nom-formbuilder-13"
-                                    class="form-control-label mbr-fonts-style display-7">Intitulé du programme</label>
+                                    class="form-control-label mbr-fonts-style display-7">Intitulé du programme <x-required /></label>
                                 <input type="text" name="nom" placeholder="Libellé du programme" data-form-field="nom"
                                     class="form-control display-7" required="required"
                                     value="{{ old('nom') ?? $programme->nom }}" id="nom-formbuilder-13">
@@ -70,40 +70,58 @@
                                     </div>
                                 @endforeach
                             @endif
-                            @if ($programme->typeProgramme->code == 'TONTINE' || $programme->typeProgramme->code == 'COTI')
+                            @if ($programme->is_tontine || $programme->typeProgramme->code == 'COTI' || $programme->typeProgramme->code == 'COTIR')
                                 <div class="mb-3">
-                                    <label for="montant" class="form-label">Montant à payer</label>
+                                    <label for="montant" class="form-label">Montant à payer <x-required /></label>
                                     <input required="required" type="number" class="form-control" name="montant"
                                         id="montant" placeholder="Montant que chacun doit payer"
                                         value="{{ old('montant') ?? $programme->montant }}">
                                 </div>
-                                @if ($programme->typeProgramme->code == 'TONTINE')
+                                @if ($programme->is_tontine || $programme->typeProgramme->code == 'COTIR')
                                     <div class="mb-3">
-                                        <label for="frequence" class="form-label">Frequence de cotisation</label>
+                                        <label for="frequence" class="form-label">Frequence de cotisation <x-required /></label>
                                         <select required="required" class="form-control" name="frequence" id="frequence">
-                                            <option @if($programme->frequence=='mensuelle') selected @endif>mensuelle</option>
-                                            <option @if($programme->frequence=='par 10 jours') selected @endif>par 10 jours</option>
-                                            <option @if($programme->frequence=='hebdomadaire') selected @endif>hebdomadaire</option>
+                                            <option @if ($programme->frequence == 'mensuelle') selected @endif>mensuelle</option>
+                                            <option @if ($programme->frequence == 'par 10 jours') selected @endif>par 10 jours</option>
+                                            <option @if ($programme->frequence == 'hebdomadaire') selected @endif>hebdomadaire</option>
                                         </select>
                                     </div>
+                                @endif
+                                @if ($programme->is_tontine)
+                                    @if (count($programme->children) < 1)
+                                        <div class="mb-3">
+                                            <label for="nombreMainMaxPersonne" class="form-label">Nombre de mains
+                                                maximum par personne <x-required /></label>
+                                            <select required="required" class="form-control" name="nombreMainMaxPersonne"
+                                                id="nombreMainMaxPersonne">
+                                                <option @if (old('nombreMainMaxPersonne') == 1 || $programme->nombreMainMaxPersonne == 1) selected @endif>1</option>
+                                                <option @if (old('nombreMainMaxPersonne') == 2 || $programme->nombreMainMaxPersonne == 2) selected @endif>2</option>
+                                                <option @if (old('nombreMainMaxPersonne') == 3 || $programme->nombreMainMaxPersonne == 3) selected @endif>3</option>
+                                                <option @if (old('nombreMainMaxPersonne') == 4 || $programme->nombreMainMaxPersonne == 4) selected @endif>4</option>
+                                                <option @if (old('nombreMainMaxPersonne') == 5 || $programme->nombreMainMaxPersonne == 5) selected @endif>5</option>
+                                            </select>
+                                        </div>
+                                    @endif
                                 @endif
                             @endif
                             <div data-for="dateCloture" class="col-lg-12 col-md-12 col-sm-12 form-group">
                                 <label for="dateCloture-formbuilder-13"
                                     class="form-control-label mbr-fonts-style display-7">
-                                    Date de clôture des inscriptions (souscriptions)
+                                    Date de clôture des inscriptions (souscriptions) <x-required />
                                 </label>
                                 <input type="date" name="dateCloture" data-form-field="dateCloture" required="required"
-                                    class="form-control display-7" value="{{ old('dateCloture')??$programme->dateCloture }}"
+                                    class="form-control display-7"
+                                    value="{{ old('dateCloture') ?? $programme->dateCloture }}"
                                     id="dateCloture-formbuilder-13">
                             </div>
-                            @if ($programme->typeProgramme->code == 'PROG' || $programme->typeProgramme->code == 'TONTINE')
+                            @if ($programme->typeProgramme->code == 'PROG' || $programme->typeProgramme->code == 'TONTINE' || $programme->typeProgramme->code == 'COTIR')
                                 <div data-for="dateDemarrage" class="col-lg-12 col-md-12 col-sm-12 form-group">
                                     <label for="dateDemarrage-formbuilder-13"
-                                        class="form-control-label mbr-fonts-style display-7">Date Démarrage</label>
+                                        class="form-control-label mbr-fonts-style display-7">Date Démarrage <x-required /></label>
                                     <input type="date" name="dateDemarrage" data-form-field="dateDemarrage"
                                         required="required" class="form-control display-7"
-                                        value="{{ old('dateDemarrage')??$programme->dateDemarrage }}" id="dateDemarrage-formbuilder-13">
+                                        value="{{ old('dateDemarrage') ?? $programme->dateDemarrage }}"
+                                        id="dateDemarrage-formbuilder-13">
                                 </div>
                             @endif
                             @if ($programme->typeProgramme->code == 'PROG')
@@ -113,15 +131,16 @@
                                         (en heures)
                                         du programme</label>
                                     <input type="number" name="duree" placeholder="Durée programme" max="" min="0" step="1"
-                                        data-form-field="duree" class="form-control display-7" value="{{ old('duree')??$programme->duree }}"
-                                        id="duree-formbuilder-13">
+                                        data-form-field="duree" class="form-control display-7"
+                                        value="{{ old('duree') ?? $programme->duree }}" id="duree-formbuilder-13">
                                 </div>
                                 <div data-for="nombreSeance" class="col-lg-12 col-md-12 col-sm-12 form-group">
                                     <label for="nombreSeance-formbuilder-13"
                                         class="form-control-label mbr-fonts-style display-7">Nombre de séances</label>
                                     <input type="number" name="nombreSeance" placeholder="Nombre de séances" max="" min="0"
                                         step="1" data-form-field="nombreSeance" class="form-control display-7"
-                                        value="{{ old('nombreSeance')??$programme->nombreSeance }}" id="nombreSeance-formbuilder-13">
+                                        value="{{ old('nombreSeance') ?? $programme->nombreSeance }}"
+                                        id="nombreSeance-formbuilder-13">
                                 </div>
                             @endif
                             @if ($programme->typeProgramme->code == 'PROG' || $programme->typeProgramme->code == 'TONTINE')
@@ -129,20 +148,21 @@
                                     <label for="nombreParticipants-formbuilder-13"
                                         class="form-control-label mbr-fonts-style display-7">Nombre Max Participants (Mettre
                                         0
-                                        pour illimité)</label>
+                                        pour illimité) <x-required /></label>
                                     <input type="number" name="nombreParticipants"
                                         placeholder="Nombre maximum de participants" max="" min="0" step="1"
                                         data-form-field="nombreParticipants" required="required"
-                                        class="form-control display-7" value="{{ old('nombreParticipants')??$programme->nombreParticipants }}"
+                                        class="form-control display-7"
+                                        value="{{ old('nombreParticipants') ?? $programme->nombreParticipants }}"
                                         id="nombreParticipants-formbuilder-13">
                                 </div>
                             @endif
                             <div data-for="description" class="col-lg-12 col-md-12 col-sm-12 form-group">
                                 <label for="description-formbuilder-13"
-                                    class="form-control-label mbr-fonts-style display-7">Description du programme</label>
+                                    class="form-control-label mbr-fonts-style display-7">Description du programme <x-required /></label>
                                 <textarea id="wysiwyg" name="description" data-form-field="description" required="required"
                                     class="form-control display-7"
-                                    id="description-formbuilder-13">{{ old('description')??$programme->description }}</textarea>
+                                    id="description-formbuilder-13">{{ old('description') ?? $programme->description }}</textarea>
                             </div>
                             @if ($programme->typeProgramme->code == 'PROG')
                                 <div data-for="modeDeroulement" class="col-lg-12 col-md-12 col-sm-12 form-group">
@@ -153,12 +173,12 @@
                                     </div>
                                     <div class="form-check form-check-inline">
                                         <input type="radio" name="modeDeroulement" data-form-field="modeDeroulementOnline"
-                                            class="form-check-input display-7" value="En ligne" @if($programme->modeDeroulement=="En ligne") checked="checked" @endif
+                                            class="form-check-input display-7" value="En ligne" @if ($programme->modeDeroulement == 'En ligne') checked="checked" @endif
                                             id="modeDeroulementOnline-formbuilder-13">
                                         <label class="form-check-label display-7">En ligne</label>
                                     </div>
                                     <div class="form-check form-check-inline">
-                                        <input type="radio" name="modeDeroulement" @if($programme->modeDeroulement=="En présentiel") checked="checked" @endif
+                                        <input type="radio" name="modeDeroulement" @if ($programme->modeDeroulement == 'En présentiel') checked="checked" @endif
                                             data-form-field="modeDeroulementPresentiel" class="form-check-input display-7"
                                             value="En présentiel" id="modeDeroulementPresentiel-formbuilder-13">
                                         <label class="form-check-label display-7">En présentiel</label>

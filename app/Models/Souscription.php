@@ -11,7 +11,7 @@ class Souscription extends Model
 {
     use HasFactory;
 
-    protected $fillable =[
+    protected $fillable = [
         'user_id',
         'programme_id',
         'montant',
@@ -58,5 +58,15 @@ class Souscription extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function getChildrenAttribute()
+    {
+        if($this->programme->is_parent) {
+           return Souscription::whereRelation('programme.parent','id',$this->programme_id)
+            ->where('id','<>',$this->id)
+            ->get();
+        }
+        return [];
     }
 }
