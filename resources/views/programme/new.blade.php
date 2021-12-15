@@ -53,7 +53,7 @@
                             </div>
                             <div data-for="nom" class="col-lg-12 col-md-12 col-sm-12 form-group">
                                 <label for="nom-formbuilder-13"
-                                    class="form-control-label mbr-fonts-style display-7">Intitulé du programme</label>
+                                    class="form-control-label mbr-fonts-style display-7">Intitulé du programme <x-required /> </label>
                                 <input type="text" name="nom" placeholder="Libellé du programme" data-form-field="nom"
                                     class="form-control display-7" required="required" value="{{ old('nom') }}"
                                     id="nom-formbuilder-13">
@@ -62,7 +62,7 @@
                                 <div class="col-lg-12 col-md-12 col-sm-12 form-group">
                                     <div class="form-control-label">
                                         <label for="Autre-formbuilder-13" class="mbr-fonts-style display-7">Profils
-                                            ciblés</label>
+                                            ciblés <x-required /></label>
                                     </div>
                                     <div ng-repeat="profil in profils" data-for="@{{ profil . nom }}"
                                         class="form-check form-check-inline">
@@ -88,47 +88,51 @@
                                     </div>
                                 </ng-container>
                             @endif
-                            @if ($typeProgramme->code == 'TONTINE' || $typeProgramme->code == 'COTI')
+                            @if ($typeProgramme->code == 'TONTINE' || $typeProgramme->code == 'COTI' || $typeProgramme->code == 'COTIR')
                                 <div class="mb-3">
-                                    <label for="montant" class="form-label">Montant à payer</label>
+                                    <label for="montant" class="form-label">Montant à payer <x-required /></label>
                                     <input required="required" type="number" class="form-control" name="montant"
                                         id="montant" placeholder="Montant que chacun doit payer"
                                         value="{{ old('montant') }}">
                                 </div>
-                                @if ($typeProgramme->code == 'TONTINE')
-                                    <div class="mb-3">
-                                        <label for="frequence" class="form-label">Frequence de cotisation</label>
-                                        <select required="required" class="form-control" name="frequence" id="frequence">
-                                            <option @if(old('frequence')=="mensuelle") selected @endif>mensuelle</option>
-                                            <option @if(old('frequence')=="par 10 jours") selected @endif>par 10 jours</option>
-                                            <option @if(old('frequence')=="hebdomadaire") selected @endif>hebdomadaire</option>
-                                        </select>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="nombreMainMaxPersonne" class="form-label">Nombre de mains maximum par personne</label>
-                                        <select required="required" class="form-control" name="nombreMainMaxPersonne" id="nombreMainMaxPersonne">
-                                            <option @if(old('nombreMainMaxPersonne')==1) selected @endif>1</option>
-                                            <option @if(old('nombreMainMaxPersonne')==2) selected @endif>2</option>
-                                            <option @if(old('nombreMainMaxPersonne')==3) selected @endif>3</option>
-                                            <option @if(old('nombreMainMaxPersonne')==4) selected @endif>4</option>
-                                            <option @if(old('nombreMainMaxPersonne')==5) selected @endif>5</option>
-                                        </select>
-                                    </div>
-                                @endif
+                            @endif
+                            @if ($typeProgramme->code == 'TONTINE' || $typeProgramme->code == 'COTIR')
+                                <div class="mb-3">
+                                    <label for="frequence" class="form-label">Frequence de cotisation <x-required /></label>
+                                    <select required="required" class="form-control" name="frequence" id="frequence">
+                                        <option @if (old('frequence') == 'mensuelle') selected @endif>mensuelle</option>
+                                        <option @if (old('frequence') == 'par 10 jours') selected @endif>par 10 jours</option>
+                                        <option @if (old('frequence') == 'hebdomadaire') selected @endif>hebdomadaire</option>
+                                    </select>
+                                </div>
+                            @endif
+                            @if ($typeProgramme->code == 'TONTINE')
+                                <div class="mb-3">
+                                    <label for="nombreMainMaxPersonne" class="form-label">Nombre de mains maximum
+                                        par personne <x-required /></label>
+                                    <select required="required" class="form-control" name="nombreMainMaxPersonne"
+                                        id="nombreMainMaxPersonne">
+                                        <option @if (old('nombreMainMaxPersonne') == 1) selected @endif>1</option>
+                                        <option @if (old('nombreMainMaxPersonne') == 2) selected @endif>2</option>
+                                        <option @if (old('nombreMainMaxPersonne') == 3) selected @endif>3</option>
+                                        <option @if (old('nombreMainMaxPersonne') == 4) selected @endif>4</option>
+                                        <option @if (old('nombreMainMaxPersonne') == 5) selected @endif>5</option>
+                                    </select>
+                                </div>
                             @endif
                             <div data-for="dateCloture" class="col-lg-12 col-md-12 col-sm-12 form-group">
                                 <label for="dateCloture-formbuilder-13"
                                     class="form-control-label mbr-fonts-style display-7">
-                                    Date de clôture des inscriptions (souscriptions)
+                                    Date de clôture des inscriptions (souscriptions) <x-required />
                                 </label>
                                 <input type="date" name="dateCloture" data-form-field="dateCloture" required="required"
                                     class="form-control display-7" value="{{ old('dateCloture') }}"
                                     id="dateCloture-formbuilder-13">
                             </div>
-                            @if ($typeProgramme->code == 'PROG' || $typeProgramme->code == 'TONTINE')
+                            @if ($typeProgramme->code == 'PROG' || $typeProgramme->code == 'TONTINE' || $typeProgramme->code == 'COTIR')
                                 <div data-for="dateDemarrage" class="col-lg-12 col-md-12 col-sm-12 form-group">
                                     <label for="dateDemarrage-formbuilder-13"
-                                        class="form-control-label mbr-fonts-style display-7">Date Démarrage</label>
+                                        class="form-control-label mbr-fonts-style display-7">Date Démarrage @if($typeProgramme->code=='COTIR') des cotisations @endif <x-required /></label>
                                     <input type="date" name="dateDemarrage" data-form-field="dateDemarrage"
                                         required="required" class="form-control display-7"
                                         value="{{ old('dateDemarrage') }}" id="dateDemarrage-formbuilder-13">
@@ -139,7 +143,7 @@
                                     <label for="duree-formbuilder-13"
                                         class="form-control-label mbr-fonts-style display-7">Durée
                                         (en heures)
-                                        du programme</label>
+                                        du programme <x-required /></label>
                                     <input type="number" name="duree" placeholder="Durée programme" max="" min="0" step="1"
                                         data-form-field="duree" class="form-control display-7" value="{{ old('duree') }}"
                                         id="duree-formbuilder-13">
@@ -157,7 +161,7 @@
                                     <label for="nombreParticipants-formbuilder-13"
                                         class="form-control-label mbr-fonts-style display-7">Nombre Max Participants (Mettre
                                         0
-                                        pour illimité)</label>
+                                        pour illimité) <x-required /></label>
                                     <input type="number" name="nombreParticipants"
                                         placeholder="Nombre maximum de participants" max="" min="0" step="1"
                                         data-form-field="nombreParticipants" required="required"
@@ -167,7 +171,7 @@
                             @endif
                             <div data-for="description" class="col-lg-12 col-md-12 col-sm-12 form-group">
                                 <label for="description-formbuilder-13"
-                                    class="form-control-label mbr-fonts-style display-7">Description du programme <strong class="text-primary">*</strong></label>
+                                    class="form-control-label mbr-fonts-style display-7">Description du programme <x-required /></label>
                                 <textarea id="wysiwyg" name="description" data-form-field="description" required="required"
                                     class="form-control display-7"
                                     id="description-formbuilder-13">{{ old('description') }}</textarea>
@@ -209,7 +213,7 @@
                                 </div>
                                 <div data-for="name" class="col-lg-12 col-md-12 col-sm-12 form-group">
                                     <label for="name-formbuilder-13" class="form-control-label mbr-fonts-style display-7">Nom
-                                        complet</label>
+                                        complet <x-required /></label>
                                     <input type="text" name="name" placeholder="Nom complet" data-form-field="name"
                                         required="required" class="form-control display-7" value="{{ old('name') }}"
                                         id="name-formbuilder-13">
@@ -227,7 +231,7 @@
                                 </div>
                                 <div data-for="telephone" class="col-lg-12 col-md-12 col-sm-12 form-group">
                                     <label for="telephone-formbuilder-13" class="form-control-label mbr-fonts-style display-7">
-                                        Téléphone
+                                        Téléphone <x-required />
                                     </label>
                                     <input type="tel" name="telephone" placeholder="Téléphone" data-form-field="telephone"
                                         required="required" class="form-control display-7"
@@ -235,7 +239,7 @@
                                 </div>
                                 <div data-for="profession" class="col-lg-12 col-md-12 col-sm-12 form-group">
                                     <label for="profession-formbuilder-13"
-                                        class="form-control-label mbr-fonts-style display-7">Profession</label>
+                                        class="form-control-label mbr-fonts-style display-7">Profession <x-required /></label>
                                     <input type="text" name="profession" placeholder="Profession" data-form-field="profession"
                                         required="required" class="form-control display-7" value="{{ old('profession') }}"
                                         id="profession-formbuilder-13">
@@ -255,21 +259,21 @@
                                 </div>
                                 <div data-for="email" class="col-lg-12 col-md-12 col-sm-12 form-group">
                                     <label for="email-formbuilder-13"
-                                        class="form-control-label mbr-fonts-style display-7">Email</label>
+                                        class="form-control-label mbr-fonts-style display-7">Email <x-required /></label>
                                     <input type="email" name="email" placeholder="test@email.com" data-form-field="email"
                                         required="required" class="form-control display-7" value="{{ old('email') }}"
                                         id="email-formbuilder-13">
                                 </div>
                                 <div data-for="password" class="col-lg-12 col-md-12 col-sm-12 form-group">
                                     <label for="password-formbuilder-13"
-                                        class="form-control-label mbr-fonts-style display-7">Mot de passe</label>
+                                        class="form-control-label mbr-fonts-style display-7">Mot de passe <x-required /></label>
                                     <input type="password" name="password" placeholder="Mot de passe" data-form-field="password"
                                         required="required" class="form-control display-7" value=""
                                         id="password-formbuilder-13">
                                 </div>
                                 <div data-for="password_confirmation" class="col-lg-12 col-md-12 col-sm-12 form-group">
                                     <label for="password_confirmation-formbuilder-13"
-                                        class="form-control-label mbr-fonts-style display-7">Confirmation mot de passe</label>
+                                        class="form-control-label mbr-fonts-style display-7">Confirmation mot de passe <x-required /></label>
                                     <input type="password" name="password_confirmation" placeholder="Confirmation mot de passe"
                                         data-form-field="password_confirmation" required="required"
                                         class="form-control display-7" value="" id="password_confirmation-formbuilder-13">
