@@ -201,19 +201,18 @@
         <x-separator />
     @endif
     {{-- statistique des tontines --}}
-    @if ($programme->is_tontine && ($programme->current_user_souscription || $programme->is_proprietaire))
+    @if (($programme->is_tontine || $programme->is_cotisation_recurrente) && ($programme->current_user_souscription || $programme->is_proprietaire))
         <section data-bs-version="5.1" class="extProgressBars cid-sQ5CwoL2FK" id="extProgressBars5-2x">
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="col-lg-8 col-md-12">
                         <h2 class="mbr-section-title pb-2 mbr-bold mbr-fonts-style align-left display-5">Evolution des
-                            paiements
-                            de la tontine</h2>
+                            paiements</h2>
                         <div class="line-wrap">
                             <div class="line"></div>
                         </div>
                         <h3 class="mbr-section-sub-title pb-4 mbr-normal mbr-fonts-style align-left display-7">Suivez
-                            l'évolution des paiements pour chaque tranche de la tontine...</h3>
+                            l'évolution des paiements pour chaque tranche ou période de paiement</h3>
                         <div class="progress_elements">
                             @foreach ($programme->children as $child)
                             <div class="progress1 pb-5">

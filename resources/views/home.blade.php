@@ -1,8 +1,7 @@
 @extends("base")
 
-@section('title',
-    config('app.name') .
-    ' - Plateforme de collecte pour les formations, tontines, cotisation et levée de fond pour tous...',)
+@section('title', config('app.name') . ' - Plateforme de collecte pour les formations, tontines, cotisation et levée de
+    fond pour tous...')
 
 @section('social-sharing')
     <meta name="twitter:image:src" content="{{ asset('assets/images/fulllogo_nobuffer.png') }}">
@@ -11,7 +10,7 @@
 
 @section('description',
     "Plateforme d'inscription à des programmes importants tels que les formations, les séminaires,
-    les conférences...")
+    les conférences...",)
 
 @section('body')
     <section data-bs-version="5.1" class="extHeader cid-sPMNZDPZTn mb-2" style="margin-top: 20px;" id="extHeader13-2f">
@@ -28,8 +27,10 @@
                             </span>
                         </span>
                     </div>
-                    <p class="mbr-section-text mbr-fonts-style align-left display-5">
-                        Collectez vos cotisations, les tontines, les levées de fonds, les souscriptions pour tous vos programmes de manière transparente, sécurisée et automatisée.</p>
+                    <p class="mbr-section-text mbr-fonts-style align-left display-4">
+                        Collectez les fonds et les inscriptions pour tous vos programmes de manière transparente, sécurisée
+                        et automatisée... Grace à nos robots qui s'occupent de tout à votre place... Rappel de paiement,
+                        tracking des activités, auto-génération des tranches..., service SMS...</p>
                     <div class="pt-3 mbr-section-btn align-left">
                         @guest
                             <a class="btn btn-md btn-white display-4"
