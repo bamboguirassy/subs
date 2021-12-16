@@ -184,6 +184,7 @@
                         </div>
                     </form>
                     <!--Formbuilder Form-->
+                    <hr class="mt-4">
                     {!! $programme->description !!}
                 </div>
             </div>
