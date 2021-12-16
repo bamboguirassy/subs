@@ -62,7 +62,6 @@
                                 <hr>
                             </div>
                             <input name="programme_id" type="number" value="{{ $programme->id }}" hidden>
-                            {!! $programme->description !!}
                             @if ($programme->is_programme)
                                 <div class="col-lg-12 col-md-12 col-sm-12 form-group" data-for="profil_concerne_id">
                                     <div class="form-control-label">
@@ -185,6 +184,7 @@
                         </div>
                     </form>
                     <!--Formbuilder Form-->
+                    {!! $programme->description !!}
                 </div>
             </div>
         </div>
