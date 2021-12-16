@@ -79,6 +79,38 @@
             white-space: nowrap;
         }
 
+        /* Place the navbar at the bottom of the page, and make it stick */
+        .bottom-nav {
+            background-color: #333;
+            overflow: hidden;
+            position: fixed;
+            bottom: 020;
+            width: 100%;
+        }
+
+        /* Style the links inside the navigation bar */
+        .bottom-nav a {
+            float: left;
+            display: block;
+            color: #f2f2f2;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+            font-size: 17px;
+        }
+
+        /* Change the color of links on hover */
+        .bottom-nav a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+
+        /* Add a color to the active/current link */
+        .bottom-nav a.active {
+            background-color: #04AA6D;
+            color: white;
+        }
+
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css"
         integrity="sha512-5A8nwdMOWrSz20fDsjczgUidUBR8liPYU+WymTZP1lmY9G6Oc7HlZv156XqnsgNUzTyMefFTcsFH/tnJE/+xBg=="
@@ -190,8 +222,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link link text-primary display-4"
-                                    href="{{ route('mes.souscriptions') }}">
+                                <a class="nav-link link text-primary display-4" href="{{ route('mes.souscriptions') }}">
                                     Mes souscriptions
                                 </a>
                             </li>
@@ -209,7 +240,8 @@
                     <div class="navbar-brand">
                         <span class="navbar-logo">
                             <a href="{{ route('home') }}">
-                                <img src="{{ asset('assets/images/fulllogo-nobuffer-612x123.png') }}" alt="" style="height: 3.8rem;">
+                                <img src="{{ asset('assets/images/fulllogo-nobuffer-612x123.png') }}" alt=""
+                                    style="height: 3.8rem;">
                             </a>
                         </span>
                     </div>
@@ -228,8 +260,8 @@
                                         href="{{ route('programme.pre.publish') }}" aria-expanded="false">
                                         Démarrer nouveau programme
                                     </a>
-                                    <a class="dropdown-item text-primary display-4"
-                                        href="{{ route('achatsms.create') }}" aria-expanded="false">
+                                    <a class="dropdown-item text-primary display-4" href="{{ route('achatsms.create') }}"
+                                        aria-expanded="false">
                                         Acheter pack SMS
                                     </a>
                                     <a class="dropdown-item text-primary display-4"
@@ -295,6 +327,13 @@
             </button>
         </nav>
     </section>
+    {{-- bottom menu --}}
+    <div class="bottom-nav">
+        <a href="#home" class="active">Home</a>
+        <a href="#news">News</a>
+        <a href="#contact">Contact</a>
+    </div>
+    {{-- bottom menu --}}
     @yield("body")
     <section data-bs-version="5.1" class="footer7 cid-sOaHY68q1p" once="footers" id="footer7-1">
         <div class="container">

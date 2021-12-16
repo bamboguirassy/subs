@@ -43,10 +43,12 @@ class GenerateProgramNextPayment extends Command
         DB::beginTransaction();
         try {
             /** gérer les programmes parents actifs */
-            $programmeParents = Programme::whereRelation('typeProgramme', 'code', 'TONTINE')
-                ->where('dateDemarrage', today())
+            $programmeParents = Programme::where('dateDemarrage', today())
                 ->where('programme_id', null)
                 ->get();
+            $programmeParents = $programmeParents->filter(function ($programme) {
+                return in_array($programme->typeProgramme->code, ['COTIR', 'TONTINE']);
+            });
             $this->comment("Programmes parents devant démarrer : " . count($programmeParents));
             foreach ($programmeParents as $programmeParent) {
                 // créer uniquement pour les programmes n'ayant pas de children
@@ -59,11 +61,19 @@ class GenerateProgramNextPayment extends Command
             // recupérer les programmes enfants qui seront cloturées aujourd'hui
             $childrenPrograms = Programme::where('programme_id', '!=', null)
                 ->where('dateCloture', today())
-                ->whereRelation('typeProgramme', 'code', 'TONTINE')
                 ->get();
+            $childrenPrograms = $childrenPrograms->filter(function ($programme) {
+                return in_array($programme->typeProgramme->code, ['COTIR', 'TONTINE']);
+            });
             $this->comment("Children programs arrivant à expiration : " . count($childrenPrograms));
             foreach ($childrenPrograms as $childProgram) {
-                if (!$childProgram->has_next && ($childProgram->parent->nombre_main != count($childProgram->parent->children))) {
+                // si tontine, s'assurer que le current child n'a pas déja de suivant
+                // pour ne pas récréer le child (il peut arriver que la date soit repoussée)
+                if ($childProgram->is_tontine && !$childProgram->has_next && ($childProgram->parent->nombre_main != count($childProgram->parent->children))) {
+                    Programme::createChildFromChild($childProgram);
+                }
+                // si cotisation récurrente, continuer à générer des enfants pour chaque enfants
+                if ($childProgram->is_cotisation_recurrente && !$childProgram->parent->suspendu) {
                     Programme::createChildFromChild($childProgram);
                 }
                 if (($childProgram->parent->nombre_main == count($childProgram->parent->children))) {

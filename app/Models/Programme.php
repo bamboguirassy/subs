@@ -37,7 +37,8 @@ class Programme extends Model
         'programme_id',
         'tranche',
         'tauxPrelevement',
-        'nombreMainMaxPersonne'
+        'nombreMainMaxPersonne',
+        'suspendu'
     ];
 
     /**
@@ -163,6 +164,9 @@ class Programme extends Model
                 return $this->souscriptions->sum('nombreMain');
             }
         }
+        if($this->typeProgramme->code=="COTIR") {
+            return count($this->souscriptions);
+        }
         return 0;
     }
 
@@ -247,6 +251,11 @@ class Programme extends Model
         return $this->typeProgramme->code == "TONTINE";
     }
 
+    public function getIsCotisationRecurrenteAttribute()
+    {
+        return $this->typeProgramme->code == "COTIR";
+    }
+
     public function getHasNextAttribute()
     {
         if ($this->programme_id != null) {
@@ -268,7 +277,7 @@ class Programme extends Model
         $programme->programme_id = $parent->id;
         $programme->type_programme_id = $parent->type_programme_id;
         $index = count($parent->children) + 1;
-        $programme->nom = 'Tranche ' . $index;
+        $programme->nom = 'Tranche ' . $index.' - '.$parent->nom;
         $programme->tranche = $index;
         $programme->montant = $parent->montant;
         $programme->nombreParticipants = 0;
@@ -299,7 +308,7 @@ class Programme extends Model
         $programme->programme_id = $child->parent->id;
         $programme->type_programme_id = $child->type_programme_id;
         $index = count($child->parent->children) + 1;
-        $programme->nom = 'Tranche ' . $index;
+        $programme->nom = 'Tranche ' . $index.' - '.$child->parent->nom;
         $programme->tranche = $index;
         $programme->montant = $child->parent->montant;
         $programme->nombreParticipants = 0;

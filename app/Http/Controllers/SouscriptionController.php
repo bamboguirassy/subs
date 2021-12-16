@@ -114,7 +114,7 @@ class SouscriptionController extends Controller
                     // terminer la transaction
                     $redirectUrl = PaymentManager::initPayment($souscriptionTemp);
                 }
-            } else if ($programme->is_tontine) {
+            } else if ($programme->is_tontine || $programme->is_cotisation_recurrente) {
                 // si child programme, s'assurer que le participant a souscrit à la tontine
                 if ($programme->programme_id != null && !$programme->parent->current_user_souscription) {
                     $errorMsg = "Vous n'êtes pas autorisé à participer à ce programme car vous ne vous étiez pas inscrit, merci de contacter le responsable...";
@@ -122,15 +122,17 @@ class SouscriptionController extends Controller
                     return back()->withInput()->withErrors($errorMsg);
                 }
                 // verifier si programme parent -- que le nombre de place restant n'est pas épuisé
-                if ($programme->is_parent && $programme->nombreParticipants != 0) {
-                    if (($programme->nombre_main_souscrite + $request->get('nombreMain')) > $programme->nombreParticipants) {
-                        if ($programme->nombreParticipants == $programme->nombre_main_souscrite) {
-                            $errorMsg = "Ce programme a atteint le seuil de souscription. Rendez-vous pour d'autres tontines...,Merci.";
-                        } else {
-                            $errorMsg = "Le nombre de main proposé n'est pas disponible..., il reste actuellement " . ($programme->nombreParticipants - $programme->nombre_main_souscrite);
+                if($programme->is_tontine) {
+                    if ($programme->is_parent && $programme->nombreParticipants != 0) {
+                        if (($programme->nombre_main_souscrite + $request->get('nombreMain')) > $programme->nombreParticipants) {
+                            if ($programme->nombreParticipants == $programme->nombre_main_souscrite) {
+                                $errorMsg = "Ce programme a atteint le seuil de souscription. Rendez-vous pour d'autres tontines...,Merci.";
+                            } else {
+                                $errorMsg = "Le nombre de main proposé n'est pas disponible..., il reste actuellement " . ($programme->nombreParticipants - $programme->nombre_main_souscrite);
+                            }
+                            notify()->error($errorMsg);
+                            return back()->withInput()->withErrors($errorMsg);
                         }
-                        notify()->error($errorMsg);
-                        return back()->withInput()->withErrors($errorMsg);
                     }
                 }
                 if ($programme->is_parent) {
