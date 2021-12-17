@@ -232,7 +232,7 @@
                             <span class="mbr-iconfont mobi-mbri mbri-user"></span>
                         </a>
                         @endauth
-                        <a class="navbar-toggler" type="button" data-toggle="collapse" data-bs-toggle="collapse"
+                        <a data-toggle="collapse" data-bs-toggle="collapse"
                             data-target="#navbarSupportedContent" data-bs-target="#navbarSupportedContent"
                             aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                             <span class="mbr-iconfont mobi-mbri mbri-more-vertical"></span>
