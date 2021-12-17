@@ -41,7 +41,12 @@ Route::get('/home', function () {
 });
 
 Route::get('', function () {
-    return view('home');
+    $programmeActives = Programme::where('dateCloture', '>=', date_format(new DateTime(), 'Y-m-d'))
+        ->orderBy('dateCloture')->paginate(20);
+    $programmeActives = $programmeActives->filter(function ($programme) {
+        return $programme->is_public;
+    });
+    return view('home',compact('programmeActives'));
 })->name('home');
 
 Route::get('public', function () {

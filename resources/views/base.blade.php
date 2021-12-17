@@ -326,6 +326,8 @@
             </button>
         </nav>
     </section>
+    @yield("body")
+
     {{-- bottom menu --}}
     <div class="bottom-nav">
         <a href="#home" class="active">Home</a>
@@ -333,7 +335,6 @@
         <a href="#contact">Contact</a>
     </div>
     {{-- bottom menu --}}
-    @yield("body")
     <section data-bs-version="5.1" class="footer7 cid-sOaHY68q1p" once="footers" id="footer7-1">
         <div class="container">
             <div class="media-container-row align-center mbr-white">
