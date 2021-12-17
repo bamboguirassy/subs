@@ -47,7 +47,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="mbr-section-btn mt-3">
+                    {{-- <div class="mbr-section-btn mt-3">
                         @if ($programme->current_user_souscription)
                             <span style="background-color: green !important;" class="btn btn-lg btn-success display-4">
                                 <span class="mbri-success mbr-iconfont mbr-iconfont-btn"></span>Souscrit</span>
@@ -60,7 +60,7 @@
                             href="{{ route('programme.show', compact('programme')) }}">
                             <span
                                 class="mobi-mbri mobi-mbri-arrow-next mbr-iconfont mbr-iconfont-btn"></span>Détails</a>
-                    </div>
+                    </div> --}}
                 </div>
             </div>
         </div>
