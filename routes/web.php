@@ -68,6 +68,10 @@ Route::get('profile', function (User $user = null) {
     return view('auth.profile', compact('user'));
 })->middleware('auth')->name('profile');
 
+Route::get('notification', function () {
+    return view('auth.notifications');
+})->middleware('auth')->name('user.notification.list');
+
 Route::post('login', function (Request $request) {
     $request->validate([
         'email' => 'required|exists:users,email|email',
@@ -87,9 +91,6 @@ Route::post('login', function (Request $request) {
     }
     return;
 })->name('login.request');
-
-Route::put('users/{id}', function ($id) {
-});
 
 Route::get('programme/pre-publish', function () {
     $typeProgrammes = TypeProgramme::orderBy('nom')->whereEnabled(true)->get();

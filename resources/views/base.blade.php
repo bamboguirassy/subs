@@ -81,11 +81,13 @@
 
         /* Place the navbar at the bottom of the page, and make it stick */
         .bottom-nav {
-            background-color: #333;
+            background-color: transparent;
             overflow: hidden;
-            position: fixed;
-            bottom: 020;
-            width: 100%;
+            /* position: fixed; */
+            /* bottom: 20; */
+            /* width: 100%; */
+            display: flex;
+            justify-content: center;
         }
 
         /* Style the links inside the navigation bar */
@@ -94,21 +96,22 @@
             display: block;
             color: #f2f2f2;
             text-align: center;
-            padding: 14px 16px;
+            padding: 5px 12px;
             text-decoration: none;
-            font-size: 17px;
+            font-size: 15px;
+            border: 1px solid white;
         }
 
         /* Change the color of links on hover */
         .bottom-nav a:hover {
             background-color: #ddd;
-            color: black;
+            color: #BA265E;
         }
 
         /* Add a color to the active/current link */
         .bottom-nav a.active {
-            background-color: #04AA6D;
-            color: white;
+            background-color: #fff;
+            color: #BA265E;
         }
 
     </style>
@@ -205,11 +208,38 @@
     <section data-bs-version="5.1" class="extMenu12 menu popup-btn-cards cid-sPMLiMsHDQ" once="menu" id="extMenu13-2c">
         <nav class="navbar navbar-dropdown navbar-fixed-top navbar-expand-lg">
             <div class="mbr-overlay" style="opacity: 0.9;"></div>
-
-            <a class="full-link" href="#">
-                <div class="menu-top card-wrapper mbr-fonts-style mbr-white display-7">La plateforme de collecte de&nbsp;
-                    souscriptions</div>
-            </a>
+            <div class="full-link">
+                <div class="menu-top card-wrapper mbr-fonts-style mbr-white display-7">
+                    <div class="bottom-nav justify-content-center">
+                        <a href="{{ route('home') }}" @if(\Request::route()->getName()=='home') class="active" @endif>
+                            <span class="mbr-iconfont mobi-mbri mbri-home"></span>
+                        </a>
+                        @auth
+                        <a href="{{ route('mes.souscriptions') }}" @if(\Request::route()->getName()=='mes.souscriptions') class="active" @endif>
+                            <span class="mbr-iconfont mobi-mbri mbri-bookmark"></span>
+                        </a>
+                        <a href="{{ route('user.appelfond.list') }}" @if(\Request::route()->getName()=='user.appelfond.list') class="active" @endif>
+                            <span class="mbr-iconfont icon54-v1-money-bag"></span>
+                        </a>
+                        <a href="{{ route('profile') }}" @if(\Request::route()->getName()=='profile') class="active" @endif>
+                            <span class="mbr-iconfont mobi-mbri mbri-user"></span>
+                        </a>
+                        <a href="{{ route('user.notification.list') }}" @if(\Request::route()->getName()=='user.notification.list') class="active" @endif>
+                            <span class="mbr-iconfont mobi-mbri mbri-alert"></span>
+                        </a>
+                        @else
+                        <a href="{{ route('login') }}" @if(\Request::route()->getName()=='login') class="active" @endif>
+                            <span class="mbr-iconfont mobi-mbri mbri-user"></span>
+                        </a>
+                        @endauth
+                        <a class="navbar-toggler" type="button" data-toggle="collapse" data-bs-toggle="collapse"
+                            data-target="#navbarSupportedContent" data-bs-target="#navbarSupportedContent"
+                            aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="mbr-iconfont mobi-mbri mbri-more-vertical"></span>
+                        </a>
+                    </div>
+                </div>
+            </div>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
                 <div class="left-menu">
@@ -221,18 +251,18 @@
                                     Mes programmes
                                 </a>
                             </li>
-                            <li class="nav-item">
+                            {{-- <li class="nav-item">
                                 <a class="nav-link link text-primary display-4" href="{{ route('mes.souscriptions') }}">
                                     Mes souscriptions
                                 </a>
-                            </li>
-                        @else
+                            </li> --}}
+                        {{-- @else
                             <li class="nav-item">
                                 <a class="nav-link link text-primary display-4"
                                     href="{{ route('login') }}?ret={{ request()->fullUrl() }}" aria-expanded="false">
                                     Se connecter
                                 </a>
-                            </li>
+                            </li> --}}
                         @endauth
                     </ul>
                 </div>
@@ -256,21 +286,21 @@
                                     Mon compte
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="dropdown-undefined">
-                                    <a class="dropdown-item text-primary display-4"
+                                    {{-- <a class="dropdown-item text-primary display-4"
                                         href="{{ route('programme.pre.publish') }}" aria-expanded="false">
                                         Démarrer nouveau programme
-                                    </a>
+                                    </a> --}}
                                     <a class="dropdown-item text-primary display-4" href="{{ route('achatsms.create') }}"
                                         aria-expanded="false">
                                         Acheter pack SMS
                                     </a>
-                                    <a class="dropdown-item text-primary display-4"
+                                    {{-- <a class="dropdown-item text-primary display-4"
                                         href="{{ route('user.appelfond.list') }}" aria-expanded="false">
                                         Mes appels de fonds
-                                    </a>
-                                    <a class="dropdown-item text-primary display-4" href="{{ route('profile') }}">Mon
+                                    </a> --}}
+                                    {{-- <a class="dropdown-item text-primary display-4" href="{{ route('profile') }}">Mon
                                         profil<br>
-                                    </a>
+                                    </a> --}}
                                     <form action="{{ route('logout') }}" method="post">
                                         @csrf
                                         <button class="dropdown-item text-primary display-4">
@@ -328,14 +358,6 @@
         </nav>
     </section>
     @yield("body")
-
-    {{-- bottom menu --}}
-    <div class="bottom-nav">
-        <a href="#home" class="active">Home</a>
-        <a href="#news">News</a>
-        <a href="#contact">Contact</a>
-    </div>
-    {{-- bottom menu --}}
     <section data-bs-version="5.1" class="footer7 cid-sOaHY68q1p" once="footers" id="footer7-1">
         <div class="container">
             <div class="media-container-row align-center mbr-white">

@@ -10,6 +10,7 @@
                     <h3 class="mbr-section-title mb-4 mbr-fonts-style display-1">
                         <strong>Appels de fonds</strong>
                     </h3>
+                    <p class="mbr-fonts-style mbr-white display-4">Suivez l'évolution de vos appels de fond et connaitre l'état d'avancement du traitement.</p>
 
                 </div>
             </div>

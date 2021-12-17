@@ -9,10 +9,7 @@
             <div class="row content-row align-items-center">
                 <div class="col-md-12 col-lg-12">
                     <h1 class="mbr-section-title mbr-fonts-style mb-3 mbr-bold display-5">
-                        Modifier mon profil<br></h1>
-                    <p class="mbr-text mbr-black mbr-regular mbr-light mbr-fonts-style display-7">
-                        Merci de remplir le formulaire ci-dessous pour Modifier votre Profile...
-                    </p>
+                        Mon profil<br></h1>
                 </div>
             </div>
         </div>
