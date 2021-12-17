@@ -12,9 +12,9 @@
                     <h2 class="mbr-section-title align-left mbr-fonts-style mb-3 display-5"><strong>
                             <a href="{{ route('programme.show', compact('programme')) }}">{{ $programme->nom }}</a>
                         </strong></h2>
-                    <p class="mbr-text align-left mbr-fonts-style mb-3 display-7">
+                    {{-- <p class="mbr-text align-left mbr-fonts-style mb-3 display-7">
                         {!! $programme->description !!}
-                    </p>
+                    </p> --}}
                     <h3 class="mbr-section-subtitle align-left mbr-fonts-style mb-3 display-7">Date limite :
                         <strong>{{ date_format(new DateTime($programme->dateCloture), 'd/m/Y') }}</strong></h3>
                 </div>

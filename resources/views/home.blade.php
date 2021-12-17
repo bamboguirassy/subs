@@ -60,5 +60,26 @@
     </section>
     <x-programme-type-choice />
     <x-separator />
+    <section data-bs-version="5.1" class="shop1 cid-sOcsUFykIr mb-5" id="shop01-1m">
+        <div class="container">
+            <div class="row align-left justify-content-center mt-4">
+                @if (count($programmeActives) < 1)
+                    <x-empty-message title="Pas encore de programme"
+                        message="Aucun programme n'est encore disponible pour le moment !" />
+                    <x-separator />
+                @else
+                    <x-separator />
+                    @foreach ($programmeActives as $programmeActive)
+                        @if ($programmeActive->is_collecte_fond)
+                            <x-collecte-fond-public-item :programme="$programmeActive" />
+                        @else
+                            <x-programme-public-item :programme="$programmeActive" />
+                        @endif
+                    @endforeach
+                @endif
+            </div>
+        </div>
+    </section>
+    <x-separator />
     <x-social-sharing />
 @endsection
