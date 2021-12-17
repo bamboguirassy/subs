@@ -28,7 +28,7 @@ class ProgrammeController extends Controller
      */
     public function index()
     {
-        $programmes = Programme::orderBy('dateCloture','desc')
+        $programmes = Programme::where('programme_id',null)->orderBy('dateCloture','desc')
         ->get();
         return view('admin.programme.list',compact('programmes'));
     }
