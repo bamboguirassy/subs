@@ -91,6 +91,9 @@ Route::get('programme/pre-publish', function () {
     return view('programme.pre-publish', compact('typeProgrammes'));
 })->name('programme.pre.publish');
 
+Route::put('programme/{programme}/suspendre',[ProgrammeController::class,'suspendre'])
+->name('programme.suspendre')->middleware('auth');
+
 Route::resource('programme', ProgrammeController::class, [
     'only' => ['create', 'store', 'show']
 ])->middleware('web');
