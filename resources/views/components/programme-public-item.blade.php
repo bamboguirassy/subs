@@ -15,7 +15,7 @@
                     @endforeach
                 </div>
                 <a href="{{ route('programme.show',compact('programme')) }}">
-                    <img src="{{ asset('uploads/programmes/images/' . $programme->image) }}">
+                    <img height="100%" src="{{ asset('uploads/programmes/images/' . $programme->image) }}">
                 </a>
             </div>
             <div class="col-12 col-md-12 col-lg-6">
