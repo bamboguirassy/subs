@@ -24,13 +24,13 @@
                         <h1 class="mbr-section-title mbr-fonts-style mb-3 display-4">
                             <strong>{{ $programme->typeProgramme->nom }}</strong>
                         </h1>
-                        @if($programme->isChild)
-                        <h1 class="mbr-section-title mbr-fonts-style mb-3 display-3">
-                            <strong>{{ $programme->parent->nom }}</strong>
-                        </h1>
+                        @if ($programme->isChild)
+                            <h1 class="mbr-section-title mbr-fonts-style mb-3 display-3">
+                                <strong>{{ $programme->parent->nom }}</strong>
+                            </h1>
                         @endif
                         <h1 class="mbr-section-title mbr-fonts-style mb-3 display-2">
-                            @if($programme->isChild) - &nbsp; @endif<strong>{{ $programme->nom }}</strong>
+                            @if ($programme->isChild) - &nbsp; @endif<strong>{{ $programme->nom }}</strong>
                         </h1>
                         <p class="mbr-text mbr-fonts-style display-7"></p>
                         @if ($programme->is_programme)
@@ -81,12 +81,15 @@
                             @endif
                         </table>
                         <div class="mbr-section-btn mt-3">
-                            @if (!$programme->active)
+                            @if ($programme->suspendu)
+                                <div class="alert alert-danger" role="alert">
+                                    <strong>Ce programme est suspendu...</strong>
+                                </div>
+                            @elseif(!$programme->active)
                                 <div class="alert alert-danger" role="alert">
                                     <strong>Ce programme est cloturé le
                                         {{ date_format(new DateTime($programme->dateCloture), 'd/m/Y') }}</strong>
                                 </div>
-
                             @elseif (!$programme->current_user_souscription)
                                 <a class="btn btn-white display-4"
                                     href="{{ route('souscription.new', compact('programme')) }}">
@@ -95,25 +98,36 @@
                             @endif
                             @auth
                                 @if ($programme->is_proprietaire)
-                                    <form method="post" action="{{ route('programme.destroy', compact('programme')) }}"
-                                        class="btn">
-                                        @method('delete')
-                                        @csrf
-                                        <button class="btn btn-danger display-4" href="#">
-                                            <span class="mobi-mbri mobi-mbri-trash mbr-iconfont mbr-iconfont-btn"></span>
-                                            Supprimer
-                                        </button>
-                                    </form>
+                                    @if (count($programme->souscriptions) < 1 || !$programme->suspendu)
+                                        <form method="post" action="{{ route('programme.destroy', compact('programme')) }}"
+                                            class="btn">
+                                            @method('delete')
+                                            @csrf
+                                            <button class="btn btn-danger display-4" href="#">
+                                                <span class="mobi-mbri mobi-mbri-trash mbr-iconfont mbr-iconfont-btn"></span>
+                                                Supprimer
+                                            </button>
+                                        </form>
+                                    @endif
                                     <a class="btn btn-white display-4" href="#table01-x">
                                         <span class="mbrib-users mbr-iconfont mbr-iconfont-btn"></span>Participants</a>
-                                    <a class="btn btn-warning display-4"
-                                        href="{{ route('programme.edit', compact('programme')) }}"><span
-                                            class="mobi-mbri mobi-mbri-edit-2 mbr-iconfont mbr-iconfont-btn"></span>Modifier</a>
-                                    @if (!$programme->active && $programme->gain_net > 0 && $programme->appelFond == null && $programme->typeProgramme->code!="COTIR")
+                                    @if (!$programme->suspendu)
+                                        <a class="btn btn-warning display-4"
+                                            href="{{ route('programme.edit', compact('programme')) }}"><span
+                                                class="mobi-mbri mobi-mbri-edit-2 mbr-iconfont mbr-iconfont-btn"></span>Modifier</a>
+                                    @endif
+                                    @if (!$programme->active && $programme->gain_net > 0 && $programme->appelFond == null && $programme->typeProgramme->code != 'COTIR')
                                         <a class="btn btn-white display-4" href="#" data-toggle="modal" data-bs-toggle="modal"
                                             data-target="#mbr-popup-2y" data-bs-target="#mbr-popup-2y"><span
                                                 class="icon54-v1-send-money mbr-iconfont mbr-iconfont-btn"></span>
                                             Faire un appel de fond
+                                        </a>
+                                    @endif
+                                    @if ($programme->is_cotisation_recurrente && !$programme->suspendu)
+                                        <a class="btn btn-warning display-4" data-toggle="modal" data-bs-toggle="modal"
+                                            data-target="#mbr-popup-suspendre" data-bs-target="#mbr-popup-suspendre">
+                                            <span class="mbri-lock mbr-iconfont mbr-iconfont-btn"></span>
+                                            Suspendre le programme
                                         </a>
                                     @endif
                                 @else
@@ -215,20 +229,22 @@
                             l'évolution des paiements pour chaque tranche ou période de paiement</h3>
                         <div class="progress_elements">
                             @foreach ($programme->children as $child)
-                            <div class="progress1 pb-5">
-                                <div class="title-wrap">
-                                    <div class="progressbar-title mbr-fonts-style display-5">
-                                        <p>
-                                            <a href="{{ route('programme.show',['programme'=>$child]) }}">{{ $child->nom }}</a>
-                                        </p>
+                                <div class="progress1 pb-5">
+                                    <div class="title-wrap">
+                                        <div class="progressbar-title mbr-fonts-style display-5">
+                                            <p>
+                                                <a
+                                                    href="{{ route('programme.show', ['programme' => $child]) }}">{{ $child->nom }}</a>
+                                            </p>
+                                        </div>
+                                        <div class="progress_value mbr-fonts-style display-7">
+                                            <span>{{ $child->progression }}%</span>
+                                        </div>
                                     </div>
-                                    <div class="progress_value mbr-fonts-style display-7">
-                                        <span>{{$child->progression}}%</span>
-                                    </div>
+                                    <progress class="progress progress-primary mbr-bold" max="100"
+                                        value="{{ $child->progression }}">
+                                    </progress>
                                 </div>
-                                <progress class="progress progress-primary mbr-bold" max="100" value="{{$child->progression}}">
-                                </progress>
-                            </div>
                             @endforeach
                         </div>
                     </div>
@@ -315,5 +331,48 @@
     <x-separator />
 
     <x-appel-fond-new :programme="$programme" />
+
+    {{-- suspendre programme de cotisation récurrente --}}
+    <div class="modal mbr-popup cid-sQ9ib2xyNF fade" tabindex="-1" role="dialog" data-overlay-color="#efefef"
+        data-overlay-opacity="0.8" id="mbr-popup-suspendre" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="container position-static margin-center-pos">
+                    <div class="modal-header pb-0">
+                        <h5 class="modal-title mbr-fonts-style display-5">Suspendre programme</h5>
+                        <button type="button" class="close d-flex" data-dismiss="modal" data-bs-dismiss="modal"
+                            aria-label="Close">
+                            <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="23" height="23" viewBox="0 0 23 23"
+                                fill="currentColor">
+                                <path
+                                    d="M13.4 12l10.3 10.3-1.4 1.4L12 13.4 1.7 23.7.3 22.3 10.6 12 .3 1.7 1.7.3 12 10.6 22.3.3l1.4 1.4L13.4 12z">
+                                </path>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <hr>
+                        <p class="mbr-text mbr-fonts-style display-7">
+                            Si vous suspendez le programme, nos robots ne vont plus continuer à gérer les cotisations, cela
+                            signifie que vous mettez en pause les paiements de même que le programme. <br>
+                            Êtes-vous sûr de vouloir suspendre le programme ?
+                        </p>
+                        <hr style="background-color: white; height: 10px;">
+                        <form action="{{ route('programme.suspendre', compact('programme')) }}" method="post">
+                            @csrf
+                            @method('put')
+                            <div class="col-auto input-group-btn">
+                                <button type="submit" class="btn btn-danger display-4 d-inline"
+                                    style="display: inline-block">Oui, suspendre</button>
+                                <button type="button" data-dismiss="modal" data-bs-dismiss="modal" aria-label="Close"
+                                    class="btn btn-white display-4 d-inline" style="display: inline-block">Non</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
 @endsection

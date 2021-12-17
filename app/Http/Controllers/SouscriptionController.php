@@ -145,8 +145,12 @@ class SouscriptionController extends Controller
                     Event::dispatchUserEvent(Event::Message("Nouvelle souscription", "{$souscription->user->name} a souscrit au programme {$programme->nom}."), $programme->user->id);
                     notify()->success("Vous avez souscrit avec succès à la tontine !!!");
                 } else {
-                    // tontine enfant
-                    $montant = $programme->parent->current_user_souscription->nombreMain * $programme->montant;
+                    if($programme->is_tontine) {
+                        // tontine enfant
+                        $montant = $programme->parent->current_user_souscription->nombreMain * $programme->montant;
+                    } else {
+                        $montant = $programme->montant;
+                    }
                     // instancier la souscription temp avec le contenu du request
                     $souscriptionTemp = new SouscriptionTemp($request->all());
                     $souscriptionTemp->uid = uniqid();

@@ -10,7 +10,7 @@ Route::middleware('admin')->name('admin.')->prefix('admin')->group(function () {
         'only' => ['index','update']
     ]);
     Route::resource('user', UserController::class, [
-        'only' => ['index']
+        'only' => ['index','edit','update']
     ]);
     Route::resource('programme', ProgrammeController::class, [
         'only' => ['index']

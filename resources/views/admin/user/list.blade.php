@@ -70,7 +70,9 @@
                                         <td class="body-item mbr-fonts-style display-7 nowrap">
                                             {{ $user->profession }}</td>
                                         <td class="body-item mbr-fonts-style display-7 nowrap">
-                                            {{ $user->type }}
+                                            <a class="btn btn-warning nowrap" href="{{ route('admin.user.edit',compact('user')) }}">
+                                                <span class="mbri-edit"></span>
+                                            </a>
                                         </td>
                                     </tr>
                                 @endforeach

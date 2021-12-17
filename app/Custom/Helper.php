@@ -58,6 +58,7 @@ class Helper
         ]);
         // créer le user dans la DB et l'associer au programme
         $user = new User($request->all());
+        $user->telephone = str_replace(' ', '', $request->telephone);
         $password = Hash::make($request->get('password'));
         $user->password = $password;
         // gérer upload image

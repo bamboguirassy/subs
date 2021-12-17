@@ -28,9 +28,9 @@ class ProgrammeController extends Controller
      */
     public function index()
     {
-        $programmes = Programme::orderBy('dateCloture','desc')
-        ->get();
-        return view('admin.programme.list',compact('programmes'));
+        $programmes = Programme::where('programme_id', null)->orderBy('dateCloture', 'desc')
+            ->get();
+        return view('admin.programme.list', compact('programmes'));
     }
 
     /**
@@ -85,15 +85,15 @@ class ProgrammeController extends Controller
             // instancier le programme avec le contenu du request
             $programme = new Programme($request->all());
             // vérifier les dates
-            if(isset($programme->dateCloture)) {
-                if($programme->dateCloture<date_format(now(),'Y-m-d')) {
+            if (isset($programme->dateCloture)) {
+                if ($programme->dateCloture < date_format(now(), 'Y-m-d')) {
                     $errorMessage = "La date de cloture ne peut être antérieure à la date du jour...";
                     notify()->error($errorMessage);
                     return back()->withErrors([$errorMessage])->withInput();
                 }
             }
-            if(isset($programme->dateDemarrage)) {
-                if($programme->dateDemarrage<$programme->dateCloture) {
+            if (isset($programme->dateDemarrage)) {
+                if ($programme->dateDemarrage < $programme->dateCloture) {
                     $errorMessage = "La date de démarrage ne peut être antérieure à la date de cloture, merci de revoir les dates.";
                     notify()->error($errorMessage);
                     return back()->withErrors([$errorMessage])->withInput();
@@ -138,7 +138,7 @@ class ProgrammeController extends Controller
             //      -- terminer la transaction
             DB::commit();
             foreach (Parametrage::getInstance()->admins as $user) {
-                Event::dispatchUserEvent(Event::Message("Nouveau programme","{$programme->user->name} a publié un programme : {$programme->nom}."),$user->id);
+                Event::dispatchUserEvent(Event::Message("Nouveau programme", "{$programme->user->name} a publié un programme : {$programme->nom}."), $user->id);
             }
             notify()->success("Le programme a bien été enregistré !!!");
             if (!Auth::check()) {
@@ -201,8 +201,8 @@ class ProgrammeController extends Controller
                 $request->file('image')->storeAs('programmes/images', $filename);
                 $programme->image = $filename;
             }
-            if($request->exists('cout')) {
-                if(count($request->cout)) {
+            if ($request->exists('cout')) {
+                if (count($request->cout)) {
                     foreach ($request->cout as $profilConcerneId => $montant) {
                         $profilConcerne = ProfilConcerne::find($profilConcerneId);
                         $profilConcerne->montant = $montant;
@@ -250,6 +250,17 @@ class ProgrammeController extends Controller
         return redirect()->route('mes.programmes');
     }
 
+    public function suspendre(Programme $programme)
+    {
+        if ($programme->suspendu) {
+            notify()->info("Ce programme est déja suspendu !");
+            return back();
+        }
+        $programme->update(['suspendu' => true]);
+        notify("Le programme est suspendu avec succès !!!");
+        return back();
+    }
+
     function validateProgramme()
     {
         // valider les champs obligatoires propres à programme
@@ -291,7 +302,7 @@ class ProgrammeController extends Controller
             'dateDemarrage' => 'required',
             'description' => 'required',
             'montant' => 'required',
-            'frequence'=>'required',
+            'frequence' => 'required',
         ]);
     }
 
