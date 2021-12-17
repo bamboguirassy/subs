@@ -60,7 +60,8 @@ class UserController extends Controller
                 $request->file('photo')->storeAs('users/photos', $photoname);
                 $user->photo = $photoname;
             }
-            $user->update($request->except('photo'));
+            $user->telephone = str_replace(' ', '', $request->telephone);
+            $user->update($request->except('photo','telephone'));
             DB::commit();
         } catch(Exception $e) {
             DB::rollback();
