@@ -33,7 +33,7 @@
                                             <div class="col-8">
                                                 <div class="d-flex w-100 justify-content-between">
                                                     <h6 class="mb-1">{{ $programme->nom }}</h6>
-                                                    <small>{{ count($programme->souscriptions) }}</small>
+                                                    <small class="nowrap">{{ count($programme->souscriptions) }}</small>
                                                 </div>
                                                 <p class="mb-1">
                                                     {{ date_format(new DateTime($programme->dateCloture), 'd/m/Y') }}</p>
