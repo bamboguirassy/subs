@@ -30,7 +30,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-12">
-                    <div class="list-group">
+                    <div class="list-group mb-3">
                         <div class="row">
                             @forelse ($programmes as $programme)
                                 <div class="col-12 col-lg-6 mt-2">
