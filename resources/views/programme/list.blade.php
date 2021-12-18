@@ -38,7 +38,7 @@
                                         class="list-group-item list-group-item-action flex-column align-items-start @if (!($programme->suspendu || $programme->active)) active @endif">
                                         <div class="row">
                                             <div class="col-4">
-                                                <img style="height: 70px"
+                                                <img style="height: 85px"
                                                     src="{{ isset($programme->image) ? asset('uploads/programmes/images/' . $programme->image) : 'https://via.placeholder.com/100' }}">
                                             </div>
                                             <div class="col-8">
@@ -48,7 +48,7 @@
                                                 </div>
                                                 <p class="mb-1">
                                                     {{ date_format(new DateTime($programme->dateCloture), 'd/m/Y') }}</p>
-                                                <small>{{ $programme->modeDeroulement }}</small>
+                                                <small>{{ $programme->modeDeroulement }} - </small>
                                                 <small>{{ $programme->typeProgramme->nom }}</small>
                                             </div>
                                         </div>
