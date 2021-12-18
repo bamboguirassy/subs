@@ -219,24 +219,24 @@
             <div class="full-link">
                 <div class="menu-top card-wrapper mbr-fonts-style mbr-white display-7">
                     <div class="bottom-nav justify-content-center">
-                        <a href="{{ route('home') }}" @if (\Request::route()->getName() == 'home') class="active" @endif>
+                        <a title="Accueil" href="{{ route('home') }}" @if (\Request::route()->getName() == 'home') class="active" @endif>
                             <span class="mbr-iconfont mobi-mbri mbri-home"></span>
                         </a>
                         @auth
-                            <a href="{{ route('mes.souscriptions') }}" @if (\Request::route()->getName() == 'mes.souscriptions') class="active" @endif>
+                            <a title="Mes souscriptions" href="{{ route('mes.souscriptions') }}" @if (\Request::route()->getName() == 'mes.souscriptions') class="active" @endif>
                                 <span class="mbr-iconfont mobi-mbri mbri-bookmark"></span>
                             </a>
-                            <a href="{{ route('user.appelfond.list') }}" @if (\Request::route()->getName() == 'user.appelfond.list') class="active" @endif>
+                            <a title="Mes appels de fond" href="{{ route('user.appelfond.list') }}" @if (\Request::route()->getName() == 'user.appelfond.list') class="active" @endif>
                                 <span class="mbr-iconfont icon54-v1-money-bag"></span>
                             </a>
-                            <a href="{{ route('profile') }}" @if (\Request::route()->getName() == 'profile') class="active" @endif>
+                            <a title="Mon profil" href="{{ route('profile') }}" @if (\Request::route()->getName() == 'profile') class="active" @endif>
                                 <span class="mbr-iconfont mobi-mbri mbri-user"></span>
                             </a>
-                            <a href="{{ route('user.notification.list') }}" @if (\Request::route()->getName() == 'user.notification.list') class="active" @endif>
-                                <span class="mbr-iconfont mobi-mbri mbri-alert"></span>
+                            <a title="Mes programmes" href="{{ route('mes.programmes') }}" @if (\Request::route()->getName() == 'mes.programmes') class="active" @endif>
+                                <span class="mbr-iconfont mobi-mbri mbri-bulleted-list"></span>
                             </a>
                         @else
-                            <a href="{{ route('login') }}" @if (\Request::route()->getName() == 'login') class="active" @endif>
+                            <a title="Se connecter" href="{{ route('login') }}" @if (\Request::route()->getName() == 'login') class="active" @endif>
                                 <span class="mbr-iconfont mobi-mbri mbri-user"></span>
                             </a>
                         @endauth
@@ -255,23 +255,9 @@
                     <ul class="navbar-nav nav-dropdown" data-app-modern-menu="true">
                         @auth
                             <li class="nav-item">
-                                <a class="nav-link link text-primary display-4" href="{{ route('mes.programmes') }}"
-                                    aria-expanded="false">
-                                    Mes programmes
-                                </a>
+                                <a class="nav-link link text-primary display-4" href="{{ route('apropos') }}">A
+                                    propos</a>
                             </li>
-                            {{-- <li class="nav-item">
-                                <a class="nav-link link text-primary display-4" href="{{ route('mes.souscriptions') }}">
-                                    Mes souscriptions
-                                </a>
-                            </li> --}}
-                            {{-- @else
-                            <li class="nav-item">
-                                <a class="nav-link link text-primary display-4"
-                                    href="{{ route('login') }}?ret={{ request()->fullUrl() }}" aria-expanded="false">
-                                    Se connecter
-                                </a>
-                            </li> --}}
                         @endauth
                     </ul>
                 </div>
@@ -295,21 +281,10 @@
                                     Mon compte
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="dropdown-undefined">
-                                    {{-- <a class="dropdown-item text-primary display-4"
-                                        href="{{ route('programme.pre.publish') }}" aria-expanded="false">
-                                        Démarrer nouveau programme
-                                    </a> --}}
-                                    <a class="dropdown-item text-primary display-4" href="{{ route('achatsms.create') }}"
+                                     <a class="dropdown-item text-primary display-4" href="{{ route('achatsms.create') }}"
                                         aria-expanded="false">
                                         Acheter pack SMS
                                     </a>
-                                    {{-- <a class="dropdown-item text-primary display-4"
-                                        href="{{ route('user.appelfond.list') }}" aria-expanded="false">
-                                        Mes appels de fonds
-                                    </a> --}}
-                                    {{-- <a class="dropdown-item text-primary display-4" href="{{ route('profile') }}">Mon
-                                        profil<br>
-                                    </a> --}}
                                     <form action="{{ route('logout') }}" method="post">
                                         @csrf
                                         <button class="dropdown-item text-primary display-4">
@@ -319,10 +294,6 @@
                                 </div>
                             </li>
                         @endauth
-                        <li class="nav-item">
-                            <a class="nav-link link text-primary display-4" href="{{ route('apropos') }}">A
-                                propos</a>
-                        </li>
                         <li class="nav-item">
                             <a class="nav-link link text-primary display-4" href="{{ route('contact') }}">
                                 Contacts
