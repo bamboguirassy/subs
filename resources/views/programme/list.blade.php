@@ -24,7 +24,7 @@
                             @forelse ($programmes as $programme)
                                 <div class="col-12 col-lg-6 mt-2">
                                     <a href="{{ route('programme.show', compact('programme')) }}"
-                                        class="list-group-item list-group-item-action flex-column align-items-start @if (!($programme->suspendu || $programme->active)) active @endif">
+                                        class="list-group-item list-group-item-action flex-column align-items-start @if (!$programme->suspendu && $programme->active) actif @endif">
                                         <div class="row">
                                             <div class="col-4">
                                                 <img style="height: 85px"
