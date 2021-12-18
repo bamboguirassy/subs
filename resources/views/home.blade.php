@@ -52,7 +52,6 @@
         </div>
     </section>
     <x-programme-type-choice />
-    <x-separator />
     <section data-bs-version="5.1" class="shop1 cid-sOcsUFykIr mb-5" id="shop01-1m">
         <div class="container">
             <div class="row align-left justify-content-center mt-4">
@@ -73,6 +72,5 @@
             </div>
         </div>
     </section>
-    <x-separator />
     <x-social-sharing />
 @endsection

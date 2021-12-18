@@ -12,7 +12,7 @@
                     </h3>
                 </div>
                 <div class="col-12">
-                    <x-empty-message title="Pas encore de programme"
+                    <x-empty-message title="Pas encore de notification"
                                         message="Aucune notification pour le moment" />
                 </div>
             </div>
