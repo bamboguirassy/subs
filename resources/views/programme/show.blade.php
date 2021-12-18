@@ -99,8 +99,7 @@
                             @auth
                                 @if ($programme->is_proprietaire)
                                     @if (count($programme->souscriptions) < 1 || !$programme->suspendu)
-                                        <form style="display: inline-block;" method="post" action="{{ route('programme.destroy', compact('programme')) }}"
-                                            class="btn">
+                                        <form style="display: inline-block;" method="post" action="{{ route('programme.destroy', compact('programme')) }}">
                                             @method('delete')
                                             @csrf
                                             <button class="btn btn-danger display-4 d-inline" href="#">
