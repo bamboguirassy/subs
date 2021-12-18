@@ -397,6 +397,8 @@
     <script src="{{ asset('bower_components/angular/angular.min.js') }}"></script>
     <script src="{{ asset('assets/mbr-flip-card/mbr-flip-card.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+    <script src="{{ asset('custom/reload-on-swipe.js') }}"></script>
+    <script src="{{ asset('custom/jquery.loadBar.js') }}"></script>
     <script>
         document.onreadystatechange = function() {
             var state = document.readyState
@@ -409,7 +411,6 @@
             }
         }
     </script>
-    <script src="{{ asset('jquery.loadBar.js') }}"></script>
     <script>
         $(() => {
             loadBar.trigger('show');
