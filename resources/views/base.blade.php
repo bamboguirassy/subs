@@ -119,6 +119,7 @@
 
         .actif {
             background-color: #BA265E !important;
+            color: white
         }
 
     </style>
