@@ -27,7 +27,7 @@
                             </span>
                         </span>
                     </div>
-                    <p class="mbr-section-text mbr-fonts-style align-left display-4">
+                    <p class="mbr-section-text mbr-fonts-style align-left display-5">
                         Collectez les fonds et les inscriptions pour tous vos programmes de manière transparente, sécurisée
                         et automatisée... Grace à nos robots qui s'occupent de tout à votre place... Rappel de paiement,
                         tracking des activités, auto-génération des tranches..., service SMS...</p>
