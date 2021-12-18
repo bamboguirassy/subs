@@ -402,12 +402,10 @@
     <script>
         document.onreadystatechange = function() {
             var state = document.readyState
-            if (state == 'interactive') {
-                document.getElementById('canvasBar').style.visibility = "visible";
-            } else if (state == 'complete') {
+            if (state == 'complete') {
                 setTimeout(function() {
                     document.getElementById('canvasBar').style.visibility = "hidden";
-                }, 1000);
+                }, 500);
             }
         }
     </script>
