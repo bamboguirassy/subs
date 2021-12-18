@@ -43,7 +43,7 @@ var loadBar = {
          $("#canvasBar").css("display", "block");
 
          // BELOW IS OPTIONAL TO DISABLE ALL BUTTONS ON DOCUMENT. COMMENT IF UNNEEDED
-         $(".btn").prop("disabled", true);
+        //  $(".btn").prop("disabled", true);
 
          this.run();
       }
@@ -52,7 +52,7 @@ var loadBar = {
          $("#canvasBar").css("display", "none");
 
          // BELOW IS OPTIONAL TO DISABLE ALL BUTTONS ON DOCUMENT. COMMENT IF UNNEEDED
-         $(".btn").prop("disabled", false);
+        //  $(".btn").prop("disabled", false);
       }
    },
    run: function () {
