@@ -35,6 +35,8 @@
     <link rel="stylesheet" href="{{ asset('assets/socicon/css/styles.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/theme/css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/datatables/vanilla-dataTables.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('bower_components/simditor/site/assets/styles/mobile.css') }}">
+    <link rel="stylesheet" href="{{ asset('bower_components/simditor/site/assets/styles/app.css') }}">
     <link rel="stylesheet" href="{{ asset('bower_components/simditor/site/assets/styles/simditor.css') }}">
     <link rel="preload"
         href="https://fonts.googleapis.com/css?family=Jost:100,200,300,400,500,600,700,800,900,100i,200i,300i,400i,500i,600i,700i,800i,900i&display=swap"
@@ -211,35 +213,36 @@
             <div class="full-link">
                 <div class="menu-top card-wrapper mbr-fonts-style mbr-white display-7">
                     <div class="bottom-nav justify-content-center">
-                        <a href="{{ route('home') }}" @if(\Request::route()->getName()=='home') class="active" @endif>
+                        <a href="{{ route('home') }}" @if (\Request::route()->getName() == 'home') class="active" @endif>
                             <span class="mbr-iconfont mobi-mbri mbri-home"></span>
                         </a>
                         @auth
-                        <a href="{{ route('mes.souscriptions') }}" @if(\Request::route()->getName()=='mes.souscriptions') class="active" @endif>
-                            <span class="mbr-iconfont mobi-mbri mbri-bookmark"></span>
-                        </a>
-                        <a href="{{ route('user.appelfond.list') }}" @if(\Request::route()->getName()=='user.appelfond.list') class="active" @endif>
-                            <span class="mbr-iconfont icon54-v1-money-bag"></span>
-                        </a>
-                        <a href="{{ route('profile') }}" @if(\Request::route()->getName()=='profile') class="active" @endif>
-                            <span class="mbr-iconfont mobi-mbri mbri-user"></span>
-                        </a>
-                        <a href="{{ route('user.notification.list') }}" @if(\Request::route()->getName()=='user.notification.list') class="active" @endif>
-                            <span class="mbr-iconfont mobi-mbri mbri-alert"></span>
-                        </a>
+                            <a href="{{ route('mes.souscriptions') }}" @if (\Request::route()->getName() == 'mes.souscriptions') class="active" @endif>
+                                <span class="mbr-iconfont mobi-mbri mbri-bookmark"></span>
+                            </a>
+                            <a href="{{ route('user.appelfond.list') }}" @if (\Request::route()->getName() == 'user.appelfond.list') class="active" @endif>
+                                <span class="mbr-iconfont icon54-v1-money-bag"></span>
+                            </a>
+                            <a href="{{ route('profile') }}" @if (\Request::route()->getName() == 'profile') class="active" @endif>
+                                <span class="mbr-iconfont mobi-mbri mbri-user"></span>
+                            </a>
+                            <a href="{{ route('user.notification.list') }}" @if (\Request::route()->getName() == 'user.notification.list') class="active" @endif>
+                                <span class="mbr-iconfont mobi-mbri mbri-alert"></span>
+                            </a>
                         @else
-                        <a href="{{ route('login') }}" @if(\Request::route()->getName()=='login') class="active" @endif>
-                            <span class="mbr-iconfont mobi-mbri mbri-user"></span>
-                        </a>
+                            <a href="{{ route('login') }}" @if (\Request::route()->getName() == 'login') class="active" @endif>
+                                <span class="mbr-iconfont mobi-mbri mbri-user"></span>
+                            </a>
                         @endauth
-                        <a data-toggle="collapse" data-bs-toggle="collapse"
-                            data-target="#navbarSupportedContent" data-bs-target="#navbarSupportedContent"
-                            aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                        <a data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbarSupportedContent"
+                            data-bs-target="#navbarSupportedContent" aria-controls="navbarNavAltMarkup"
+                            aria-expanded="false" aria-label="Toggle navigation">
                             <span class="mbr-iconfont mobi-mbri mbri-more-vertical"></span>
                         </a>
                     </div>
                 </div>
             </div>
+            <canvas id="canvasBar" style=" width: 100%; height: 7px; z-index: 9999;"></canvas>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
                 <div class="left-menu">
@@ -256,7 +259,7 @@
                                     Mes souscriptions
                                 </a>
                             </li> --}}
-                        {{-- @else
+                            {{-- @else
                             <li class="nav-item">
                                 <a class="nav-link link text-primary display-4"
                                     href="{{ route('login') }}?ret={{ request()->fullUrl() }}" aria-expanded="false">
@@ -395,7 +398,21 @@
     <script src="{{ asset('assets/mbr-flip-card/mbr-flip-card.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
     <script>
+        document.onreadystatechange = function() {
+            var state = document.readyState
+            if (state == 'interactive') {
+                document.getElementById('canvasBar').style.visibility = "visible";
+            } else if (state == 'complete') {
+                setTimeout(function() {
+                    document.getElementById('canvasBar').style.visibility = "hidden";
+                }, 1000);
+            }
+        }
+    </script>
+    <script src="{{ asset('jquery.loadBar.js') }}"></script>
+    <script>
         $(() => {
+            loadBar.trigger('show');
             if ($('#wysiwyg').length) {
                 var editor = new Simditor({
                     textarea: $('#wysiwyg')
