@@ -27,9 +27,10 @@
     <link rel="stylesheet" href="{{ asset('assets/icon54/style.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/Material-Design-Icons/css/material.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/web/assets/mobirise-icons/mobirise-icons.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/bootstrap/css/bootstrap.min.css') }}">
+    {{-- <link rel="stylesheet" href="{{ asset('assets/bootstrap/css/bootstrap.min.css') }}"> --}}
     <link rel="stylesheet" href="{{ asset('assets/bootstrap/css/bootstrap-grid.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/bootstrap/css/bootstrap-reboot.min.css') }}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="{{ asset('assets/chatbutton/floating-wpp.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/dropdown/css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/socicon/css/styles.css') }}">
@@ -114,6 +115,10 @@
         .bottom-nav a.active {
             background-color: #fff;
             color: #BA265E;
+        }
+
+        .active {
+            background-color: #BA265E !important;
         }
 
     </style>
@@ -376,7 +381,8 @@
     </section>
 
     <script src="{{ asset('bower_components/jquery/dist/jquery.min.js') }}"></script>
-    <script src="{{ asset('assets/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+    {{-- <script src="{{ asset('assets/bootstrap/js/bootstrap.bundle.min.js') }}"></script> --}}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <script src="{{ asset('assets/typed/typed.js') }}"></script>
     <script src="{{ asset('assets/smoothscroll/smooth-scroll.js') }}"></script>
     <script src="{{ asset('assets/ytplayer/index.js') }}"></script>
