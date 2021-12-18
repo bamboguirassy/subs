@@ -14,7 +14,7 @@
     @endif
     <meta name="twitter:title" content="@yield('title')">
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
-    <link rel="shortcut icon" href="{{ asset('assets/images/icononly.png') }}" type="image/x-icon">
+    <link rel="shortcut icon" href="{{ asset('assets/images/icononly-128x102.png') }}" type="image/x-icon">
     <meta name="description" content="@yield('description')">
 
 
@@ -38,7 +38,6 @@
     <link rel="stylesheet" href="{{ asset('bower_components/simditor/site/assets/styles/mobile.css') }}">
     <link rel="stylesheet" href="{{ asset('bower_components/simditor/site/assets/styles/app.css') }}">
     <link rel="stylesheet" href="{{ asset('bower_components/simditor/site/assets/styles/simditor.css') }}">
-    <a href="{{ asset('bower_components/angular-pull-to-refresh/dist/angular-pull-to-refresh.css') }}"></a>
     <link rel="preload"
         href="https://fonts.googleapis.com/css?family=Jost:100,200,300,400,500,600,700,800,900,100i,200i,300i,400i,500i,600i,700i,800i,900i&display=swap"
         as="style" onload="this.onload=null;this.rel='stylesheet'">
@@ -207,7 +206,7 @@
     <!-- /Analytics -->
 </head>
 
-<body ontouchstart="" ng-controller="MainController" pull-to-refresh="onReload()">
+<body>
     <section data-bs-version="5.1" class="extMenu12 menu popup-btn-cards cid-sPMLiMsHDQ" once="menu" id="extMenu13-2c">
         <nav class="navbar navbar-dropdown navbar-fixed-top navbar-expand-lg">
             <div class="mbr-overlay" style="opacity: 0.9;"></div>
@@ -398,8 +397,7 @@
     <script src="{{ asset('bower_components/angular/angular.min.js') }}"></script>
     <script src="{{ asset('assets/mbr-flip-card/mbr-flip-card.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
-    <script src="{{ asset('bower_components/angular-pull-to-refresh/dist/angular-pull-to-refresh.min.js') }}"></script>
-    {{-- <script src="{{ asset('custom/reload-on-swipe.js') }}"></script> --}}
+    <script src="{{ asset('custom/reload-on-swipe.js') }}"></script>
     <script src="{{ asset('custom/jquery.loadBar.js') }}"></script>
     <script>
         document.onreadystatechange = function() {
