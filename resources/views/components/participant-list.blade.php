@@ -60,9 +60,7 @@
                                         <th class="head-item mbr-fonts-style display-4 nowrap">DATE</th>
                                         <th class="head-item mbr-fonts-style display-4 nowrap">Profession</th>
                                         <th class="head-item mbr-fonts-style display-4 nowrap">Montant</th>
-                                        @if ($souscriptions[0]->programme->active)
-                                            <th class="head-item mbr-fonts-style display-4 nowrap"> Action</th>
-                                        @endif
+                                            <th class="head-item mbr-fonts-style display-4 nowrap">Actions</th>
                                     </tr>
                                 </thead>
 
@@ -229,7 +227,7 @@
                                     </div>
                                 @endif
                             </p>
-                            @if (auth()->user()->nombreSms > count($souscriptions))
+                            @if (auth()->user()->nombreSms >= count($souscriptions))
                                 <div>
                                     <div class="form-wrapper">
                                         <!--Formbuilder Form-->
