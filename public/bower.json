@@ -25,16 +25,8 @@
     "tests"
   ],
   "dependencies": {
-<<<<<<< HEAD
-    "angular-froala": "^4.0.6",
-    "froala-wysiwyg-editor": "^4.0.6",
-    "angular": "^1.8.2",
-    "jquery": "3"
-  }
-=======
     "angular": "^1.8.2",
     "jquery": "3"
   },
   "devDependencies": {}
->>>>>>> bc5ad2d (nfirst commit on mac)
 }
