@@ -8,7 +8,7 @@
             </p>
             @if (!$programme->current_user_souscription)
                 <a class="btn btn-success display-4" href="{{ route('souscription.new', compact('programme')) }}">
-                    <span class="mbrib-edit mbr-iconfont mbr-iconfont-btn"></span>Souscrire
+                    <span class="mbrib-edit mbr-iconfont mbr-iconfont-btn"></span>Participer
                 </a>
             @endif
         </div>
