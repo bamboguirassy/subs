@@ -117,7 +117,7 @@
             color: #BA265E;
         }
 
-        .active {
+        .actif {
             background-color: #BA265E !important;
         }
 
