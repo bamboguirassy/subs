@@ -7,20 +7,9 @@
         <div class="container">
             <div class="row">
                 <div class="col-12 col-md-12 col-lg-4 title-col">
-                    <h6 class="mbr-section-subtitle align-left mbr-fonts-style my-3 display-2">
+                    <h6 class="mbr-section-subtitle align-left mbr-fonts-style mt-3 mb-0 display-2">
                         <strong>{{ Str::upper($title) }}</strong>
                     </h6>
-                </div>
-                <div class="col-12 col-md-12 text-col col-lg-12">
-                    <p class="mbr-text align-left mbr-fonts-style mb-0 display-5"><strong>La liste de
-                            {{ $title }}</strong>
-                    </p>
-                </div>
-                <div class="col-12 col-md-12 text-col col-lg-12">
-                    <a class="btn btn-md btn-danger display-4" href="{{ route('programme.pre.publish') }}">
-                        <span class="icon54-v2-add-note mbr-iconfont mbr-iconfont-btn"></span>
-                        Lancer un programme
-                    </a>
                 </div>
             </div>
         </div>
