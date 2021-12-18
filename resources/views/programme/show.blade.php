@@ -99,11 +99,11 @@
                             @auth
                                 @if ($programme->is_proprietaire)
                                     @if (count($programme->souscriptions) < 1 || !$programme->suspendu)
-                                        <form method="post" action="{{ route('programme.destroy', compact('programme')) }}"
+                                        <form style="display: inline-block;" method="post" action="{{ route('programme.destroy', compact('programme')) }}"
                                             class="btn">
                                             @method('delete')
                                             @csrf
-                                            <button class="btn btn-danger display-4" href="#">
+                                            <button class="btn btn-danger display-4 d-inline" href="#">
                                                 <span class="mobi-mbri mobi-mbri-trash mbr-iconfont mbr-iconfont-btn"></span>
                                                 Supprimer
                                             </button>
