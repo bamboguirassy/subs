@@ -13,12 +13,12 @@
                             <span class="{{ $typeProgramme->icon }}"></span>
                         </div>
                         <div class="col">
-                            <h5 class="card-title mbr-fonts-style display-5">
+                            <h5 class="card-title mbr-fonts-style display-4">
                                 <strong>{{ $typeProgramme->nom }}</strong>
                             </h5>
-                            <p class="card-text mbr-fonts-style display-7">{{ $typeProgramme->description }}</p>
+                            <p class="card-text mbr-fonts-style display-7 pb-0">{{ $typeProgramme->description }}</p>
                             <h5 class="link mbr-fonts-style display-4">
-                                <a href="{{ route('programme.create') }}?type={{$typeProgramme->code}}" class="btn btn-primary mbr-fonts-style display-5">Continuer
+                                <a href="{{ route('programme.create') }}?type={{$typeProgramme->code}}" class="btn btn-primary mbr-fonts-style display-6">Continuer
                                     avec&nbsp;
                                     <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                                         width="34px" height="16px" viewBox="0 0 34.53 16" xml:space="preserve">
