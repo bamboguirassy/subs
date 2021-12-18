@@ -1,14 +1,4 @@
-angular.module('Subs', ['mgcrea.pullToRefresh'], () => { })
-    .controller('MainController', ($scope, $q) => {
-        $scope.onReload = function() {
-            console.warn('reload');
-            var deferred = $q.defer();
-            setTimeout(function() {
-              deferred.resolve(true);
-            }, 1000);
-            return deferred.promise;
-          };
-    })
+angular.module('Subs', [], () => {})
     .controller('ProgrammeNewController', ($scope, Country) => {
         $scope.profils = [];
         $scope.programme = {};
@@ -53,7 +43,7 @@ angular.module('Subs', ['mgcrea.pullToRefresh'], () => { })
         $scope.selectCountry = () => {
             $scope.selectedCountry = $scope.countries.find((item) => item.cca2 == $scope.country_cca2);
         }
-    }).controller('AppelFondController', ($scope) => {
+    }).controller('AppelFondController',($scope)=>{
         $scope.selected = {};
         $scope.select = (item) => {
             $scope.selected = item;
