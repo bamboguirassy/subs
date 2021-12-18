@@ -31,30 +31,34 @@
             <div class="row">
                 <div class="col-12">
                     <div class="list-group">
-                        @forelse ($programmes as $programme)
-                            <a href="{{ route('programme.show', compact('programme')) }}"
-                                class="list-group-item list-group-item-action flex-column align-items-start @if(!($programme->suspendu || $programme->active)) active @endif">
-                                <div class="row">
-                                    <div class="col-4">
-                                        <img style="height: 70px"
-                                            src="{{ isset($programme->image) ? asset('uploads/programmes/images/' . $programme->image) : 'https://via.placeholder.com/100' }}">
-                                    </div>
-                                    <div class="col-8">
-                                        <div class="d-flex w-100 justify-content-between">
-                                            <h6 class="mb-1">{{ $programme->nom }}</h6>
-                                            <small>{{ count($programme->souscriptions) }}</small>
+                        <div class="row">
+                            @forelse ($programmes as $programme)
+                                <div class="col-12 col-lg-6 mt-2">
+                                    <a href="{{ route('programme.show', compact('programme')) }}"
+                                        class="list-group-item list-group-item-action flex-column align-items-start @if (!($programme->suspendu || $programme->active)) active @endif">
+                                        <div class="row">
+                                            <div class="col-4">
+                                                <img style="height: 70px"
+                                                    src="{{ isset($programme->image) ? asset('uploads/programmes/images/' . $programme->image) : 'https://via.placeholder.com/100' }}">
+                                            </div>
+                                            <div class="col-8">
+                                                <div class="d-flex w-100 justify-content-between">
+                                                    <h6 class="mb-1">{{ $programme->nom }}</h6>
+                                                    <small>{{ count($programme->souscriptions) }}</small>
+                                                </div>
+                                                <p class="mb-1">
+                                                    {{ date_format(new DateTime($programme->dateCloture), 'd/m/Y') }}</p>
+                                                <small>{{ $programme->modeDeroulement }}</small>
+                                                <small>{{ $programme->typeProgramme->nom }}</small>
+                                            </div>
                                         </div>
-                                        <p class="mb-1">
-                                            {{ date_format(new DateTime($programme->dateCloture), 'd/m/Y') }}</p>
-                                        <small>{{ $programme->modeDeroulement }}</small>
-                                        <small>{{ $programme->typeProgramme->nom }}</small>
-                                    </div>
+                                    </a>
                                 </div>
-                            </a>
-                        @empty
-                            <x-empty-message title="Programme vide"
-                                message="Cette section ne contient encore aucune donnée." />
-                        @endforelse
+                            @empty
+                                <x-empty-message title="Programme vide"
+                                    message="Cette section ne contient encore aucune donnée." />
+                            @endforelse
+                        </div>
                     </div>
                 </div>
             </div>
