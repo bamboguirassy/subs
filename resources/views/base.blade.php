@@ -256,12 +256,10 @@
 
                 <div class="left-menu">
                     <ul class="navbar-nav nav-dropdown" data-app-modern-menu="true">
-                        @auth
-                            <li class="nav-item">
-                                <a class="nav-link link text-primary display-4" href="{{ route('apropos') }}">A
-                                    propos</a>
-                            </li>
-                        @endauth
+                        <li class="nav-item">
+                            <a class="nav-link link text-primary display-4" href="{{ route('apropos') }}">A
+                                propos</a>
+                        </li>
                     </ul>
                 </div>
                 <div class="brand-container">
