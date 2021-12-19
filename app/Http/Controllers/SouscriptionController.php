@@ -102,7 +102,7 @@ class SouscriptionController extends Controller
                     $souscription->uid = uniqid();
                     $souscription->save();
                     $souscription->user->notify(new NotifyNewSouscription($souscription));
-                    Event::dispatchUserEvent(Event::Message("Nouvelle souscription", "{$souscription->user->name} a souscrit au programme {$programme->nom}."), $programme->user->id);
+                    Event::dispatchUserEvent(Event::Message("Nouvelle souscription", "{$souscription->user->name} a souscrit au programme {$programme->nom}."), $programme->user);
                     notify()->success("Vous avez souscrit avec succès au programme !!!");
                 } else {
                     // instancier la souscription temp avec le contenu du request
@@ -142,7 +142,7 @@ class SouscriptionController extends Controller
                     $souscription->uid = uniqid();
                     $souscription->save();
                     $souscription->user->notify(new NotifyNewSouscription($souscription));
-                    Event::dispatchUserEvent(Event::Message("Nouvelle souscription", "{$souscription->user->name} a souscrit au programme {$programme->nom}."), $programme->user->id);
+                    Event::dispatchUserEvent(Event::Message("Nouvelle souscription", "{$souscription->user->name} a souscrit au programme {$programme->nom}."), $programme->user);
                     notify()->success("Vous avez souscrit avec succès à la tontine !!!");
                 } else {
                     if($programme->is_tontine) {
@@ -292,7 +292,7 @@ class SouscriptionController extends Controller
                 $facture->save();
                 $souscription->user->notify(new NotifyNewSouscription($souscription));
                 DB::commit();
-                Event::dispatchUserEvent(Event::Message("Nouvelle souscription", "{$souscription->user->name} a souscrit au programme {$souscription->programme->nom}."), $souscription->programme->user->id);
+                Event::dispatchUserEvent(Event::Message("Nouvelle souscription", "{$souscription->user->name} a souscrit au programme {$souscription->programme->nom}."), $souscription->programme->user);
             } catch (\Throwable $th) {
                 DB::rollback();
                 throw $th;

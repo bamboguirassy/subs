@@ -209,7 +209,7 @@ Route::resource('appelfond', AppelFondController::class, [
 
 Route::get('trigger-event', function () {
     if (Auth::check()) {
-        Event::dispatchUserEvent(Event::Message('User Event', "Salut User - " . Auth::user()->name), Auth::id());
+        Event::dispatchUserEvent(Event::Message('User Event', "Salut User - " . Auth::user()->name), Auth::user());
     } else {
         Event::dispatchGeneralEvent(Event::Message('Public Message', 'Message complet de user !'));
     }

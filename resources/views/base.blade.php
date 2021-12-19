@@ -30,7 +30,8 @@
     {{-- <link rel="stylesheet" href="{{ asset('assets/bootstrap/css/bootstrap.min.css') }}"> --}}
     <link rel="stylesheet" href="{{ asset('assets/bootstrap/css/bootstrap-grid.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/bootstrap/css/bootstrap-reboot.min.css') }}">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="{{ asset('assets/chatbutton/floating-wpp.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/dropdown/css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/socicon/css/styles.css') }}">
@@ -223,10 +224,12 @@
                             <span class="mbr-iconfont mobi-mbri mbri-home"></span>
                         </a>
                         @auth
-                            <a title="Mes souscriptions" href="{{ route('mes.souscriptions') }}" @if (\Request::route()->getName() == 'mes.souscriptions') class="active" @endif>
+                            <a title="Mes souscriptions" href="{{ route('mes.souscriptions') }}"
+                                @if (\Request::route()->getName() == 'mes.souscriptions') class="active" @endif>
                                 <span class="mbr-iconfont mobi-mbri mbri-bookmark"></span>
                             </a>
-                            <a title="Mes appels de fond" href="{{ route('user.appelfond.list') }}" @if (\Request::route()->getName() == 'user.appelfond.list') class="active" @endif>
+                            <a title="Mes appels de fond" href="{{ route('user.appelfond.list') }}"
+                                @if (\Request::route()->getName() == 'user.appelfond.list') class="active" @endif>
                                 <span class="mbr-iconfont icon54-v1-money-bag"></span>
                             </a>
                             <a title="Mon profil" href="{{ route('profile') }}" @if (\Request::route()->getName() == 'profile') class="active" @endif>
@@ -281,7 +284,7 @@
                                     Mon compte
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="dropdown-undefined">
-                                     <a class="dropdown-item text-primary display-4" href="{{ route('achatsms.create') }}"
+                                    <a class="dropdown-item text-primary display-4" href="{{ route('achatsms.create') }}"
                                         aria-expanded="false">
                                         Acheter pack SMS
                                     </a>
@@ -338,6 +341,8 @@
         </nav>
     </section>
     @yield("body")
+    @auth
+    @endauth
     <section data-bs-version="5.1" class="footer7 cid-sOaHY68q1p" once="footers" id="footer7-1">
         <div class="container">
             <div class="media-container-row align-center mbr-white">
@@ -354,7 +359,9 @@
 
     <script src="{{ asset('bower_components/jquery/dist/jquery.min.js') }}"></script>
     {{-- <script src="{{ asset('assets/bootstrap/js/bootstrap.bundle.min.js') }}"></script> --}}
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
+    </script>
     <script src="{{ asset('assets/typed/typed.js') }}"></script>
     <script src="{{ asset('assets/smoothscroll/smooth-scroll.js') }}"></script>
     <script src="{{ asset('assets/ytplayer/index.js') }}"></script>
@@ -410,10 +417,24 @@
 
     <script src="{{ asset('angular/app.js') }}"></script>
     <script src="{{ asset('angular/service.js') }}"></script>
-
-    <div id="chatbutton-wa" data-phone="+221778224129" data-showpopup="true"
-        data-headertitle="👋 Echangeons sur WhatsApp!" data-popupmessage="Salut !👋
-
+    <script>
+        $(function() {
+            @foreach (auth()->user()->unreadNotifications as $notification)
+                setTimeout(() => {
+                toastr.info("{{ $notification->data['message'] }}", "{{ $notification->data['title'] }}", {
+                tapToDismiss: true,
+                timeOut: 0
+                });
+                }, Math.random()*5000);
+            @endforeach
+        })
+    </script>
+@php
+    auth()->user()->unreadNotifications->markAsRead();
+@endphp
+    <div id="chatbutton-wa" data-phone="+221780165026" data-showpopup="true"
+        data-headertitle="👋 Echangeons sur WhatsApp !" data-popupmessage="Salut !👋
+Vous avez des questions ?
 Ecris un message ici. Il te dirigera vers ton téléphone ! 🔥
 
 Bambogroup Team" data-placeholder="Ecrire ici..." data-position="left" data-headercolor="#fe525b"

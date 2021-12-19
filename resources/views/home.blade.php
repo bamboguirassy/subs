@@ -20,7 +20,7 @@
             <div class="row justify-content-center align-items-center">
                 <div class="mbr-white col-md-12 col-lg-8 py-lg-0 pt-1 order-2">
                     <div class="typed-text pb-3 align-left display-2">
-                        <span class="mbr-section-subtitle mbr-fonts-style display-2">Suivez vos programmes de manière </span>
+                        <span class="mbr-section-subtitle mbr-fonts-style display-5">Suivez vos programmes de manière </span>
                         <span>
                             <span class="animated-element mbr-bold" data-word1="révolutionnaire." data-word2="sécurisée."
                                 data-word3="transparente." data-word4="Lorem" data-word5="Ipsum" data-speed="50"
@@ -28,7 +28,7 @@
                             </span>
                         </span>
                     </div>
-                    <p class="mbr-section-text mbr-fonts-style align-left display-5">
+                    <p class="mbr-section-text mbr-fonts-style align-left display-4">
                         {{-- Collectez les fonds et les inscriptions pour tous vos programmes de manière transparente, sécurisée
                         et automatisée... --}}
                         Grace à nos robots qui s'occupent de tout à votre place...

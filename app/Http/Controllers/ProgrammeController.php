@@ -138,7 +138,7 @@ class ProgrammeController extends Controller
             //      -- terminer la transaction
             DB::commit();
             foreach (Parametrage::getInstance()->admins as $user) {
-                Event::dispatchUserEvent(Event::Message("Nouveau programme", "{$programme->user->name} a publié un programme : {$programme->nom}."), $user->id);
+                Event::dispatchUserEvent(Event::Message("Nouveau programme", "{$programme->user->name} a publié un programme : {$programme->nom}."), $user);
             }
             notify()->success("Le programme a bien été enregistré !!!");
             if (!Auth::check()) {
