@@ -67,7 +67,7 @@ class SendSms extends Notification
         if ($this->initiator != null) {
             if ($this->initiator->nombreSms > 0) {
                 if(str_starts_with($notifiable->telephone,'+221')) {
-                    $response = $this->osms->sendSMS($senderAddress, 'tel:' . $notifiable->telephone, $this->message, $senderName);
+                    $response = $this->osms->sendSMS($senderAddress, 'tel:' . trim(str_replace(' ', '', $notifiable->telephone)), $this->message, $senderName);
                     $initSmsSend = true;
                 }
             } else {
