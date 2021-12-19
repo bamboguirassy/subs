@@ -2,6 +2,9 @@
 
 namespace App\Custom;
 
+use App\Models\User;
+use App\Notifications\DatabaseNotification;
+use Illuminate\Support\Facades\Notification;
 use Pusher\Pusher;
 
 class Event
@@ -25,8 +28,9 @@ class Event
         Event::dispatch('general','general-event',$data);
     }
 
-    public static function dispatchUserEvent($data,$userId) {
-        Event::dispatch('user-'.$userId,'user-event',$data);
+    public static function dispatchUserEvent($data,User $user) {
+        Event::dispatch('user-'.$user->id,'user-event',$data);
+        Notification::send($user,new DatabaseNotification($data));
     }
 
     public static function Message($title, $message) {

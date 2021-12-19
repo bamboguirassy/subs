@@ -7,7 +7,7 @@
             </div>
             <div class="col-md-8">
                 <div class="card-body">
-                    <h5 class="card-title display-7">{{ $programme->nom }}</h5>
+                    <h5 class="card-title display-7"><strong>{{ $programme->nom }}</strong></h5>
                     <div class="row">
                         <div class="col-12">
                             @foreach ($programme->profilConcernes as $profilConcerne)

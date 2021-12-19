@@ -7,7 +7,7 @@
         <div class="align-center container">
             <div class="row justify-content-center">
                 <div class="col-12 col-lg-8">
-                    <h3 class="mbr-section-title mb-4 mbr-fonts-style display-1">
+                    <h3 class="mbr-section-title my-3 mbr-fonts-style display-1">
                         <strong>Utilisateurs</strong>
                     </h3>
 

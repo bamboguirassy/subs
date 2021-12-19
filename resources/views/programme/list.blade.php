@@ -33,7 +33,13 @@
                                             <div class="col-8">
                                                 <div class="d-flex w-100 justify-content-between">
                                                     <h6 class="mb-1">{{ $programme->nom }}</h6>
-                                                    <small class="nowrap">{{ count($programme->souscriptions) }}</small>
+                                                    @if ($programme->is_proprietaire)
+                                                        <small
+                                                            class="nowrap">{{ count($programme->souscriptions) }}</small>
+                                                    @elseif($programme->montant>0)
+                                                        <small
+                                                            class="nowrap">{{ count($programme->montant) }} FCFA</small>
+                                                    @endif
                                                 </div>
                                                 <p class="mb-1">
                                                     {{ date_format(new DateTime($programme->dateCloture), 'd/m/Y') }}</p>

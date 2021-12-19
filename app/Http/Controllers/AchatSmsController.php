@@ -153,7 +153,7 @@ class AchatSmsController extends Controller
                 $achatSms->user->notify(new SendSms(null,"Votre achat du pack SMS '{$achatSms->packSms->nom}' a reussi. ".config('app.name')));
                 DB::commit();
                 foreach (Parametrage::getInstance()->admins as $user) {
-                    Event::dispatchUserEvent(Event::Message("Nouveau achat d'SMS","{$achatSms->user->name} a acheté des SMS : {$achatSms->packSms->nom}."),$user->id);
+                    Event::dispatchUserEvent(Event::Message("Nouveau achat d'SMS","{$achatSms->user->name} a acheté des SMS : {$achatSms->packSms->nom}."),$user);
                 }
             } catch (\Throwable $th) {
                 DB::rollback();
