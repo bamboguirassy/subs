@@ -66,8 +66,10 @@ class SendSms extends Notification
         $initSmsSend = false;
         if ($this->initiator != null) {
             if ($this->initiator->nombreSms > 0) {
-                $response = $this->osms->sendSMS($senderAddress, 'tel:' . $notifiable->telephone, $this->message, $senderName);
-                $initSmsSend = true;
+                if(str_starts_with($notifiable->telephone,'+221')) {
+                    $response = $this->osms->sendSMS($senderAddress, 'tel:' . $notifiable->telephone, $this->message, $senderName);
+                    $initSmsSend = true;
+                }
             } else {
                 notify()->error("Le solde SMS de l'initiateur est insuffisant, SMS non envoyé.");
             }
