@@ -1,7 +1,9 @@
 @extends("base")
 
-@section('title', config('app.name') . ' - Plateforme de collecte pour les formations, tontines, cotisation et levée de
-    fond pour tous...')
+@section('title',
+    config('app.name') .
+    ' - Plateforme de collecte pour les formations, tontines, cotisation et levée de
+    fond pour tous...',)
 
 @section('social-sharing')
     <meta name="twitter:image:src" content="{{ asset('assets/images/fulllogo_nobuffer.png') }}">
@@ -28,7 +30,7 @@
                     </div>
                     <p class="mbr-section-text mbr-fonts-style align-left display-5">
                         {{-- Collectez les fonds et les inscriptions pour tous vos programmes de manière transparente, sécurisée
-                        et automatisée...  --}}
+                        et automatisée... --}}
                         Grace à nos robots qui s'occupent de tout à votre place...
                     </p>
                     <div class="pt-3 mbr-section-btn align-left">
@@ -54,13 +56,15 @@
     <x-programme-type-choice />
     <section data-bs-version="5.1" class="shop1 cid-sOcsUFykIr mb-5" id="shop01-1m">
         <div class="container">
-            <div class="row align-left justify-content-center mt-4">
+            <p class="lead">
+                Découvrez d'autres programmes auxquels vous pourrez participer...
+            </p>
+            <div class="row align-left justify-content-center">
                 @if (count($programmeActives) < 1)
                     <x-empty-message title="Pas encore de programme"
                         message="Aucun programme n'est encore disponible pour le moment !" />
                     <x-separator />
                 @else
-                    <x-separator />
                     @foreach ($programmeActives as $programmeActive)
                         @if ($programmeActive->is_collecte_fond)
                             <x-collecte-fond-public-item :programme="$programmeActive" />
