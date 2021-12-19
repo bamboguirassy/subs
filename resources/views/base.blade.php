@@ -417,21 +417,25 @@
 
     <script src="{{ asset('angular/app.js') }}"></script>
     <script src="{{ asset('angular/service.js') }}"></script>
-    <script>
-        $(function() {
-            @foreach (auth()->user()->unreadNotifications as $notification)
-                setTimeout(() => {
-                toastr.info("{{ $notification->data['message'] }}", "{{ $notification->data['title'] }}", {
-                tapToDismiss: true,
-                timeOut: 0
-                });
-                }, Math.random()*5000);
-            @endforeach
-        })
-    </script>
-@php
-    auth()->user()->unreadNotifications->markAsRead();
-@endphp
+    @auth
+        <script>
+            $(function() {
+                @foreach (auth()->user()->unreadNotifications as $notification)
+                    setTimeout(() => {
+                    toastr.info("{{ $notification->data['message'] }}", "{{ $notification->data['title'] }}", {
+                    tapToDismiss: true,
+                    timeOut: 0
+                    });
+                    }, Math.random()*5000);
+                @endforeach
+            })
+        </script>
+        @php
+            auth()
+                ->user()
+                ->unreadNotifications->markAsRead();
+        @endphp
+    @endauth
     <div id="chatbutton-wa" data-phone="+221780165026" data-showpopup="true"
         data-headertitle="👋 Echangeons sur WhatsApp !" data-popupmessage="Salut !👋
 Vous avez des questions ?
