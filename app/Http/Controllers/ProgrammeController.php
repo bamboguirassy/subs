@@ -327,6 +327,7 @@ class ProgrammeController extends Controller
             'nom' => 'required',
             'dateCloture' => 'required',
             'description' => 'required',
+            'montantObjectif'=>'required'
         ]);
     }
 }

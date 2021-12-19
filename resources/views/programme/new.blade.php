@@ -88,6 +88,14 @@
                                     </div>
                                 </ng-container>
                             @endif
+                            @if ($typeProgramme->code == 'CFON')
+                                <div class="mb-3">
+                                    <label for="montantObjectif" class="form-label">Montant objectif collecte <x-required /></label>
+                                    <input required="required" type="number" min="1000" class="form-control" name="montantObjectif"
+                                        id="montantObjectif" placeholder="Quel montant souhaitez vous collecter ?"
+                                        value="{{ old('montantObjectif') }}">
+                                </div>
+                            @endif
                             @if ($typeProgramme->code == 'TONTINE' || $typeProgramme->code == 'COTI' || $typeProgramme->code == 'COTIR')
                                 <div class="mb-3">
                                     <label for="montant" class="form-label">Montant à payer <x-required /></label>

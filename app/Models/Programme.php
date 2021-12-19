@@ -38,7 +38,8 @@ class Programme extends Model
         'tranche',
         'tauxPrelevement',
         'nombreMainMaxPersonne',
-        'suspendu'
+        'suspendu',
+        'montantObjectif'
     ];
 
     /**
@@ -164,7 +165,7 @@ class Programme extends Model
                 return $this->souscriptions->sum('nombreMain');
             }
         }
-        if($this->typeProgramme->code=="COTIR") {
+        if ($this->typeProgramme->code == "COTIR") {
             return count($this->souscriptions);
         }
         return 0;
@@ -256,6 +257,19 @@ class Programme extends Model
         return $this->typeProgramme->code == "COTIR";
     }
 
+    /**
+     * Utilisé pour les programmes de collecte
+     * calcul le percent de progression de la collecte
+     * selon le solde net global
+     */
+    public function getTauxCollecteAttribute()
+    {
+        if ($this->montantObjectif > 0) {
+            return ($this->getGainNetAttribute()/$this->montantObjectif)*100;
+        }
+        return 0;
+    }
+
     public function getHasNextAttribute()
     {
         if ($this->programme_id != null) {
@@ -277,7 +291,7 @@ class Programme extends Model
         $programme->programme_id = $parent->id;
         $programme->type_programme_id = $parent->type_programme_id;
         $index = count($parent->children) + 1;
-        $programme->nom = 'Tranche ' . $index.' - '.$parent->nom;
+        $programme->nom = 'Tranche ' . $index . ' - ' . $parent->nom;
         $programme->tranche = $index;
         $programme->montant = $parent->montant;
         $programme->nombreParticipants = 0;
@@ -308,7 +322,7 @@ class Programme extends Model
         $programme->programme_id = $child->parent->id;
         $programme->type_programme_id = $child->type_programme_id;
         $index = count($child->parent->children) + 1;
-        $programme->nom = 'Tranche ' . $index.' - '.$child->parent->nom;
+        $programme->nom = 'Tranche ' . $index . ' - ' . $child->parent->nom;
         $programme->tranche = $index;
         $programme->montant = $child->parent->montant;
         $programme->nombreParticipants = 0;
