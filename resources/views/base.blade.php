@@ -38,7 +38,7 @@
     <link rel="stylesheet" href="{{ asset('assets/datatables/vanilla-dataTables.min.css') }}">
     {{-- <link rel="stylesheet" href="{{ asset('bower_components/simditor/site/assets/styles/mobile.css') }}"> --}}
     {{-- <link rel="stylesheet" href="{{ asset('bower_components/simditor/site/assets/styles/app.css') }}"> --}}
-    {{-- <link rel="stylesheet" href="{{ asset('bower_components/simditor/site/assets/styles/simditor.css') }}"> --}}
+    <link rel="stylesheet" href="{{ asset('bower_components/simditor/site/assets/styles/simditor.css') }}">
     <link rel="preload"
         href="https://fonts.googleapis.com/css?family=Jost:100,200,300,400,500,600,700,800,900,100i,200i,300i,400i,500i,600i,700i,800i,900i&display=swap"
         as="style" onload="this.onload=null;this.rel='stylesheet'">
