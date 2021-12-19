@@ -62,9 +62,9 @@
                                 <button type="submit" class="btn btn-primary display-7">Se connecter</button>
                             </div>
                             <div class="row">
-                                <div class="col-6">
+                                <div class="col-12">
                                     @if (Route::has('password.request'))
-                                        <a class="btn btn-link" href="{{ route('password.request') }}">
+                                        <a class="btn btn-link text-primary" href="{{ route('password.request') }}">
                                             {{ __('Mot de passe oublié ?') }}
                                         </a>
                                     @endif
