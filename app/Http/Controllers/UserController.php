@@ -61,7 +61,7 @@ class UserController extends Controller
                 $user->photo = $photoname;
             }
             $user->telephone = str_replace(' ', '', $request->telephone);
-            $user->telephone = trim($request->telephone);
+            $user->telephone = trim($user->telephone);
             $user->update($request->except('photo','telephone'));
             DB::commit();
         } catch(Exception $e) {
