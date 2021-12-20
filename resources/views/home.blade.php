@@ -18,45 +18,54 @@
     <div class="d-none d-sm-block" style="margin-top: 70px;"></div>
     <section data-bs-version="5.1" class="extHeader cid-sPMNZDPZTn pt-5" id="extHeader13-2f">
         <div class="container">
-            <div class="row justify-content-center align-items-center">
+            <div class="row justify-content-center align-items-center justify-content-center">
                 <div class="col-12 col-lg-8">
-                    <div class="mb-3">
-                        <label for="searchInput" class="form-label"></label>
-                        <input type="text" class="form-control form-control-sm" name="searchInput" id="searchInput"
-                            placeholder="Rechercher un programme">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="mb-3">
+                                <label for="searchInput" class="form-label"></label>
+                                <input type="text" class="form-control form-control-sm" name="searchInput" id="searchInput"
+                                    placeholder="Rechercher un programme">
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            @auth
+                                <ol class="list-group">
+                                    <li class="list-group-item d-flex justify-content-between align-items-start"
+                                        data-bs-toggle="offcanvas" data-bs-target="#userProgrammeList"
+                                        aria-controls="userProgrammeList">
+                                        <div class="ms-2 me-auto">
+                                            <div class="fw-bold text-primary">Programmes publiés</div>
+                                            Programmes que vous avez créé
+                                        </div>
+                                        <span class="badge bg-primary rounded-pill">{{ count(auth()->user()->programmes) }}</span>
+                                    </li>
+                                    <li class="list-group-item d-flex justify-content-between align-items-start"
+                                        data-bs-toggle="offcanvas" data-bs-target="#userSouscriptionList"
+                                        aria-controls="userSouscriptionList">
+                                        <div class="ms-2 me-auto">
+                                            <div class="fw-bold text-primary">Souscriptions</div>
+                                            Programmes souscrits
+                                        </div>
+                                        <span
+                                            class="badge bg-primary rounded-pill">{{ count(auth()->user()->main_subscribed_programs) }}</span>
+                                    </li>
+                                    <li class="list-group-item d-flex justify-content-between align-items-start">
+                                        <div class="ms-2 me-auto">
+                                            <div class="fw-bold text-primary">Solde SMS</div>
+                                            SMS pour gérer les rappels
+                                        </div>
+                                        <span class="badge bg-primary rounded-pill">{{ auth()->user()->nombreSms }}</span>
+                                    </li>
+                                </ol>
+                            @endauth
+                        </div>
                     </div>
                 </div>
+                {{-- <div class="col-12 col-lg-4 py-4 bg-white mx-auto">
+                    {{ $qrcode }}
+                </div> --}}
                 <div class="mbr-white col-md-12 col-lg-8 py-lg-0 pt-1 order-2">
-                    @auth
-                        <ol class="list-group">
-                            <li class="list-group-item d-flex justify-content-between align-items-start"
-                                data-bs-toggle="offcanvas" data-bs-target="#userProgrammeList"
-                                aria-controls="userProgrammeList">
-                                <div class="ms-2 me-auto">
-                                    <div class="fw-bold text-primary">Programmes publiés</div>
-                                    Programmes que vous avez créé
-                                </div>
-                                <span class="badge bg-primary rounded-pill">{{ count(auth()->user()->programmes) }}</span>
-                            </li>
-                            <li class="list-group-item d-flex justify-content-between align-items-start"
-                                data-bs-toggle="offcanvas" data-bs-target="#userSouscriptionList"
-                                aria-controls="userSouscriptionList">
-                                <div class="ms-2 me-auto">
-                                    <div class="fw-bold text-primary">Souscriptions</div>
-                                    Programmes souscrits
-                                </div>
-                                <span
-                                    class="badge bg-primary rounded-pill">{{ count(auth()->user()->main_subscribed_programs) }}</span>
-                            </li>
-                            <li class="list-group-item d-flex justify-content-between align-items-start">
-                                <div class="ms-2 me-auto">
-                                    <div class="fw-bold text-primary">Solde SMS</div>
-                                    SMS pour gérer les rappels
-                                </div>
-                                <span class="badge bg-primary rounded-pill">{{ auth()->user()->nombreSms }}</span>
-                            </li>
-                        </ol>
-                    @endauth
                     {{-- <div class="typed-text pb-3 align-left display-2">
                         <span class="mbr-section-subtitle mbr-fonts-style display-5">Grace à nos robots et nos algorithmes
                             intelligents qui s'occupent de tout à votre place... Suivez vos programmes de manière </span>
