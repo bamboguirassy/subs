@@ -43,13 +43,18 @@
             </div>
         </div>
     </section>
-    @if ($programme->is_collecte_fond)
-        <!--Formbuilder Form-->
-        <hr class="mt-4">
-        {!! $programme->description !!}
-        <hr class="mt-4">
-    @endif
-
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                @if ($programme->is_collecte_fond)
+                    <!--Formbuilder Form-->
+                    <hr class="mt-4">
+                    {!! $programme->description !!}
+                    <hr class="mt-4">
+                @endif
+            </div>
+        </div>
+    </div>
     <section class="form cid-sOccI24ivi" id="formbuilder-17" ng-controller="SouscriptionController">
         <div class="container">
             <div class="row">
