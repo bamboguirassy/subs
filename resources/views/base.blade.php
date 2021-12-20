@@ -170,7 +170,7 @@
 
 <body>
     <section data-bs-version="5.1" class="extMenu12 menu popup-btn-cards cid-sPMLiMsHDQ" once="menu" id="extMenu13-2c">
-        <nav class="navbar navbar-dropdown navbar-fixed-top navbar-expand-lg">
+        <nav class="navbar navbar-dropdown navbar-fixed-top navbar-expand-lg" style="min-height: 0px;">
             <div class="mbr-overlay" style="opacity: 1;"></div>
             <div class="full-link">
                 <x-top-bar-menu />
