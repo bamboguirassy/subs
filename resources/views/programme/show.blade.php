@@ -146,7 +146,7 @@
         </div>
     </section>
     {{-- statistique globale --}}
-    @if ($programme->is_proprietaire || $programme->is_collecte_fond || (($programme->is_tontine || $programme->is_cotisation) && $programme->current_user_souscription))
+    @if ($programme->is_proprietaire || (($programme->is_tontine || $programme->is_cotisation) && $programme->current_user_souscription))
         <section data-bs-version="5.1" class="numbers02 cid-sQ5yFl7EbG" id="numbers02-2v">
             <div class="container">
                 <div class="row justify-content-center">
