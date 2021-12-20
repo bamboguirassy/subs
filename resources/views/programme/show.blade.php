@@ -11,7 +11,8 @@
 @section('description', $programme->description)
 
 @section('body')
-    <section data-bs-version="5.1" class="header14 cid-sObVJU3AUD" id="header14-u">
+    <div style="margin-top: 120px;" class="d-none d-sm-block"></div>
+    <section data-bs-version="5.1" class="header14 cid-sObVJU3AUD pt-5" id="header14-u">
         <div class="container">
             <div class="row justify-content-center align-items-center">
                 @isset($programme->image)
