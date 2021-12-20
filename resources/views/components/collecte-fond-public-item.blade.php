@@ -1,5 +1,5 @@
 <div class="card mb-3" style="border: 1px solid gray;">
-    <a href="{{ route('programme.show',compact('programme')) }}">
+    <a href="{{ route('souscription.new',compact('programme')) }}">
         <div class="row g-0">
             <div class="col-md-4">
                 <img src="{{ isset($programme->image) ? asset('uploads/programmes/images/' . $programme->image) : asset('assets/images/fulllogo_nobuffer.png') }}"
