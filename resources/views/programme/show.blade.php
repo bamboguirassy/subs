@@ -322,7 +322,7 @@
         </div>
     </section>
     {{-- end tab section --}}
-    @if (!$programme->is_collecte_fond)
+    @if ($programme->is_proprietaire || !$programme->is_collecte_fond)
         <x-responsable-programme :user="$programme->user" />
     @endif
     <x-separator />
