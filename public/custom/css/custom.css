@@ -45,9 +45,17 @@
 .sidebar-nav {
     list-style-type: none;
 }
-.sidebar-nav > .nav-item {
+
+.sidebar-nav>.nav-item {
     border-bottom: 3px solid #BA265E;
 }
-.sidebar-nav > .nav-item > .nav-link {
+
+.sidebar-nav>.nav-item>.nav-link {
     font-size: 20px;
+}
+
+#footer7-1 {
+    position: absolute;
+    width: 100%;
+    bottom: 0;
 }
