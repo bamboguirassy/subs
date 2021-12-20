@@ -38,16 +38,17 @@
                         <a style="font-weight: bold; color: white;"
                             href="{{ route('login') }}?ret={{ Request::url() }}">connecter en cliquant ici</a>
                     </p>
-                    @if ($programme->is_collecte_fond)
-                        <!--Formbuilder Form-->
-                        <hr class="mt-4">
-                        {!! $programme->description !!}
-                    @endif
 
                 </div>
             </div>
         </div>
     </section>
+    @if ($programme->is_collecte_fond)
+        <!--Formbuilder Form-->
+        <hr class="mt-4">
+        {!! $programme->description !!}
+        <hr class="mt-4">
+    @endif
 
     <section class="form cid-sOccI24ivi" id="formbuilder-17" ng-controller="SouscriptionController">
         <div class="container">
