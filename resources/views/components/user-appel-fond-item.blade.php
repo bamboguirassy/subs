@@ -1,7 +1,7 @@
 <div class="card mb-3" style="border: 1px solid gray;">
     <a href="{{ route('programme.show', ['programme' => $appelFond->programme]) }}">
         <div class="row g-0">
-            <div class="col-md-4">
+            <div class="col-md-4 d-flex align-items-center justify-content-center">
                 <img src="{{ isset($appelFond->programme->image) ? asset('uploads/programmes/images/' . $appelFond->programme->image) : asset('assets/images/fulllogo_nobuffer.png') }}"
                     class="img-fluid rounded-start" alt="{{ $appelFond->programme->nom }}">
             </div>
