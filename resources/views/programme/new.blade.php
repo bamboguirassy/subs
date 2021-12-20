@@ -7,7 +7,7 @@
     programme.',)
 
 @section('body')
-    <section data-bs-version="5.1" class="content2 cid-sOc3YTgSUN pt-0" id="content2-12">
+    <section data-bs-version="5.1" class="content2 cid-sOc3YTgSUN pt-3" id="content2-12">
         <div class="container">
             <div class="row content-row align-items-center pb-2">
                 <div class="col-md-12 col-lg-12">
