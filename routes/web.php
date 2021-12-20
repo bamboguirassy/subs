@@ -108,23 +108,6 @@ Route::resource('programme', ProgrammeController::class, [
     'only' => ['destroy', 'edit', 'update']
 ])->middleware('auth');
 
-Route::get('mesprogrammes', function () {
-    $title = "mes programmes";
-    $programmes = Auth::user()->programmes;
-    $programmes = $programmes->filter(function ($programme) {
-        return $programme->programme_id == null;
-    });
-    return view('programme.list', compact('programmes', 'title'));
-})->middleware('verified')->name('mes.programmes');
-
-Route::get('messouscriptions', function () {
-    $title = "mes souscriptions";
-    $programmes = Auth::user()->programmeSouscrits->filter(function ($programme) {
-        return $programme->programme_id == null;
-    });
-    return view('programme.list', compact('programmes', 'title'));
-})->middleware('verified')->name('mes.souscriptions');
-
 Route::get('souscription/{programme}/create', function (Programme $programme) {
     // vérifier si user n'a pas déja souscrit
     if ($programme->current_user_souscription) {
@@ -197,11 +180,6 @@ Route::get('countries', function () {
     }
     return $countries;
 });
-
-Route::get('user-appelfond', function () {
-    $appelFonds = AppelFond::whereRelation('programme','user_id',Auth::id())->get();
-    return view("programme.appelfond.list", compact('appelFonds'));
-})->name('user.appelfond.list')->middleware('auth');
 
 Route::resource('appelfond', AppelFondController::class, [
     'only' => ['store']

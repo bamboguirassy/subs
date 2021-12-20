@@ -6,6 +6,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -62,6 +63,13 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->belongsToMany(Programme::class, 'souscriptions');
     }
 
+    public function getMainSubscribedProgramsAttribute()
+    {
+        return Programme::whereRelation('souscriptions', function ($query) {
+            return $query->where('user_id', $this->id);
+        })->where('programme_id', null)->get();
+    }
+
     /**
      * Get all of the programmes for the User
      *
@@ -69,10 +77,21 @@ class User extends Authenticatable implements MustVerifyEmail
      */
     public function programmes(): HasMany
     {
-        return $this->hasMany(Programme::class);
+        return $this->hasMany(Programme::class)->where('programme_id', null);
     }
 
-    public function getIsAdminAttribute() {
-        return $this->type==User::ADMIN;
+    /**
+     * Get all of the appelFonds for the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasManyThrough
+     */
+    public function appelFonds(): HasManyThrough
+    {
+        return $this->hasManyThrough(AppelFond::class, Programme::class);
+    }
+
+    public function getIsAdminAttribute()
+    {
+        return $this->type == User::ADMIN;
     }
 }

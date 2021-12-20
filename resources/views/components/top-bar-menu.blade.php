@@ -4,18 +4,16 @@
             <span class="mbr-iconfont mobi-mbri mbri-menu"></span>
         </a>
         @auth
-            <a title="Mes souscriptions" href="{{ route('mes.souscriptions') }}"
-                @if (\Request::route()->getName() == 'mes.souscriptions') class="active" @endif>
+            <a title="Mes souscriptions" data-bs-toggle="offcanvas" data-bs-target="#userSouscriptionList" aria-controls="userSouscriptionList">
                 <span class="mbr-iconfont mobi-mbri mbri-bookmark"></span>
             </a>
-            <a title="Mes appels de fond" href="{{ route('user.appelfond.list') }}"
-                @if (\Request::route()->getName() == 'user.appelfond.list') class="active" @endif>
+            <a title="Mes appels de fond" data-bs-toggle="offcanvas" data-bs-target="#userAppelFondList" aria-controls="userAppelFondList">
                 <span class="mbr-iconfont icon54-v1-money-bag"></span>
             </a>
             <a title="Mon profil" href="{{ route('profile') }}" @if (\Request::route()->getName() == 'profile') class="active" @endif>
                 <span class="mbr-iconfont mobi-mbri mbri-user"></span>
             </a>
-            <a title="Mes programmes" href="{{ route('mes.programmes') }}" @if (\Request::route()->getName() == 'mes.programmes') class="active" @endif>
+            <a title="Mes programmes" data-bs-toggle="offcanvas" data-bs-target="#userProgrammeList" aria-controls="userProgrammeList">
                 <span class="mbr-iconfont mobi-mbri mbri-bulleted-list"></span>
             </a>
         @else
