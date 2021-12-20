@@ -38,6 +38,11 @@
                         <a style="font-weight: bold; color: white;"
                             href="{{ route('login') }}?ret={{ Request::url() }}">connecter en cliquant ici</a>
                     </p>
+                    @if ($programme->is_collecte_fond)
+                        <!--Formbuilder Form-->
+                        <hr class="mt-4">
+                        {!! $programme->description !!}
+                    @endif
 
                 </div>
             </div>
@@ -183,9 +188,11 @@
                             </div>
                         </div>
                     </form>
-                    <!--Formbuilder Form-->
-                    <hr class="mt-4">
-                    {!! $programme->description !!}
+                    @if (!$programme->is_collecte_fond)
+                        <!--Formbuilder Form-->
+                        <hr class="mt-4">
+                        {!! $programme->description !!}
+                    @endif
                 </div>
             </div>
         </div>
