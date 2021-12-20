@@ -15,7 +15,7 @@
     les conférences...",)
 
 @section('body')
-    <section data-bs-version="5.1" class="extHeader cid-sPMNZDPZTn mb-2" style="margin-top: 20px;" id="extHeader13-2f">
+    <section data-bs-version="5.1" class="extHeader cid-sPMNZDPZTn" id="extHeader13-2f">
         <div class="container">
             <div class="row justify-content-center align-items-center">
                 <div class="mbr-white col-md-12 col-lg-8 py-lg-0 pt-1 order-2">
@@ -28,16 +28,6 @@
                             </span>
                         </span>
                     </div>
-                    {{-- <div class="pt-3 mbr-section-btn align-left">
-                        <a class="btn btn-md btn-white display-4" href="{{ route('programme.pre.publish') }}">
-                            <span class="icon54-v2-add-note mbr-iconfont mbr-iconfont-btn"></span>
-                            Créer un programme
-                        </a>
-                        <a class="btn btn-md btn-white display-4" href="{{ route('programme.public.list') }}">
-                            <span class="icon54-v2-note-list mbr-iconfont mbr-iconfont-btn"></span>
-                            Découvrir d'autres programmes
-                        </a>
-                    </div> --}}
                 </div>
                 <div class="col-lg-6 py-lg-0 pb-2">
                     <div class="mbr-figure">
@@ -48,7 +38,6 @@
             </div>
         </div>
     </section>
-    {{-- <x-programme-type-choice /> --}}
     <section data-bs-version="5.1" class="shop1 cid-sOcsUFykIr mb-5" id="shop01-1m">
         <div class="container">
             <p class="lead">
