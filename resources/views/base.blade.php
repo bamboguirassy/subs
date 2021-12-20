@@ -171,7 +171,7 @@
 <body>
     <section data-bs-version="5.1" class="extMenu12 menu popup-btn-cards cid-sPMLiMsHDQ" once="menu" id="extMenu13-2c">
         <nav class="navbar navbar-dropdown navbar-fixed-top navbar-expand-lg">
-            <div class="mbr-overlay" style="opacity: 0.9;"></div>
+            <div class="mbr-overlay" style="opacity: 1;"></div>
             <div class="full-link">
                 <x-top-bar-menu />
             </div>
@@ -216,14 +216,85 @@
         </div>
     </div>
     {{-- end sidebar menu --}}
-    <section data-bs-version="5.1" class="footer7 cid-sOaHY68q1p" once="footers" id="footer7-1">
+    @auth
+        {{-- user pogramme list --}}
+        <div class="offcanvas offcanvas-end" tabindex="-1" id="userProgrammeList" aria-labelledby="userProgrammeListLabel">
+            <div class="offcanvas-header">
+                <h5 class="offcanvas-title" id="userProgrammeListLabel"><a href="{{ route('home') }}">
+                        <img src="{{ asset('assets/images/fulllogo-nobuffer-612x123.png') }}" alt=""
+                            style="height: 3.8rem;">
+                    </a></h5>
+                <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div style="height: 10px; width: 100%; background-color: #BA265E;"></div>
+            <div class="offcanvas-body">
+                <h3 class="mbr-section-title mb-1 mbr-fonts-style display-4 text-primary">
+                    Programmes que j'ai publiés...
+                </h3>
+                @forelse (auth()->user()->programmes as $programme)
+                    <x-user-programme-item :programme="$programme" />
+                @empty
+                    <x-empty-message title="Programme vide" message="Vous n'avez publié aucun programme pour l'instant" />
+                @endforelse
+            </div>
+        </div>
+        {{-- end user pogramme list --}}
+        {{-- user souscription list --}}
+        <div class="offcanvas offcanvas-end" tabindex="-1" id="userSouscriptionList"
+            aria-labelledby="userSouscriptionListLabel">
+            <div class="offcanvas-header">
+                <h5 class="offcanvas-title" id="userSouscriptionListLabel"><a href="{{ route('home') }}">
+                        <img src="{{ asset('assets/images/fulllogo-nobuffer-612x123.png') }}" alt=""
+                            style="height: 3.8rem;">
+                    </a></h5>
+                <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div style="height: 10px; width: 100%; background-color: #BA265E;"></div>
+            <div class="offcanvas-body">
+                <h3 class="mbr-section-title mb-1 mbr-fonts-style display-4 text-primary">
+                    Programmes que auxquels je participe...
+                </h3>
+                @forelse (auth()->user()->main_subscribed_programs as $programme)
+                    <x-user-programme-item :programme="$programme" />
+                @empty
+                    <x-empty-message title="Souscription vide"
+                        message="Vous n'avez souscrit à aucun programme pour l'instant." />
+                @endforelse
+            </div>
+        </div>
+        {{-- user souscription list --}}
+        {{-- user appel fond list --}}
+        <div class="offcanvas offcanvas-end" tabindex="-1" id="userAppelFondList"
+            aria-labelledby="userAppelFondListLabel">
+            <div class="offcanvas-header">
+                <h5 class="offcanvas-title" id="userAppelFondListLabel"><a href="{{ route('home') }}">
+                        <img src="{{ asset('assets/images/fulllogo-nobuffer-612x123.png') }}" alt=""
+                            style="height: 3.8rem;">
+                    </a></h5>
+                <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div style="height: 10px; width: 100%; background-color: #BA265E;"></div>
+            <div class="offcanvas-body">
+                <h3 class="mbr-section-title mb-1 mbr-fonts-style display-4 text-primary">
+                    Mes appels de fonds
+                </h3>
+                @forelse (auth()->user()->appelFonds as $appelFond)
+                    <x-user-appel-fond-item :appelFond="$appelFond" />
+                @empty
+                    <x-empty-message title="Appel de fond vide"
+                        message="Vous n'avez aucun appel de fond pour l'instant." />
+                @endforelse
+            </div>
+        </div>
+        {{-- user appel fond list --}}
+    @endauth
+    <section data-bs-version="5.1" class="footer7 cid-sOaHY68q1p pt-1" once="footers" id="footer7-1">
         <div class="container">
             <div class="media-container-row align-center mbr-white">
                 <div class="col-12">
-                    <p class="mbr-text mb-0 mbr-fonts-style display-7">
-                        © Copyright {{ date_format(new DateTime(), 'Y') }} <a href="https://bambogroup.net"
-                            class="text-white" target="_blank"><strong>Bambo GROUP</strong></a> - Tous droits
-                        réservés
+                    <p class="mbr-text mb-0 mt-0 mbr-fonts-style display-7">
+                        © Copyright {{ date_format(new DateTime(), 'Y') }} - <a href="https://bambogroup.net"
+                            class="text-white" target="_blank"><strong>Bambogroup</strong></a>
                     </p>
                 </div>
             </div>

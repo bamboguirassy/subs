@@ -93,4 +93,5 @@
             </div>
         </div>
     </section>
+    <hr style="height: 50px;">
 @endsection

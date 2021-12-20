@@ -2,12 +2,12 @@
     <div class="container">
         <div class="row">
             <div class="col-12 col-md-12 col-lg-4 title-col">
-                <h6 class="mbr-section-subtitle align-left mbr-fonts-style my-3 display-1">
+                <h6 class="mbr-section-subtitle align-left mbr-fonts-style my-3 display-5 text-white">
                     <strong>{{ $title }}</strong>
                 </h6>
             </div>
             <div class="col-12 col-md-12 text-col col-lg-7">
-                <p class="mbr-text align-left mbr-fonts-style mb-0 display-5">
+                <p class="mbr-text align-left mbr-fonts-style mb-0 display-4">
                     <strong>{{ $message }}</strong>
                 </p>
             </div>

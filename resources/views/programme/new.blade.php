@@ -7,14 +7,14 @@
     programme.',)
 
 @section('body')
-    <section data-bs-version="5.1" class="content2 cid-sOc3YTgSUN" id="content2-12">
+    <section data-bs-version="5.1" class="content2 cid-sOc3YTgSUN pt-0" id="content2-12">
         <div class="container">
-            <div class="row content-row align-items-center">
+            <div class="row content-row align-items-center pb-2">
                 <div class="col-md-12 col-lg-12">
                     <h1 class="mbr-section-title mbr-fonts-style mb-3 mbr-bold display-5">
                         Publication - {{ $typeProgramme->nom }}<br>
                     </h1>
-                    <p class="mbr-text mbr-black mbr-regular mbr-light mbr-fonts-style display-7">
+                    <p class="mbr-text mbr-white mbr-regular mbr-light mbr-fonts-style display-7">
                         Merci de remplir le formulaire ci-dessous pour lancer votre programme...
                         @guest
                             <br>

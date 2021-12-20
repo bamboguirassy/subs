@@ -72,4 +72,11 @@
         </div>
     </section>
     <x-social-sharing />
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <hr style="padding-top: 10px; background: white;">
+            </div>
+        </div>
+    </div>
 @endsection

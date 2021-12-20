@@ -3,20 +3,19 @@
 @section('title', 'Profil - Mon compte')
 
 @section('body')
-
-    <section data-bs-version="5.1" class="content2 cid-sOc3YTgSUN" id="content2-12">
+    <section data-bs-version="5.1" class="content2 cid-sOc3YTgSUN mt-0 pt-0" id="content2-12">
         <div class="container">
-            <div class="row content-row align-items-center">
-                <div class="col-md-12 col-lg-12">
+            <div class="row content-row align-items-center pt-5">
+                {{-- <div class="col-md-12 col-lg-12">
                     <h1 class="mbr-section-title mbr-fonts-style mb-3 mbr-bold display-5">
                         Mon profil<br></h1>
-                </div>
+                </div> --}}
             </div>
         </div>
     </section>
     <section data-bs-version="5.1" class="header1 cid-sM09FrIsem" id="header01-1s">
         <div class="container">
-            <div class="col-12 col-md-12 col-lg m-auto">
+            <div class="col-12 col-md-12 col-lg-8 m-auto">
                 <div class="text-wrapper align-left">
                     <h1 class="mbr-section-title mbr-fonts-style mb-4 display-1 text-primary">
                         <strong>{{ auth()->user()->name }}</strong>
@@ -24,7 +23,7 @@
                     <p class="mbr-text mbr-fonts-style display-7">
                         Bonjour <strong class="text-primary">{{ Auth::user()->name }}</strong>, vous souhaitez mettre à
                         jour certains de vos
-                        informations ou gérer votre compte ? <br> Bienvenue !</p>
+                        informations ou gérer votre compte ? Bienvenue !</p>
 
                 </div>
             </div>
@@ -155,9 +154,9 @@
                         </div>
                     </form>
                     <!--Formbuilder Form-->
+                    <hr style="height: 20px; color: white">
                 </div>
             </div>
-        </div><br>
+        </div>
     </section>
-
 @endsection
