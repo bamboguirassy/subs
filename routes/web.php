@@ -1,25 +1,23 @@
 <?php
 
 use App\Custom\Event;
-use App\Events\SouscriptionConfirmationEvent;
 use App\Http\Controllers\AchatSmsController;
 use App\Http\Controllers\AppelFondController;
-use App\Http\Controllers\PackSmsController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProgrammeController;
 use App\Http\Controllers\SouscriptionController;
-use App\Models\AppelFond;
 use App\Models\Parametrage;
 use App\Models\Programme;
 use App\Models\Souscription;
 use App\Models\TypeProgramme;
 use App\Models\User;
-use App\Notifications\SendSms;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use PragmaRX\Countries\Package\Countries;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
+
 
 
 
@@ -46,7 +44,11 @@ Route::get('', function () {
     $programmeActives = $programmeActives->filter(function ($programme) {
         return $programme->is_public;
     });
-    return view('home',compact('programmeActives'));
+    $qrcode = null;
+    if(Auth::check()) {
+        $qrcode = QrCode::size(200)->generate(Auth::user()->email);
+    }
+    return view('home',compact('programmeActives','qrcode'));
 })->name('home');
 
 Route::get('public', function () {
