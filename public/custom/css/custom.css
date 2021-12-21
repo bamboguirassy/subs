@@ -41,6 +41,10 @@
     background-color: #BA265E !important;
     color: white
 }
+#pills-tab .active {
+    background-color: #BA265E !important;
+    color: white
+}
 
 .sidebar-nav {
     list-style-type: none;

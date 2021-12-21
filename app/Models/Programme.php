@@ -247,6 +247,11 @@ class Programme extends Model
         return $this->typeProgramme->code == "CFON";
     }
 
+    public function getIsFormationModulaireAttribute()
+    {
+        return $this->typeProgramme->code == "FORMOD";
+    }
+
     public function getIsCotisationAttribute()
     {
         return $this->typeProgramme->code == "COTI";

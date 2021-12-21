@@ -53,7 +53,9 @@
                             </div>
                             <div data-for="nom" class="col-lg-12 col-md-12 col-sm-12 form-group">
                                 <label for="nom-formbuilder-13"
-                                    class="form-control-label mbr-fonts-style display-7">Intitulé du programme <x-required /> </label>
+                                    class="form-control-label mbr-fonts-style display-7">Intitulé du programme
+                                    <x-required />
+                                </label>
                                 <input type="text" name="nom" placeholder="Libellé du programme" data-form-field="nom"
                                     class="form-control display-7" required="required" value="{{ old('nom') }}"
                                     id="nom-formbuilder-13">
@@ -62,7 +64,9 @@
                                 <div class="col-lg-12 col-md-12 col-sm-12 form-group">
                                     <div class="form-control-label">
                                         <label for="Autre-formbuilder-13" class="mbr-fonts-style display-7">Profils
-                                            ciblés <x-required /></label>
+                                            ciblés
+                                            <x-required />
+                                        </label>
                                     </div>
                                     <div ng-repeat="profil in profils" data-for="@{{ profil . nom }}"
                                         class="form-check form-check-inline">
@@ -90,15 +94,20 @@
                             @endif
                             @if ($typeProgramme->code == 'CFON')
                                 <div class="mb-3">
-                                    <label for="montantObjectif" class="form-label">Montant objectif collecte <x-required /></label>
-                                    <input required="required" type="number" min="1000" class="form-control" name="montantObjectif"
-                                        id="montantObjectif" placeholder="Quel montant souhaitez vous collecter ?"
+                                    <label for="montantObjectif" class="form-label">Montant objectif collecte
+                                        <x-required />
+                                    </label>
+                                    <input required="required" type="number" min="1000" class="form-control"
+                                        name="montantObjectif" id="montantObjectif"
+                                        placeholder="Quel montant souhaitez vous collecter ?"
                                         value="{{ old('montantObjectif') }}">
                                 </div>
                             @endif
                             @if ($typeProgramme->code == 'TONTINE' || $typeProgramme->code == 'COTI' || $typeProgramme->code == 'COTIR')
                                 <div class="mb-3">
-                                    <label for="montant" class="form-label">Montant à payer <x-required /></label>
+                                    <label for="montant" class="form-label">Montant à payer
+                                        <x-required />
+                                    </label>
                                     <input required="required" type="number" class="form-control" name="montant"
                                         id="montant" placeholder="Montant que chacun doit payer"
                                         value="{{ old('montant') }}">
@@ -106,7 +115,9 @@
                             @endif
                             @if ($typeProgramme->code == 'TONTINE' || $typeProgramme->code == 'COTIR')
                                 <div class="mb-3">
-                                    <label for="frequence" class="form-label">Frequence de cotisation <x-required /></label>
+                                    <label for="frequence" class="form-label">Frequence de cotisation
+                                        <x-required />
+                                    </label>
                                     <select required="required" class="form-control" name="frequence" id="frequence">
                                         <option @if (old('frequence') == 'mensuelle') selected @endif>mensuelle</option>
                                         <option @if (old('frequence') == 'par 10 jours') selected @endif>par 10 jours</option>
@@ -117,7 +128,9 @@
                             @if ($typeProgramme->code == 'TONTINE')
                                 <div class="mb-3">
                                     <label for="nombreMainMaxPersonne" class="form-label">Nombre de mains maximum
-                                        par personne <x-required /></label>
+                                        par personne
+                                        <x-required />
+                                    </label>
                                     <select required="required" class="form-control" name="nombreMainMaxPersonne"
                                         id="nombreMainMaxPersonne">
                                         <option @if (old('nombreMainMaxPersonne') == 1) selected @endif>1</option>
@@ -128,19 +141,25 @@
                                     </select>
                                 </div>
                             @endif
-                            <div data-for="dateCloture" class="col-lg-12 col-md-12 col-sm-12 form-group">
-                                <label for="dateCloture-formbuilder-13"
-                                    class="form-control-label mbr-fonts-style display-7">
-                                    Date de clôture des inscriptions (souscriptions) <x-required />
-                                </label>
-                                <input type="date" name="dateCloture" data-form-field="dateCloture" required="required"
-                                    class="form-control display-7" value="{{ old('dateCloture') }}"
-                                    id="dateCloture-formbuilder-13">
-                            </div>
+                            @if ($typeProgramme->code != 'FORMOD')
+                                <div data-for="dateCloture" class="col-lg-12 col-md-12 col-sm-12 form-group">
+                                    <label for="dateCloture-formbuilder-13"
+                                        class="form-control-label mbr-fonts-style display-7">
+                                        Date de clôture des inscriptions (souscriptions)
+                                        <x-required />
+                                    </label>
+                                    <input type="date" name="dateCloture" data-form-field="dateCloture" required="required"
+                                        class="form-control display-7" value="{{ old('dateCloture') }}"
+                                        id="dateCloture-formbuilder-13">
+                                </div>
+                            @endif
                             @if ($typeProgramme->code == 'PROG' || $typeProgramme->code == 'TONTINE' || $typeProgramme->code == 'COTIR')
                                 <div data-for="dateDemarrage" class="col-lg-12 col-md-12 col-sm-12 form-group">
                                     <label for="dateDemarrage-formbuilder-13"
-                                        class="form-control-label mbr-fonts-style display-7">Date Démarrage @if($typeProgramme->code=='COTIR') des cotisations @endif <x-required /></label>
+                                        class="form-control-label mbr-fonts-style display-7">Date Démarrage
+                                        @if ($typeProgramme->code == 'COTIR') des cotisations @endif
+                                        <x-required />
+                                    </label>
                                     <input type="date" name="dateDemarrage" data-form-field="dateDemarrage"
                                         required="required" class="form-control display-7"
                                         value="{{ old('dateDemarrage') }}" id="dateDemarrage-formbuilder-13">
@@ -151,7 +170,9 @@
                                     <label for="duree-formbuilder-13"
                                         class="form-control-label mbr-fonts-style display-7">Durée
                                         (en heures)
-                                        du programme <x-required /></label>
+                                        du programme
+                                        <x-required />
+                                    </label>
                                     <input type="number" name="duree" placeholder="Durée programme" max="" min="0" step="1"
                                         data-form-field="duree" class="form-control display-7" value="{{ old('duree') }}"
                                         id="duree-formbuilder-13">
@@ -169,7 +190,9 @@
                                     <label for="nombreParticipants-formbuilder-13"
                                         class="form-control-label mbr-fonts-style display-7">Nombre Max Participants (Mettre
                                         0
-                                        pour illimité) <x-required /></label>
+                                        pour illimité)
+                                        <x-required />
+                                    </label>
                                     <input type="number" name="nombreParticipants"
                                         placeholder="Nombre maximum de participants" max="" min="0" step="1"
                                         data-form-field="nombreParticipants" required="required"
@@ -177,9 +200,16 @@
                                         id="nombreParticipants-formbuilder-13">
                                 </div>
                             @endif
+                            @if ($typeProgramme->code == 'FORMOD')
+                                <div class="col-12 mbr-fonts-style display-7 mb-2">
+                                    <strong>Donnez juste une description globale du programme de formation, à la prochaine étape, vous pourrez ajouter les différents modules...</strong>
+                                </div>
+                            @endif
                             <div data-for="description" class="col-lg-12 col-md-12 col-sm-12 form-group">
                                 <label for="description-formbuilder-13"
-                                    class="form-control-label mbr-fonts-style display-7">Description du programme <x-required /></label>
+                                    class="form-control-label mbr-fonts-style display-7">Description du programme
+                                    <x-required />
+                                </label>
                                 <textarea id="wysiwyg" name="description" data-form-field="description" required="required"
                                     class="form-control display-7"
                                     id="description-formbuilder-13">{{ old('description') }}</textarea>
@@ -207,10 +237,10 @@
                             @endif
                             <div data-for="image" class="col-lg-12 col-md-12 col-sm-12 form-group">
                                 <label for="image-formbuilder-13" class="form-control-label mbr-fonts-style display-7">
-                                    Chosir une image de couverture @if ($typeProgramme->code != 'PROG') <span class="text-primary">(optionnelle)</span> @endif</label>
+                                    Chosir une image de couverture @if ($typeProgramme->code != 'PROG' && $typeProgramme->code!='FORMOD') <span class="text-primary">(optionnelle)</span> @else <x-required /> @endif</label>
                                 <input type="file" accept="image/*" name="image" max="100" min="0" step="1"
-                                    data-form-field="image" @if ($typeProgramme->code == 'PROG') required="required" @endif class="form-control display-7" value=""
-                                    id="image-formbuilder-13">
+                                    data-form-field="image" @if ($typeProgramme->code == 'PROG' || $typeProgramme->code=='FORMOD') required="required" @endif class="form-control display-7"
+                                    value="" id="image-formbuilder-13">
                             </div>
                             @guest
                                 <div class="col-lg-12 col-md-12 col-sm-12">
@@ -221,7 +251,9 @@
                                 </div>
                                 <div data-for="name" class="col-lg-12 col-md-12 col-sm-12 form-group">
                                     <label for="name-formbuilder-13" class="form-control-label mbr-fonts-style display-7">Nom
-                                        complet <x-required /></label>
+                                        complet
+                                        <x-required />
+                                    </label>
                                     <input type="text" name="name" placeholder="Nom complet" data-form-field="name"
                                         required="required" class="form-control display-7" value="{{ old('name') }}"
                                         id="name-formbuilder-13">
@@ -239,7 +271,8 @@
                                 </div>
                                 <div data-for="telephone" class="col-lg-12 col-md-12 col-sm-12 form-group">
                                     <label for="telephone-formbuilder-13" class="form-control-label mbr-fonts-style display-7">
-                                        Téléphone <x-required />
+                                        Téléphone
+                                        <x-required />
                                     </label>
                                     <input type="tel" name="telephone" placeholder="Téléphone" data-form-field="telephone"
                                         required="required" class="form-control display-7"
@@ -247,7 +280,9 @@
                                 </div>
                                 <div data-for="profession" class="col-lg-12 col-md-12 col-sm-12 form-group">
                                     <label for="profession-formbuilder-13"
-                                        class="form-control-label mbr-fonts-style display-7">Profession <x-required /></label>
+                                        class="form-control-label mbr-fonts-style display-7">Profession
+                                        <x-required />
+                                    </label>
                                     <input type="text" name="profession" placeholder="Profession" data-form-field="profession"
                                         required="required" class="form-control display-7" value="{{ old('profession') }}"
                                         id="profession-formbuilder-13">
@@ -266,22 +301,27 @@
                                         id="photo-formbuilder-13">
                                 </div>
                                 <div data-for="email" class="col-lg-12 col-md-12 col-sm-12 form-group">
-                                    <label for="email-formbuilder-13"
-                                        class="form-control-label mbr-fonts-style display-7">Email <x-required /></label>
+                                    <label for="email-formbuilder-13" class="form-control-label mbr-fonts-style display-7">Email
+                                        <x-required />
+                                    </label>
                                     <input type="email" name="email" placeholder="test@email.com" data-form-field="email"
                                         required="required" class="form-control display-7" value="{{ old('email') }}"
                                         id="email-formbuilder-13">
                                 </div>
                                 <div data-for="password" class="col-lg-12 col-md-12 col-sm-12 form-group">
                                     <label for="password-formbuilder-13"
-                                        class="form-control-label mbr-fonts-style display-7">Mot de passe <x-required /></label>
+                                        class="form-control-label mbr-fonts-style display-7">Mot de passe
+                                        <x-required />
+                                    </label>
                                     <input type="password" name="password" placeholder="Mot de passe" data-form-field="password"
                                         required="required" class="form-control display-7" value=""
                                         id="password-formbuilder-13">
                                 </div>
                                 <div data-for="password_confirmation" class="col-lg-12 col-md-12 col-sm-12 form-group">
                                     <label for="password_confirmation-formbuilder-13"
-                                        class="form-control-label mbr-fonts-style display-7">Confirmation mot de passe <x-required /></label>
+                                        class="form-control-label mbr-fonts-style display-7">Confirmation mot de passe
+                                        <x-required />
+                                    </label>
                                     <input type="password" name="password_confirmation" placeholder="Confirmation mot de passe"
                                         data-form-field="password_confirmation" required="required"
                                         class="form-control display-7" value="" id="password_confirmation-formbuilder-13">
