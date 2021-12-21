@@ -11,23 +11,36 @@
 @section('description', $programme->description)
 
 @section('body')
-    <div style="margin-top: 90px;" class="d-none d-sm-block"></div>
-    <section data-bs-version="5.1" class="header14 cid-sObVJU3AUD pt-5" id="header14-u">
+    <div style="margin-top: 70px;" class="d-none d-sm-block"></div>
+    <div class="card" style="padding-top: 70px; background-color: #BA265E">
         <div class="container">
             <div class="row">
                 <div class="col-12 col-lg-6 mx-auto">
-                    <div class="card mb-3 bg-white">
-                        <div class="row g-0">
-                            <div class="col-md-4">
-                                <img src="{{ asset('uploads/programmes/images/' . $programme->image) }}"
-                                    class="img-fluid rounded-start" alt="...">
-                            </div>
-                            <div class="col-md-8">
-                                <div class="card-body">
-                                    <h5 class="card-title text-primary">{{ $programme->nom }}</h5>
-                                    <p class="card-text"><strong class="text-muted">par {{ $programme->user->name }}</strong>
-                                    </p>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card mb-3 bg-white">
+                                <div class="row g-0">
+                                    <div class="col-md-12">
+                                        <img src="{{ asset('uploads/programmes/images/' . $programme->image) }}"
+                                            class="img-fluid rounded-start" alt="...">
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="card-body">
+                                            <h5 class="card-title text-primary display-7"><b>{{ $programme->nom }}</b></h5>
+                                            <p class="card-text"><strong class="text-muted">par
+                                                    {{ $programme->user->name }}</strong>
+                                            </p>
+                                        </div>
+                                    </div>
                                 </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="card bg-white mb-3 d-flex py-2 justify-content-center mx-auto">
+                                <a href="{{ route('achatsms.create') }}" class="btn btn-primary" data-bs-toggle="offcanvas"
+                                    data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">Participer &nbsp;
+                                    <span class="mbri-arrow-next"></span>
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -80,7 +93,7 @@
                                 </li>
                                 @if ($programme->is_proprietaire)
                                     <li class="list-group-item d-flex justify-content-center align-items-center">
-                                        <a class="btn btn-primary" style="width: 100%">Créer des modules</a>
+                                        <a class="btn btn-primary" style="width: 100%">Ajouter module</a>
                                     </li>
                                 @endif
                             </ol>
@@ -110,7 +123,7 @@
                                 </li>
                                 @if ($programme->is_proprietaire)
                                     <li class="list-group-item d-flex justify-content-center align-items-center">
-                                        <a class="btn btn-primary" style="width: 100%">Créer des sessions</a>
+                                        <a class="btn btn-primary" style="width: 100%">Ajouter session</a>
                                     </li>
                                 @endif
                             </ol>
@@ -119,6 +132,9 @@
                 </div>
             </div>
         </div>
+    </div>
+    <section data-bs-version="5.1" class="header14 cid-sObVJU3AUD" style="padding-top: 70px" id="header14-u">
+
     </section>
     <hr class="mt-5">
 @endsection
