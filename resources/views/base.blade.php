@@ -277,7 +277,7 @@
             <div style="height: 10px; width: 100%; background-color: #BA265E;"></div>
             <div class="offcanvas-body">
                 <h3 class="mbr-section-title mb-1 mbr-fonts-style display-4 text-primary">
-                    Programmes que auxquels je participe...
+                    Programmes auxquels je participe...
                 </h3>
                 @forelse (auth()->user()->main_subscribed_programs as $programme)
                     <x-user-programme-item :programme="$programme" />
