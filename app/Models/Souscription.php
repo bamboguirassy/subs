@@ -60,6 +60,16 @@ class Souscription extends Model
         return $this->belongsTo(User::class);
     }
 
+    /**
+     * Get the tirage associated with the Souscription
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function tirage(): HasOne
+    {
+        return $this->hasOne(Tirage::class);
+    }
+
     public function getChildrenAttribute()
     {
         if($this->programme->is_parent) {

@@ -132,6 +132,16 @@ class Programme extends Model
         return $this->hasOne(AppelFond::class);
     }
 
+    /**
+     * Get all of the tirages for the Programme
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function tirages(): HasMany
+    {
+        return $this->hasMany(Tirage::class);
+    }
+
     public function getGainAttribute()
     {
         $total = 0;
