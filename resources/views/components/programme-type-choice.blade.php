@@ -18,7 +18,7 @@
                         <div class="col-10">
                             <div class="justify-content-between">
                                 <h5 class="mb-1 mbr-fonts-style text-primary">{{ $typeProgramme->nom }}</h5>
-                                <p class="card-text mbr-fonts-style display-7">{!! Str::limit($typeProgramme->description, 60, '...') !!}</p>
+                                <p class="card-text mbr-fonts-style display-4">{!! Str::limit($typeProgramme->description, 60, '...') !!}</p>
                                 <strong class="text-primary">
                                     Continuer
                                     avec&nbsp;

@@ -217,6 +217,25 @@
     </div>
     {{-- end sidebar menu --}}
     @auth
+        {{-- canvas for historique achat SMS --}}
+        <div class="offcanvas offcanvas-end" tabindex="-1" id="hisroriqueAchatSms"
+            aria-labelledby="hisroriqueAchatSmsLabel">
+            <div class="offcanvas-header">
+                <h5 class="offcanvas-title" id="hisroriqueAchatSmsLabel"><a href="{{ route('home') }}">
+                        <img src="{{ asset('assets/images/fulllogo-nobuffer-612x123.png') }}" alt=""
+                            style="height: 3rem; width: 95%">
+                    </a></h5>
+                <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div style="height: 10px; width: 100%; background-color: #BA265E;"></div>
+            <h3 class="mbr-section-title mb-1 mbr-fonts-style display-4 text-primary text-center">
+                Historique achat SMS
+            </h3>
+            <div class="offcanvas-body">
+                <x-historique-achat-sms />
+            </div>
+        </div>
+        {{-- end canvas menu - historique achat SMS --}}
         {{-- user pogramme list --}}
         <div class="offcanvas offcanvas-end" tabindex="-1" id="userProgrammeList" aria-labelledby="userProgrammeListLabel">
             <div class="offcanvas-header">
@@ -231,6 +250,12 @@
                 <h3 class="mbr-section-title mb-1 mbr-fonts-style display-4 text-primary">
                     Programmes que j'ai publiés...
                 </h3>
+                <hr>
+                <div class="d-grid gap-2">
+                    <a href="{{ route('achatsms.create') }}" class="btn btn-primary" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample"
+                    aria-controls="offcanvasExample">Démarrer un programme</a>
+                </div>
+                <hr>
                 @forelse (auth()->user()->programmes as $programme)
                     <x-user-programme-item :programme="$programme" />
                 @empty
@@ -264,8 +289,7 @@
         </div>
         {{-- user souscription list --}}
         {{-- user appel fond list --}}
-        <div class="offcanvas offcanvas-end" tabindex="-1" id="userAppelFondList"
-            aria-labelledby="userAppelFondListLabel">
+        <div class="offcanvas offcanvas-end" tabindex="-1" id="userAppelFondList" aria-labelledby="userAppelFondListLabel">
             <div class="offcanvas-header">
                 <h5 class="offcanvas-title" id="userAppelFondListLabel"><a href="{{ route('home') }}">
                         <img src="{{ asset('assets/images/fulllogo-nobuffer-612x123.png') }}" alt=""
@@ -281,8 +305,7 @@
                 @forelse (auth()->user()->appelFonds as $appelFond)
                     <x-user-appel-fond-item :appelFond="$appelFond" />
                 @empty
-                    <x-empty-message title="Appel de fond vide"
-                        message="Vous n'avez aucun appel de fond pour l'instant." />
+                    <x-empty-message title="Appel de fond vide" message="Vous n'avez aucun appel de fond pour l'instant." />
                 @endforelse
             </div>
         </div>

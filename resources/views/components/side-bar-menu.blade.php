@@ -17,26 +17,29 @@
             </a>
         </li>
         @if (auth()->user()->is_admin)
-        <li>
-            <div style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; font-size: 30px;" class="text-primary px-1">Admin</div>
-            <ul>
-                <li class="nav-item">
-                    <a class="nav-link link text-primary display-4" href="{{ route('admin.programme.index') }}"
-                        aria-expanded="false">
-                        Programmes
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link link text-primary display-4" href="{{ route('admin.appelfond.index') }}">Appels de
-                        fonds<br>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link link text-primary display-4" href="{{ route('admin.user.index') }}">Utilisateurs<br>
-                    </a>
-                </li>
-            </ul>
-        </li>
+            <li>
+                <div style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; font-size: 30px;"
+                    class="text-primary px-1">Admin</div>
+                <ul>
+                    <li class="nav-item">
+                        <a class="nav-link link text-primary display-4" href="{{ route('admin.programme.index') }}"
+                            aria-expanded="false">
+                            Programmes
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link link text-primary display-4" href="{{ route('admin.appelfond.index') }}">Appels
+                            de
+                            fonds<br>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link link text-primary display-4"
+                            href="{{ route('admin.user.index') }}">Utilisateurs<br>
+                        </a>
+                    </li>
+                </ul>
+            </li>
         @else
             <li class="nav-item">
                 <a class="nav-link link text-primary display-4" data-bs-toggle="offcanvas"
@@ -58,8 +61,9 @@
             </li>
         @endif
         <li class="nav-item">
-            <a class="nav-link link text-primary display-4" href="{{ route('achatsms.create') }}" aria-expanded="false">
-                Acheter des SMS ({{ Auth::user()->nombreSms }} SMS)
+            <a class="nav-link link text-primary display-4" href="{{ route('achatsms.create') }}"
+                data-bs-toggle="offcanvas" data-bs-target="#hisroriqueAchatSms" aria-controls="hisroriqueAchatSms">
+                Historique SMS ({{ Auth::user()->nombreSms }} SMS)
             </a>
         </li>
     @endauth

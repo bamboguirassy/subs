@@ -23,8 +23,6 @@
         }
 
         .card:hover {
-
-
             transform: scale(1.02, 1.02);
             -webkit-transform: scale(1.02, 1.02);
             backface-visibility: hidden;
@@ -64,10 +62,10 @@
         </div>
     </section>
     <div class="container-fluid" style="background: linear-gradient(90deg, #ba265e 0%, #b22f5F 100%);">
-        <div class="container p-5">
+        <div class="container p-1">
             <div class="row">
                 @foreach ($packSms as $packSm)
-                    <div class="col-lg-4 col-md-12 mb-4">
+                    <div class="col-lg-4 col-md-12 mb-3">
                         <div class="card h-100 shadow-lg">
                             <form action="{{ route('achatsms.store') }}" method="POST">
                                 @csrf
@@ -87,7 +85,7 @@
                                     </div>
                                     <p class="card-text">{!! $packSm->description !!}</p>
                                 </div>
-                                <div class="card-body text-center justify-content-center">
+                                <div class="card-body text-center d-flex justify-content-center">
                                     <button type="submit" class="btn btn-outline-primary btn-lg"
                                         style="border-radius:30px">Choisir</button>
                                 </div>
