@@ -60,14 +60,14 @@ class User extends Authenticatable implements MustVerifyEmail
      */
     public function programmeSouscrits(): BelongsToMany
     {
-        return $this->belongsToMany(Programme::class, 'souscriptions');
+        return $this->belongsToMany(Programme::class, 'souscriptions')->orderBy('created_at','desc');
     }
 
     public function getMainSubscribedProgramsAttribute()
     {
         return Programme::whereRelation('souscriptions', function ($query) {
             return $query->where('user_id', $this->id);
-        })->where('programme_id', null)->get();
+        })->where('programme_id', null)->orderBy('created_at','desc')->get();
     }
 
     /**
@@ -77,7 +77,7 @@ class User extends Authenticatable implements MustVerifyEmail
      */
     public function programmes(): HasMany
     {
-        return $this->hasMany(Programme::class)->where('programme_id', null);
+        return $this->hasMany(Programme::class)->where('programme_id', null)->orderBy('created_at','desc');
     }
 
     /**
@@ -87,7 +87,7 @@ class User extends Authenticatable implements MustVerifyEmail
      */
     public function appelFonds(): HasManyThrough
     {
-        return $this->hasManyThrough(AppelFond::class, Programme::class);
+        return $this->hasManyThrough(AppelFond::class, Programme::class)->orderBy('created_at','desc');
     }
 
     /**
@@ -97,7 +97,7 @@ class User extends Authenticatable implements MustVerifyEmail
      */
     public function achatSmsList(): HasMany
     {
-        return $this->hasMany(AchatSms::class)->whereConfirmed(true);
+        return $this->hasMany(AchatSms::class)->whereConfirmed(true)->orderBy('created_at','desc');
     }
 
     public function getIsAdminAttribute()
