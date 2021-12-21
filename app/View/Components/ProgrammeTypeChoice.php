@@ -16,7 +16,7 @@ class ProgrammeTypeChoice extends Component
      */
     public function __construct()
     {
-        $this->typeProgrammes = TypeProgramme::where('enabled',true)->get();
+        $this->typeProgrammes = TypeProgramme::where('enabled',true)->orderBy('nom')->get();
     }
 
     /**
