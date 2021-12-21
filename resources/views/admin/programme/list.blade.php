@@ -10,7 +10,6 @@
                     <h3 class="mbr-section-title mb-4 mbr-fonts-style display-1">
                         <strong>Programmes</strong>
                     </h3>
-
                 </div>
             </div>
         </div>
@@ -105,6 +104,9 @@
                         </div>
                     </div>
                 </div>
+            </div>
+            <div class="col-12">
+                <hr>
             </div>
         </div>
     </section>

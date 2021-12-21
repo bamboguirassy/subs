@@ -94,4 +94,8 @@
             </div>
         </div>
     </section>
+
+    <div class="col-12">
+        <hr>
+    </div>
 @endsection

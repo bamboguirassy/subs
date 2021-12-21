@@ -1,8 +1,13 @@
 @extends('base')
 
 @section('body')
-    <div class="container" style="margin-top: 120px">
+    <div class="d-none d-md-block" style="margin-top: 70px;"></div>
+    <div class="container" style="margin-top: 80px">
         <div class="row justify-content-center">
+            <div class="col-12">
+                <img src="{{ asset('assets/images/fulllogo-nobuffer-612x123.png') }}" alt="" style="height: 2.5rem;">
+            </div>
+            <hr class="mt-1">
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-header">{{ __('Register') }}</div>
@@ -15,7 +20,7 @@
                                 <label for="name"
                                     class="col-md-4 col-form-label text-md-right">{{ __('Nom complet') }}</label>
 
-                                <div class="col-md-6">
+                                <div class="col-md-12">
                                     <input id="name" type="text" class="form-control @error('name') is-invalid @enderror"
                                         name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
 
@@ -31,7 +36,7 @@
                                     Téléphone
                                 </label>
                                 <input type="tel" name="telephone" placeholder="Téléphone" data-form-field="telephone"
-                                    required="required" class="form-control display-7" value="{{ old('telephone') }}"
+                                    required="required" class="form-control display-7" value="{{ old('telephone')??'+221' }}"
                                     id="telephone-formbuilder-13">
                             </div>
                             <div data-for="profession" class="col-lg-12 col-md-12 col-sm-12 form-group">
@@ -44,10 +49,8 @@
                             <div data-for="presentation" class="col-lg-12 col-md-12 col-sm-12 form-group">
                                 <label for="presentation-formbuilder-13"
                                     class="form-control-label mbr-fonts-style display-7">Présenation</label>
-                                <textarea id="wysiwyg" name="presentation"
-                                    placeholder="Présentez-vous clairement pour que les participants puissent vous connaitre"
-                                    data-form-field="presentation" class="form-control display-7"
-                                    id="presentation-formbuilder-13"></textarea>
+                                <textarea id="wysiwyg" name="presentation" data-form-field="presentation"
+                                    class="form-control display-7" id="presentation-formbuilder-13"></textarea>
                             </div>
                             <div data-for="photo" class="col-lg-12 col-md-12 col-sm-12 form-group">
                                 <label for="photo-formbuilder-13" class="form-control-label mbr-fonts-style display-7">
@@ -108,6 +111,11 @@
                         </form>
                     </div>
                 </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <hr>
             </div>
         </div>
     </div>

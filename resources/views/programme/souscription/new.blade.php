@@ -10,7 +10,8 @@
 @section('description', $programme->description)
 
 @section('body')
-    <section data-bs-version="5.1" class="header3 cid-sOcbVln16Y" id="header03-16">
+    <div style="margin-top: 70px;" class="d-none d-lg-block"></div>
+    <section data-bs-version="5.1" class="header3 cid-sOcbVln16Y" style="padding-top: 70px" id="header03-16">
         <div class="mbr-overlay" style="opacity: 0.7; background-color: #BA265E;"></div>
         <div class="container">
             <div class="row justify-content-center">
