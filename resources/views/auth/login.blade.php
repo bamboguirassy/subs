@@ -5,14 +5,13 @@
 @section('description', 'Identifiez vous pour accéder à la plateforme.')
 
 @section('body')
-    <section data-bs-version="5.1" class="header3 cid-sOcnUFYG0i" id="header3-1i">
+<div class="d-none d-lg-block" style="margin-top: 80px;"></div>
+    <section data-bs-version="5.1" class="header3 cid-sOcnUFYG0i pb-0" style="padding-top: 70px;" id="header3-1i">
         <div class="align-center container">
             <div class="row justify-content-center">
                 <div class="col-12 col-lg-6">
                     <h1 class="mbr-section-title mbr-fonts-style mb-3 display-2"><strong>Authentification</strong></h1>
-
                     <p class="mbr-text mbr-fonts-style display-7">Identifiez vous !</p>
-
                 </div>
             </div>
         </div>
@@ -63,18 +62,18 @@
                             </div>
                             <div class="row">
                                 <div class="col-12">
+                                    @if (Route::has('register'))
+                                        <a class="btn btn-link"
+                                            href="{{ route('register') }}">{{ __("Créer un compte") }}</a>
+                                    @endif
+                                </div>
+                                <div class="col-12">
                                     @if (Route::has('password.request'))
                                         <a class="btn btn-link text-primary" href="{{ route('password.request') }}">
                                             {{ __('Mot de passe oublié ?') }}
                                         </a>
                                     @endif
                                 </div>
-                                {{-- <div class="col-6">
-                                    @if (Route::has('register'))
-                                        <a class="btn btn-link"
-                                            href="{{ route('register') }}">{{ __("S'inscrire") }}</a>
-                                    @endif
-                                </div> --}}
                             </div>
                         </div>
                 </div>

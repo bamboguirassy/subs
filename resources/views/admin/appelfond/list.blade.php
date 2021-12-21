@@ -148,7 +148,8 @@
                                             <div class="col" ng-if="selected.etat=='En cours'">
                                                 <div class="mb-3">
                                                     <label for="frais" class="form-label">Frais d'envoi</label>
-                                                    <input ng-model="selected.frais" type="number" name="frais" id="frais" class="form-control"
+                                                    <input ng-model="selected.frais" type="number" name="frais" id="frais"
+                                                        class="form-control"
                                                         placeholder="Frais appliqués lors du paiement">
                                                 </div>
                                             </div>
@@ -167,5 +168,13 @@
             </div>
         </div>
         {{-- end Modfier montant  modal --}}
+
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <hr>
+                </div>
+            </div>
+        </div>
     </section>
 @endsection
