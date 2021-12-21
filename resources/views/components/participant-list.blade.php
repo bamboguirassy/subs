@@ -92,7 +92,7 @@
                                                 {{ $souscription->montant > 0 ? $souscription->montant . ' FCFA' : 'gratuit' }}
                                             </td>
                                             <td class="body-item mbr-fonts-style display-7 nowrap">
-                                                @if ($souscriptions[0]->programme->active)
+                                                @if ($souscriptions[0]->programme->active && auth()->user()->is_admin)
                                                     <a ng-click="select({{ $souscription }})"
                                                         class="btn btn-warning nowrap" href="#" data-toggle="modal"
                                                         data-bs-toggle="modal" data-target="#mbr-popup-2w"
@@ -100,7 +100,7 @@
                                                             class="mbri-cash"></span>
                                                     </a>
                                                 @endif
-                                                @if ($souscription->programme->is_parent && count($souscription->children)<1)
+                                                @if ($souscription->programme->is_parent && count($souscription->children)<1 && auth()->user()->is_admin)
                                                     <form style="display: inline-block;" class="d-inline"
                                                         action="{{ route('souscription.destroy', compact('souscription')) }}"
                                                         method="post">
