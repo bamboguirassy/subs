@@ -265,7 +265,7 @@ class Programme extends Model
     public function getTauxCollecteAttribute()
     {
         if ($this->montantObjectif > 0) {
-            return ($this->getGainNetAttribute()/$this->montantObjectif)*100;
+            return number_format(($this->getGainNetAttribute()/$this->montantObjectif)*100,2);
         }
         return 0;
     }

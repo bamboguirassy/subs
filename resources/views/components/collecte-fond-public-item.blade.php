@@ -12,7 +12,7 @@
                         <strong>{{ date_format(new DateTime($programme->dateCloture), 'd/m/Y') }}</strong>
                     </p>
                     <div class="progress">
-                        <div class="progress-bar actif" role="progressbar" style="width: {{ $programme->taux_collecte }}%;" aria-valuenow="{{ $programme->taux_collecte }}"
+                        <div class="progress-bar  progress-bar-striped actif" role="progressbar" style="width: {{ $programme->taux_collecte }}%;" aria-valuenow="{{ $programme->taux_collecte }}"
                             aria-valuemin="0" aria-valuemax="100">{{ $programme->taux_collecte }}%</div>
                     </div>
                     <p class="mbr-section-text mbr-fonts-style align-left display-4 mt-1">{{ $programme->gain_net }} FCFA collecté sur {{ $programme->montantObjectif }} FCFA</p>
