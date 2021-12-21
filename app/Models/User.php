@@ -90,6 +90,16 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasManyThrough(AppelFond::class, Programme::class);
     }
 
+    /**
+     * Get all of the achatSmsList for the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function achatSmsList(): HasMany
+    {
+        return $this->hasMany(AchatSms::class)->whereConfirmed(true);
+    }
+
     public function getIsAdminAttribute()
     {
         return $this->type == User::ADMIN;

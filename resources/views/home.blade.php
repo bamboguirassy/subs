@@ -38,7 +38,8 @@
                                             <div class="fw-bold text-primary">Programmes publiés</div>
                                             Programmes que vous avez créé
                                         </div>
-                                        <span class="badge bg-primary rounded-pill">{{ count(auth()->user()->programmes) }}</span>
+                                        <span
+                                            class="badge bg-primary rounded-pill">{{ count(auth()->user()->programmes) }}</span>
                                     </li>
                                     <li class="list-group-item d-flex justify-content-between align-items-start"
                                         data-bs-toggle="offcanvas" data-bs-target="#userSouscriptionList"
@@ -50,7 +51,9 @@
                                         <span
                                             class="badge bg-primary rounded-pill">{{ count(auth()->user()->main_subscribed_programs) }}</span>
                                     </li>
-                                    <li class="list-group-item d-flex justify-content-between align-items-start">
+                                    <li class="list-group-item d-flex justify-content-between align-items-start"
+                                        data-bs-toggle="offcanvas" data-bs-target="#hisroriqueAchatSms"
+                                        aria-controls="hisroriqueAchatSms">
                                         <div class="ms-2 me-auto">
                                             <div class="fw-bold text-primary">Solde SMS</div>
                                             SMS pour gérer les rappels

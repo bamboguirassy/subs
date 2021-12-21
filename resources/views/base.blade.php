@@ -212,11 +212,29 @@
         </div>
         <div style="height: 10px; width: 100%; background-color: #BA265E;"></div>
         <div class="offcanvas-body">
-            <x-side-bar-menu />
+            <h3 class="mbr-section-title mb-1 mbr-fonts-style display-4 text-primary">
+                Historique achat SMS
+            </h3>
+
         </div>
     </div>
     {{-- end sidebar menu --}}
     @auth
+    {{-- canvas for historique achat SMS --}}
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="hisroriqueAchatSms" aria-labelledby="hisroriqueAchatSmsLabel">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="hisroriqueAchatSmsLabel"><a href="{{ route('home') }}">
+                    <img src="{{ asset('assets/images/fulllogo-nobuffer-612x123.png') }}" alt=""
+                        style="height: 3rem; width: 95%">
+                </a></h5>
+            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div style="height: 10px; width: 100%; background-color: #BA265E;"></div>
+        <div class="offcanvas-body">
+            <x-historique-achat-sms />
+        </div>
+    </div>
+    {{-- end canvas menu - historique achat SMS --}}
         {{-- user pogramme list --}}
         <div class="offcanvas offcanvas-end" tabindex="-1" id="userProgrammeList" aria-labelledby="userProgrammeListLabel">
             <div class="offcanvas-header">
