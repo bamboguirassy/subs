@@ -45,12 +45,12 @@
                                     required="required" class="form-control display-7" value="{{ old('profession') }}"
                                     id="profession-formbuilder-13">
                             </div>
-                            <div data-for="presentation" class="col-lg-12 col-md-12 col-sm-12 form-group">
+                            {{-- <div data-for="presentation" class="col-lg-12 col-md-12 col-sm-12 form-group">
                                 <label for="presentation-formbuilder-13"
                                     class="form-control-label mbr-fonts-style display-7">Présenation</label>
                                 <textarea id="wysiwyg" name="presentation" data-form-field="presentation"
                                     class="form-control display-7" id="presentation-formbuilder-13"></textarea>
-                            </div>
+                            </div> --}}
                             <div data-for="photo" class="col-lg-12 col-md-12 col-sm-12 form-group">
                                 <label for="photo-formbuilder-13" class="form-control-label mbr-fonts-style display-7">
                                     Chosir une photo de profil</label>
