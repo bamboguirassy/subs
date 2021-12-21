@@ -75,6 +75,8 @@ class ProgrammeController extends Controller
             $this->validateProgramme();
         } else if ($typeProgramme->code == 'TONTINE') {
             $this->validateTontine();
+        } else if ($typeProgramme->code == "FORMOD") {
+            $this->validateFormationModulaire();
         } else {
             notify()->error("Type de programme non reconnu...");
             return back()->withErrors(["Type de programme inconnu..."]);
@@ -162,6 +164,9 @@ class ProgrammeController extends Controller
      */
     public function show(Programme $programme)
     {
+        if($programme->getIsFormationModulaireAttribute()) {
+            return view('programme.formation.show',compact('programme'));
+        }
         return view('programme.show', compact('programme'));
     }
 
@@ -327,7 +332,17 @@ class ProgrammeController extends Controller
             'nom' => 'required',
             'dateCloture' => 'required',
             'description' => 'required',
-            'montantObjectif'=>'required'
+            'montantObjectif' => 'required'
+        ]);
+    }
+
+    function validateFormationModulaire()
+    {
+        // valider les champs obligatoires propres à programme
+        request()->validate([
+            'type_programme_id' => 'required|exists:type_programmes,id',
+            'nom' => 'required',
+            'description' => 'required',
         ]);
     }
 }

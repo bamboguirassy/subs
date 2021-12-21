@@ -180,12 +180,6 @@
         </nav>
     </section>
     @yield("body")
-    {{-- button d'ajout programme --}}
-    <button type="button" class="btn btn-warning btn-lg px-3" type="button" data-bs-toggle="offcanvas"
-        data-bs-target="#offcanvasExample" aria-controls="offcanvasExample"
-        style="border-radius: 50%; position: fixed; top: 50%; right: 10px;">
-        <span class="icon54-v2-add-note mbr-iconfont mbr-iconfont-btn"></span>
-    </button>
     {{-- canvas for programme new --}}
     <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
         <div class="offcanvas-header">
@@ -279,6 +273,12 @@
                 <h3 class="mbr-section-title mb-1 mbr-fonts-style display-4 text-primary">
                     Programmes auxquels je participe...
                 </h3>
+                <hr>
+                <div class="d-grid gap-2">
+                    <a href="{{ route('achatsms.create') }}" class="btn btn-primary" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample"
+                    aria-controls="offcanvasExample">Démarrer un programme</a>
+                </div>
+                <hr>
                 @forelse (auth()->user()->main_subscribed_programs as $programme)
                     <x-user-programme-item :programme="$programme" />
                 @empty
