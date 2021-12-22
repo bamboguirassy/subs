@@ -29,8 +29,8 @@
                             </div>
                         </div>
                         <div class="col-12">
-                            @auth
-                                <ol class="list-group">
+                            <ol class="list-group">
+                                @auth
                                     <li class="list-group-item d-flex justify-content-between align-items-start"
                                         data-bs-toggle="offcanvas" data-bs-target="#userProgrammeList"
                                         aria-controls="userProgrammeList">
@@ -60,15 +60,15 @@
                                         </div>
                                         <span class="badge bg-primary rounded-pill">{{ auth()->user()->nombreSms }}</span>
                                     </li>
-                                    <li class="list-group-item d-flex justify-content-between align-items-start">
-                                        <a href="{{ route('achatsms.create') }}" class="btn btn-primary w-100"
-                                            data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample"
-                                            aria-controls="offcanvasExample">Créer un programme &nbsp;
-                                            <span class="mbri-plus"></span>
-                                        </a>
-                                    </li>
-                                </ol>
-                            @endauth
+                                @endauth
+                                <li class="list-group-item d-flex justify-content-between align-items-start">
+                                    <a href="{{ route('achatsms.create') }}" class="btn btn-primary w-100"
+                                        data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample"
+                                        aria-controls="offcanvasExample">Créer un programme &nbsp;
+                                        <span class="mbri-plus"></span>
+                                    </a>
+                                </li>
+                            </ol>
                         </div>
                     </div>
                 </div>
