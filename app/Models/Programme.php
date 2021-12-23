@@ -39,7 +39,8 @@ class Programme extends Model
         'tauxPrelevement',
         'nombreMainMaxPersonne',
         'suspendu',
-        'montantObjectif'
+        'montantObjectif',
+        'categorie'
     ];
 
     /**
@@ -142,6 +143,36 @@ class Programme extends Model
         return $this->hasMany(Tirage::class);
     }
 
+    /**
+     * Get all of the modules for the Programme
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function modules(): HasMany
+    {
+        return $this->hasMany(Programme::class)->whereCategorie('module');
+    }
+
+    /**
+     * Get all of the modules for the Programme
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function sessions(): HasMany
+    {
+        return $this->hasMany(Programme::class)->whereCategorie('session');
+    }
+
+    /**
+     * Get all of the modules for the Programme
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function sessionActives(): HasMany
+    {
+        return $this->hasMany(Programme::class)->whereCategorie('session')->where('dateCloture','>=',today());
+    }
+
     public function getGainAttribute()
     {
         $total = 0;
@@ -240,6 +271,14 @@ class Programme extends Model
     public function getIsPublicAttribute()
     {
         return $this->typeProgramme->code == "PROG" || $this->typeProgramme->code == "CFON";
+    }
+
+    public function getIsModuleFormationAttribute() {
+        return $this->typeProgramme->code=="FORMOD" && $this->categorie=="module";
+    }
+
+    public function getIsSessionFormationAttribute() {
+        return $this->typeProgramme->code=="FORMOD" && $this->categorie=="session";
     }
 
     public function getIsCollecteFondAttribute()
