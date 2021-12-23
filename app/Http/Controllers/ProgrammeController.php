@@ -76,7 +76,17 @@ class ProgrammeController extends Controller
         } else if ($typeProgramme->code == 'TONTINE') {
             $this->validateTontine();
         } else if ($typeProgramme->code == "FORMOD") {
-            $this->validateFormationModulaire();
+            // si categorie programme définie
+            if ($request->exists('categorie')) {
+                // si module
+                if ($request->categorie == 'module') {
+                    $this->validateModule();
+                } else if($request->categorie=='session') {
+                    $this->validateSession();
+                }
+            } else {
+                $this->validateFormationModulaire();
+            }
         } else {
             notify()->error("Type de programme non reconnu...");
             return back()->withErrors(["Type de programme inconnu..."]);
@@ -148,6 +158,10 @@ class ProgrammeController extends Controller
                     notify()->success("Vous êtes connecté à  votre compte !");
                 }
             }
+            // si programme formation modulaire et que categorie module
+            if($programme->getIsModuleFormationAttribute() || $programme->getIsSessionFormationAttribute()) {
+                return back();
+            }
             return redirect()->route('programme.show', compact('programme'));
         } catch (Exception $e) {
             notify()->error("Une erreur s'est produite pendant l'enregistrement du programme, merci de réssayer !");
@@ -164,8 +178,8 @@ class ProgrammeController extends Controller
      */
     public function show(Programme $programme)
     {
-        if($programme->getIsFormationModulaireAttribute()) {
-            return view('programme.formation.show',compact('programme'));
+        if ($programme->getIsFormationModulaireAttribute()) {
+            return view('programme.formation.show', compact('programme'));
         }
         return view('programme.show', compact('programme'));
     }
@@ -294,6 +308,33 @@ class ProgrammeController extends Controller
             'dateCloture' => 'required',
             'description' => 'required',
             'montant' => 'required',
+        ]);
+    }
+
+    function validateModule()
+    {
+        // valider les champs obligatoires propres à programme
+        request()->validate([
+            'type_programme_id' => 'required|exists:type_programmes,id',
+            'nom' => 'required',
+            'description' => 'required',
+            'montant' => 'required',
+            'categorie' => 'required',
+            'programme_id'=>'required|exists:programmes,id'
+        ]);
+    }
+
+    function validateSession()
+    {
+        // valider les champs obligatoires propres à programme
+        request()->validate([
+            'type_programme_id' => 'required|exists:type_programmes,id',
+            'nom' => 'required',
+            'dateCloture' => 'required',
+            'dateDemarrage'=>'required',
+            'modeDeroulement'=>'required',
+            'categorie' => 'required',
+            'programme_id'=>'required|exists:programmes,id'
         ]);
     }
 

@@ -110,7 +110,19 @@ Route::resource('programme', ProgrammeController::class, [
     'only' => ['destroy', 'edit', 'update']
 ])->middleware('auth');
 
-Route::get('souscription/{programme}/create', function (Programme $programme) {
+Route::get('souscription/{programme}/create', function (Request $request, Programme $programme) {
+    if($programme->is_formation_modulaire) {
+        if($request->exists('step')) {
+            if($request->step=='session') {
+                return view('programme.formation.choose-session',compact('programme'));
+            } else if($request->step=='module') {
+                return view('programme.formation.choose-modules',compact('programme'));
+            } else {
+                notify()->error("Programme non précisé");
+                return back();
+            }
+        }
+    }
     // vérifier si user n'a pas déja souscrit
     if ($programme->current_user_souscription) {
         notify()->warning("Vous avez déja souscrit à ce programme !");
