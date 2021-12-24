@@ -12,7 +12,7 @@
 
 @section('body')
     <div style="margin-top: 70px;" class="d-none d-sm-block"></div>
-    <div class="card" style="padding-top: 70px; background-color: #BA265E">
+    <div ng-controller="SouscriptionController" class="card" style="padding-top: 70px; background-color: #BA265E">
         <div class="container">
             <div class="row">
                 <div class="col-12">
@@ -41,13 +41,21 @@
                                         <form action="" method="post">
                                             <ul class="list-group">
                                                 @foreach ($programme->parent->modules as $module)
-                                                    <li class="list-group-item">
-                                                        <input class="form-check-input me-1" type="checkbox" value=""
+                                                    <li ng-init="ms[{{ $module->id }}]=false" class="list-group-item">
+                                                        <input ng-model="ms[{{ $module->id }}]"
+                                                            ng-change="selectModule({{ $module }})"
+                                                            class="form-check-input me-1" type="checkbox" value=""
                                                             aria-label="...">
                                                         Module {{ $loop->index + 1 }} > {{ $module->nom }} <br>
-                                                        <span class="badge bg-primary pull-right">@if ($module->montant == 0) gratuit @else {{ $module->montant }} FCFA @endif</span>
+                                                        <span
+                                                            class="badge bg-primary pull-right">@if ($module->montant == 0) gratuit @else {{ $module->montant }} FCFA @endif</span>
                                                     </li>
                                                 @endforeach
+                                                <li class="list-group-item" ng-cloak>
+                                                    <div class="display-5 d-flex align-items-center justify-content-center">
+                                                        @{{ montantModuleSelectionne }} FCFA
+                                                    </div>
+                                                </li>
                                             </ul>
                                             <div class="card-body">
                                                 <div class="d-grid gap-2">

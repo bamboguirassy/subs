@@ -1,4 +1,4 @@
-angular.module('Subs', [], () => {})
+angular.module('Subs', [], () => { })
     .controller('ProgrammeNewController', ($scope, Country) => {
         $scope.profils = [];
         $scope.programme = {};
@@ -43,7 +43,18 @@ angular.module('Subs', [], () => {})
         $scope.selectCountry = () => {
             $scope.selectedCountry = $scope.countries.find((item) => item.cca2 == $scope.country_cca2);
         }
-    }).controller('AppelFondController',($scope)=>{
+        //  new variables and section for formation mod souscription
+        $scope.selectedModules = [];
+        $scope.montantModuleSelectionne = 0;
+        $scope.selectModule = (module) => {
+            if($scope.selectedModules.find((mod=>mod.id==module.id))) {
+                $scope.selectedModules = $scope.selectedModules.filter(mod=>mod.id!=module.id)
+            } else {
+                $scope.selectedModules.push(module);
+            }
+            $scope.montantModuleSelectionne = $scope.selectedModules.map(mod=>mod.montant).reduce((total,montant)=>total+montant);
+        };
+    }).controller('AppelFondController', ($scope) => {
         $scope.selected = {};
         $scope.select = (item) => {
             $scope.selected = item;
