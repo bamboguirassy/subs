@@ -77,7 +77,7 @@ class User extends Authenticatable implements MustVerifyEmail
      */
     public function programmes(): HasMany
     {
-        return $this->hasMany(Programme::class)->where('programme_id', null)->orderBy('dateCloture','desc')->orderBy('created_at','desc');
+        return $this->hasMany(Programme::class)->where('programme_id', null)->orderBy('dateCloture','desc')->orderBy('dateDemarrage','desc');
     }
 
     /**

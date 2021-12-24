@@ -110,6 +110,8 @@
                     @foreach ($programmeActives as $programmeActive)
                         @if ($programmeActive->is_collecte_fond)
                             <x-collecte-fond-public-item :programme="$programmeActive" />
+                        @elseif($programmeActive->is_formation_modulaire)
+                            <x-formation-modulaire-item :programme="$programmeActive" />
                         @else
                             <x-programme-public-item :programme="$programmeActive" />
                         @endif

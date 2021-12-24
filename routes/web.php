@@ -40,10 +40,12 @@ Route::get('/home', function () {
 
 Route::get('', function () {
     $programmeActives = Programme::where('dateCloture', '>=', date_format(new DateTime(), 'Y-m-d'))
-        ->orderBy('dateCloture')->paginate(20);
+        ->orderBy('dateCloture')->whereProgrammeId(null)->paginate(20);
     $programmeActives = $programmeActives->filter(function ($programme) {
         return $programme->is_public;
     });
+    $formationModulaires = Programme::whereProgrammeId(null)->whereHas('sessionActives')->get();
+    $programmeActives = $programmeActives->merge($formationModulaires);
     $qrcode = null;
     if(Auth::check()) {
         $qrcode = QrCode::size(200)->generate(Auth::user()->email);

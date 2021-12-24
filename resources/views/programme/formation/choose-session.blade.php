@@ -36,7 +36,8 @@
                                 <div class="row">
                                     <div class="col-12">
                                         <div class="card-body">
-                                            <h5 class="card-title display-7 text-primary"><b>{{ $programme->nom }}</b>
+                                            <h5 class="card-title display-7 text-primary">
+                                                <b>{{ $programme->nom }}</b>
                                             </h5>
                                             <p class="card-text">Pour souscrire, veuillez choisir la session à la
                                                 quelle vous souhaitez participer...</p>
