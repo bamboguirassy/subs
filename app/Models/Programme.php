@@ -270,7 +270,7 @@ class Programme extends Model
 
     public function getIsPublicAttribute()
     {
-        return $this->typeProgramme->code == "PROG" || $this->typeProgramme->code == "CFON";
+        return $this->typeProgramme->code == "PROG" || $this->typeProgramme->code == "CFON" || $this->typeProgramme->code=='FORMOD';
     }
 
     public function getIsModuleFormationAttribute() {
