@@ -52,7 +52,7 @@ angular.module('Subs', [], () => { })
             } else {
                 $scope.selectedModules.push(module);
             }
-            $scope.montantModuleSelectionne = $scope.selectedModules.map(mod=>mod.montant).reduce((total,montant)=>total+montant);
+            $scope.montantModuleSelectionne = $scope.selectedModules.map(mod=>mod.montant)?.reduce((total,montant)=>total+montant,0);
         };
     }).controller('AppelFondController', ($scope) => {
         $scope.selected = {};

@@ -38,7 +38,11 @@
                                         </div>
                                     </div>
                                     <div class="col-12">
-                                        <form action="" method="post">
+                                        <form action="{{ route('souscription.store',compact('programme')) }}" method="post">
+                                            @csrf
+                                            @method('post')
+                                            <input name="programme_id" type="number" value="{{ $programme->id }}" hidden>
+                                            <x-form-errors :errors="$errors->all()" />
                                             <ul class="list-group">
                                                 @foreach ($programme->parent->modules as $module)
                                                     <li ng-init="ms[{{ $module->id }}]=false" class="list-group-item">
@@ -59,7 +63,7 @@
                                             </ul>
                                             <div class="card-body">
                                                 <div class="d-grid gap-2">
-                                                    <button type="submit" class="btn btn-primary">Procéder à
+                                                    <button ng-disabled="selectedModules.length<1" type="submit" class="btn btn-primary">Procéder à
                                                         l'inscription</button>
                                                 </div>
                                             </div>
