@@ -26,13 +26,13 @@
                                 <div class="row">
                                     <div class="col-12">
                                         <div class="card-body">
-                                            <h5 class="card-title display-7">
+                                            <h5 class="card-title text-primary display-7">
                                                 <span class="display-5">
                                                     {{ $programme->nom }}</span>
                                                 <span class="mbri-arrow-next"></span>
                                                 <b>{{ $programme->parent->nom }}</b>
                                             </h5>
-                                            <p class="card-text">Veuillez selectionner les modules auxquels vous
+                                            <p class="card-text display-4">Veuillez selectionner les modules auxquels vous
                                                 souhaitez souscrire... Vous pouvez renevir plus tard pour souscrire à
                                                 d'autres modules...</p>
                                         </div>
@@ -47,7 +47,7 @@
                                             <ul class="list-group">
                                                 @foreach ($programme->parent->modules as $module)
                                                     <li ng-init="ms[{{ $module->id }}]=false" class="list-group-item">
-                                                        <label>
+                                                        <label class="display-4 text-primary">
                                                         <input ng-model="ms[{{ $module->id }}]"
                                                             ng-change="selectModule({{ $module }})"
                                                             class="form-check-input me-1" type="checkbox" name="moduleIds[]"
@@ -58,7 +58,7 @@
                                                     </li>
                                                 @endforeach
                                                 <li class="list-group-item" ng-cloak>
-                                                    <div class="display-5 d-flex align-items-center justify-content-center">
+                                                    <div class="display-5 text-primary d-flex align-items-center justify-content-center">
                                                         @{{ montantModuleSelectionne }} FCFA
                                                     </div>
                                                 </li>
