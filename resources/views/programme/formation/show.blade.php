@@ -183,13 +183,13 @@
                             <label for="montant" class="form-label">Prix en FCFA
                                 <x-required />
                             </label>
-                            <input required="required" type="number" class="form-control" name="montant" id="montant"
+                            <input required="required" type="number" min="0" class="form-control" name="montant" id="montant"
                                 placeholder="Montant que chacun doit payer" value="{{ old('montant') }}">
                         </div>
                         <div data-for="duree" class="col-lg-12 col-md-12 col-sm-12 form-group">
                             <label for="duree-formbuilder-13" class="form-control-label mbr-fonts-style display-7">Durée du
                                 module (optionnelle)</label>
-                            <input type="number" name="duree" placeholder="Durée programme" step="1" data-form-field="duree"
+                            <input type="number" name="duree" placeholder="Durée programme" step="1" min="0" data-form-field="duree"
                                 class="form-control display-7" value="{{ old('duree') }}" id="duree-formbuilder-13">
                         </div>
                         <div data-for="description" class="col-lg-12 col-md-12 col-sm-12 form-group">
