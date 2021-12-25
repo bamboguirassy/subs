@@ -9,7 +9,7 @@
                 <div class="card-body">
                     <h5 class="card-title">{{ $programme->nom }}</h5>
                     <p class="card-text">{!! Str::limit($programme->description, 300, '...lire la suite') !!}</p>
-                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                    <p class="card-text"><small class="text-muted">Par {{$programme->user->name}}</small></p>
                     <ol class="list-group">
                         @foreach ($programme->sessions as $session)
                             <li class="list-group-item d-flex justify-content-between align-items-start">
