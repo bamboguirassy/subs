@@ -173,6 +173,10 @@ class Programme extends Model
         return $this->hasMany(Programme::class)->whereCategorie('session')->where('dateCloture','>=',today());
     }
 
+    public function getIsSessionAttribute() {
+        return $this->typeProgramme->code=='FORMOD' && $this->categorie=='session';
+    }
+
     public function getGainAttribute()
     {
         $total = 0;
@@ -240,6 +244,18 @@ class Programme extends Model
         if (Auth::check()) {
             $souscriptions = Souscription::where('user_id', Auth::id())
                 ->where('programme_id', $this->id)
+                ->get();
+            return count($souscriptions) > 0 ? $souscriptions[0] : null;
+        }
+        return null;
+    }
+
+    public function getMySouscription(Programme $session): ?Souscription
+    {
+        if (Auth::check()) {
+            $souscriptions = Souscription::where('user_id', Auth::id())
+                ->where('programme_id', $this->id)
+                ->where('session_id',$session->id)
                 ->get();
             return count($souscriptions) > 0 ? $souscriptions[0] : null;
         }

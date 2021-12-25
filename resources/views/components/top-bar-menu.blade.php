@@ -17,7 +17,7 @@
                 <span class="mbr-iconfont mobi-mbri mbri-bulleted-list"></span>
             </a>
         @else
-            <a title="Se connecter" href="{{ route('login') }}" @if (\Request::route()->getName() == 'login') class="active" @endif>
+            <a title="Se connecter" href="{{ route('login') }}?ret={{request()->fullUrl()}}" @if (\Request::route()->getName() == 'login') class="active" @endif>
                 <span class="mbr-iconfont mobi-mbri mbri-user"></span>
             </a>
         @endauth
