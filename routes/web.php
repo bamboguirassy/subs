@@ -47,10 +47,10 @@ Route::get('', function () {
     $formationModulaires = Programme::whereProgrammeId(null)->whereHas('sessionActives')->get();
     $programmeActives = $programmeActives->merge($formationModulaires);
     $qrcode = null;
-    if(Auth::check()) {
+    if (Auth::check()) {
         $qrcode = QrCode::size(200)->generate(Auth::user()->email);
     }
-    return view('home',compact('programmeActives','qrcode'));
+    return view('home', compact('programmeActives', 'qrcode'));
 })->name('home');
 
 Route::get('public', function () {
@@ -101,8 +101,8 @@ Route::get('programme/pre-publish', function () {
     return view('programme.pre-publish', compact('typeProgrammes'));
 })->name('programme.pre.publish');
 
-Route::put('programme/{programme}/suspendre',[ProgrammeController::class,'suspendre'])
-->name('programme.suspendre')->middleware('auth');
+Route::put('programme/{programme}/suspendre', [ProgrammeController::class, 'suspendre'])
+    ->name('programme.suspendre')->middleware('auth');
 
 Route::resource('programme', ProgrammeController::class, [
     'only' => ['create', 'store', 'show']
@@ -113,12 +113,14 @@ Route::resource('programme', ProgrammeController::class, [
 ])->middleware('auth');
 
 Route::get('souscription/{programme}/create', function (Request $request, Programme $programme) {
-    if($programme->is_formation_modulaire) {
-        if($request->exists('step')) {
-            if($request->step=='session') {
-                return view('programme.formation.choose-session',compact('programme'));
-            } else if($request->step=='module') {
-                return view('programme.formation.choose-modules',compact('programme'));
+    if ($programme->is_formation_modulaire) {
+        if ($request->exists('step')) {
+            if ($request->step == 'session') {
+                return view('programme.formation.choose-session', compact('programme'));
+            } else if ($request->step == 'module') {
+                $countrieSrv = new Countries();
+                $senegal = $countrieSrv->where('cca2', 'SN')->first();
+                return view('programme.formation.choose-modules', compact('programme','senegal'));
             } else {
                 notify()->error("Programme non précisé");
                 return back();
@@ -149,7 +151,7 @@ Route::post('souscription/{programme}/sms', [SouscriptionController::class, 'sen
     ->middleware('auth')->name('send.sms.to.participants');
 
 Route::resource('souscription', SouscriptionController::class, [
-    'only' => ['store', 'update','destroy']
+    'only' => ['store', 'update', 'destroy']
 ]);
 
 Route::resource('user', UserController::class, [

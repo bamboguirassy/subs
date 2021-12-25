@@ -17,7 +17,8 @@ class Souscription extends Model
         'montant',
         'profil_concerne_id',
         'uid',
-        'nombreMain'
+        'nombreMain',
+        'session_id'
     ];
 
     /**
@@ -78,5 +79,15 @@ class Souscription extends Model
             ->get();
         }
         return [];
+    }
+
+    /**
+     * Get the session that owns the Souscription
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function session(): BelongsTo
+    {
+        return $this->belongsTo(Programme::class, 'session_id');
     }
 }

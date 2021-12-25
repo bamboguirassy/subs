@@ -11,6 +11,7 @@ use App\Models\ProfilConcerne;
 use App\Models\Programme;
 use App\Models\Souscription;
 use App\Models\SouscriptionTemp;
+use App\Models\SubSouscriptionTemp;
 use App\Models\User;
 use App\Notifications\NotifyNewSouscription;
 use App\Notifications\SendSms;
@@ -61,17 +62,19 @@ class SouscriptionController extends Controller
         DB::beginTransaction();
         try {
             $programme = Programme::find($request->get('programme_id'));
-            // vérifier si user n'a pas déja souscrit
-            if ($programme->current_user_souscription) {
-                notify()->warning("Vous avez déja souscrit à ce programme !");
-                return redirect()->route('programme.show', compact('programme'));
-            }
-            // vérifier si le nombre de souscription est atteint
-            if ($programme->nombreParticipants > 0) {
-                if ($programme->nombreParticipants == count($programme->souscriptions)) {
-                    $errorMsg = "Il n'y a plus de place disponible, merci de contacter le responsable du programme...";
-                    notify()->error($errorMsg);
-                    return back()->withErrors($errorMsg);
+            if (!$programme->is_formation_modulaire) {
+                // vérifier si user n'a pas déja souscrit
+                if ($programme->current_user_souscription) {
+                    notify()->warning("Vous avez déja souscrit à ce programme !");
+                    return redirect()->route('programme.show', compact('programme'));
+                }
+                // vérifier si le nombre de souscription est atteint
+                if ($programme->nombreParticipants > 0) {
+                    if ($programme->nombreParticipants == count($programme->souscriptions)) {
+                        $errorMsg = "Il n'y a plus de place disponible, merci de contacter le responsable du programme...";
+                        notify()->error($errorMsg);
+                        return back()->withErrors($errorMsg);
+                    }
                 }
             }
             // verifier si l'utilisateur est connecté
@@ -114,6 +117,66 @@ class SouscriptionController extends Controller
                     // terminer la transaction
                     $redirectUrl = PaymentManager::initPayment($souscriptionTemp);
                 }
+            } else if ($programme->is_session) {
+                // s'il s'agit de session, verifier qu'il y'a des modules auxquels on souscrit
+                if (!$request->exists('moduleIds')) {
+                    notify()->error("Aucun module selectionné pour la souscription...");
+                    return back();
+                }
+                $modules = Programme::whereIn('id', $request->moduleIds)->get();
+                $montant = $modules->reduce(function ($total, $module) {
+                    return $total + $module->montant;
+                }, 0);
+                if ($montant == 0) {
+                    // créer directement la souscription pour chaque module car gratuit
+                    foreach ($modules as $module) {
+                        $souscription = new Souscription();
+                        $souscription->user_id = $userId;
+                        $souscription->montant = 0;
+                        $souscription->uid = uniqid();
+                        $souscription->programme_id = $module->id;
+                        $souscription->session_id = $programme->id;
+                        $souscription->save();
+                        $souscription->user->notify(new NotifyNewSouscription($souscription));
+                        Event::dispatchUserEvent(Event::Message("Nouvelle souscription", "{$souscription->user->name} a souscrit au programme {$programme->nom}."), $programme->user);
+                    }
+                    // retourner sur le show du module avec confirmation de message
+                    notify("Vous avez souscrit aux modules selectionnés...");
+                    return redirect()->route('programme.show', ['programme' => $programme->parent]);
+                }
+                // instancier la souscription temp avec le contenu du request
+                $souscriptionTemp = new SouscriptionTemp($request->all());
+                $souscriptionTemp->uid = uniqid();
+                $souscriptionTemp->user_id = $userId;
+                $souscriptionTemp->montant = $montant;
+                $souscriptionTemp->save();
+                // associer les modules temps à la souscription
+                foreach ($modules as $module) {
+                    // créer les souscriptions temps de modules et les associer à la souscriptiontemp
+                    // si module gratuit, créer souscription
+                    if ($module->montant == 0) {
+                        $souscription = new Souscription();
+                        $souscription->user_id = $userId;
+                        $souscription->montant = 0;
+                        $souscription->uid = uniqid();
+                        $souscription->programme_id = $module->id;
+                        $souscription->session_id = $programme->id;
+                        $souscription->save();
+                        $souscription->user->notify(new NotifyNewSouscription($souscription));
+                        Event::dispatchUserEvent(Event::Message("Nouvelle souscription", "{$souscription->user->name} a souscrit au programme {$programme->nom}."), $programme->user);
+                    }
+                    // si module payant, créer sub souscription temp
+                    if ($module->montant > 0) {
+                        $subSouscriptionTemp = new SubSouscriptionTemp();
+                        $subSouscriptionTemp->montant = $module->montant;
+                        $subSouscriptionTemp->programme_id = $module->id;
+                        // rattacher à souscription temp
+                        $subSouscriptionTemp->souscription_temp_id = $souscriptionTemp->id;
+                        $subSouscriptionTemp->save();
+                    }
+                }
+                // terminer la transaction
+                $redirectUrl = PaymentManager::initPayment($souscriptionTemp);
             } else if ($programme->is_tontine || $programme->is_cotisation_recurrente) {
                 // si child programme, s'assurer que le participant a souscrit à la tontine
                 if ($programme->programme_id != null && !$programme->parent->current_user_souscription) {
@@ -122,7 +185,7 @@ class SouscriptionController extends Controller
                     return back()->withInput()->withErrors($errorMsg);
                 }
                 // verifier si programme parent -- que le nombre de place restant n'est pas épuisé
-                if($programme->is_tontine) {
+                if ($programme->is_tontine) {
                     if ($programme->is_parent && $programme->nombreParticipants != 0) {
                         if (($programme->nombre_main_souscrite + $request->get('nombreMain')) > $programme->nombreParticipants) {
                             if ($programme->nombreParticipants == $programme->nombre_main_souscrite) {
@@ -145,7 +208,7 @@ class SouscriptionController extends Controller
                     Event::dispatchUserEvent(Event::Message("Nouvelle souscription", "{$souscription->user->name} a souscrit au programme {$programme->nom}."), $programme->user);
                     notify()->success("Vous avez souscrit avec succès à la tontine !!!");
                 } else {
-                    if($programme->is_tontine) {
+                    if ($programme->is_tontine) {
                         // tontine enfant
                         $montant = $programme->parent->current_user_souscription->nombreMain * $programme->montant;
                     } else {
@@ -265,7 +328,6 @@ class SouscriptionController extends Controller
         $item_price = $request->input('item_price');
         $currency = $request->input('devise');
 
-        $facture = new Facture();
         //from PayTech
         if ($type_event == 'sale_complete') {
             DB::beginTransaction();
@@ -275,24 +337,52 @@ class SouscriptionController extends Controller
                 if (!$souscriptionTemp) {
                     throw new Error("Aucune souscription pour le uid {$uid} n'est trouvée !");
                 }
-                $souscription = Helper::convertTempSouscription($souscriptionTemp);
-                $souscription->save();
+                if ($souscriptionTemp->programme->is_session_formation) {
+                    // recuperer les modules sous souscrits pour les transformer en souscription
+                    $subSouscriptionTemps = SubSouscriptionTemp::where('souscription_temp_id', $souscriptionTemp->id)->get();
+                    foreach ($subSouscriptionTemps as $subSouscriptionTemp) {
+                        $souscription = new Souscription();
+                        // definir le module souscrit
+                        $souscription->programme_id = $subSouscriptionTemp->programme_id;
+                        $souscription->session_id = $souscriptionTemp->programme_id;
+                        $souscription->montant = $subSouscriptionTemp->montant;
+                        $souscription->uid = uniqid();
+                        $souscription->user_id = $souscriptionTemp->user_id;
+                        $souscription->save();
+                        $facture = new Facture();
+                        $facture->methodePaiement = $payment_method;
+                        $facture->clientPhone = $client_phone;
+                        $facture->libelle = $item_name;
+                        $facture->montant = $subSouscriptionTemp->montant;
+                        $facture->currency = $currency ?? 'xof';
+                        $facture->uid = $souscription->uid;
+                        $facture->souscription_id = $souscription->id;
+                        $facture->save();
+                        $souscription->user->notify(new NotifyNewSouscription($souscription));
+                    }
+                    SubSouscriptionTemp::destroy($subSouscriptionTemps);
+                    Event::dispatchUserEvent(Event::Message("Nouvelle souscription", "{$souscription->user->name} a souscrit au module {$souscription->programme->nom}."), $souscription->programme->user);
+                } else {
+                    $souscription = Helper::convertTempSouscription($souscriptionTemp);
+                    $souscription->save();
+                    $facture = new Facture();
+                    $facture->methodePaiement = $payment_method;
+                    $facture->clientPhone = $client_phone;
+                    $facture->libelle = $item_name;
+                    $facture->montant = $item_price;
+                    $facture->currency = $currency ?? 'xof';
+                    $facture->uid = $uid;
+                    $facture->souscription_id = $souscription->id;
+                    $facture->save();
+                    $souscription->user->notify(new NotifyNewSouscription($souscription));
+                    Event::dispatchUserEvent(Event::Message("Nouvelle souscription", "{$souscription->user->name} a souscrit au programme {$souscription->programme->nom}."), $souscription->programme->user);
+                }
                 // recuperer toutes les autres souscriptions temp à ce program pour le meme user et supprimer
                 $souscriptionTemps = SouscriptionTemp::where('programme_id', $souscriptionTemp->programme_id)
                     ->where('user_id', $souscriptionTemp->user_id)
                     ->get();
                 SouscriptionTemp::destroy($souscriptionTemps);
-                $facture->methodePaiement = $payment_method;
-                $facture->clientPhone = $client_phone;
-                $facture->libelle = $item_name;
-                $facture->montant = $item_price;
-                $facture->currency = $currency ?? 'xof';
-                $facture->uid = $uid;
-                $facture->souscription_id = $souscription->id;
-                $facture->save();
-                $souscription->user->notify(new NotifyNewSouscription($souscription));
                 DB::commit();
-                Event::dispatchUserEvent(Event::Message("Nouvelle souscription", "{$souscription->user->name} a souscrit au programme {$souscription->programme->nom}."), $souscription->programme->user);
             } catch (\Throwable $th) {
                 DB::rollback();
                 throw $th;
