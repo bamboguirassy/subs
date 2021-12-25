@@ -9,9 +9,17 @@
                 <div class="card-body">
                     <h5 class="card-title">{{ $programme->nom }}</h5>
                     <p class="card-text">{!! Str::limit($programme->description, 300, '...lire la suite') !!}</p>
-                    <p class="card-text"><small class="text-muted">Par {{$programme->user->name}}</small></p>
+                    <p class="card-text"><small class="text-muted">Par {{$programme->user->name}}</small>
+                        <button type="button" class="btn btn-sm btn-primary position-relative">
+                            modules
+                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                {{ count($programme->modules) }}
+                              <span class="visually-hidden">modules formation</span>
+                            </span>
+                          </button>
+                    </p>
                     <ol class="list-group">
-                        @foreach ($programme->sessions as $session)
+                        @foreach ($programme->sessionActives as $session)
                             <li class="list-group-item d-flex justify-content-between align-items-start">
                                 <div class="ms-2 me-auto">
                                     <div class="fw-bold text-primary">{{ $session->nom }}</div>
