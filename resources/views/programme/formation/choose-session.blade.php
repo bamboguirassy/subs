@@ -39,7 +39,7 @@
                                             <h5 class="card-title display-7 text-primary">
                                                 <b>{{ $programme->nom }}</b>
                                             </h5>
-                                            <p class="card-text">Pour souscrire, veuillez choisir la session à la
+                                            <p class="card-text display-4">Pour souscrire, veuillez choisir la session à la
                                                 quelle vous souhaitez participer...</p>
                                         </div>
                                     </div>
