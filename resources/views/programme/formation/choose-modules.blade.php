@@ -47,11 +47,12 @@
                                             <ul class="list-group">
                                                 @foreach ($programme->parent->modules as $module)
                                                     <li ng-init="ms[{{ $module->id }}]=false" class="list-group-item">
+                                                        <label>
                                                         <input ng-model="ms[{{ $module->id }}]"
                                                             ng-change="selectModule({{ $module }})"
                                                             class="form-check-input me-1" type="checkbox" name="moduleIds[]"
                                                             value="{{ $module->id }}" ng-checked="{{$module->getMySouscription($programme)!=null}}" ng-disabled="{{$module->getMySouscription($programme)!=null}}">
-                                                        Module {{ $loop->index + 1 }} > {{ $module->nom }} <br>
+                                                        Module {{ $loop->index + 1 }} > {{ $module->nom }} </label><br>
                                                         <span
                                                             class="badge bg-primary pull-right">@if ($module->montant == 0) gratuit @else {{ $module->montant }} FCFA @endif</span>
                                                     </li>
