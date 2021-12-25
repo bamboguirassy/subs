@@ -43,7 +43,7 @@
                                                 quelle vous souhaitez participer...</p>
                                         </div>
                                     </div>
-                                    <div class="col-12">
+                                    <div class="col-12 mb-2">
                                         <ol class="list-group">
                                             @foreach ($programme->sessionActives as $session)
                                                 <li
