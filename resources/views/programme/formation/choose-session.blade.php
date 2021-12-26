@@ -13,7 +13,7 @@
 @section('moreCss')
     <style>
         .list-group-item:hover {
-            background-color: #BA265E;
+            background-color: #b8a675;
             color: white !important;
         }
 
