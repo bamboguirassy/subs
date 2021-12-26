@@ -136,7 +136,7 @@
                                         id="dateCloture-formbuilder-13">
                                 </div>
                             @endif
-                            @if ($programme->typeProgramme->code == 'PROG' || $programme->typeProgramme->code == 'TONTINE' || $programme->typeProgramme->code == 'COTIR' || !($programme->is_formation_modulaire && ($programme->is_parent || $programme->is_module_formation)))
+                            @if ($programme->typeProgramme->code == 'PROG' || $programme->typeProgramme->code == 'TONTINE' || $programme->typeProgramme->code == 'COTIR' || ($programme->is_session_formation)))
                                 <div data-for="dateDemarrage" class="col-lg-12 col-md-12 col-sm-12 form-group">
                                     <label for="dateDemarrage-formbuilder-13"
                                         class="form-control-label mbr-fonts-style display-7">Date Démarrage
