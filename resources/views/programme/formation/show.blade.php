@@ -317,4 +317,7 @@
             </div>
         </div>
     </div>
+    <x-separator />
+    <x-social-sharing />
+    <hr class="mt-5">
 @endsection
