@@ -53,15 +53,6 @@ Route::get('', function () {
     return view('home', compact('programmeActives', 'qrcode'));
 })->name('home');
 
-Route::get('public', function () {
-    $programmeActives = Programme::where('dateCloture', '>=', date_format(new DateTime(), 'Y-m-d'))
-        ->orderBy('dateCloture')->paginate(20);
-    $programmeActives = $programmeActives->filter(function ($programme) {
-        return $programme->is_public;
-    });
-    return view('programme.public', compact('programmeActives'));
-})->name('programme.public.list');
-
 Route::get('login', function (Request $request) {
     $ret = $request->get('ret');
     $request->session()->put('ret', $ret);
