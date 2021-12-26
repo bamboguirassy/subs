@@ -1,5 +1,7 @@
 @extends('base')
 
+@section('title', 'Récupération du mot de passe')
+
 @section('body')
 <div class="container" style="margin-top: 120px">
     <div class="row justify-content-center">

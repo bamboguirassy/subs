@@ -1,6 +1,6 @@
 @extends("base")
 
-@section('title', 'Acheter un pack SMS')
+@section('title', 'Acheter pack SMS')
 
 @section('description',
     "Acheter des SMS pour interagir directement avec les participants en plus des emails pour plus

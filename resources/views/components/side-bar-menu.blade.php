@@ -6,7 +6,7 @@
     </li>
     @guest
         <li class="nav-item">
-            <a class="nav-link link text-primary display-4" href="{{ route('login') }}?ret={{ request()->fullUrl() }}">Se
+            <a class="nav-link link text-primary display-4" href="{{ route('login') }}">Se
                 connecter</a>
         </li>
     @endguest

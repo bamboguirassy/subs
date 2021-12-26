@@ -1,5 +1,7 @@
 @extends('base')
 
+@section('title', 'Confirmation mot de passe')
+
 @section('body')
 <div class="container" style="margin-top: 120px">
     <div class="row justify-content-center">

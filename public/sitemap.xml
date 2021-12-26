@@ -6,11 +6,6 @@
         <priority>1.00</priority>
     </url>
     <url>
-        <loc>https://cotiplex.com/login?ret=https://cotiplex.com</loc>
-        <lastmod>2021-12-26T11:03:02+00:00</lastmod>
-        <priority>0.80</priority>
-    </url>
-    <url>
         <loc>https://cotiplex.com/apropos</loc>
         <lastmod>2021-12-26T11:03:02+00:00</lastmod>
         <priority>0.80</priority>
@@ -69,70 +64,5 @@
         <loc>https://cotiplex.com/password/reset</loc>
         <lastmod>2021-12-26T11:03:02+00:00</lastmod>
         <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://cotiplex.com/login?ret=https://cotiplex.com/apropos</loc>
-        <lastmod>2021-12-26T11:03:02+00:00</lastmod>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://cotiplex.com/login?ret=https://cotiplex.com/contact</loc>
-        <lastmod>2021-12-26T11:03:02+00:00</lastmod>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://cotiplex.com/login?ret=https://cotiplex.com/login</loc>
-        <lastmod>2021-12-26T11:03:02+00:00</lastmod>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://cotiplex.com/login?ret=https://cotiplex.com/souscription/11/create</loc>
-        <lastmod>2021-12-26T11:03:02+00:00</lastmod>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://cotiplex.com/login?ret=https://cotiplex.com/programme/create?type=CFON</loc>
-        <lastmod>2021-12-26T11:03:02+00:00</lastmod>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://cotiplex.com/login?ret=https://cotiplex.com/programme/create</loc>
-        <lastmod>2021-12-26T11:03:02+00:00</lastmod>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://cotiplex.com/login?ret=https://cotiplex.com/programme/create?type=COTIR</loc>
-        <lastmod>2021-12-26T11:03:02+00:00</lastmod>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://cotiplex.com/login?ret=https://cotiplex.com/programme/create?type=COTI</loc>
-        <lastmod>2021-12-26T11:03:02+00:00</lastmod>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://cotiplex.com/login?ret=https://cotiplex.com/programme/create?type=FORMOD</loc>
-        <lastmod>2021-12-26T11:03:02+00:00</lastmod>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://cotiplex.com/login?ret=https://cotiplex.com/programme/create?type=PROG</loc>
-        <lastmod>2021-12-26T11:03:02+00:00</lastmod>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://cotiplex.com/login?ret=https://cotiplex.com/programme/create?type=TONTINE</loc>
-        <lastmod>2021-12-26T11:03:02+00:00</lastmod>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://cotiplex.com/login?ret=https://cotiplex.com/register</loc>
-        <lastmod>2021-12-26T11:03:02+00:00</lastmod>
-        <priority>0.51</priority>
-    </url>
-    <url>
-        <loc>https://cotiplex.com/login?ret=https://cotiplex.com/password/reset</loc>
-        <lastmod>2021-12-26T11:03:02+00:00</lastmod>
-        <priority>0.51</priority>
     </url>
 </urlset>
