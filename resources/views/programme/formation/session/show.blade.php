@@ -1,6 +1,6 @@
 @extends("base")
 
-@section('title', $programme->nom . ' - Date clôture prévue - ' . date_format(new DateTime($programme->dateCloture),
+@section('title', $programme->nom.' > '.$programme->parent->nom . ' - Date clôture prévue - ' . date_format(new DateTime($programme->dateCloture),
     'd/m/Y'))
 
 @section('social-sharing')
@@ -218,5 +218,6 @@
         </div>
     </div>
     <x-separator />
+    <x-social-sharing />
     <hr class="mt-5">
 @endsection
