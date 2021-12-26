@@ -100,6 +100,16 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(AchatSms::class)->whereConfirmed(true)->orderBy('created_at','desc');
     }
 
+    /**
+     * Get all of the souscriptions for the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function souscriptions(): HasMany
+    {
+        return $this->hasMany(Souscription::class);
+    }
+
     public function getIsAdminAttribute()
     {
         return $this->type == User::ADMIN;

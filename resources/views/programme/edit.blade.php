@@ -1,6 +1,6 @@
 @extends("base")
 
-@section('title', 'Modification programme - '.$programme->nom)
+@section('title', 'Modification programme - ' . $programme->nom)
 
 @section('body')
     <section data-bs-version="5.1" class="content2 cid-sOc3YTgSUN" id="content2-12">
@@ -123,18 +123,20 @@
                                     @endif
                                 @endif
                             @endif
-                            <div data-for="dateCloture" class="col-lg-12 col-md-12 col-sm-12 form-group">
-                                <label for="dateCloture-formbuilder-13"
-                                    class="form-control-label mbr-fonts-style display-7">
-                                    Date de clôture des inscriptions (souscriptions)
-                                    <x-required />
-                                </label>
-                                <input type="date" name="dateCloture" data-form-field="dateCloture" required="required"
-                                    class="form-control display-7"
-                                    value="{{ old('dateCloture') ?? $programme->dateCloture }}"
-                                    id="dateCloture-formbuilder-13">
-                            </div>
-                            @if ($programme->typeProgramme->code == 'PROG' || $programme->typeProgramme->code == 'TONTINE' || $programme->typeProgramme->code == 'COTIR')
+                            @if (!($programme->is_formation_modulaire && $programme->is_parent))
+                                <div data-for="dateCloture" class="col-lg-12 col-md-12 col-sm-12 form-group">
+                                    <label for="dateCloture-formbuilder-13"
+                                        class="form-control-label mbr-fonts-style display-7">
+                                        Date de clôture des inscriptions (souscriptions)
+                                        <x-required />
+                                    </label>
+                                    <input type="date" name="dateCloture" data-form-field="dateCloture" required="required"
+                                        class="form-control display-7"
+                                        value="{{ old('dateCloture') ?? $programme->dateCloture }}"
+                                        id="dateCloture-formbuilder-13">
+                                </div>
+                            @endif
+                            @if ($programme->typeProgramme->code == 'PROG' || $programme->typeProgramme->code == 'TONTINE' || $programme->typeProgramme->code == 'COTIR' || !($programme->is_formation_modulaire && $programme->is_parent))
                                 <div data-for="dateDemarrage" class="col-lg-12 col-md-12 col-sm-12 form-group">
                                     <label for="dateDemarrage-formbuilder-13"
                                         class="form-control-label mbr-fonts-style display-7">Date Démarrage
@@ -190,7 +192,7 @@
                                     class="form-control display-7"
                                     id="description-formbuilder-13">{{ old('description') ?? $programme->description }}</textarea>
                             </div>
-                            @if ($programme->typeProgramme->code == 'PROG')
+                            @if ($programme->typeProgramme->code == 'PROG' || $programme->is_session_formation)
                                 <div data-for="modeDeroulement" class="col-lg-12 col-md-12 col-sm-12 form-group">
                                     <div class="form-control-label">
                                         <label for="modeDeroulement-formbuilder-13" class="mbr-fonts-style display-7">Mode
@@ -211,13 +213,15 @@
                                     </div>
                                 </div>
                             @endif
-                            <div data-for="image" class="col-lg-12 col-md-12 col-sm-12 form-group">
-                                <label for="image-formbuilder-13" class="form-control-label mbr-fonts-style display-7">
-                                    Chosir une image de couverture @if ($programme->typeProgramme->code != 'PROG') <span class="text-primary">(optionnelle)</span> @endif</label>
-                                <input type="file" accept="image/*" name="image" max="100" min="0" step="1"
-                                    data-form-field="image" class="form-control display-7" value=""
-                                    id="image-formbuilder-13">
-                            </div>
+                            @if (!$programme->is_session_formation)
+                                <div data-for="image" class="col-lg-12 col-md-12 col-sm-12 form-group">
+                                    <label for="image-formbuilder-13" class="form-control-label mbr-fonts-style display-7">
+                                        Chosir une image de couverture @if ($programme->typeProgramme->code != 'PROG') <span class="text-primary">(optionnelle)</span> @endif</label>
+                                    <input type="file" accept="image/*" name="image" max="100" min="0" step="1"
+                                        data-form-field="image" class="form-control display-7" value=""
+                                        id="image-formbuilder-13">
+                                </div>
+                            @endif
                             <div class="col-lg-12 col-md-12 col-sm-12">
                                 <button type="submit" class="btn btn-warning display-7">Modifier</button>
                             </div>

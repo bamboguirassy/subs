@@ -87,11 +87,6 @@ Route::post('login', function (Request $request) {
     return;
 })->name('login.request');
 
-Route::get('programme/pre-publish', function () {
-    $typeProgrammes = TypeProgramme::orderBy('nom')->whereEnabled(true)->get();
-    return view('programme.pre-publish', compact('typeProgrammes'));
-})->name('programme.pre.publish');
-
 Route::put('programme/{programme}/suspendre', [ProgrammeController::class, 'suspendre'])
     ->name('programme.suspendre')->middleware('auth');
 

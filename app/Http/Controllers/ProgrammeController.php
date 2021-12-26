@@ -10,6 +10,7 @@ use App\Models\ProfilConcerne;
 use App\Models\Programme;
 use App\Models\SouscriptionTemp;
 use App\Models\TypeProgramme;
+use App\Models\User;
 use Error;
 use Exception;
 use Illuminate\Http\Request;
@@ -178,8 +179,22 @@ class ProgrammeController extends Controller
      */
     public function show(Programme $programme)
     {
-        if ($programme->getIsFormationModulaireAttribute()) {
+        if ($programme->getIsFormationModulaireAttribute()  && $programme->is_parent) {
             return view('programme.formation.show', compact('programme'));
+        }
+        if($programme->is_session_formation) {
+            $users = User::whereRelation('souscriptions',function($query) use ($programme) {
+                $query->where('session_id',$programme->id);
+            })->get();
+            $tabUsers = [];
+            foreach ($users as $user) {
+                $tab_souscription = [];
+                foreach ($programme->parent->modules as $module) {
+                    $tab_souscription[] = $module->hasUserSubscribedForModule($user, $programme);
+                }
+                $tabUsers[] = ['user'=>$user,'states'=>$tab_souscription];
+            }
+            return view('programme.formation.session.show',compact('programme','tabUsers'));
         }
         return view('programme.show', compact('programme'));
     }
@@ -208,8 +223,6 @@ class ProgrammeController extends Controller
         $request->validate([
             'type_programme_id' => 'required|exists:type_programmes,id',
             'nom' => 'required',
-            'dateCloture' => 'required',
-            'description' => 'required',
         ]);
 
         DB::beginTransaction();
