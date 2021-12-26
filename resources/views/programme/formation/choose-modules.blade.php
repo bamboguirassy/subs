@@ -44,7 +44,7 @@
                                             @method('post')
                                             <input name="programme_id" type="number" value="{{ $programme->id }}" hidden>
                                             <x-form-errors :errors="$errors->all()" />
-                                            <ul class="list-group">
+                                            <ul class="list-group m-2">
                                                 @foreach ($programme->parent->modules as $module)
                                                     <li ng-init="ms[{{ $module->id }}]=false" class="list-group-item">
                                                         <label class="display-4 text-primary">
