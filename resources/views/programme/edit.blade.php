@@ -83,7 +83,7 @@
                                         value="{{ old('montantObjectif') ?? $programme->montantObjectif }}">
                                 </div>
                             @endif
-                            @if ($programme->is_tontine || $programme->typeProgramme->code == 'COTI' || $programme->typeProgramme->code == 'COTIR')
+                            @if ($programme->is_tontine || $programme->typeProgramme->code == 'COTI' || $programme->typeProgramme->code == 'COTIR' || $programme->is_module_formation)
                                 <div class="mb-3">
                                     <label for="montant" class="form-label">Montant à payer
                                         <x-required />
@@ -123,7 +123,7 @@
                                     @endif
                                 @endif
                             @endif
-                            @if (!($programme->is_formation_modulaire && $programme->is_parent))
+                            @if (!($programme->is_formation_modulaire && ($programme->is_parent || $programme->is_module_formation)))
                                 <div data-for="dateCloture" class="col-lg-12 col-md-12 col-sm-12 form-group">
                                     <label for="dateCloture-formbuilder-13"
                                         class="form-control-label mbr-fonts-style display-7">
@@ -136,7 +136,7 @@
                                         id="dateCloture-formbuilder-13">
                                 </div>
                             @endif
-                            @if ($programme->typeProgramme->code == 'PROG' || $programme->typeProgramme->code == 'TONTINE' || $programme->typeProgramme->code == 'COTIR' || !($programme->is_formation_modulaire && $programme->is_parent))
+                            @if ($programme->typeProgramme->code == 'PROG' || $programme->typeProgramme->code == 'TONTINE' || $programme->typeProgramme->code == 'COTIR' || !($programme->is_formation_modulaire && ($programme->is_parent || $programme->is_module_formation)))
                                 <div data-for="dateDemarrage" class="col-lg-12 col-md-12 col-sm-12 form-group">
                                     <label for="dateDemarrage-formbuilder-13"
                                         class="form-control-label mbr-fonts-style display-7">Date Démarrage
@@ -148,7 +148,7 @@
                                         id="dateDemarrage-formbuilder-13">
                                 </div>
                             @endif
-                            @if ($programme->typeProgramme->code == 'PROG')
+                            @if ($programme->typeProgramme->code == 'PROG' || $programme->is_module_formation)
                                 <div data-for="duree" class="col-lg-12 col-md-12 col-sm-12 form-group">
                                     <label for="duree-formbuilder-13"
                                         class="form-control-label mbr-fonts-style display-7">Durée
@@ -158,14 +158,16 @@
                                         data-form-field="duree" class="form-control display-7"
                                         value="{{ old('duree') ?? $programme->duree }}" id="duree-formbuilder-13">
                                 </div>
-                                <div data-for="nombreSeance" class="col-lg-12 col-md-12 col-sm-12 form-group">
-                                    <label for="nombreSeance-formbuilder-13"
-                                        class="form-control-label mbr-fonts-style display-7">Nombre de séances</label>
-                                    <input type="number" name="nombreSeance" placeholder="Nombre de séances" max="" min="0"
-                                        step="1" data-form-field="nombreSeance" class="form-control display-7"
-                                        value="{{ old('nombreSeance') ?? $programme->nombreSeance }}"
-                                        id="nombreSeance-formbuilder-13">
-                                </div>
+                                @if ($programme->is_programme)
+                                    <div data-for="nombreSeance" class="col-lg-12 col-md-12 col-sm-12 form-group">
+                                        <label for="nombreSeance-formbuilder-13"
+                                            class="form-control-label mbr-fonts-style display-7">Nombre de séances</label>
+                                        <input type="number" name="nombreSeance" placeholder="Nombre de séances" max=""
+                                            min="0" step="1" data-form-field="nombreSeance" class="form-control display-7"
+                                            value="{{ old('nombreSeance') ?? $programme->nombreSeance }}"
+                                            id="nombreSeance-formbuilder-13">
+                                    </div>
+                                @endif
                             @endif
                             @if ($programme->typeProgramme->code == 'PROG' || $programme->typeProgramme->code == 'TONTINE')
                                 <div data-for="nombreParticipants" class="col-lg-12 col-md-12 col-sm-12 form-group">
