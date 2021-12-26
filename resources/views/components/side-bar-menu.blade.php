@@ -63,7 +63,7 @@
         <li class="nav-item">
             <a class="nav-link link text-primary display-4" href="{{ route('achatsms.create') }}"
                 data-bs-toggle="offcanvas" data-bs-target="#hisroriqueAchatSms" aria-controls="hisroriqueAchatSms">
-                Historique SMS ({{ Auth::user()->nombreSms }} SMS)
+                Solde SMS ({{ Auth::user()->nombreSms }} SMS)
             </a>
         </li>
     @endauth
