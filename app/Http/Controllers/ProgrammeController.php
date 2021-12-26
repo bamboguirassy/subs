@@ -201,7 +201,7 @@ class ProgrammeController extends Controller
                 $tabUsers[] = ['user'=>$user,'states'=>$tab_souscription,'montantUser'=>$montantUser];
                 $montantSession+=$montantUser;
             }
-            $gainNet = $montantUser*(100-Parametrage::getInstance()->tauxPrelevement)/100;
+            $gainNet = $montantSession*(100-Parametrage::getInstance()->tauxPrelevement)/100;
             return view('programme.formation.session.show',compact('programme','tabUsers','montantSession','gainNet'));
         }
         return view('programme.show', compact('programme'));
@@ -253,6 +253,9 @@ class ProgrammeController extends Controller
             $programme->update($request->except('image'));
             DB::commit();
             notify()->success("Le programme a bien été Modifier !!!");
+            if($programme->is_module_formation) {
+                return redirect()->route('programme.show',['programme'=>$programme->parent]);
+            }
             return redirect()->route('programme.show', compact('programme'));
         } catch (Exception $e) {
             DB::rollback();

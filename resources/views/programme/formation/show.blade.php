@@ -111,6 +111,7 @@
                                                                     </table>
                                                                     {!! $module->description !!}
                                                                 </div>
+                                                                <a href="{{ route('programme.edit',['programme'=>$module]) }}" class="btn btn-warning pull-right">Modifier</a>
                                                             </div>
                                                         </div>
                                                     @endforeach
