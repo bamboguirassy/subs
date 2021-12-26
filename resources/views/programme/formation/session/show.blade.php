@@ -22,10 +22,12 @@
                                 <img src="{{ asset('uploads/programmes/images/' . $programme->parent->image) }}"
                                     class="img-fluid rounded-start" alt="...">
                                 <div class="card bg-white d-flex py-2 justify-content-center mx-auto">
-                                    <a href="{{ route('souscription.new', compact('programme')) }}?step=module"
-                                        class="btn btn-primary">Participer &nbsp;
-                                        <span class="mbri-arrow-next"></span>
-                                    </a>
+                                    @if ($programme->active)
+                                        <a href="{{ route('souscription.new', compact('programme')) }}?step=module"
+                                            class="btn btn-primary">Participer &nbsp;
+                                            <span class="mbri-arrow-next"></span>
+                                        </a>
+                                    @endif
                                 </div>
                             </div>
                             <div class="col-lg-9">
