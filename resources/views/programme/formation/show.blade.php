@@ -34,6 +34,16 @@
                                             <p>
                                                 {!! $programme->description !!}
                                             </p>
+                                            <div class="row">
+                                                <div class="col-12 d-flex justify-content-center">
+                                                    @if ($programme->is_proprietaire)
+                                                        <a href="{{ route('programme.edit', compact('programme')) }}"
+                                                            class="btn btn-warning w-100">Modifier &nbsp;
+                                                            <span class="mbri-edit"></span>
+                                                        </a>
+                                                    @endif
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -123,16 +133,20 @@
                             <ol class="list-group">
                                 @foreach ($programme->sessions as $session)
                                     <li class="list-group-item d-flex justify-content-between align-items-start">
-                                        <div class="ms-2 me-auto">
-                                            <div class="fw-bold text-primary">{{ $session->nom }}</div>
-                                            <strong>Clôture Insc. :
-                                                {{ date_format(new DateTime($session->dateDemarrage), 'd/m/Y') }}</strong>
-                                            <br>
-                                            Démarrage : {{ date_format(new DateTime($session->dateDemarrage), 'd/m/Y') }}
-                                        </div>
-                                        @if (!$session->active)
-                                            <span class="badge bg-primary rounded-pill">passée</span>
-                                        @endif
+                                        <a href="{{ route('programme.show', ['programme' => $session]) }}"
+                                            style="display: contents;">
+                                            <div class="ms-2 me-auto">
+                                                <div class="fw-bold text-primary">{{ $session->nom }}</div>
+                                                <strong>Clôture Insc. :
+                                                    {{ date_format(new DateTime($session->dateDemarrage), 'd/m/Y') }}</strong>
+                                                <br>
+                                                Démarrage :
+                                                {{ date_format(new DateTime($session->dateDemarrage), 'd/m/Y') }}
+                                            </div>
+                                            @if (!$session->active)
+                                                <span class="badge bg-primary rounded-pill">passée</span>
+                                            @endif
+                                        </a>
                                     </li>
                                 @endforeach
                                 @if ($programme->is_proprietaire)
@@ -152,8 +166,7 @@
     <hr class="mt-5">
 
     <!-- Modal module add -->
-    <div class="modal fade" id="newModuleModal" tabindex="-1"
-        aria-labelledby="newModuleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="newModuleModal" tabindex="-1" aria-labelledby="newModuleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content" style="overflow: auto; height: auto;">
                 <form action="{{ route('programme.store') }}" method="post">
@@ -183,14 +196,15 @@
                             <label for="montant" class="form-label">Prix en FCFA
                                 <x-required />
                             </label>
-                            <input required="required" type="number" min="0" class="form-control" name="montant" id="montant"
-                                placeholder="Montant que chacun doit payer" value="{{ old('montant') }}">
+                            <input required="required" type="number" min="0" class="form-control" name="montant"
+                                id="montant" placeholder="Montant que chacun doit payer" value="{{ old('montant') }}">
                         </div>
                         <div data-for="duree" class="col-lg-12 col-md-12 col-sm-12 form-group">
                             <label for="duree-formbuilder-13" class="form-control-label mbr-fonts-style display-7">Durée du
                                 module (optionnelle)</label>
-                            <input type="number" name="duree" placeholder="Durée programme" step="1" min="0" data-form-field="duree"
-                                class="form-control display-7" value="{{ old('duree') }}" id="duree-formbuilder-13">
+                            <input type="number" name="duree" placeholder="Durée programme" step="1" min="0"
+                                data-form-field="duree" class="form-control display-7" value="{{ old('duree') }}"
+                                id="duree-formbuilder-13">
                         </div>
                         <div data-for="description" class="col-lg-12 col-md-12 col-sm-12 form-group">
                             <label for="description-formbuilder-13"
@@ -218,15 +232,15 @@
         </div>
     </div>
     <!-- Modal session add -->
-    <div class="modal fade" id="newSessionModal" tabindex="-1"
-        aria-labelledby="newSessionModalLabel" aria-hidden="true">
+    <div class="modal fade" id="newSessionModal" tabindex="-1" aria-labelledby="newSessionModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content" style="overflow: auto; height: auto;">
                 <form action="{{ route('programme.store') }}" method="post">
                     @method('post')
                     @csrf
                     <div class="modal-header bg-primary">
-                        <h5 class="modal-title text-white" id="newSessionModalLabel">Nouveau Module</h5>
+                        <h5 class="modal-title text-white" id="newSessionModalLabel">Nouvelle Session</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
@@ -237,8 +251,7 @@
                             value="{{ $programme->type_programme_id }}" hidden>
                         <input type="number" name="programme_id" id="programme_id" value="{{ $programme->id }}" hidden>
                         <div data-for="nom" class="col-lg-12 col-md-12 col-sm-12 form-group">
-                            <label for="nom-formbuilder-13" class="form-control-label mbr-fonts-style display-7">Nom du
-                                module
+                            <label for="nom-formbuilder-13" class="form-control-label mbr-fonts-style display-7">Intitulé
                                 <x-required />
                             </label>
                             <input type="text" name="nom" placeholder="Libellé session" data-form-field="nom"
@@ -281,6 +294,14 @@
                             <input type="date" name="dateDemarrage" data-form-field="dateDemarrage" required="required"
                                 class="form-control display-7" value="{{ old('dateDemarrage') }}"
                                 id="dateDemarrage-formbuilder-13">
+                        </div>
+                        <div data-for="description" class="col-lg-12 col-md-12 col-sm-12 form-group">
+                            <label for="description-formbuilder-13"
+                                class="form-control-label mbr-fonts-style display-7">Description
+                            </label>
+                            <textarea id="editor" name="description" data-form-field="description"
+                                class="form-control display-7"
+                                id="description-formbuilder-13">{{ old('description') }}</textarea>
                         </div>
                     </div>
                     {{-- fin  contenu formulaire --}}

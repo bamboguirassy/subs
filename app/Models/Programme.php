@@ -173,8 +173,11 @@ class Programme extends Model
         return $this->hasMany(Programme::class)->whereCategorie('session')->where('dateCloture','>=',today());
     }
 
-    public function getIsSessionAttribute() {
-        return $this->typeProgramme->code=='FORMOD' && $this->categorie=='session';
+    // verifie si l'utilisateur a souscrit au programme
+    public function hasUserSubscribedForModule(User $user, Programme $session) {
+        return $this->souscriptions->contains(function($souscription) use ($user, $session) {
+            return $souscription->user_id == $user->id && $souscription->session_id == $session->id;
+        });
     }
 
     public function getGainAttribute()

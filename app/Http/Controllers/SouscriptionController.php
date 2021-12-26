@@ -117,7 +117,7 @@ class SouscriptionController extends Controller
                     // terminer la transaction
                     $redirectUrl = PaymentManager::initPayment($souscriptionTemp);
                 }
-            } else if ($programme->is_session) {
+            } else if ($programme->is_session_formation) {
                 // s'il s'agit de session, verifier qu'il y'a des modules auxquels on souscrit
                 if (!$request->exists('moduleIds')) {
                     notify()->error("Aucun module selectionné pour la souscription...");
