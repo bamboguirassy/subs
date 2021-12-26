@@ -24,7 +24,7 @@
                                 <div class="ms-2 me-auto">
                                     <div class="fw-bold text-primary">{{ $session->nom }}</div>
                                     <strong>Clôture Insc. :
-                                        {{ date_format(new DateTime($session->dateDemarrage), 'd/m/Y') }}</strong>
+                                        {{ date_format(new DateTime($session->dateCloture), 'd/m/Y') }}</strong>
                                     <br>
                                     Démarrage : {{ date_format(new DateTime($session->dateDemarrage), 'd/m/Y') }}
                                 </div>
