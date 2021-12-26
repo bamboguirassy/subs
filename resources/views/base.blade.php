@@ -186,7 +186,7 @@
         <div class="offcanvas-header">
             <h5 class="offcanvas-title" id="offcanvasExampleLabel"><a href="{{ route('home') }}">
                     <img src="{{ asset('assets/images/fulllogo-nobuffer-612x123.png') }}" alt=""
-                        style="height: 3rem; width: 95%">
+                        style="height: 3rem; width: 90%">
                 </a></h5>
             <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
@@ -201,7 +201,7 @@
         <div class="offcanvas-header">
             <h5 class="offcanvas-title" id="sidebarMenuLabel"><a href="{{ route('home') }}">
                     <img src="{{ asset('assets/images/fulllogo-nobuffer-612x123.png') }}" alt=""
-                        style="height: 3rem; width: 95%">
+                        style="height: 3rem; width: 90%">
                 </a></h5>
             <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
@@ -218,7 +218,7 @@
             <div class="offcanvas-header">
                 <h5 class="offcanvas-title" id="hisroriqueAchatSmsLabel"><a href="{{ route('home') }}">
                         <img src="{{ asset('assets/images/fulllogo-nobuffer-612x123.png') }}" alt=""
-                            style="height: 3rem; width: 95%">
+                            style="height: 3rem; width: 90%">
                     </a></h5>
                 <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
             </div>
@@ -236,7 +236,7 @@
             <div class="offcanvas-header">
                 <h5 class="offcanvas-title" id="userProgrammeListLabel"><a href="{{ route('home') }}">
                         <img src="{{ asset('assets/images/fulllogo-nobuffer-612x123.png') }}" alt=""
-                            style="height: 3rem; width: 95%">
+                            style="height: 3rem; width: 90%">
                     </a></h5>
                 <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
             </div>
@@ -265,7 +265,7 @@
             <div class="offcanvas-header">
                 <h5 class="offcanvas-title" id="userSouscriptionListLabel"><a href="{{ route('home') }}">
                         <img src="{{ asset('assets/images/fulllogo-nobuffer-612x123.png') }}" alt=""
-                            style="height: 3rem; width: 95%">
+                            style="height: 3rem; width: 90%">
                     </a></h5>
                 <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
             </div>
@@ -294,7 +294,7 @@
             <div class="offcanvas-header">
                 <h5 class="offcanvas-title" id="userAppelFondListLabel"><a href="{{ route('home') }}">
                         <img src="{{ asset('assets/images/fulllogo-nobuffer-612x123.png') }}" alt=""
-                            style="height: 3rem; width: 95%">
+                            style="height: 3rem; width: 90%">
                     </a></h5>
                 <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
             </div>
