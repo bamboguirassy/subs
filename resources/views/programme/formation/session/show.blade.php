@@ -64,6 +64,7 @@
                     <div class="card bg-white">
                         <div class="card-body">
                             <h4 class="card-title text-primary">Liste des souscriptions</h4>
+                            @if(count($tabUsers)>0)
                             <div class="table-responsive">
                                 <table class="table table-bordered table-striped">
                                     <thead class="bg-primary text-white">
@@ -104,6 +105,9 @@
                                     </tbody>
                                 </table>
                             </div>
+                            @else
+                            <x-empty-message title="Vide" message="Il n'y a aucune souscription pour cette session" />
+                            @endif
 
                         </div>
                     </div>
