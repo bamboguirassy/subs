@@ -1,6 +1,6 @@
 @extends("base")
 
-@section('title', 'Modifier un programme')
+@section('title', 'Modification programme - '.$programme->nom)
 
 @section('body')
     <section data-bs-version="5.1" class="content2 cid-sOc3YTgSUN" id="content2-12">

@@ -19,7 +19,7 @@
                         @guest
                             <br>
                             Si vous avez déja un compte, merci de vous <a style="font-weight: bolder; color: white;"
-                                href="{{ route('login') }}?ret={{ Request::url() }}">connecter en cliquant ici</a> avant de
+                                href="{{ route('login') }} }}">connecter en cliquant ici</a> avant de
                             publier le programme.
                         @endguest
                     </p>

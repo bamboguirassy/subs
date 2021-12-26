@@ -1,5 +1,7 @@
 @extends('base')
 
+@section('title', 'Création compte')
+
 @section('body')
     <div class="d-none d-md-block" style="margin-top: 70px;"></div>
     <div class="container" style="margin-top: 80px">
