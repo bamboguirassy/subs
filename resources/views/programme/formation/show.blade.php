@@ -111,7 +111,10 @@
                                                                     </table>
                                                                     {!! $module->description !!}
                                                                 </div>
-                                                                <a href="{{ route('programme.edit',['programme'=>$module]) }}" class="btn btn-warning pull-right">Modifier</a>
+                                                                @if ($programme->is_proprietaire)
+                                                                    <a href="{{ route('programme.edit', ['programme' => $module]) }}"
+                                                                        class="btn btn-warning pull-right">Modifier</a>
+                                                                @endif
                                                             </div>
                                                         </div>
                                                     @endforeach
