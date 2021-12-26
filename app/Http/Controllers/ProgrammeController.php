@@ -187,14 +187,22 @@ class ProgrammeController extends Controller
                 $query->where('session_id',$programme->id);
             })->get();
             $tabUsers = [];
+            $montantSession = 0;
             foreach ($users as $user) {
+                $montantUser = 0;
                 $tab_souscription = [];
                 foreach ($programme->parent->modules as $module) {
-                    $tab_souscription[] = $module->hasUserSubscribedForModule($user, $programme);
+                    $val = $module->hasUserSubscribedForModule($user, $programme);
+                    $tab_souscription[] = $val;
+                    if($val) {
+                        $montantUser+=$module->getUserSubscriptionForModule($user, $programme)->montant;
+                    }
                 }
-                $tabUsers[] = ['user'=>$user,'states'=>$tab_souscription];
+                $tabUsers[] = ['user'=>$user,'states'=>$tab_souscription,'montantUser'=>$montantUser];
+                $montantSession+=$montantUser;
             }
-            return view('programme.formation.session.show',compact('programme','tabUsers'));
+            $gainNet = $montantUser*(100-Parametrage::getInstance()->tauxPrelevement)/100;
+            return view('programme.formation.session.show',compact('programme','tabUsers','montantSession','gainNet'));
         }
         return view('programme.show', compact('programme'));
     }
