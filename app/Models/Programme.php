@@ -180,6 +180,13 @@ class Programme extends Model
         });
     }
 
+    // verifie si l'utilisateur a souscrit au programme
+    public function getUserSubscriptionForModule(User $user, Programme $session): ?Souscription {
+        return $this->souscriptions->first(function($souscription) use ($user, $session) {
+            return $souscription->user_id == $user->id && $souscription->session_id == $session->id;
+        });
+    }
+
     public function getGainAttribute()
     {
         $total = 0;
