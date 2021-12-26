@@ -90,9 +90,9 @@
                 </div>
                 {{-- statistique globale --}}
                 @if ($programme->is_proprietaire)
-                    <div class="col-12 justify-content-center align-items-center text-primary px-4">
+                    <div class="col-12 text-primary">
                         <div class="row bg-white">
-                            <div class="card md-pb col-12 col-md-6 col-lg-3">
+                            <div class="card justify-content-center align-items-center md-pb col-12 col-md-6 col-lg-3">
                                 <div class="card-wrapper">
                                     <div class="icon-wrapper">
                                         <span class="mbr-iconfont m-auto mobi-mbri-users mobi-mbri"></span>
@@ -106,7 +106,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="card md-pb col-12 col-md-6 col-lg-3">
+                            <div class="card justify-content-center align-items-center md-pb col-12 col-md-6 col-lg-3">
                                 <div class="card-wrapper">
                                     <div class="icon-wrapper">
                                         <span class="mbr-iconfont m-auto icon54-v1-send-money"></span>
@@ -120,7 +120,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="card md-pb col-12 col-md-6 col-lg-3">
+                            <div class="card justify-content-center align-items-center md-pb col-12 col-md-6 col-lg-3">
                                 <div class="card-wrapper">
                                     <div class="icon-wrapper">
                                         <span class="mbr-iconfont m-auto icon54-v1-send-money"></span>
@@ -135,7 +135,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="card md-pb col-12 col-md-6 col-lg-3">
+                            <div class="card justify-content-center align-items-center md-pb col-12 col-md-6 col-lg-3">
                                 <div class="card-wrapper">
                                     <div class="icon-wrapper">
                                         <span class="mbr-iconfont m-auto icon54-v1-video-message"></span>
