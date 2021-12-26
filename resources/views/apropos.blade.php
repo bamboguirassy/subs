@@ -1,6 +1,6 @@
 @extends("base")
 
-@section('title', config('app.name'))
+@section('title', config('app.name')." A propos")
 
 @section('body')
     <section data-bs-version="5.1" class="info1 cid-sPNyRAAd7I" id="info1-2j">

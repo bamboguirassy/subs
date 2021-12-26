@@ -1,6 +1,6 @@
 @extends("base")
 
-@section('title', 'Publier un nouveau programme')
+@section('title', 'Publier un nouveau programme '.$typeProgramme->nom)
 
 @section('description',
     'Publier un nouveau programme et permettez aux interessés de souscrire pour prendre part au
