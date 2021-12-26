@@ -152,10 +152,10 @@
     <hr class="mt-5">
 
     <!-- Modal module add -->
-    <div class="modal fade" style="max-height: 90%" id="newModuleModal" tabindex="-1"
+    <div class="modal fade" id="newModuleModal" tabindex="-1"
         aria-labelledby="newModuleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
-            <div class="modal-content" style="overflow: auto;">
+            <div class="modal-content" style="overflow: auto; height: auto;">
                 <form action="{{ route('programme.store') }}" method="post">
                     @method('post')
                     @csrf
@@ -218,10 +218,10 @@
         </div>
     </div>
     <!-- Modal session add -->
-    <div class="modal fade" style="max-height: 90%" id="newSessionModal" tabindex="-1"
+    <div class="modal fade" id="newSessionModal" tabindex="-1"
         aria-labelledby="newSessionModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
-            <div class="modal-content" style="overflow: auto;">
+            <div class="modal-content" style="overflow: auto; height: auto;">
                 <form action="{{ route('programme.store') }}" method="post">
                     @method('post')
                     @csrf
