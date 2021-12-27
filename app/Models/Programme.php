@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
@@ -51,6 +52,15 @@ class Programme extends Model
     public function souscriptions(): HasMany
     {
         return $this->hasMany(Souscription::class);
+    }
+
+    /**
+     * Get all of the childSouscriptions for the Programme
+     *
+     */
+    public function getChildrenSouscriptionsAttribute()
+    {
+        return Souscription::whereRelation('programme','programme_id',$this->id)->get();
     }
 
     /**
@@ -173,7 +183,7 @@ class Programme extends Model
         return $this->hasMany(Programme::class)->whereCategorie('session')->where('dateCloture', '>=', today());
     }
 
-    // verifie si l'utilisateur a souscrit au programme
+    // verifie si l'utilisateur a souscrit au module
     public function hasUserSubscribedForModule(User $user, Programme $session)
     {
         return $this->souscriptions->contains(function ($souscription) use ($user, $session) {
@@ -182,10 +192,25 @@ class Programme extends Model
     }
 
     // verifie si l'utilisateur a souscrit au programme
+    public function hasUserSubscribedForProgram(User $user)
+    {
+        return $this->souscriptions->contains(function ($souscription) use ($user) {
+            return $souscription->user_id == $user->id;
+        });
+    }
+
+    // verifie si l'utilisateur a souscrit au module
     public function getUserSubscriptionForModule(User $user, Programme $session): ?Souscription
     {
         return $this->souscriptions->first(function ($souscription) use ($user, $session) {
             return $souscription->user_id == $user->id && $souscription->session_id == $session->id;
+        });
+    }
+    // verifie si l'utilisateur a souscrit au programme
+    public function getUserSubscriptionForProgram(User $user): ?Souscription
+    {
+        return $this->souscriptions->first(function ($souscription) use ($user) {
+            return $souscription->user_id == $user->id;
         });
     }
 
@@ -214,6 +239,14 @@ class Programme extends Model
         }
 
         $total = 0;
+
+        if ($this->getIsCotisationRecurrenteAttribute() && $this->getIsParentAttribute()) {
+            foreach ($this->getChildrenSouscriptionsAttribute() as $souscription) {
+                $total += $souscription->montant;
+            }
+            return $total;
+        }
+
         foreach ($this->souscriptions as $souscription) {
             $total += $souscription->montant;
         }
@@ -245,6 +278,15 @@ class Programme extends Model
             return $gainNet;
         }
         $total = 0;
+
+        if ($this->getIsCotisationRecurrenteAttribute() && $this->getIsParentAttribute()) {
+            foreach ($this->getChildrenSouscriptionsAttribute() as $souscription) {
+                $total += $souscription->montant;
+            }
+            $prelevementPercent = (100 - $this->tauxPrelevement) / 100;
+            return  $prelevementPercent * $total;
+        }
+
         foreach ($this->souscriptions as $souscription) {
             $total += $souscription->montant;
         }
@@ -335,7 +377,7 @@ class Programme extends Model
     public function getProgressionAttribute()
     {
         if ($this->is_child && count($this->parent->souscriptions) > 0) {
-            return (count($this->souscriptions) * 100) / count($this->parent->souscriptions);
+            return number_format((count($this->souscriptions) * 100) / count($this->parent->souscriptions));
         }
         return null;
     }
