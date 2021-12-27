@@ -284,7 +284,7 @@
                     <div class="tab-content p-5">
                         <div id="tab1" class="tab-pane in active" role="tabpanel">
                             <div class="row">
-                                @isset($programme->image)
+                                {{-- @isset($programme->image)
                                     <div class="col-md-3 logo-container d-flex justify-content-center align-items-center">
                                         <div class="d-flex flex-wrap">
                                             <div class="mb-md-0 mb-3">
@@ -292,7 +292,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                @endisset
+                                @endisset --}}
                                 <div class="col-md">
                                     <x-programme-description :programme="$programme" />
                                 </div>
