@@ -4,7 +4,6 @@
 
 @section('body')
     <section ng-controller="AppelFondController">
-
         <section data-bs-version="5.1" class="info1 cid-sPNyRAAd7I" id="info1-2j">
             <div class="align-center container">
                 <div class="row justify-content-center">
@@ -12,12 +11,10 @@
                         <h3 class="mbr-section-title mb-4 mbr-fonts-style display-1">
                             <strong>Appels de fonds</strong>
                         </h3>
-
                     </div>
                 </div>
             </div>
         </section>
-
         <section data-bs-version="5.1" class="table01 photom4_table01 section-table cid-sObY9vjAPL " id="table01-x">
             <div class="row align-center">
                 <div class="col-12 col-md-12">
@@ -35,7 +32,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div style="overflow-x:auto;">
+                        <div class="table-responsive">
                             <table class="table table-striped isSearch table-responsive-stack" cellspacing="0"
                                 data-empty="Aucun enregistrement trouvé">
                                 <thead>

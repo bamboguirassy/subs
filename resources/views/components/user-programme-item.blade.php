@@ -14,7 +14,7 @@
                             class="nowrap">{{ count($programme->souscriptions) }}</small>
                     @elseif($programme->montant>0)
                         <small
-                            class="nowrap">{{ count($programme->montant) }} FCFA</small>
+                            class="nowrap">{{ $programme->montant }} FCFA</small>
                     @endif
                 </div>
                 <p class="mb-1">

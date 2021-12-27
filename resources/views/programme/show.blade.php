@@ -12,7 +12,7 @@
 
 @section('body')
     <div style="margin-top: 120px;" class="d-none d-sm-block"></div>
-    <section data-bs-version="5.1" class="header14 cid-sObVJU3AUD pt-5" id="header14-u">
+    <section data-bs-version="5.1" class="header14 cid-sObVJU3AUD pt-2" style="margin-top: 20px;" id="header14-u">
         <div class="container">
             <div class="row justify-content-center align-items-center">
                 @isset($programme->image)
@@ -112,7 +112,7 @@
                                     @endif
                                     <a class="btn btn-white display-4" href="#table01-x">
                                         <span class="mbrib-users mbr-iconfont mbr-iconfont-btn"></span>Participants</a>
-                                    @if (!$programme->suspendu)
+                                    @if (!$programme->suspendu && !$programme->appelFond)
                                         <a class="btn btn-warning display-4"
                                             href="{{ route('programme.edit', compact('programme')) }}"><span
                                                 class="mobi-mbri mobi-mbri-edit-2 mbr-iconfont mbr-iconfont-btn"></span>Modifier</a>
@@ -131,13 +131,13 @@
                                             Suspendre le programme
                                         </a>
                                     @endif
-                                @else
+                                {{-- @else
                                     @if ($programme->current_user_souscription && $programme->active)
                                         <a class="btn btn-danger display-4" href="">
                                             <span class="mobi-mbri mobi-mbri-close mbr-iconfont mbr-iconfont-btn"></span>Annuler
                                             ma
                                             souscription</a>
-                                    @endif
+                                    @endif --}}
                                 @endif
                             @endauth
                         </div>
