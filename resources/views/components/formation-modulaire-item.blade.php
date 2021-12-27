@@ -1,7 +1,7 @@
 <div class="card mb-3" style="border: 2px solid #BA265E;">
     <a href="{{ route('programme.show', compact('programme')) }}">
         <div class="row g-0">
-            <div class="col-md-4">
+            <div class="col-md-4 d-flex align-items-center justify-content-center">
                 <img src="{{ asset('uploads/programmes/images/' . $programme->image) }}"
                     class="img-fluid rounded-start" alt="{{ $programme->nom }}">
             </div>
