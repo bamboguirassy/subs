@@ -1,4 +1,4 @@
-<div class="card mb-3" style="border: 1px solid gray;">
+<div class="card mb-3" style="border: 2px solid #BA265E;">
     <a href="{{ route('programme.show', compact('programme')) }}">
         <div class="row g-0">
             <div class="col-md-4">
