@@ -82,7 +82,7 @@ class ProgrammeController extends Controller
                 // si module
                 if ($request->categorie == 'module') {
                     $this->validateModule();
-                } else if($request->categorie=='session') {
+                } else if ($request->categorie == 'session') {
                     $this->validateSession();
                 }
             } else {
@@ -160,7 +160,7 @@ class ProgrammeController extends Controller
                 }
             }
             // si programme formation modulaire et que categorie module
-            if($programme->getIsModuleFormationAttribute() || $programme->getIsSessionFormationAttribute()) {
+            if ($programme->getIsModuleFormationAttribute() || $programme->getIsSessionFormationAttribute()) {
                 return back();
             }
             return redirect()->route('programme.show', compact('programme'));
@@ -182,9 +182,9 @@ class ProgrammeController extends Controller
         if ($programme->getIsFormationModulaireAttribute()  && $programme->is_parent) {
             return view('programme.formation.show', compact('programme'));
         }
-        if($programme->is_session_formation) {
-            $users = User::whereRelation('souscriptions',function($query) use ($programme) {
-                $query->where('session_id',$programme->id);
+        if ($programme->is_session_formation) {
+            $users = User::whereRelation('souscriptions', function ($query) use ($programme) {
+                $query->where('session_id', $programme->id);
             })->get();
             $tabUsers = [];
             foreach ($users as $user) {
@@ -193,15 +193,30 @@ class ProgrammeController extends Controller
                 foreach ($programme->parent->modules as $module) {
                     $val = $module->hasUserSubscribedForModule($user, $programme);
                     $tab_souscription[] = $val;
-                    if($val) {
-                        $montantUser+=$module->getUserSubscriptionForModule($user, $programme)->montant;
+                    if ($val) {
+                        $montantUser += $module->getUserSubscriptionForModule($user, $programme)->montant;
                     }
                 }
-                $tabUsers[] = ['user'=>$user,'states'=>$tab_souscription,'montantUser'=>$montantUser];
+                $tabUsers[] = ['user' => $user, 'states' => $tab_souscription, 'montantUser' => $montantUser];
             }
-            return view('programme.formation.session.show',compact('programme','tabUsers'));
+            return view('programme.formation.session.show', compact('programme', 'tabUsers'));
         }
-        return view('programme.show', compact('programme'));
+        $tabUsers = [];
+        if ($programme->is_cotisation_recurrente && $programme->is_parent) {
+            foreach ($programme->souscriptions as $souscription) {
+                $montantUser = 0;
+                $tab_souscription = [];
+                foreach ($programme->children as $child) {
+                    $val = $child->hasUserSubscribedForProgram($souscription->user);
+                    $tab_souscription[] = $val;
+                    if ($val) {
+                        $montantUser += $child->getUserSubscriptionForProgram($souscription->user)->montant;
+                    }
+                }
+                $tabUsers[] = ['user' => $souscription->user, 'states' => $tab_souscription, 'montantUser' => $montantUser];
+            }
+        }
+        return view('programme.show', compact('programme', 'tabUsers'));
     }
 
     /**
@@ -250,8 +265,8 @@ class ProgrammeController extends Controller
             $programme->update($request->except('image'));
             DB::commit();
             notify()->success("Le programme a bien été Modifier !!!");
-            if($programme->is_module_formation) {
-                return redirect()->route('programme.show',['programme'=>$programme->parent]);
+            if ($programme->is_module_formation) {
+                return redirect()->route('programme.show', ['programme' => $programme->parent]);
             }
             return redirect()->route('programme.show', compact('programme'));
         } catch (Exception $e) {
@@ -341,7 +356,7 @@ class ProgrammeController extends Controller
             'description' => 'required',
             'montant' => 'required',
             'categorie' => 'required',
-            'programme_id'=>'required|exists:programmes,id'
+            'programme_id' => 'required|exists:programmes,id'
         ]);
     }
 
@@ -352,10 +367,10 @@ class ProgrammeController extends Controller
             'type_programme_id' => 'required|exists:type_programmes,id',
             'nom' => 'required',
             'dateCloture' => 'required',
-            'dateDemarrage'=>'required',
-            'modeDeroulement'=>'required',
+            'dateDemarrage' => 'required',
+            'modeDeroulement' => 'required',
             'categorie' => 'required',
-            'programme_id'=>'required|exists:programmes,id'
+            'programme_id' => 'required|exists:programmes,id'
         ]);
     }
 

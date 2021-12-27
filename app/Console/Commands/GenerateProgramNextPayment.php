@@ -73,7 +73,7 @@ class GenerateProgramNextPayment extends Command
                     Programme::createChildFromChild($childProgram);
                 }
                 // si cotisation récurrente, continuer à générer des enfants pour chaque enfants
-                if ($childProgram->is_cotisation_recurrente && !$childProgram->parent->suspendu) {
+                if ($childProgram->is_cotisation_recurrente && !$childProgram->parent->suspendu && ($childProgram->parent->nombre_main != count($childProgram->parent->children))) {
                     Programme::createChildFromChild($childProgram);
                 }
                 if (($childProgram->parent->nombre_main == count($childProgram->parent->children))) {

@@ -131,7 +131,7 @@
                                             Suspendre le programme
                                         </a>
                                     @endif
-                                {{-- @else
+                                    {{-- @else
                                     @if ($programme->current_user_souscription && $programme->active)
                                         <a class="btn btn-danger display-4" href="">
                                             <span class="mobi-mbri mobi-mbri-close mbr-iconfont mbr-iconfont-btn"></span>Annuler
@@ -219,34 +219,131 @@
     @if (($programme->is_tontine || $programme->is_cotisation_recurrente) && ($programme->current_user_souscription || $programme->is_proprietaire))
         <section data-bs-version="5.1" class="extProgressBars cid-sQ5CwoL2FK" id="extProgressBars5-2x">
             <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-lg-8 col-md-12">
-                        <h2 class="mbr-section-title pb-2 mbr-bold mbr-fonts-style align-left display-5">Evolution des
-                            paiements</h2>
-                        <div class="line-wrap">
-                            <div class="line"></div>
-                        </div>
-                        <h3 class="mbr-section-sub-title pb-4 mbr-normal mbr-fonts-style align-left display-7">Suivez
-                            l'évolution des paiements pour chaque tranche ou période de paiement</h3>
-                        <div class="progress_elements">
-                            @foreach ($programme->children as $child)
-                                <div class="progress1 pb-5">
-                                    <div class="title-wrap">
-                                        <div class="progressbar-title mbr-fonts-style display-5">
-                                            <p>
-                                                <a
-                                                    href="{{ route('programme.show', ['programme' => $child]) }}">{{ $child->nom }}</a>
-                                            </p>
+                <div class="row">
+                    <div class="col-12">
+                        <ul class="nav nav-tabs" id="myTab" role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link active" id="suivi-tranche-tab" data-bs-toggle="tab"
+                                    data-bs-target="#suivi-tranche" type="button" role="tab" aria-controls="suivi-tranche"
+                                    aria-selected="true">Suivi Tranche</button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="tableau-paiement-tontine-tab" data-bs-toggle="tab"
+                                    data-bs-target="#tableau-paiement-tontine" type="button" role="tab"
+                                    aria-controls="tableau-paiement-tontine" aria-selected="false">Tableau des paiements</button>
+                            </li>
+                        </ul>
+                        <div class="tab-content" id="myTabContent">
+                            <div class="tab-pane fade show active" id="suivi-tranche" role="tabpanel"
+                                aria-labelledby="suivi-tranche-tab">
+                                <div class="row justify-content-center">
+                                    <div class="col-lg-8 col-md-12">
+                                        <h2 class="mbr-section-title pb-2 mbr-bold mbr-fonts-style align-left display-5">
+                                            Evolution des
+                                            paiements</h2>
+                                        <div class="line-wrap">
+                                            <div class="line"></div>
                                         </div>
-                                        <div class="progress_value mbr-fonts-style display-7">
-                                            <span>{{ $child->progression }}%</span>
+                                        <h3
+                                            class="mbr-section-sub-title pb-4 mbr-normal mbr-fonts-style align-left display-7">
+                                            Suivez
+                                            l'évolution des paiements pour chaque tranche ou période de paiement</h3>
+                                        <div class="progress_elements">
+                                            @foreach ($programme->children as $child)
+                                                <div class="progress1 pb-5">
+                                                    <div class="title-wrap">
+                                                        <div class="progressbar-title mbr-fonts-style display-5">
+                                                            <p>
+                                                                <a
+                                                                    href="{{ route('programme.show', ['programme' => $child]) }}">{{ $child->nom }}</a>
+                                                            </p>
+                                                        </div>
+                                                        <div class="progress_value mbr-fonts-style display-7">
+                                                            <span class="nowrap">{{ $child->progression }}%</span>
+                                                        </div>
+                                                    </div>
+                                                    <progress class="progress progress-primary mbr-bold" max="100"
+                                                        value="{{ $child->progression }}">
+                                                    </progress>
+                                                </div>
+                                            @endforeach
                                         </div>
                                     </div>
-                                    <progress class="progress progress-primary mbr-bold" max="100"
-                                        value="{{ $child->progression }}">
-                                    </progress>
                                 </div>
-                            @endforeach
+                            </div>
+                            <div class="tab-pane fade" id="tableau-paiement-tontine" role="tabpanel"
+                                aria-labelledby="tableau-paiement-tontine-tab">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="card bg-white">
+                                            <div class="card-body">
+                                                <h4 class="card-title text-primary">Liste des souscriptions</h4>
+                                                @if (count($tabUsers) > 0)
+                                                    <div class="table-responsive">
+                                                        <table class="table table-bordered table-striped">
+                                                            <thead class="bg-primary text-white">
+                                                                <tr>
+                                                                    <th>#</th>
+                                                                    <th>Nom</th>
+                                                                    <th>Téléphone</th>
+                                                                    <th>Email</th>
+                                                                    @foreach ($programme->children as $child)
+                                                                        <th class="nowrap">
+                                                                            {{ Str::limit($child->nom, 12, '...') }} <br>
+                                                                            <span
+                                                                                class="badge bg-secondary">{{ $child->montant }}
+                                                                                FCFA</span>
+                                                                        </th>
+                                                                    @endforeach
+                                                                    <th>
+                                                                        Montant
+                                                                    </th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                @foreach ($tabUsers as $tabUser)
+                                                                    <tr>
+                                                                        <td class="nowrap" scope="row">
+                                                                            {{ $loop->index + 1 }}
+                                                                        </td>
+                                                                        <td class="nowrap">
+                                                                            {{ $tabUser['user']->name }}
+                                                                        </td>
+                                                                        <td class="nowrap">
+                                                                            <a
+                                                                                href="tel:+{{ $tabUser['user']->telephone }}">{{ $tabUser['user']->telephone }}</a>
+                                                                        </td>
+                                                                        <td class="nowrap">
+                                                                            <a
+                                                                                href="mailto:{{ $tabUser['user']->email }}">{{ $tabUser['user']->email }}</a>
+                                                                        </td>
+                                                                        @foreach ($tabUser['states'] as $state)
+                                                                            <td class="nowrap">
+                                                                                @if ($state)
+                                                                                    <span class="mbri-success"></span>
+                                                                                @else
+                                                                                    <span class="mbri-close"></span>
+                                                                                @endif
+                                                                            </td>
+                                                                        @endforeach
+                                                                        <td class="nowrap">
+                                                                            {{ $tabUser['montantUser'] }} FCFA
+                                                                        </td>
+                                                                    </tr>
+                                                                @endforeach
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                @else
+                                                    <x-empty-message title="Vide"
+                                                        message="Il n'y a aucune souscription pour cette session" />
+                                                @endif
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -260,9 +357,9 @@
             <div class="row justify-content-center">
                 <div class="col-12 col-md-12">
                     <ul class="nav nav-tabs" role="tablist">
-                        <li class="nav-item first mbr-fonts-style"><a class="nav-link mbr-fonts-style show active display-7"
-                                role="tab" data-toggle="tab" data-bs-toggle="tab" href="#list1-1r_tab0"
-                                aria-selected="true">Description</a></li>
+                        <li class="nav-item first mbr-fonts-style"><a
+                                class="nav-link mbr-fonts-style show active display-7" role="tab" data-toggle="tab"
+                                data-bs-toggle="tab" href="#list1-1r_tab0" aria-selected="true">Description</a></li>
                         @auth
                             @if ($programme->is_proprietaire)
                                 <li class="nav-item"><a class="nav-link mbr-fonts-style active display-7" role="tab"
