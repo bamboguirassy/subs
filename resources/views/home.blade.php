@@ -120,6 +120,7 @@
             </div>
         </div>
     </section>
+    <x-separator />
     <x-social-sharing />
     <div class="container">
         <div class="row">
