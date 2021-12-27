@@ -101,7 +101,7 @@
             <p class="lead">
                 Découvrez d'autres programmes auxquels vous pourrez participer...
             </p>
-            <div class="row align-left justify-content-center">
+            <div class="row align-left justify-content-center m-1">
                 @if (count($programmeActives) < 1)
                     <x-empty-message title="Pas encore de programme"
                         message="Aucun programme n'est encore disponible pour le moment !" />
