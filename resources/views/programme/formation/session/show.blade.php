@@ -1,7 +1,7 @@
 @extends("base")
 
-@section('title', $programme->nom.' > '.$programme->parent->nom . ' - Date clôture prévue - ' . date_format(new DateTime($programme->dateCloture),
-    'd/m/Y'))
+@section('title', $programme->nom . ' > ' . $programme->parent->nom . ' - Date clôture prévue - ' . date_format(new
+    DateTime($programme->dateCloture), 'd/m/Y'))
 
 @section('social-sharing')
     <meta name="twitter:image:src" content="{{ asset('uploads/programmes/images/' . $programme->parent->image) }}">
@@ -39,7 +39,7 @@
                                             {{ $programme->user->name }}</strong>
                                     </p>
                                     <p>
-                                        {!! $programme->description !!}
+                                        {!! $programme->description??"<h3 class='text-primary'>Aucune description fournie</h3>" !!}
                                     </p>
                                     @if ($programme->suspendu)
                                         <div class="alert alert-danger" role="alert">
@@ -64,13 +64,13 @@
                                                 </button>
                                             </form>
                                         @endif
-                                        @if (!$programme->suspendu)
+                                        @if (!$programme->suspendu && !$programme->appelFond)
                                             <a class="btn btn-warning display-4"
                                                 href="{{ route('programme.edit', compact('programme')) }}"><span
                                                     class="mobi-mbri mobi-mbri-edit-2 mbr-iconfont mbr-iconfont-btn"></span>Modifier</a>
                                         @endif
-                                        @if (!$programme->active && $programme->gain_net > 0 && $programme->appelFond == null && $programme->typeProgramme->code != 'COTIR')
-                                            <a class="btn btn-white display-4" href="#" data-toggle="modal"
+                                        @if (!$programme->active && $programme->gain_net > 0 && $programme->appelFond == null)
+                                            <a class="btn btn-secondary display-4" href="#" data-toggle="modal"
                                                 data-bs-toggle="modal" data-target="#mbr-popup-2y"
                                                 data-bs-target="#mbr-popup-2y"><span
                                                     class="icon54-v1-send-money mbr-iconfont mbr-iconfont-btn"></span>
@@ -115,7 +115,7 @@
                                     </div>
                                     <div class="card-box">
                                         <h4 class="card-title mbr-fonts-style mb-1 display-5">
-                                            <strong>{{ $montantSession }}
+                                            <strong>{{ $programme->gain }}
                                                 FCFA</strong>
                                         </h4>
                                         <h5 class="card-text mbr-fonts-style display-7"><strong>Gain</strong></h5>
@@ -129,7 +129,7 @@
                                     </div>
                                     <div class="card-box">
                                         <h4 class="card-title mbr-fonts-style mb-1 display-5">
-                                            <strong>{{ $gainNet }}
+                                            <strong>{{ $programme->gain_net }}
                                                 FCFA</strong>
                                         </h4>
                                         <h5 class="card-text mbr-fonts-style display-7"><strong>Gain Net
@@ -156,68 +156,77 @@
                     <x-separator />
                 @endif
                 {{-- section liste des souscriptions --}}
-                <div class="col-12">
-                    <div class="card bg-white">
-                        <div class="card-body">
-                            <h4 class="card-title text-primary">Liste des souscriptions</h4>
-                            @if (count($tabUsers) > 0)
-                                <div class="table-responsive">
-                                    <table class="table table-bordered table-striped">
-                                        <thead class="bg-primary text-white">
-                                            <tr>
-                                                <th>#</th>
-                                                <th>Nom</th>
-                                                <th>Téléphone</th>
-                                                <th>Email</th>
-                                                @foreach ($programme->parent->modules as $module)
-                                                    <th class="nowrap">{{ $module->nom }}</th>
-                                                @endforeach
-                                                <th>
-                                                    Montant
-                                                </th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @foreach ($tabUsers as $tabUser)
+                @if ($programme->is_proprietaire)
+                    <div class="col-12">
+                        <div class="card bg-white">
+                            <div class="card-body">
+                                <h4 class="card-title text-primary">Liste des souscriptions</h4>
+                                @if (count($tabUsers) > 0)
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered table-striped">
+                                            <thead class="bg-primary text-white">
                                                 <tr>
-                                                    <td class="nowrap" scope="row">{{ $loop->index + 1 }}</td>
-                                                    <td class="nowrap">{{ $tabUser['user']->name }}</td>
-                                                    <td class="nowrap">
-                                                        <a
-                                                            href="tel:+{{ $tabUser['user']->telephone }}">{{ $tabUser['user']->telephone }}</a>
-                                                    </td>
-                                                    <td class="nowrap">
-                                                        <a
-                                                            href="mailto:{{ $tabUser['user']->email }}">{{ $tabUser['user']->email }}</a>
-                                                    </td>
-                                                    @foreach ($tabUser['states'] as $state)
-                                                        <td class="nowrap">
-                                                            @if ($state)
-                                                                <span class="mbri-success"></span>
-                                                            @else
-                                                                <span class="mbri-close"></span>
-                                                            @endif
-                                                        </td>
+                                                    <th>#</th>
+                                                    <th>Nom</th>
+                                                    <th>Téléphone</th>
+                                                    <th>Email</th>
+                                                    @foreach ($programme->parent->modules as $module)
+                                                        <th class="nowrap">{{ $module->nom }} <br>
+                                                        <span class="badge bg-secondary">{{$module->montant}} FCFA</span>
+                                                        </th>
                                                     @endforeach
-                                                    <td>
-                                                        {{ $tabUser['montantUser'] }} FCFA
-                                                    </td>
+                                                    <th>
+                                                        Montant
+                                                    </th>
                                                 </tr>
-                                            @endforeach
-                                        </tbody>
-                                    </table>
-                                </div>
-                            @else
-                                <x-empty-message title="Vide" message="Il n'y a aucune souscription pour cette session" />
-                            @endif
+                                            </thead>
+                                            <tbody>
+                                                @foreach ($tabUsers as $tabUser)
+                                                    <tr>
+                                                        <td class="nowrap" scope="row">{{ $loop->index + 1 }}
+                                                        </td>
+                                                        <td class="nowrap">{{ $tabUser['user']->name }}</td>
+                                                        <td class="nowrap">
+                                                            <a
+                                                                href="tel:+{{ $tabUser['user']->telephone }}">{{ $tabUser['user']->telephone }}</a>
+                                                        </td>
+                                                        <td class="nowrap">
+                                                            <a
+                                                                href="mailto:{{ $tabUser['user']->email }}">{{ $tabUser['user']->email }}</a>
+                                                        </td>
+                                                        @foreach ($tabUser['states'] as $state)
+                                                            <td class="nowrap">
+                                                                @if ($state)
+                                                                    <span class="mbri-success"></span>
+                                                                @else
+                                                                    <span class="mbri-close"></span>
+                                                                @endif
+                                                            </td>
+                                                        @endforeach
+                                                        <td>
+                                                            {{ $tabUser['montantUser'] }} FCFA
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                @else
+                                    <x-empty-message title="Vide"
+                                        message="Il n'y a aucune souscription pour cette session" />
+                                @endif
 
+                            </div>
                         </div>
                     </div>
-                </div>
+                @endif
             </div>
         </div>
     </div>
     <x-separator />
     <x-social-sharing />
     <hr class="mt-5">
+
+    <x-appel-fond-new :programme="$programme" />
+
 @endsection

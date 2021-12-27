@@ -54,8 +54,8 @@
                                             class="form-control display-7" value="+221"
                                             id="mobilePaiement-mbr-popup-2y">
                                     </div>
-                                    <div class="col-auto input-group-btn">
-                                        <button type="submit" class="btn btn-primary display-4">Faire la
+                                    <div class="col-auto input-group-btn d-flex justify-content-end">
+                                        <button type="submit" class="btn btn-warning display-4">Faire la
                                             demande</button>
                                     </div>
                                 </div>

@@ -170,25 +170,49 @@ class Programme extends Model
      */
     public function sessionActives(): HasMany
     {
-        return $this->hasMany(Programme::class)->whereCategorie('session')->where('dateCloture','>=',today());
+        return $this->hasMany(Programme::class)->whereCategorie('session')->where('dateCloture', '>=', today());
     }
 
     // verifie si l'utilisateur a souscrit au programme
-    public function hasUserSubscribedForModule(User $user, Programme $session) {
-        return $this->souscriptions->contains(function($souscription) use ($user, $session) {
+    public function hasUserSubscribedForModule(User $user, Programme $session)
+    {
+        return $this->souscriptions->contains(function ($souscription) use ($user, $session) {
             return $souscription->user_id == $user->id && $souscription->session_id == $session->id;
         });
     }
 
     // verifie si l'utilisateur a souscrit au programme
-    public function getUserSubscriptionForModule(User $user, Programme $session): ?Souscription {
-        return $this->souscriptions->first(function($souscription) use ($user, $session) {
+    public function getUserSubscriptionForModule(User $user, Programme $session): ?Souscription
+    {
+        return $this->souscriptions->first(function ($souscription) use ($user, $session) {
             return $souscription->user_id == $user->id && $souscription->session_id == $session->id;
         });
     }
 
     public function getGainAttribute()
     {
+        if ($this->is_session_formation) {
+            $users = User::whereRelation('souscriptions', function ($query) {
+                $query->where('session_id', $this->id);
+            })->get();
+            $tabUsers = [];
+            $montantSession = 0;
+            foreach ($users as $user) {
+                $montantUser = 0;
+                $tab_souscription = [];
+                foreach ($this->parent->modules as $module) {
+                    $val = $module->hasUserSubscribedForModule($user, $this);
+                    $tab_souscription[] = $val;
+                    if ($val) {
+                        $montantUser += $module->getUserSubscriptionForModule($user, $this)->montant;
+                    }
+                }
+                $tabUsers[] = ['user' => $user, 'states' => $tab_souscription, 'montantUser' => $montantUser];
+                $montantSession += $montantUser;
+            }
+            return $montantSession;
+        }
+
         $total = 0;
         foreach ($this->souscriptions as $souscription) {
             $total += $souscription->montant;
@@ -198,6 +222,28 @@ class Programme extends Model
 
     public function getGainNetAttribute()
     {
+        if ($this->is_session_formation) {
+            $users = User::whereRelation('souscriptions', function ($query) {
+                $query->where('session_id', $this->id);
+            })->get();
+            $tabUsers = [];
+            $montantSession = 0;
+            foreach ($users as $user) {
+                $montantUser = 0;
+                $tab_souscription = [];
+                foreach ($this->parent->modules as $module) {
+                    $val = $module->hasUserSubscribedForModule($user, $this);
+                    $tab_souscription[] = $val;
+                    if ($val) {
+                        $montantUser += $module->getUserSubscriptionForModule($user, $this)->montant;
+                    }
+                }
+                $tabUsers[] = ['user' => $user, 'states' => $tab_souscription, 'montantUser' => $montantUser];
+                $montantSession += $montantUser;
+            }
+            $gainNet = $montantSession * (100 - Parametrage::getInstance()->tauxPrelevement) / 100;
+            return $gainNet;
+        }
         $total = 0;
         foreach ($this->souscriptions as $souscription) {
             $total += $souscription->montant;
@@ -265,7 +311,7 @@ class Programme extends Model
         if (Auth::check()) {
             $souscriptions = Souscription::where('user_id', Auth::id())
                 ->where('programme_id', $this->id)
-                ->where('session_id',$session->id)
+                ->where('session_id', $session->id)
                 ->get();
             return count($souscriptions) > 0 ? $souscriptions[0] : null;
         }
@@ -296,15 +342,17 @@ class Programme extends Model
 
     public function getIsPublicAttribute()
     {
-        return $this->typeProgramme->code == "PROG" || $this->typeProgramme->code == "CFON" || $this->typeProgramme->code=='FORMOD';
+        return $this->typeProgramme->code == "PROG" || $this->typeProgramme->code == "CFON" || $this->typeProgramme->code == 'FORMOD';
     }
 
-    public function getIsModuleFormationAttribute() {
-        return $this->typeProgramme->code=="FORMOD" && $this->categorie=="module";
+    public function getIsModuleFormationAttribute()
+    {
+        return $this->typeProgramme->code == "FORMOD" && $this->categorie == "module";
     }
 
-    public function getIsSessionFormationAttribute() {
-        return $this->typeProgramme->code=="FORMOD" && $this->categorie=="session";
+    public function getIsSessionFormationAttribute()
+    {
+        return $this->typeProgramme->code == "FORMOD" && $this->categorie == "session";
     }
 
     public function getIsCollecteFondAttribute()
@@ -345,7 +393,7 @@ class Programme extends Model
     public function getTauxCollecteAttribute()
     {
         if ($this->montantObjectif > 0) {
-            return number_format(($this->getGainNetAttribute()/$this->montantObjectif)*100,2);
+            return number_format(($this->getGainNetAttribute() / $this->montantObjectif) * 100, 2);
         }
         return 0;
     }

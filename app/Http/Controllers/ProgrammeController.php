@@ -187,7 +187,6 @@ class ProgrammeController extends Controller
                 $query->where('session_id',$programme->id);
             })->get();
             $tabUsers = [];
-            $montantSession = 0;
             foreach ($users as $user) {
                 $montantUser = 0;
                 $tab_souscription = [];
@@ -199,10 +198,8 @@ class ProgrammeController extends Controller
                     }
                 }
                 $tabUsers[] = ['user'=>$user,'states'=>$tab_souscription,'montantUser'=>$montantUser];
-                $montantSession+=$montantUser;
             }
-            $gainNet = $montantSession*(100-Parametrage::getInstance()->tauxPrelevement)/100;
-            return view('programme.formation.session.show',compact('programme','tabUsers','montantSession','gainNet'));
+            return view('programme.formation.session.show',compact('programme','tabUsers'));
         }
         return view('programme.show', compact('programme'));
     }
