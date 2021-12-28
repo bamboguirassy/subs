@@ -144,6 +144,16 @@ class Programme extends Model
     }
 
     /**
+     * Get all of the appelFonds for the Programme
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function appelFonds(): HasMany
+    {
+        return $this->hasMany(AppelFond::class);
+    }
+
+    /**
      * Get all of the tirages for the Programme
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany

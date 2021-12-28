@@ -230,7 +230,13 @@
                             <li class="nav-item" role="presentation">
                                 <button class="nav-link" id="tableau-paiement-tontine-tab" data-bs-toggle="tab"
                                     data-bs-target="#tableau-paiement-tontine" type="button" role="tab"
-                                    aria-controls="tableau-paiement-tontine" aria-selected="false">Tableau des paiements</button>
+                                    aria-controls="tableau-paiement-tontine" aria-selected="false">Tableau des
+                                    paiements</button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="appel-fond-tontine-tab" data-bs-toggle="tab"
+                                    data-bs-target="#appel-fond-tontine" type="button" role="tab"
+                                    aria-controls="appel-fond-tontine" aria-selected="false">Les appels de fond</button>
                             </li>
                         </ul>
                         <div class="tab-content" id="myTabContent">
@@ -259,7 +265,8 @@
                                                             </p>
                                                         </div>
                                                         <div class="progress_value mbr-fonts-style display-7">
-                                                            <span class="nowrap">{{ $child->progression }}%</span>
+                                                            <span
+                                                                class="nowrap">{{ $child->progression }}%</span>
                                                         </div>
                                                     </div>
                                                     <progress class="progress progress-primary mbr-bold" max="100"
@@ -343,6 +350,115 @@
                                         </div>
                                     </div>
                                 </div>
+                            </div>
+                            <div class="tab-pane fade show active" id="appel-fond-tontine" role="tabpanel"
+                                aria-labelledby="appel-fond-tontine-tab">
+                                <section data-bs-version="5.1"
+                                    class="table01 photom4_table01 section-table cid-sObY9vjAPL " id="table01-x">
+                                    <div class="row align-center">
+                                        <div class="col-12 col-md-12">
+                                            <h2 class="mbr-section-title mbr-fonts-style mbr-black display-2">
+                                                Liste des appels de fonds</h2>
+                                            <div class="table-wrapper pt-5" style="width: 95%;">
+                                                <div class="container-fluid">
+                                                    <div class="row search">
+                                                        <div class="col-md-6"></div>
+                                                        <div class="col-md-6">
+                                                            <div class="dataTables_filter">
+                                                                <label
+                                                                    class="searchInfo mbr-fonts-style display-7">Chercher:</label>
+                                                                <input class="form-control input-sm" disabled="">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="table-responsive">
+                                                    <table class="table table-striped isSearch table-responsive-stack"
+                                                        cellspacing="0" data-empty="Aucun enregistrement trouvé">
+                                                        <thead>
+                                                            <tr class="table-heads">
+                                                                <th class="head-item mbr-fonts-style display-4">#</th>
+                                                                <th class="head-item mbr-fonts-style display-4 nowrap">
+                                                                    Programme</th>
+                                                                <th class="head-item mbr-fonts-style display-4 nowrap">User
+                                                                </th>
+                                                                <th class="head-item mbr-fonts-style display-4 nowrap">
+                                                                    Méthode de paiement</th>
+                                                                <th class="head-item mbr-fonts-style display-4 nowrap">
+                                                                    Mobile Paiement</th>
+                                                                <th class="head-item mbr-fonts-style display-4 nowrap">
+                                                                    Montant</th>
+                                                                <th class="head-item mbr-fonts-style display-4 nowrap">
+                                                                    Frais d'envoi</th>
+                                                                <th class="head-item mbr-fonts-style display-4 nowrap">Date
+                                                                    demande</th>
+                                                                <th class="head-item mbr-fonts-style display-4 nowrap">
+                                                                    Traité</th>
+                                                                <th class="head-item mbr-fonts-style display-4 nowrap">
+                                                                    Action</th>
+                                                            </tr>
+                                                        </thead>
+
+                                                        <tbody>
+                                                            @foreach ($programme->appelFonds as $appelFond)
+                                                                <tr>
+                                                                    <td class="body-item mbr-fonts-style display-7 nowrap">
+                                                                        {{ $loop->index + 1 }}
+                                                                    </td>
+                                                                    <td class="body-item mbr-fonts-style display-7 nowrap">
+                                                                        <a
+                                                                            href="{{ route('programme.show', ['programme' => $appelFond->programme]) }}">{{ $appelFond->programme->nom }}</a>
+                                                                    </td>
+                                                                    <td class="body-item mbr-fonts-style display-7 nowrap">
+                                                                        {{ $appelFond->user->name ?? 'Non précisé' }}
+                                                                    </td>
+                                                                    <td class="body-item mbr-fonts-style display-7 nowrap">
+                                                                        {{ $appelFond->methodePaiement }}</td>
+                                                                    <td class="body-item mbr-fonts-style display-7 nowrap">
+                                                                        <a
+                                                                            href="tel:{{ $appelFond->mobilePaiement }}">{{ $appelFond->mobilePaiement }}</a>
+                                                                    </td>
+                                                                    <td class="body-item mbr-fonts-style display-7 nowrap">
+                                                                        {{ $appelFond->montant }} FCFA</td>
+                                                                    <td class="body-item mbr-fonts-style display-7 nowrap">
+                                                                        {{ $appelFond->frais }} FCFA</td>
+                                                                    <td class="body-item mbr-fonts-style display-7 nowrap">
+                                                                        {{ date_format($appelFond->created_at, 'd/m/Y H:i:s') }}
+                                                                    </td>
+                                                                    <td class="body-item mbr-fonts-style display-7 nowrap">
+                                                                        <strong>{{ $appelFond->etat }}</strong>
+                                                                    </td>
+                                                                    <td class="body-item mbr-fonts-style display-7 nowrap">
+                                                                        <a ng-click="select({{ $appelFond }})"
+                                                                            class="btn btn-secondary nowrap" href="#"
+                                                                            data-toggle="modal" data-bs-toggle="modal"
+                                                                            data-target="#mbr-popup-2w"
+                                                                            data-bs-target="#mbr-popup-2w"><span
+                                                                                class="mbri-setting"></span>
+                                                                        </a>
+                                                                    </td>
+                                                                </tr>
+                                                            @endforeach
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                <div class="container-fluid table-info-container">
+                                                    <div class="row info mbr-fonts-style display-7">
+                                                        <div class="dataTables_info">
+                                                            <span class="infoBefore">Vous voyez</span>
+                                                            <span
+                                                                class="inactive infoRows">{{ count($programme->appelFonds) }}</span>
+                                                            <span class="infoAfter">entrée(s)</span>
+                                                            <span class="infoFilteredBefore">(filtré sur
+                                                                {{ count($programme->appelFonds) }} entrée(s</span><span
+                                                                class="infoFilteredAfter">)</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </section>
                             </div>
                         </div>
                     </div>
